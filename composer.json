@@ -1,0 +1,19 @@
+{
+    "name": "fluxtor/converge",
+    "description": "static site generator for web artisans",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fluxtor\\Converge\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "CharrafiMed",
+            "email": "charrafimohamed27@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
