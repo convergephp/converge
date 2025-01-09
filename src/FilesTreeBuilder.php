@@ -4,9 +4,9 @@ namespace Fluxtor\Converge;
 
 use RecursiveDirectoryIterator;
 
-class FilesTree
+class FilesTreeBuilder
 {
-    public static array $urlPathMapping = [];
+    public static array $urlToPathMap = [];
     public static function build(string $root): array
     {
         print_r($root);
@@ -17,7 +17,7 @@ class FilesTree
         $tree = self::tree($root);
         return [
             'tree' => $tree,
-            'urlPathMapping' => self::$urlPathMapping,
+            'urlToPathMap' => self::$urlToPathMap,
         ];
     }
     public static function tree(string $path): array
