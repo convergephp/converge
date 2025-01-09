@@ -30,22 +30,6 @@
     "psr-4": {
       "Fluxtor\\Converge\\Tests\\": "tests/"
     }
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "@clear",
-      "@prepare"
-    ],
-    "clear": "",
-    "prepare": "",
-    "build": "",
-    "serve": [
-      "Composer\\Config::disableProcessTimeout"
-      
-    ],
-    "lint": [
-      "@php vendor/bin/pint --ansi",
-      "@php vendor/bin/phpstan analyse --verbose --ansi"
-    ]
   }
+
 }

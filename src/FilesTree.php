@@ -7,8 +7,10 @@ use RecursiveDirectoryIterator;
 class FilesTree
 {
     public static array $urlPathMapping = [];
-    public function build(string $root): array
+    public static function build(string $root): array
     {
+        print_r($root);
+        die();
         if (!is_dir($root)) {
             throw new \Exception("the provided path $root is not directory ");
         }
