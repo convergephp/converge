@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Fluxtor\\Converge\\": "src/"
+            "Fluxtor\\Converge\\": "src/",
+            "Fluxtor\\Converge\\Tests\\": "tests/"
         }
     },
     "authors": [
