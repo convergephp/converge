@@ -18,7 +18,7 @@
   "require-dev": {
     "larastan/larastan": "2.9.8",
     "laravel/pint": "^1.16",
-    "pestphp/pest": "^2.34",
+    "pestphp/pest": "3.x-dev",
     "orchestra/testbench": "9.x-dev"
   },
   "config": {

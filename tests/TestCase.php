@@ -1,9 +1,9 @@
 <?php
 namespace Fluxtor\Converge\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
+use Illuminate\Foundation\Testing\TestCase as baseTestCase;
 
-class TestCase  extends TestingTestCase
+class TestCase  extends baseTestCase
 {
-    
+
 }

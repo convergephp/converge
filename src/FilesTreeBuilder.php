@@ -9,8 +9,6 @@ class FilesTreeBuilder
     public static array $urlToPathMap = [];
     public static function build(string $root): array
     {
-        print_r($root);
-        die();
         if (!is_dir($root)) {
             throw new \Exception("the provided path $root is not directory ");
         }
