@@ -1,7 +1,9 @@
 <?php
 namespace Fluxtor\Converge\Tests;
-use Orchestra\Testbench\TestCase as Orchestra;
-class TestCase  extends Orchestra{
 
+use Illuminate\Foundation\Testing\TestCase as TestingTestCase;
+
+class TestCase  extends TestingTestCase
+{
     
 }

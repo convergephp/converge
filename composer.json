@@ -1,55 +1,51 @@
 {
-    "name": "fluxtor/converge",
-    "description": "static site generator for web artisans",
-    "type": "package",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Fluxtor\\Converge\\": "src/",
-            "Fluxtor\\Converge\\Tests\\": "tests/"
-        }
-    },
-    "authors": [
-        {
-            "name": "charrafi mohamed",
-            "email": "charrafimohamed27@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require-dev": {
-        "larastan/larastan": "2.9.8",
-        "laravel/pint": "^1.16",
-        "pestphp/pest": "^2.34",
-        "orchestra/testbench": "9.x-dev"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Workbench\\App\\": "workbench/app/",
-            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
-            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": [
-            "@clear",
-            "@prepare"
-        ],
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": "@php vendor/bin/testbench workbench:build --ansi",
-        "serve": [
-            "Composer\\Config::disableProcessTimeout",
-            "@build",
-            "@php vendor/bin/testbench serve --ansi"
-        ],
-        "lint": [
-            "@php vendor/bin/pint --ansi",
-            "@php vendor/bin/phpstan analyse --verbose --ansi"
-        ]
+  "name": "fluxtor/converge",
+  "description": "static site generator for web artisans",
+  "type": "package",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Fluxtor\\Converge\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "charrafi mohamed",
+      "email": "charrafimohamed27@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require-dev": {
+    "larastan/larastan": "2.9.8",
+    "laravel/pint": "^1.16",
+    "pestphp/pest": "^2.34",
+    "orchestra/testbench": "9.x-dev"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Fluxtor\\Converge\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "",
+    "prepare": "",
+    "build": "",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout"
+      
+    ],
+    "lint": [
+      "@php vendor/bin/pint --ansi",
+      "@php vendor/bin/phpstan analyse --verbose --ansi"
+    ]
+  }
 }
