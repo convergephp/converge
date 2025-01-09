@@ -11,8 +11,10 @@
 |
 */
 
-// pest()->extend(Tests\TestCase::class)->in('Feature');
+use Fluxtor\Converge\Tests\TestCase;
 
+pest()->extend(TestCase::class)
+    ->in('Feature');
 /*
 |--------------------------------------------------------------------------
 | Expectations

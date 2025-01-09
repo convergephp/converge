@@ -5,5 +5,5 @@ use Illuminate\Foundation\Testing\TestCase as baseTestCase;
 
 class TestCase  extends baseTestCase
 {
-
+    
 }
