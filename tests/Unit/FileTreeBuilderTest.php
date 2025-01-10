@@ -2,7 +2,6 @@
 
 use Fluxtor\Converge\FilesTreeBuilder;
 
-
 $stubs = realpath(__DIR__ . '/../stubs/docs');
 
 it('build the correct file tree', function () use ($stubs) {
@@ -82,11 +81,9 @@ it('build the correct file tree', function () use ($stubs) {
         "layout/grid" => "{$stubs}/04-layout/02-grid.md",
         "layout/fieldset" => "{$stubs}/04-layout/03-fieldset.md"
     ];
-    
-    // Assert that the generated tree structure matches the expected one
+
     expect($tree)->toEqual($expectedTree);
 
-    // Assert that the generated map matches the expected map
     expect($map)->toEqual($expectedMap);
 });
 
@@ -94,4 +91,4 @@ it('build the correct file tree', function () use ($stubs) {
 
 
 
-dd($tree, $map);
+// dd($tree, $map);

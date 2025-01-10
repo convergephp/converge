@@ -28,10 +28,15 @@ final class FilesTreeBuilder
             $path,
             RecursiveDirectoryIterator::SKIP_DOTS
         );
+
+        $normalizePath = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
         foreach ($iterator as $fileInfo) {
+            dump('path:',$path);
             $relativePath = str_replace($path, '', $fileInfo->getRealPath());
+            dump('relative:',$relativePath);
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
-            $path = $fileInfo->getRealPath();
+            $path = $normalizePath($fileInfo->getRealPath());
+            // dump($relativePath);
             $baseNode = [
                 'title' => self::formatLabel($fileInfo->getBasename()),
                 'path' => $path,
@@ -53,6 +58,7 @@ final class FilesTreeBuilder
                 self::$urlToPathMap[self::generateUrl($relativePath)] = $path;
             }
         }
+        die;
 
         return $tree;
     }
