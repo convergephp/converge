@@ -18,10 +18,7 @@ final class FilesTreeBuilder
         }
         $tree = self::tree($root);
 
-        return [
-            'tree' => $tree,
-            'urlToPathMap' => self::$urlToPathMap,
-        ];
+        return [$tree, self::$urlToPathMap];
     }
 
     public static function tree(string $path): array
@@ -49,7 +46,7 @@ final class FilesTreeBuilder
                     'type' => 'file',
                     'url' => self::generateUrl($relativePath),
                 ]),
-                default => null, // Handles unexpected cases
+                default => null
             };
 
             if ($fileInfo->isFile()) {
