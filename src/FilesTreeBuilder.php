@@ -63,7 +63,7 @@ final class FilesTreeBuilder
         return $tree;
     }
 
-    private static function formatTitle(string $basename): string
+    private static function formatLabel(string $basename): string
     {
         // Convert filename to a user-friendly title
         $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
