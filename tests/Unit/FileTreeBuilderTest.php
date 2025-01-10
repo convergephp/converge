@@ -13,4 +13,5 @@ $stubs = realpath(__DIR__ . '/../stubs/docs');
 // die;
 
 $result = FilesTreeBuilder::build($stubs);
+
 dd($result);
