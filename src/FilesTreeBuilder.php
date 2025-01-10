@@ -62,23 +62,15 @@ final class FilesTreeBuilder
         return $tree;
     }
 
-    private static function formatTitle(string $basename): string
-    {
-        // Convert filename to a user-friendly title
-        $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
-        $title = str_replace('-', ' ', $title);
-        return $title;
-    }
-
     public static function generateUrl(string $relativePath)
     {
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
-        // Split the path into segments using explode   
+        // Split the path into segments using explode
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
@@ -87,5 +79,14 @@ final class FilesTreeBuilder
         $url = preg_replace('~\.[^\.]+$~', '', $url);
 
         return $url;
+    }
+
+    private static function formatTitle(string $basename): string
+    {
+        // Convert filename to a user-friendly title
+        $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
+        $title = str_replace('-', ' ', $title);
+
+        return $title;
     }
 }
