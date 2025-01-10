@@ -1,4 +1,4 @@
-name: No Plans to Merge
+name: Fix Code Style
 
 on:
   push:
@@ -23,5 +23,12 @@ jobs:
       - name: Install Laravel Pint
         run: composer global require laravel/pint
 
-      - name: Run Pint
-        run: pint --test
+      - name: fix style
+        run: pint
+      - name: Push Changes Back to Repo
+        run: |
+          git config user.name "$(git log -n 1 --pretty=format:%an)"
+          git config user.email "$(git log -n 1 --pretty=format:%ae)"
+          git add .
+          git diff --staged --quiet || commit -m "chore: fix code style" || exit 0
+          git push
