@@ -32,12 +32,10 @@ final class FilesTreeBuilder
             RecursiveDirectoryIterator::SKIP_DOTS
         );
         foreach ($iterator as $fileInfo) {
-            $relativePath = str_replace($path, '', $fileInfo->getRealPath());
-            $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
-            $title = self::formatLabel($fileInfo->getBasename());
+            $relativePath = ltrim(str_replace($path, '', $fileInfo->getRealPath()), DIRECTORY_SEPARATOR);
             $path = $fileInfo->getRealPath();
             $baseNode = [
-                'title' => $title,
+                'title' => self::formatLabel($fileInfo->getBasename()),
                 'path' => $path,
             ];
 
