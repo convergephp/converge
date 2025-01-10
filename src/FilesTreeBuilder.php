@@ -29,11 +29,11 @@ final class FilesTreeBuilder
             RecursiveDirectoryIterator::SKIP_DOTS
         );
 
-        $normalizePath = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalizePath = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
         foreach ($iterator as $fileInfo) {
-            dump('path:',$path);
+            dump('path:', $path);
             $relativePath = str_replace($path, '', $fileInfo->getRealPath());
-            dump('relative:',$relativePath);
+            dump('relative:', $relativePath);
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
             $path = $normalizePath($fileInfo->getRealPath());
             // dump($relativePath);
@@ -58,17 +58,9 @@ final class FilesTreeBuilder
                 self::$urlToPathMap[self::generateUrl($relativePath)] = $path;
             }
         }
-        die;
+        exit;
 
         return $tree;
-    }
-
-    private static function formatLabel(string $basename): string
-    {
-        // Convert filename to a user-friendly title
-        $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
-        $title = str_replace('-', ' ', $title);
-        return $title;
     }
 
     public static function generateUrl(string $relativePath)
@@ -88,5 +80,14 @@ final class FilesTreeBuilder
         $url = preg_replace('~\.[^\.]+$~', '', $url);
 
         return $url;
+    }
+
+    private static function formatLabel(string $basename): string
+    {
+        // Convert filename to a user-friendly title
+        $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
+        $title = str_replace('-', ' ', $title);
+
+        return $title;
     }
 }
