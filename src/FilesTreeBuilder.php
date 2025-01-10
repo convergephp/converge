@@ -61,10 +61,10 @@ final class FilesTreeBuilder
 
     private static function formatLabel(string $basename): string
     {
+        $filename = pathinfo($basename, PATHINFO_FILENAME);
         // Convert filename to a user-friendly title
-        $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
-        $title = str_replace('-', ' ', $title);
-        return $title;
+        $title = ucfirst(preg_replace('/^\d+-?/', '', $filename));
+        return str_replace('-', ' ', $title);
     }
 
     public static function generateUrl(string $relativePath)
