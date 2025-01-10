@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Tests;
 
-use Illuminate\Foundation\Testing\TestCase as baseTestCase;
+use PHPUnit\Framework\TestCase as FrameworkTestCase;
 
-final class TestCase extends baseTestCase {}
+class TestCase extends FrameworkTestCase {}
