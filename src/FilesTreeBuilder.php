@@ -16,36 +16,33 @@ final class FilesTreeBuilder
         if (! is_dir($root)) {
             throw new Exception("the provided path $root is not directory ");
         }
-        $tree = self::tree($root);
+        $path = $root;
+        $tree = self::tree($path, $root);
 
         return [$tree, self::$urlToPathMap];
     }
 
-    public static function tree(string $path): array
+    public static function tree(string $path, string $root): array
     {
         $tree = [];
         $iterator = new RecursiveDirectoryIterator(
             $path,
             RecursiveDirectoryIterator::SKIP_DOTS
         );
-
-        $normalizePath = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
         foreach ($iterator as $fileInfo) {
-            dump('path:',$path);
-            $relativePath = str_replace($path, '', $fileInfo->getRealPath());
-            dump('relative:',$relativePath);
+            $relativePath = str_replace($root, '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
-            $path = $normalizePath($fileInfo->getRealPath());
-            // dump($relativePath);
+
             $baseNode = [
                 'title' => self::formatLabel($fileInfo->getBasename()),
-                'path' => $path,
+                'path' => $normalize($fileInfo->getRealPath()),
             ];
 
             $tree[] = match (true) {
                 $fileInfo->isDir() => array_merge($baseNode, [
                     'type' => 'folder',
-                    'children' => self::tree($path),
+                    'children' => self::tree($fileInfo->getRealPath(), $root),
                 ]),
                 $fileInfo->isFile() => array_merge($baseNode, [
                     'type' => 'file',
@@ -58,7 +55,7 @@ final class FilesTreeBuilder
                 self::$urlToPathMap[self::generateUrl($relativePath)] = $path;
             }
         }
-        die;
+        // die;
 
         return $tree;
     }
@@ -79,7 +76,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
