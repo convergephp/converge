@@ -40,21 +40,21 @@ final class FilesTreeBuilder
                 'title' => $title,
                 'path' => $path,
             ];
-            if ($fileInfo->isDir()) {
-                $tree[] = array_merge($baseNode, [
+
+            $tree[] = match (true) {
+                $fileInfo->isDir() => array_merge($baseNode, [
                     'type' => 'folder',
                     'children' => self::tree($path),
-                ]);
-            } elseif ($fileInfo->isFile()) {
-                $url = self::generateUrl($relativePath);
-
-                $tree[] = array_merge($baseNode, [
+                ]),
+                $fileInfo->isFile() => array_merge($baseNode, [
                     'type' => 'file',
-                    'url' => $url,
-                ]);
+                    'url' => self::generateUrl($relativePath),
+                ]),
+                default => null, // Handles unexpected cases
+            };
 
-                // Map the URL to the file path
-                self::$urlToPathMap[$url] = $fileInfo->getRealPath();
+            if ($fileInfo->isFile()) {
+                self::$urlToPathMap[self::generateUrl($relativePath)] = $path;
             }
         }
 
