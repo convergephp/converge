@@ -17,7 +17,7 @@
   "minimum-stability": "dev",
   "require-dev": {
     "larastan/larastan": "2.9.8",
-    "laravel/pint": "^1.16",
+    "laravel/pint": "dev-main",
     "pestphp/pest": "3.x-dev",
     "orchestra/testbench": "9.x-dev"
   },

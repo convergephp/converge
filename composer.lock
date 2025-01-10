@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "752c0ffeb993883d552246eb0caec667",
+    "content-hash": "035ed329786ff640c6b9f8edfd19369e",
     "packages": [],
     "packages-dev": [
         {
@@ -1989,16 +1989,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.19.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "8169513746e1bac70c85d6ea1524d9225d4886f0"
+                "reference": "cc904c01ed1850e954b1c0f7891e7a209e434517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/8169513746e1bac70c85d6ea1524d9225d4886f0",
-                "reference": "8169513746e1bac70c85d6ea1524d9225d4886f0",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/cc904c01ed1850e954b1c0f7891e7a209e434517",
+                "reference": "cc904c01ed1850e954b1c0f7891e7a209e434517",
                 "shasum": ""
             },
             "require": {
@@ -2017,6 +2017,7 @@
                 "nunomaduro/termwind": "^1.17.0",
                 "pestphp/pest": "^2.36.0"
             },
+            "default-branch": true,
             "bin": [
                 "builds/pint"
             ],
@@ -2051,7 +2052,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2024-12-30T16:20:10+00:00"
+            "time": "2025-01-06T15:20:12+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -9722,6 +9723,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "pestphp/pest": 20,
         "orchestra/testbench": 20
     },
     "prefer-stable": false,
