@@ -1,8 +1,5 @@
 <?php
- 
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
- 
-it('build the files tree correctly', function () {
- 
-});
+
+declare(strict_types=1);
+
+it('build the files tree correctly', function () {});
