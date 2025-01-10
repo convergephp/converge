@@ -34,25 +34,24 @@ final class FilesTreeBuilder
         foreach ($iterator as $fileInfo) {
             $relativePath = str_replace($path, '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
-            $title = self::formatTitle($fileInfo->getBasename());
-
+            $title = self::formatLabel($fileInfo->getBasename());
+            $path = $fileInfo->getRealPath();
+            $baseNode = [
+                'title' => $title,
+                'path' => $path,
+            ];
             if ($fileInfo->isDir()) {
-                $tree[] = [
+                $tree[] = array_merge($baseNode, [
                     'type' => 'folder',
-                    'title' => $title,
-                    'path' => $fileInfo->getRealPath(),
-                    'children' => self::tree($fileInfo->getRealPath()),
-                ];
+                    'children' => self::tree($path),
+                ]);
             } elseif ($fileInfo->isFile()) {
                 $url = self::generateUrl($relativePath);
 
-                // Add file to the tree
-                $tree[] = [
+                $tree[] = array_merge($baseNode, [
                     'type' => 'file',
-                    'title' => $title,
-                    'path' => $fileInfo->getRealPath(),
                     'url' => $url,
-                ];
+                ]);
 
                 // Map the URL to the file path
                 self::$urlToPathMap[$url] = $fileInfo->getRealPath();
@@ -62,7 +61,7 @@ final class FilesTreeBuilder
         return $tree;
     }
 
-    private static function formatTitle(string $basename): string
+    private static function formatLabel(string $basename): string
     {
         // Convert filename to a user-friendly title
         $title = ucfirst(preg_replace('/^\d+-?/', '', pathinfo($basename, PATHINFO_FILENAME)));
