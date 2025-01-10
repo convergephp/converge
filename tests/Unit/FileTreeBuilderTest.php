@@ -32,7 +32,7 @@ it('build the correct file tree', function () use ($stubs) {
                     "title" => "Getting started",
                     "path" => $normalize("{$stubs}/03-fields/01-getting-started.md"),
                     "type" => "file",
-                    "url" => "getting-started"
+                    "url" => "fields/getting-started"
                 ],
                 [
                     "title" => "Text input",
@@ -87,5 +87,5 @@ it('build the correct file tree', function () use ($stubs) {
     ];
 
     expect($tree)->toEqual($expectedTree);
-    // expect($map)->toEqual($expectedMap);
+    expect($map)->toEqual($expectedMap);
 });

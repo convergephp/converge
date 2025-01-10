@@ -18,7 +18,7 @@ final class FilesTreeBuilder
         }
         $path = $root;
         $tree = self::tree($path, $root);
-
+        
         return [$tree, self::$urlToPathMap];
     }
 
@@ -52,11 +52,10 @@ final class FilesTreeBuilder
             };
 
             if ($fileInfo->isFile()) {
-                self::$urlToPathMap[self::generateUrl($relativePath)] = $path;
+                self::$urlToPathMap[self::generateUrl($relativePath)] = $fileInfo->getRealPath();
             }
         }
-        // die;
-
+        
         return $tree;
     }
 
