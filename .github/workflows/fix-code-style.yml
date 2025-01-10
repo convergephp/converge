@@ -1,0 +1,27 @@
+name: No Plans to Merge
+
+on:
+  push:
+    branches: master
+
+jobs:
+  fix-code-style:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+
+      - name: Install Laravel Pint
+        run: composer global require laravel/pint
+
+      - name: Run Pint
+        run: pint --test
