@@ -30,6 +30,12 @@
     "psr-4": {
       "Fluxtor\\Converge\\Tests\\": "tests/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Fluxtor\\Converge\\ConvergeServiceProvider"
+      ]
+    }
   }
-
 }
