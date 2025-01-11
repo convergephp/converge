@@ -12,7 +12,7 @@ final class RouteServiceProvider extends baseServiceProvider
     public function boot(): void
     {
         $this->routes(function () {
-            Route::middleware('web')->group(__DIR__ . '/../routes/web.php');
+            Route::middleware('web')->group(__DIR__ . '/../../routes/web.php');
         });
     }
 }
