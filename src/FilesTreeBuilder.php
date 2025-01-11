@@ -29,8 +29,18 @@ final class FilesTreeBuilder
             $path,
             RecursiveDirectoryIterator::SKIP_DOTS
         );
-        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+
+        // sort files for other files rather than NFTS file system 
+        $entries = [];
         foreach ($iterator as $fileInfo) {
+            $entries[] = $fileInfo;
+        }
+
+        // Sort entries for consistent order
+        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+
+        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        foreach ($entries as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
 
