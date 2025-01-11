@@ -18,7 +18,7 @@ final class FilesTreeBuilder
         }
         $path = $root;
         $tree = self::tree($path, $root);
-        
+
         return [$tree, self::$urlToPathMap];
     }
 
@@ -29,7 +29,7 @@ final class FilesTreeBuilder
             $path,
             RecursiveDirectoryIterator::SKIP_DOTS
         );
-        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
         foreach ($iterator as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
@@ -55,16 +55,8 @@ final class FilesTreeBuilder
                 self::$urlToPathMap[self::generateUrl($relativePath)] = $fileInfo->getRealPath();
             }
         }
-        
-        return $tree;
-    }
 
-    private static function formatLabel(string $basename): string
-    {
-        $filename = pathinfo($basename, PATHINFO_FILENAME);
-        // Convert filename to a user-friendly title
-        $title = ucfirst(preg_replace('/^\d+-?/', '', $filename));
-        return str_replace('-', ' ', $title);
+        return $tree;
     }
 
     public static function generateUrl(string $relativePath)
@@ -75,7 +67,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
@@ -84,5 +76,14 @@ final class FilesTreeBuilder
         $url = preg_replace('~\.[^\.]+$~', '', $url);
 
         return $url;
+    }
+
+    private static function formatLabel(string $basename): string
+    {
+        $filename = pathinfo($basename, PATHINFO_FILENAME);
+        // Convert filename to a user-friendly title
+        $title = ucfirst(preg_replace('/^\d+-?/', '', $filename));
+
+        return str_replace('-', ' ', $title);
     }
 }
