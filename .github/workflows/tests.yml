@@ -1,24 +1,29 @@
 name: Tests
- 
-on: ['push', 'pull_request']
- 
+
+on: ["push", "pull_request"]
+
 jobs:
   ci:
-    runs-on: ubuntu-latest
- 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        php: [8.0, 8.1, 8.2, 8.3, 8.4]
+      fail-fast: false # Ensure all configurations are tested even if one fails
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
- 
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
           tools: composer:v2
           coverage: xdebug
- 
+
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
- 
+
       - name: Tests
         run: ./vendor/bin/pest --ci
