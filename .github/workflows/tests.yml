@@ -1,14 +1,15 @@
 name: Tests
 
-on:
-  push:
-    branches: master
-  pull_request:
-    branches: master
+on: ["push", "pull_request"]
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        php: [8.0, 8.1, 8.2, 8.3, 8.4]
+      fail-fast: false # Ensure all configurations are tested even if one fails
 
     steps:
       - name: Checkout
