@@ -14,7 +14,7 @@
       "email": "charrafimohamed27@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "require-dev": {
     "larastan/larastan": "2.9.8",
     "laravel/pint": "dev-main",
@@ -30,6 +30,12 @@
     "psr-4": {
       "Fluxtor\\Converge\\Tests\\": "tests/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Fluxtor\\Converge\\Providers\\ConvergeServiceProvider"
+      ]
+    }
   }
-
 }

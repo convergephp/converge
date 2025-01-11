@@ -36,7 +36,7 @@ final class FilesTreeBuilder
             $entries[] = $fileInfo;
         }
 
-        // Sort entries for consistent order
+        // Sort entries in natural sort for consistent order
         usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
         $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
@@ -82,7 +82,7 @@ final class FilesTreeBuilder
         // Join the processed segments back into a path
         $url = implode('/', $segments);
 
-        // Remove the file extension, if anyr
+        // Remove the file extension, if any
         $url = preg_replace('~\.[^\.]+$~', '', $url);
 
         return $url;
