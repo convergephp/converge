@@ -122,41 +122,18 @@ it('generates the correct url from the given path', function () {
     expect($url6)->toBe('section/file/subfile');
 });
 
-it('allows custom label generator action',function(){
+it('allows custom label generator action', function () {})->todo();
 
-})->todo();
+it('allows custom url generator action', function () {})->todo();
 
-it('allows custom url generator action',function(){
+it('allows ignore pattern filter action', function () {})->todo();
 
-})->todo();
+it('handle deeply nested structure', function () {})->todo();
 
-it('allows ignore pattern filter action',function(){
+it('handles multiple root directories', function () {})->todo();
 
-})->todo();
+it('throws an exception for invalid directory', function () {})->todo();
 
-it('handle deeply nested structure',function(){
+it('excludes empty directories', function () {})->todo();
 
-})->todo();
-
-it('handles multiple root directories',function(){
-
-})->todo();
-
-it('throws an exception for invalid directory',function(){
-
-})->todo();
-
-it('excludes empty directories',function(){
-
-})->todo();
-
-it('detects and prevents circular references',function(){
-
-})->todo();
-
-
-
-
-
-
-
+it('detects and prevents circular references', function () {})->todo();
