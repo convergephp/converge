@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Fluxtor\Converge\Navigation;
@@ -7,33 +6,35 @@ namespace Fluxtor\Converge\Navigation;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-class NavigationBuilder
+final class NavigationBuilder
 {
     /**
-     * build navigation items from tree structure
+     * Build navigation items from a tree structure.
      *
+     * @param array $tree
      * @return Collection
      */
-    public static function build(array $tree)
+    public static function build(array $tree): Collection
     {
         $items = new Collection();
-
-        return (new self)->process($items, $tree);
+        return (new static())->process($items, $tree);
     }
 
     /**
      * Process the tree structure and populate navigation items.
      *
-     * @param  array  $tree
-     * @return void
+     * @param Collection $items
+     * @param array $tree
+     * @param int $depth
+     * @return Collection
      */
-    public function process(Collection $items, $tree, int $depth = 0)
+    public function process(Collection $items, array $tree, int $depth = 0): Collection
     {
         foreach ($tree as $key => $node) {
             match ($node['type']) {
                 'file' => $this->addFileNode($items, $node, $key, $depth),
                 'folder' => $this->addGroupNode($items, $node, $key, $depth),
-                default => throw new InvalidArgumentException("Unknown type: {$node['type']}")
+                default => throw new InvalidArgumentException("Unknown type: {$node['type']}"),
             };
         }
 
@@ -43,34 +44,42 @@ class NavigationBuilder
     /**
      * Add a file item to the navigation collection.
      *
+     * @param Collection $items
+     * @param array $node
+     * @param int $sortKey
+     * @param int $depth
      * @return void
      */
-    public function addFileNode(Collection $items, array $node, int $sortKey, int $depth)
+    private function addFileNode(Collection $items, array $node, int $sortKey, int $depth): void
     {
         $items->add(
             NavigationItem::make()
-                ->label($node['title'])
-                ->path($node['path'])
-                ->url($node['url'])
+                ->label($node['title'] ?? 'Untitled')
+                ->path($node['path'] ?? '#')
+                ->url($node['url'] ?? null)
                 ->sort($sortKey)
                 ->depth($depth)
         );
     }
 
     /**
-     * add group (wich is folder) to the navigation collection
+     * Add a folder item to the navigation collection.
      *
+     * @param Collection $items
+     * @param array $node
+     * @param int $sort
+     * @param int $depth
      * @return void
      */
-    public function addGroupNode(Collection $items, array $node, int $sort, int $depth)
+    private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
-        $group = NavigationGroup::make($node['title'])
+        $group = NavigationGroup::make($node['title'] ?? 'Untitled')
             ->sort($sort)
             ->depth($depth);
-        // Add the group to the items collection
+
         $items->add($group);
 
-        // Recursively process the children of this folder
-        $this->process($group->getItems(), $node['children'], depth: $depth + 1);
+        $children = $node['children'];
+        $this->process($group->getItems(), $children, $depth + 1);
     }
 }

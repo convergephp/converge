@@ -11,19 +11,45 @@ final class FilesTreeBuilder
 {
     public static array $urlToPathMap = [];
 
-    public static function build(string $root): array
+    /**
+     * build the from the file structure provided by root param
+     *
+     * @param string $root
+     * @param integer $maxDepth
+     * @return array
+     */
+    public static function build(string $root, int $maxDepth = PHP_INT_MAX): array
     {
         if (! is_dir($root)) {
-            throw new Exception("the provided path $root is not directory ");
+            throw new Exception("Invalid directory provided: {$root}");
         }
+
+        if ($maxDepth < 1) {
+            throw new Exception("The maxDepth parameter must be a positive integer.");
+        }
+
         $path = $root;
-        $tree = self::tree($path, $root);
+        $tree = self::tree($path, $root, $maxDepth);
 
         return [$tree, self::$urlToPathMap];
     }
 
-    public static function tree(string $path, string $root): array
+    /**
+     * the actual tree login
+     *
+     * @param string $path
+     * @param string $root
+     * @param integer $maxDepth
+     * @param integer $currentDepth
+     * @return array
+     */
+    public static function tree(string $path, string $root, int $maxDepth, int $currentDepth = 0): array
     {
+        // Stop recursion if the maximum depth is reached
+        if ($currentDepth >= $maxDepth) {
+            return [];
+        }
+
         $tree = [];
         $iterator = new RecursiveDirectoryIterator(
             $path,
@@ -37,9 +63,9 @@ final class FilesTreeBuilder
         }
 
         // Sort entries in natural sort for consistent order
-        usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
-        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
@@ -53,7 +79,7 @@ final class FilesTreeBuilder
             $tree[] = match (true) {
                 $fileInfo->isDir() => array_merge($baseNode, [
                     'type' => 'folder',
-                    'children' => self::tree($fileInfo->getRealPath(), $root),
+                    'children' => self::tree($fileInfo->getRealPath(), $root, $maxDepth, $currentDepth + 1),
                 ]),
                 $fileInfo->isFile() => array_merge($baseNode, [
                     'type' => 'file',
@@ -70,7 +96,13 @@ final class FilesTreeBuilder
         return $tree;
     }
 
-    public static function generateUrl(string $relativePath)
+    /**
+     * generate url from the path 
+     *
+     * @param string $relativePath
+     * @return void
+     */
+    public static function generateUrl(string $relativePath): string 
     {
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
@@ -78,7 +110,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
@@ -89,6 +121,12 @@ final class FilesTreeBuilder
         return $url;
     }
 
+    /**
+     * generate label from the file | dir  name 
+     *
+     * @param string $basename
+     * @return string
+     */
     private static function formatLabel(string $basename): string
     {
         $filename = pathinfo($basename, PATHINFO_FILENAME);
