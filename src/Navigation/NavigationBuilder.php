@@ -16,7 +16,7 @@ class NavigationBuilder
         collect($tree)->map(function (array $item, int $key) use ($items, $depth) {
             match ($item['type']) {
                 'file' => $this->addFileItem($items, $item, $key, $depth),
-                'folder' => $this->addGroupItem($items, $item, $depth),
+                'folder' => $this->addGroupItem($items, $item, $key, $depth),
                 default => throw new \InvalidArgumentException("Unknown type: {$item['type']}")
             };
         });
@@ -33,7 +33,7 @@ class NavigationBuilder
                 ->depth($depth)
         );
     }
-    public function addGroupItem($items, $item,$sort, $depth)
+    public function addGroupItem($items, $item, $sort, $depth)
     {
         $group = NavigationGroup::make($item['title'])
             ->sort($sort)
@@ -42,6 +42,6 @@ class NavigationBuilder
         $items->add($group);
 
         // Recursively process the children of this folder
-        $this->process($group->getItems(), $item['children'],);
+        $this->process($group->getItems(), $item['children'], depth: $depth + 1);
     }
 }

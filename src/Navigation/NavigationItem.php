@@ -16,6 +16,9 @@ class NavigationItem
 
     protected int | Closure | null $sort = null;
 
+    protected int $depth;
+
+
     protected string | Closure | null $url = null;
 
     public static function make(string | Closure | null $label = null): static
@@ -24,7 +27,11 @@ class NavigationItem
         return $static;
     }
 
-
+    public function depth(int $depth)
+    {
+        $this->depth = $depth;
+        return $this;
+    }
 
     public function group(string | Closure | null $group): static
     {
@@ -71,7 +78,10 @@ class NavigationItem
     }
 
 
-
+    public function getDepth():int
+    {
+        return $this->depth;
+    }
     public function getLabel(): string
     {
         return ($this->label);

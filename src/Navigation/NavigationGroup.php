@@ -24,6 +24,15 @@ class NavigationGroup
         $static = app(static::class, ['label' => $label]);
         return $static;
     }
+    public function depth(int $depth)
+    {
+        $this->depth = $depth;
+        return $this;
+    }
+    public function getDepth()
+    {
+        return $this->depth;
+    }
 
     public function label(string $label): static
     {
