@@ -11,17 +11,13 @@ final class FilesTreeBuilder
 {
     /**
      * used for the single file fetching step
-     *
-     * @var array
      */
     public static array $urlToPathMap = [];
 
     /**
      * build the from the file structure provided by root param
      *
-     * @param string $root
-     *  @param int $maxDepth Default is PHP_INT_MAX
-     * @return array
+     * @param  int  $maxDepth  Default is PHP_INT_MAX
      */
     public static function build(string $root, int $maxDepth = PHP_INT_MAX): array
     {
@@ -41,12 +37,6 @@ final class FilesTreeBuilder
 
     /**
      * the actual tree login
-     *
-     * @param string $path
-     * @param string $root
-     * @param integer $maxDepth
-     * @param integer $currentDepth
-     * @return array
      */
     public static function tree(string $path, string $root, int $maxDepth, int $currentDepth = 0): array
     {
@@ -69,9 +59,9 @@ final class FilesTreeBuilder
         }
 
         // Sort entries in natural sort for consistent order
-        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+        usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
-        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
@@ -103,12 +93,9 @@ final class FilesTreeBuilder
     }
 
     /**
-     * generate url from the path 
-     *
-     * @param string $relativePath
-     * @return string
+     * generate url from the path
      */
-    public static function generateUrl(string $relativePath): string 
+    public static function generateUrl(string $relativePath): string
     {
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
@@ -116,7 +103,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
@@ -128,10 +115,7 @@ final class FilesTreeBuilder
     }
 
     /**
-     * generate label from the file | dir  name 
-     *
-     * @param string $basename
-     * @return string
+     * generate label from the file | dir  name
      */
     private static function formatLabel(string $basename): string
     {

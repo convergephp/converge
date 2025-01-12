@@ -11,23 +11,16 @@ final class NavigationBuilder
 {
     /**
      * Build navigation items from a tree structure.
-     *
-     * @param array $tree
-     * @return Collection
      */
     public static function build(array $tree): Collection
     {
         $items = new Collection();
-        return (new static())->process($items, $tree);
+
+        return (new self())->process($items, $tree);
     }
 
     /**
      * Process the tree structure and populate navigation items.
-     *
-     * @param Collection $items
-     * @param array $tree
-     * @param int $depth
-     * @return Collection
      */
     public function process(Collection $items, array $tree, int $depth = 0): Collection
     {
@@ -44,12 +37,6 @@ final class NavigationBuilder
 
     /**
      * Add a file item to the navigation collection.
-     *
-     * @param Collection $items
-     * @param array $node
-     * @param int $sortKey
-     * @param int $depth
-     * @return void
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth): void
     {
@@ -71,19 +58,13 @@ final class NavigationBuilder
      *
      * The method recursively processes the group's children, incrementing the depth
      * to maintain the correct hierarchy in the navigation structure.
-     *
-     * @param Collection $items
-     * @param array $node
-     * @param int $sort
-     * @param int $depth
-     * @return void
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
         if (count($node['children']) < 1) {
             return;
         }
-        
+
         $group = NavigationGroup::make($node['label'])
             ->sort($sort)
             ->depth($depth);
