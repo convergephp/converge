@@ -20,6 +20,6 @@ class ConvergeServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
         $this->app->register(provider: RouteServiceProvider::class, force: true);
-        
+
     }
 }

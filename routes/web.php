@@ -12,5 +12,5 @@ Route::get('converge/docs', function () {
     // $tree = FilesTreeBuilder::build($path, 2);
     // $items = NavigationBuilder::build($tree[0]);
     // dd($items);
-return view('converge::index');
+    return view('converge::index');
 });
