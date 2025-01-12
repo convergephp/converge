@@ -1,0 +1,31 @@
+{
+  "name": "converge",
+  "version": "1.0.0",
+  "description": "static site generator",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "postcss resources/css/index.css -o resources/dist/headings.css",
+    "dev": "npx tailwindcss -i resources/css/app.css -o dist/css/converge.css --postcss --watch",
+    "dev:js": "node bin/build.js --dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluxtorphp/converge.git"
+  },
+  "keywords": [
+    "laravel",
+    "static",
+    "sites"
+  ],
+  "author": "mohamed charrafi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fluxtorphp/converge/issues"
+  },
+  "homepage": "https://github.com/fluxtorphp/converge#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
