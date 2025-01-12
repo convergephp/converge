@@ -2,9 +2,12 @@
 
 namespace Fluxtor\Converge\Navigation;
 
+use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
 
-class NavigationGroup {
+class NavigationGroup
+{
+    use Resolver;
     protected string $label;
     protected Collection $items;
     protected int $depth;
@@ -12,7 +15,7 @@ class NavigationGroup {
     public function __construct(string $label)
     {
         $this->label = $label;
-        $this->items = collect(); // Initialize empty collection
+        $this->items = Collection::make(); // Initialize empty collection
     }
 
     public static function make(string $label): static
@@ -20,7 +23,7 @@ class NavigationGroup {
         $static = app(static::class, ['label' => $label]);
         return $static;
     }
-    
+
     public function label(string $label): static
     {
         $this->label = $label;
@@ -44,4 +47,3 @@ class NavigationGroup {
         return $this->items;
     }
 }
-

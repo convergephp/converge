@@ -3,9 +3,11 @@
 namespace Fluxtor\Converge\Navigation;
 
 use Closure;
+use Fluxtor\Converge\Concerns\Resolver;
 
 class NavigationItem
 {
+    use Resolver;
     protected string | Closure | null $group = null;
 
     protected string | Closure $label;
