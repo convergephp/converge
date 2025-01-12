@@ -22,7 +22,7 @@ class NavigationGroup
     public function __construct(string $label)
     {
         $this->label = $label;
-        $this->items = Collection::make(); // Initialize empty collection
+        $this->items = Collection::make(); 
     }
 
     public static function make(string $label): static
