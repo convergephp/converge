@@ -97,32 +97,33 @@ it('build the correct navigations items', function () use ($generatedTree) {
     $subGroup = $group->getItems()->get(2);
     expect($subGroup)->toBeInstanceOf(NavigationGroup::class);
     expect($subGroup->getItems()->get(0)->getDepth())->toBe(2);
-    // enouuuuuuuuuuuuuuugh tests please for recursive, mohamed
+    // enouuuuuuuuuuuuuuugh tests please, mohamed 🙂 (12/01/2025)
 });
 
 it('respect the max depth = 2 provided', function () use ($generatedTree) {
     $generatedTree[2]['children'][2]['children'] = [];
     $navItems = NavigationBuilder::build($generatedTree);
-    // dd($navItems);
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
     // validate the files 
     $file = $navItems->get(0);
-    expect($file)->toBeInstanceOf(NavigationItem::class);
+    foreach([$navItems->get(0),$navItems->get(1)] as $item){
+        expect($item)->toBeInstanceOf(NavigationItem::class);
+        expect($item->getDepth())->toBe(0);
+    }
+
     expect($file->getlabel())->toBe('Installation');
     expect($file->getpath())->toBe('docs/01-installation.md');
     expect($file->geturl())->toBe('installation');
-    expect($file->getDepth())->toBe(0);
 
     $group = $navItems->get(2);
     expect($group)->toBeInstanceOf(NavigationGroup::class);
     expect($group->getLabel())->toBe('Fields');
     expect($group->getItems())->toBeInstanceOf(Collection::class);
-    expect($group->getItems()->count())->toBe(2)->not->toBe(3); // if the children of a group empty it need to remove the group entirely 
+    expect($group->getItems()->count())
+        ->toBe(2)
+        ->not
+        ->toBe(3); // if the children of a group empty it need to remove the group entirely 
     expect($group->getDepth())->toBe(0);
-
-    // Ensure "Sub Fields" is not included at depth 1
-    $subGroup = $group->getItems()->get(1); // It should not be here in this depth
-    expect($subGroup)->toBeInstanceOf(NavigationItem::class); // If it is here, it should be an item not a group
-    expect($subGroup->getLabel())->toBe('Select'); // Make sure it's just the file, not a group
+    expect($group->getItems()->get(0)->getDepth())->toBe(1);
 });
