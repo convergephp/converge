@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Sidebar;
 
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\Sidebar\SidebarBuilder;
+use Illuminate\Support\Collection;
 
 class SidebarManager
 {
-    protected  $module;
+    protected $module;
 
     protected Collection $sidebarItem;
 

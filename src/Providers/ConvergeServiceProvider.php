@@ -12,12 +12,12 @@ class ConvergeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/converge.php' => config_path('converge.php'),
+            __DIR__.'/../config/converge.php' => config_path('converge.php'),
         ]);
 
-        $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
+        $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
-        Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
+        Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
