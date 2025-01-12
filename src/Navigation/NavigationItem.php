@@ -23,7 +23,7 @@ class NavigationItem
 
     protected string|Closure|null $url = null;
 
-    public static function make(string|Closure|null $label = null): static
+    public static function make(): static
     {
         $static = app(static::class);
 
