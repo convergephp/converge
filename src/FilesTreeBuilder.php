@@ -117,7 +117,7 @@ final class FilesTreeBuilder
     /**
      * generate label from the file | dir  name
      */
-    private static function formatLabel(string $basename): string
+    public static function formatLabel(string $basename): string
     {
         $filename = pathinfo($basename, PATHINFO_FILENAME);
         // Convert filename to a user-friendly label
