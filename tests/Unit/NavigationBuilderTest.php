@@ -7,7 +7,7 @@ use Fluxtor\Converge\Navigation\NavigationGroup;
 use Fluxtor\Converge\Navigation\NavigationItem;
 use Illuminate\Support\Collection;
 
-$stubs = realpath(__DIR__ . '/../stubs/docs');
+$stubs = realpath(__DIR__.'/../stubs/docs');
 /**
  * similate the generated tree from the Fluxtor\Converge\FilesTreeBuilder class
  */
@@ -69,7 +69,7 @@ it('build the correct navigations items', function () use ($generatedTree) {
     $navItems = NavigationBuilder::build($generatedTree);
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
-    // validate the files 
+    // validate the files
     $file = $navItems->get(0);
     expect($file)->toBeInstanceOf(NavigationItem::class);
     expect($file->getlabel())->toBe('Installation');
@@ -85,7 +85,7 @@ it('build the correct navigations items', function () use ($generatedTree) {
     expect($group->getItems()->count())->toBe(3);
     expect($group->getDepth())->toBe(0);
 
-    // validate the group childrens 
+    // validate the group childrens
     $children = $group->getItems()->get(0);
     expect($children)->toBeInstanceOf(NavigationItem::class);
     expect($children->getlabel())->toBe('Text Input');
@@ -93,7 +93,7 @@ it('build the correct navigations items', function () use ($generatedTree) {
     expect($children->geturl())->toBe('fields/text-input');
     expect($children->getDepth())->toBe(1);
 
-    // sub children 
+    // sub children
     $subGroup = $group->getItems()->get(2);
     expect($subGroup)->toBeInstanceOf(NavigationGroup::class);
     expect($subGroup->getItems()->get(0)->getDepth())->toBe(2);
@@ -105,9 +105,9 @@ it('respect the max depth = 2 provided', function () use ($generatedTree) {
     $navItems = NavigationBuilder::build($generatedTree);
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
-    // validate the files 
+    // validate the files
     $file = $navItems->get(0);
-    foreach([$navItems->get(0),$navItems->get(1)] as $item){
+    foreach ([$navItems->get(0), $navItems->get(1)] as $item) {
         expect($item)->toBeInstanceOf(NavigationItem::class);
         expect($item->getDepth())->toBe(0);
     }
@@ -123,7 +123,7 @@ it('respect the max depth = 2 provided', function () use ($generatedTree) {
     expect($group->getItems()->count())
         ->toBe(2)
         ->not
-        ->toBe(3); // if the children of a group empty it need to remove the group entirely 
+        ->toBe(3); // if the children of a group empty it need to remove the group entirely
     expect($group->getDepth())->toBe(0);
     expect($group->getItems()->get(0)->getDepth())->toBe(1);
 });

@@ -99,7 +99,6 @@ it('generates the correct label from the given path', function () {
     $label4 = FilesTreeBuilder::formatLabel('13-section/14-file/10-subfile');
     $label5 = FilesTreeBuilder::formatLabel('13section/14file/10subfile.md');
 
-
     expect($label1)->toBe('Label');
     expect($label2)->toBe('Label');
     expect($label3)->toBe('Label');
@@ -122,4 +121,3 @@ it('generates the correct url from the given path', function () {
     expect($url5)->toBe('section/file/subfile');
     expect($url6)->toBe('section/file/subfile');
 });
-
