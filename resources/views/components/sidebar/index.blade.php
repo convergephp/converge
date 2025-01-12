@@ -25,6 +25,6 @@
             </div>
             <div class="h-4 bg-gray-100 dark:bg-black dark:to-transparent "></div>
         </div>
-        <x-aside-titles :categories="$categories" />
+        <x-converge::sidebar.items :navItems="$sidebarItems" />
     </nav>
 </div>
