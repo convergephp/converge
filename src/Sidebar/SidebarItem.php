@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Navigation;
+namespace Fluxtor\Converge\Sidebar;
 
 use Closure;
 use Fluxtor\Converge\Concerns\Resolver;
 
-class NavigationItem
+class SidebarItem
 {
     use Resolver;
 
