@@ -1,7 +1,3 @@
-@props([
-    'livewire' => null,
-])
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -60,6 +56,8 @@
         }
     </script>
     {{-- @endif --}}
+
+    @vite(['./resources/css/app.css'])
 </head>
 
 <body
