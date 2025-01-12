@@ -80,12 +80,10 @@ final class NavigationBuilder
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
-        // when the children cause when empty folders or a cause to max depth parameters
-        // so we prevent adding empty group
-        // to the navigation 
         if (count($node['children']) < 1) {
             return;
         }
+        
         $group = NavigationGroup::make($node['label'])
             ->sort($sort)
             ->depth($depth);
