@@ -25,6 +25,6 @@
             </div>
             <div class="h-4 bg-gray-100 dark:bg-gray-950 dark:to-transparent "></div>
         </div>
-        <x-converge::sidebar.items :navItems="resolve('sidebar')->getItems()" />
+        <x-converge::sidebar.items />
     </nav>
 </div>

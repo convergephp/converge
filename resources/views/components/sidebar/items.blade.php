@@ -2,6 +2,7 @@
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
+    $sidebarItems = $navItems ?? resolve('sidebar')->getItems(); // resolve only in the first level
 @endphp
 
 <ul>
