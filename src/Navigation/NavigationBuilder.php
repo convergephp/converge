@@ -9,7 +9,8 @@ use InvalidArgumentException;
 
 class NavigationBuilder
 {
-    /**build navigation items from tree structure
+    /**
+     * build navigation items from tree structure
      *
      * @param array $tree
      * @return Collection
@@ -21,6 +22,14 @@ class NavigationBuilder
         return (new self)->process($items, $tree);
     }
 
+    /**
+     * Process the tree structure and populate navigation items.
+     *
+     * @param Collection $items
+     * @param array $tree
+     * @param integer $depth
+     * @return void
+     */
     public function process(Collection $items, $tree, int $depth = 0)
     {
         foreach ($tree as $key => $node) {
@@ -33,7 +42,15 @@ class NavigationBuilder
 
         return $items;
     }
-
+    /**
+     * Add a file item to the navigation collection.
+     *
+     * @param Collection $items
+     * @param array $node
+     * @param integer $sortKey
+     * @param integer $depth
+     * @return void
+     */
     public function addFileNode(Collection $items, array $node, int $sortKey, int $depth)
     {
         $items->add(
@@ -46,7 +63,17 @@ class NavigationBuilder
         );
     }
 
-    public function addGroupNode($items, $node, $sort, $depth)
+
+    /**
+     * add group (wich is folder) to the navigation collection
+     *
+     * @param Collection $items
+     * @param array $node
+     * @param int $sort
+     * @param int $depth
+     * @return void
+     */
+    public function addGroupNode(Collection $items, array $node, int $sort, int $depth)
     {
         $group = NavigationGroup::make($node['title'])
             ->sort($sort)
