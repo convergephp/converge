@@ -9,13 +9,18 @@ use RecursiveDirectoryIterator;
 
 final class FilesTreeBuilder
 {
+    /**
+     * used for the single file fetching step
+     *
+     * @var array
+     */
     public static array $urlToPathMap = [];
 
     /**
      * build the from the file structure provided by root param
      *
      * @param string $root
-     * @param integer $maxDepth
+     *  @param int $maxDepth Default is PHP_INT_MAX
      * @return array
      */
     public static function build(string $root, int $maxDepth = PHP_INT_MAX): array
@@ -25,7 +30,7 @@ final class FilesTreeBuilder
         }
 
         if ($maxDepth < 1) {
-            throw new Exception("The maxDepth parameter must be a positive integer.");
+            throw new Exception("The provided maxDepth parameter must be a positive integer; received: {$maxDepth}");
         }
 
         $path = $root;
@@ -56,7 +61,8 @@ final class FilesTreeBuilder
             RecursiveDirectoryIterator::SKIP_DOTS
         );
 
-        // sort files for other files rather than NFTS file system
+        // Collect and sort directory entries for consistent order across filesystems
+
         $entries = [];
         foreach ($iterator as $fileInfo) {
             $entries[] = $fileInfo;
@@ -100,7 +106,7 @@ final class FilesTreeBuilder
      * generate url from the path 
      *
      * @param string $relativePath
-     * @return void
+     * @return string
      */
     public static function generateUrl(string $relativePath): string 
     {
