@@ -16,35 +16,11 @@
     </title>
 
     <style>
-        [x-cloak] {
-        }
+        [x-cloak] {}
     </style>
 
-    {{-- {{ filament()->getTheme()->getHtml() }} --}}
-    {{-- {{ filament()->getFontHtml() }} --}}
-
-    <style>
-        :root {
-            /* --font-family: '{!! filament()->getFontFamily() !!}'; todo */
-            /* --sidebar-width: {{ filament()->getSidebarWidth() }}; todo */
-            /* --collapsed-sidebar-width: {{ filament()->getCollapsedSidebarWidth() }}; todo */
-            /* --default-theme-mode: {{ filament()->getDefaultThemeMode()->value }}; todo */
-        }
-    </style>
-
-    @stack('styles')
-
-    {{-- @if (!filament()->hasDarkMode())
-            <script>
-                localStorage.setItem('theme', 'light')
-            </script>
-        @elseif (filament()->hasDarkModeForced())
-            <script>
-                localStorage.setItem('theme', 'dark')
-            </script>
-        @else --}}
     <script>
-        const theme = localStorage.getItem('theme') ?? @js(filament()->getDefaultThemeMode()->value)
+        const theme = localStorage.getItem('theme')
 
         if (
             theme === 'dark' ||
@@ -57,7 +33,7 @@
     </script>
     {{-- @endif --}}
 
-    @vite(['./resources/css/app.css'])
+    @vite('resources/css/app.css')
 </head>
 
 <body
@@ -67,7 +43,5 @@
     ]) }}>
     {{ $slot }}
 </body>
-
-@stack('scripts')
 
 </html>
