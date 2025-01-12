@@ -4,8 +4,9 @@
     <div>
         <span class="text-primary">on this page</span>
         <div 
-            class="prose prose-invert prose-a:text-gray-200 prose-headings:text-[10em]" 
-            x-html="$data.tableOfContent"
-        ></div>
+            class="prose prose-invert prose-a:text-gray-200 prose-headings:text-[10em]"    
+        >
+        Lorem ipsum dolor sit.
+    </div>
     </div>
 </div>
