@@ -12,7 +12,6 @@ class NavigationBuilder
     /**
      * build navigation items from tree structure
      *
-     * @param array $tree
      * @return Collection
      */
     public static function build(array $tree)
@@ -25,9 +24,7 @@ class NavigationBuilder
     /**
      * Process the tree structure and populate navigation items.
      *
-     * @param Collection $items
-     * @param array $tree
-     * @param integer $depth
+     * @param  array  $tree
      * @return void
      */
     public function process(Collection $items, $tree, int $depth = 0)
@@ -42,13 +39,10 @@ class NavigationBuilder
 
         return $items;
     }
+
     /**
      * Add a file item to the navigation collection.
      *
-     * @param Collection $items
-     * @param array $node
-     * @param integer $sortKey
-     * @param integer $depth
      * @return void
      */
     public function addFileNode(Collection $items, array $node, int $sortKey, int $depth)
@@ -63,14 +57,9 @@ class NavigationBuilder
         );
     }
 
-
     /**
      * add group (wich is folder) to the navigation collection
      *
-     * @param Collection $items
-     * @param array $node
-     * @param int $sort
-     * @param int $depth
      * @return void
      */
     public function addGroupNode(Collection $items, array $node, int $sort, int $depth)
