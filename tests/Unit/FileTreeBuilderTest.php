@@ -91,3 +91,35 @@ it('build the correct file tree', function () use ($stubs) {
     expect($tree)->toEqual($expectedTree);
     expect($map)->toEqual($expectedMap);
 });
+
+it('generates the correct label from the given path', function () {
+    $label1 = FilesTreeBuilder::formatLabel('03-label');
+    $label2 = FilesTreeBuilder::formatLabel('0234label');
+    $label3 = FilesTreeBuilder::formatLabel('0234label/234label');
+    $label4 = FilesTreeBuilder::formatLabel('13-section/14-file/10-subfile');
+    $label5 = FilesTreeBuilder::formatLabel('13section/14file/10subfile.md');
+
+
+    expect($label1)->toBe('Label');
+    expect($label2)->toBe('Label');
+    expect($label3)->toBe('Label');
+    expect($label4)->toBe('Subfile');
+    expect($label5)->toBe('Subfile');
+});
+
+it('generates the correct url from the given path', function () {
+    $url1 = FilesTreeBuilder::generateUrl('03-name');
+    $url2 = FilesTreeBuilder::generateUrl('0234name');
+    $url3 = FilesTreeBuilder::generateUrl('03-section/12-file');
+    $url4 = FilesTreeBuilder::generateUrl('03234section/13232file');
+    $url5 = FilesTreeBuilder::generateUrl('13-section/14-file/10-subfile');
+    $url6 = FilesTreeBuilder::generateUrl('13section/14file/10subfile');
+
+    expect($url1)->toBe('name');
+    expect($url2)->toBe('name');
+    expect($url3)->toBe('section/file');
+    expect($url4)->toBe('section/file');
+    expect($url5)->toBe('section/file/subfile');
+    expect($url6)->toBe('section/file/subfile');
+});
+
