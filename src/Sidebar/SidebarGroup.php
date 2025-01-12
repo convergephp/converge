@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Navigation;
+namespace Fluxtor\Converge\Sidebar;
 
 use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
 
-class NavigationGroup
+class SidebarGroup
 {
     use Resolver;
 
@@ -58,7 +58,7 @@ class NavigationGroup
         return $this;
     }
 
-    public function addItem(NavigationItem $item): static
+    public function addItem(SidebarItem $item): static
     {
         $this->items->push($item);
 

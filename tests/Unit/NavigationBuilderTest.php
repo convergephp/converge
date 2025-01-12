@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\Navigation\NavigationBuilder;
-use Fluxtor\Converge\Navigation\NavigationGroup;
-use Fluxtor\Converge\Navigation\NavigationItem;
+use Fluxtor\Converge\Sidebar\SidebarBuilder;
+use Fluxtor\Converge\Sidebar\SidebarGroup;
+use Fluxtor\Converge\Sidebar\SidebarItem;
 use Illuminate\Support\Collection;
 
 $stubs = realpath(__DIR__.'/../stubs/docs');
@@ -63,15 +63,15 @@ $generatedTree = [
     ],
 ];
 
-it('builds the correct navigation items', function () use ($generatedTree) {
-    $navItems = NavigationBuilder::build($generatedTree);
+it('builds the correct Sidebar items', function () use ($generatedTree) {
+    $navItems = SidebarBuilder::build($generatedTree);
 
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
 
     // Validate root files
     foreach ([$navItems->get(0), $navItems->get(1)] as $index => $item) {
-        expect($item)->toBeInstanceOf(NavigationItem::class);
+        expect($item)->toBeInstanceOf(SidebarItem::class);
         expect($item->getDepth())->toBe(0);
         expect($item->getLabel())->toBe($index === 0 ? 'Installation' : 'Getting started');
         expect($item->getPath())->toBe($index === 0 ? 'docs/01-installation.md' : 'docs/02-getting-started.md');
@@ -80,7 +80,7 @@ it('builds the correct navigation items', function () use ($generatedTree) {
 
     // Validate group (Fields)
     $group = $navItems->get(2);
-    expect($group)->toBeInstanceOf(NavigationGroup::class);
+    expect($group)->toBeInstanceOf(SidebarGroup::class);
     expect($group->getLabel())->toBe('Fields');
     expect($group->getDepth())->toBe(0);
     expect($group->getItems())->toBeInstanceOf(Collection::class);
@@ -88,7 +88,7 @@ it('builds the correct navigation items', function () use ($generatedTree) {
 
     // Validate group's children
     $child = $group->getItems()->get(0);
-    expect($child)->toBeInstanceOf(NavigationItem::class);
+    expect($child)->toBeInstanceOf(SidebarItem::class);
     expect($child->getLabel())->toBe('Text Input');
     expect($child->getPath())->toBe('docs/03-fields/01-text-input.md');
     expect($child->getUrl())->toBe('fields/text-input');
@@ -96,7 +96,7 @@ it('builds the correct navigation items', function () use ($generatedTree) {
 
     // Validate subgroup (Sub Fields)
     $subGroup = $group->getItems()->get(2);
-    expect($subGroup)->toBeInstanceOf(NavigationGroup::class);
+    expect($subGroup)->toBeInstanceOf(SidebarGroup::class);
     expect($subGroup->getItems()->count())->toBe(2);
     expect($subGroup->getItems()->get(0)->getDepth())->toBe(2);
     // enouuuuuuuuuuuuuuuuuugh tests for resursive thing mohamed 🙂
@@ -104,20 +104,20 @@ it('builds the correct navigation items', function () use ($generatedTree) {
 
 it('respects the max depth = 2 provided', function () use ($generatedTree) {
     $generatedTree[2]['children'][2]['children'] = []; // Simulate truncation of children beyond depth 2
-    $navItems = NavigationBuilder::build($generatedTree);
+    $navItems = SidebarBuilder::build($generatedTree);
 
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
 
     // Validate root files
     foreach ([$navItems->get(0), $navItems->get(1)] as $item) {
-        expect($item)->toBeInstanceOf(NavigationItem::class);
+        expect($item)->toBeInstanceOf(SidebarItem::class);
         expect($item->getDepth())->toBe(0);
     }
 
     // Validate group (Fields)
     $group = $navItems->get(2);
-    expect($group)->toBeInstanceOf(NavigationGroup::class);
+    expect($group)->toBeInstanceOf(SidebarGroup::class);
     expect($group->getLabel())->toBe('Fields');
     expect($group->getItems())->toBeInstanceOf(Collection::class);
 
@@ -130,6 +130,6 @@ it('respects the max depth = 2 provided', function () use ($generatedTree) {
 
     // Validate remaining group's children
     $child = $group->getItems()->get(0);
-    expect($child)->toBeInstanceOf(NavigationItem::class);
+    expect($child)->toBeInstanceOf(SidebarItem::class);
     expect($child->getDepth())->toBe(1);
 });

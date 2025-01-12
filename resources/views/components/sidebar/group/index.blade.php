@@ -3,8 +3,8 @@
 ])
 
 @php
-    use App\Support\Packages\NavigationGroup;
-    use App\Support\Packages\NavigationItem;
+    use App\Support\Packages\SidebarGroup;
+    use App\Support\Packages\SidebarItem;
 @endphp
 
 <li class="mt-12 lg:mt-8">

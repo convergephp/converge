@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Navigation;
+namespace Fluxtor\Converge\Sidebar;
 
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-final class NavigationBuilder
+final class SidebarBuilder
 {
     /**
-     * Build navigation items from a tree structure.
+     * Build Sidebar items from a tree structure.
      */
     public static function build(array $tree): Collection
     {
@@ -20,7 +20,7 @@ final class NavigationBuilder
     }
 
     /**
-     * Process the tree structure and populate navigation items.
+     * Process the tree structure and populate Sidebar items.
      */
     public function process(Collection $items, array $tree, int $depth = 0): Collection
     {
@@ -36,12 +36,12 @@ final class NavigationBuilder
     }
 
     /**
-     * Add a file item to the navigation collection.
+     * Add a file item to the Sidebar collection.
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth): void
     {
         $items->add(
-            NavigationItem::make()
+            SidebarItem::make()
                 ->label($node['label'])
                 ->path($node['path'])
                 ->url($node['url'])
@@ -51,13 +51,13 @@ final class NavigationBuilder
     }
 
     /**
-     * This method ensures that only non-empty groups are added to the navigation.
+     * This method ensures that only non-empty groups are added to the Sidebar.
      * A group is skipped if it:
      *  - Has no children, due to being an empty folder.
      *  - Exceeds the maximum depth limit defined in the tree-building process.
      *
      * The method recursively processes the group's children, incrementing the depth
-     * to maintain the correct hierarchy in the navigation structure.
+     * to maintain the correct hierarchy in the Sidebar structure.
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
@@ -65,7 +65,7 @@ final class NavigationBuilder
             return;
         }
 
-        $group = NavigationGroup::make($node['label'])
+        $group = SidebarGroup::make($node['label'])
             ->sort($sort)
             ->depth($depth);
 

@@ -1,14 +1,14 @@
 @props(['navItems' => null])
 @php
-    use App\Support\Packages\NavigationGroup;
-    use App\Support\Packages\NavigationItem;
+    use App\Support\Packages\SidebarGroup;
+    use App\Support\Packages\SidebarItem;
 @endphp
 
-<ul class="bg-gray-100 dark:bg-black">
+<ul>
     @foreach ($navItems as $item)
-        @if ($item instanceof NavigationItem)
+        @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" />
-        @elseif($item instanceof NavigationGroup || count($item->getItems() >= 1))
+        @elseif($item instanceof SidebarGroup && count($item->getItems() >= 1))
             <x-converge::sidebar.group :groupItem="$item" />
         @endif
     @endforeach
