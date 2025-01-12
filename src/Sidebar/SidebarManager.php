@@ -1,8 +1,9 @@
 <?php
 
-namespace Fluxtor\Converge;
+namespace Fluxtor\Converge\Sidebar;
 
 use Illuminate\Support\Collection;
+use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Sidebar\SidebarBuilder;
 
 class SidebarManager
@@ -11,7 +12,7 @@ class SidebarManager
 
     protected Collection $sidebarItem;
 
-    public function get()
+    public function getItems()
     {
         $path = base_path('docs');
 
