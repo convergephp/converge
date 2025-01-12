@@ -1,27 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Navigation;
 
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 
 class NavigationBuilder
 {
+    /**build navigation items from tree structure
+     *
+     * @param array $tree
+     * @return Collection
+     */
     public static function build(array $tree)
     {
-        $items = Collection::make();
+        $items = new Collection();
+
         return (new self)->process($items, $tree);
     }
+
     public function process(Collection $items, $tree, int $depth = 0)
     {
-        collect($tree)->map(function (array $node, int $key) use ($items, $depth) {
+        foreach ($tree as $key => $node) {
             match ($node['type']) {
                 'file' => $this->addFileNode($items, $node, $key, $depth),
                 'folder' => $this->addGroupNode($items, $node, $key, $depth),
-                default => throw new \InvalidArgumentException("Unknown type: {$node['type']}")
+                default => throw new InvalidArgumentException("Unknown type: {$node['type']}")
             };
-        });
+        }
+
         return $items;
     }
+
     public function addFileNode(Collection $items, array $node, int $sortKey, int $depth)
     {
         $items->add(
@@ -33,6 +45,7 @@ class NavigationBuilder
                 ->depth($depth)
         );
     }
+
     public function addGroupNode($items, $node, $sort, $depth)
     {
         $group = NavigationGroup::make($node['title'])

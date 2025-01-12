@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
@@ -11,6 +13,7 @@ trait Resolver
         if ($value instanceof Closure) {
             return $value();
         }
+
         return $value;
     }
 }

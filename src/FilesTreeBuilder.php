@@ -40,7 +40,7 @@ final class FilesTreeBuilder
         usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
         $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
-        
+
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
