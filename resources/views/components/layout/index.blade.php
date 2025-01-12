@@ -31,7 +31,7 @@
             document.documentElement.classList.add('dark')
         }
     </script>
-    {{-- @endif --}}
+    {{-- @endif --}}    
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
