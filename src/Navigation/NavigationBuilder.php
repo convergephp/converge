@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Fluxtor\Converge\Navigation;
@@ -54,16 +55,22 @@ final class NavigationBuilder
     {
         $items->add(
             NavigationItem::make()
-                ->label($node['title'] ?? 'Untitled')
-                ->path($node['path'] ?? '#')
-                ->url($node['url'] ?? null)
+                ->label($node['label'])
+                ->path($node['path'])
+                ->url($node['url'])
                 ->sort($sortKey)
                 ->depth($depth)
         );
     }
 
     /**
-     * Add a folder item to the navigation collection.
+     * This method ensures that only non-empty groups are added to the navigation.
+     * A group is skipped if it:
+     *  - Has no children, due to being an empty folder.
+     *  - Exceeds the maximum depth limit defined in the tree-building process.
+     *
+     * The method recursively processes the group's children, incrementing the depth
+     * to maintain the correct hierarchy in the navigation structure.
      *
      * @param Collection $items
      * @param array $node
@@ -73,7 +80,13 @@ final class NavigationBuilder
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
-        $group = NavigationGroup::make($node['title'] ?? 'Untitled')
+        // when the children cause when empty folders or a cause to max depth parameters
+        // so we prevent adding empty group
+        // to the navigation 
+        if (count($node['children']) < 1) {
+            return;
+        }
+        $group = NavigationGroup::make($node['label'])
             ->sort($sort)
             ->depth($depth);
 

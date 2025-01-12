@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('converge/docs', function () {
 
     $path = base_path('docs');
-    $tree = FilesTreeBuilder::build($path);
+    $tree = FilesTreeBuilder::build($path,2);
     $items = NavigationBuilder::build($tree[0]);
     dd($items);
 });

@@ -14,36 +14,36 @@ it('build the correct file tree', function () use ($stubs) {
 
     $expectedTree = [
         [
-            'title' => 'Installation',
+            'label' => 'Installation',
             'path' => $normalize("{$stubs}/01-installation.md"),
             'type' => 'file',
             'url' => 'installation',
         ],
         [
-            'title' => 'Getting started',
+            'label' => 'Getting started',
             'path' => $normalize("{$stubs}/02-getting-started.md"),
             'type' => 'file',
             'url' => 'getting-started',
         ],
         [
-            'title' => 'Fields',
+            'label' => 'Fields',
             'path' => $normalize("{$stubs}/03-fields"),
             'type' => 'folder',
             'children' => [
                 [
-                    'title' => 'Getting started',
+                    'label' => 'Getting started',
                     'path' => $normalize("{$stubs}/03-fields/01-getting-started.md"),
                     'type' => 'file',
                     'url' => 'fields/getting-started',
                 ],
                 [
-                    'title' => 'Text input',
+                    'label' => 'Text input',
                     'path' => $normalize("{$stubs}/03-fields/02-text-input.md"),
                     'type' => 'file',
                     'url' => 'fields/text-input',
                 ],
                 [
-                    'title' => 'Select',
+                    'label' => 'Select',
                     'path' => $normalize("{$stubs}/03-fields/03-select.md"),
                     'type' => 'file',
                     'url' => 'fields/select',
@@ -51,24 +51,24 @@ it('build the correct file tree', function () use ($stubs) {
             ],
         ],
         [
-            'title' => 'Layout',
+            'label' => 'Layout',
             'path' => $normalize("{$stubs}/04-layout"),
             'type' => 'folder',
             'children' => [
                 [
-                    'title' => 'Getting started',
+                    'label' => 'Getting started',
                     'path' => $normalize("{$stubs}/04-layout/01-getting-started.md"),
                     'type' => 'file',
                     'url' => 'layout/getting-started',
                 ],
                 [
-                    'title' => 'Grid',
+                    'label' => 'Grid',
                     'path' => $normalize("{$stubs}/04-layout/02-grid.md"),
                     'type' => 'file',
                     'url' => 'layout/grid',
                 ],
                 [
-                    'title' => 'Fieldset',
+                    'label' => 'Fieldset',
                     'path' => $normalize("{$stubs}/04-layout/03-fieldset.md"),
                     'type' => 'file',
                     'url' => 'layout/fieldset',

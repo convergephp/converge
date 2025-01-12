@@ -78,7 +78,7 @@ final class FilesTreeBuilder
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
 
             $baseNode = [
-                'title' => self::formatLabel($fileInfo->getBasename()),
+                'label' => self::formatLabel($fileInfo->getBasename()),
                 'path' => $normalize($fileInfo->getRealPath()),
             ];
 
@@ -136,9 +136,9 @@ final class FilesTreeBuilder
     private static function formatLabel(string $basename): string
     {
         $filename = pathinfo($basename, PATHINFO_FILENAME);
-        // Convert filename to a user-friendly title
-        $title = ucfirst(preg_replace('/^\d+-?/', '', $filename));
+        // Convert filename to a user-friendly label
+        $label = ucfirst(preg_replace('/^\d+-?/', '', $filename));
 
-        return str_replace('-', ' ', $title);
+        return str_replace('-', ' ', $label);
     }
 }
