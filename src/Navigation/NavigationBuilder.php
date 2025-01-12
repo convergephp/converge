@@ -13,35 +13,35 @@ class NavigationBuilder
     }
     public function process(Collection $items, $tree, int $depth = 0)
     {
-        collect($tree)->map(function (array $item, int $key) use ($items, $depth) {
-            match ($item['type']) {
-                'file' => $this->addFileItem($items, $item, $key, $depth),
-                'folder' => $this->addGroupItem($items, $item, $key, $depth),
-                default => throw new \InvalidArgumentException("Unknown type: {$item['type']}")
+        collect($tree)->map(function (array $node, int $key) use ($items, $depth) {
+            match ($node['type']) {
+                'file' => $this->addFileNode($items, $node, $key, $depth),
+                'folder' => $this->addGroupNode($items, $node, $key, $depth),
+                default => throw new \InvalidArgumentException("Unknown type: {$node['type']}")
             };
         });
         return $items;
     }
-    public function addFileItem(Collection $items, array $item, int $sortKey, int $depth)
+    public function addFileNode(Collection $items, array $node, int $sortKey, int $depth)
     {
         $items->add(
             NavigationItem::make()
-                ->label($item['title'])
-                ->path($item['path'])
-                ->url($item['url'])
+                ->label($node['title'])
+                ->path($node['path'])
+                ->url($node['url'])
                 ->sort($sortKey)
                 ->depth($depth)
         );
     }
-    public function addGroupItem($items, $item, $sort, $depth)
+    public function addGroupNode($items, $node, $sort, $depth)
     {
-        $group = NavigationGroup::make($item['title'])
+        $group = NavigationGroup::make($node['title'])
             ->sort($sort)
             ->depth($depth);
         // Add the group to the items collection
         $items->add($group);
 
         // Recursively process the children of this folder
-        $this->process($group->getItems(), $item['children'], depth: $depth + 1);
+        $this->process($group->getItems(), $node['children'], depth: $depth + 1);
     }
 }
