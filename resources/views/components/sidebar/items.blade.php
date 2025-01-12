@@ -10,8 +10,6 @@
             <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
-        @else
-        @dd($item)
         @endif
     @endforeach
 </ul>
