@@ -2,3 +2,4 @@
 /features.todo
 /.phpunit.cache/
 /node_modules/
+/dist/
