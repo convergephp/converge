@@ -11,6 +11,7 @@ class NavigationGroup
     protected string $label;
     protected Collection $items;
     protected int $depth;
+    protected int $sort;
 
     public function __construct(string $label)
     {
@@ -31,6 +32,13 @@ class NavigationGroup
         return $this;
     }
 
+    public function sort(int $sort): static
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
     public function addItem(NavigationItem $item): static
     {
         $this->items->push($item);
@@ -40,6 +48,10 @@ class NavigationGroup
     public function getLabel(): string
     {
         return $this->label;
+    }
+    public function getSort(): int
+    {
+        return $this->sort;
     }
 
     public function getItems(): Collection
