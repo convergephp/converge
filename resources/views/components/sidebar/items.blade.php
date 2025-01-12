@@ -1,15 +1,17 @@
 @props(['navItems' => null])
 @php
-    use App\Support\Packages\SidebarGroup;
-    use App\Support\Packages\SidebarItem;
+    use Fluxtor\Converge\Sidebar\SidebarGroup;
+    use Fluxtor\Converge\Sidebar\SidebarItem;
 @endphp
 
 <ul>
     @foreach ($navItems as $key => $item)
         @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" />
-        @elseif($item instanceof SidebarGroup && count($item->getItems() >= 1))
+        @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
+        @else
+        @dd($item)
         @endif
     @endforeach
 </ul>
