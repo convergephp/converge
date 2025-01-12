@@ -63,67 +63,72 @@ $generatedTree = [
     ],
 ];
 
-it('build the correct navigations items', function () use ($generatedTree) {
-    // Simulate max depth 2  by truncating children beyond depth 2
-    // dd($generatedTree);
+it('builds the correct navigation items', function () use ($generatedTree) {
     $navItems = NavigationBuilder::build($generatedTree);
+
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
-    // validate the files
-    $file = $navItems->get(0);
-    expect($file)->toBeInstanceOf(NavigationItem::class);
-    expect($file->getlabel())->toBe('Installation');
-    expect($file->getpath())->toBe('docs/01-installation.md');
-    expect($file->geturl())->toBe('installation');
-    expect($file->getDepth())->toBe(0);
 
-    // validate the group
+    // Validate root files
+    foreach ([$navItems->get(0), $navItems->get(1)] as $index => $item) {
+        expect($item)->toBeInstanceOf(NavigationItem::class);
+        expect($item->getDepth())->toBe(0);
+        expect($item->getLabel())->toBe($index === 0 ? 'Installation' : 'Getting started');
+        expect($item->getPath())->toBe($index === 0 ? 'docs/01-installation.md' : 'docs/02-getting-started.md');
+        expect($item->getUrl())->toBe($index === 0 ? 'installation' : 'getting-started');
+    }
+
+    // Validate group (Fields)
     $group = $navItems->get(2);
     expect($group)->toBeInstanceOf(NavigationGroup::class);
     expect($group->getLabel())->toBe('Fields');
+    expect($group->getDepth())->toBe(0);
     expect($group->getItems())->toBeInstanceOf(Collection::class);
     expect($group->getItems()->count())->toBe(3);
-    expect($group->getDepth())->toBe(0);
 
-    // validate the group childrens
-    $children = $group->getItems()->get(0);
-    expect($children)->toBeInstanceOf(NavigationItem::class);
-    expect($children->getlabel())->toBe('Text Input');
-    expect($children->getpath())->toBe('docs/03-fields/01-text-input.md');
-    expect($children->geturl())->toBe('fields/text-input');
-    expect($children->getDepth())->toBe(1);
+    // Validate group's children
+    $child = $group->getItems()->get(0);
+    expect($child)->toBeInstanceOf(NavigationItem::class);
+    expect($child->getLabel())->toBe('Text Input');
+    expect($child->getPath())->toBe('docs/03-fields/01-text-input.md');
+    expect($child->getUrl())->toBe('fields/text-input');
+    expect($child->getDepth())->toBe(1);
 
-    // sub children
+    // Validate subgroup (Sub Fields)
     $subGroup = $group->getItems()->get(2);
     expect($subGroup)->toBeInstanceOf(NavigationGroup::class);
+    expect($subGroup->getItems()->count())->toBe(2);
     expect($subGroup->getItems()->get(0)->getDepth())->toBe(2);
-    // enouuuuuuuuuuuuuuugh tests please, mohamed 🙂 (12/01/2025)
 });
 
-it('respect the max depth = 2 provided', function () use ($generatedTree) {
-    $generatedTree[2]['children'][2]['children'] = [];
+it('respects the max depth = 2 provided', function () use ($generatedTree) {
+    $generatedTree[2]['children'][2]['children'] = []; // Simulate truncation of children beyond depth 2
     $navItems = NavigationBuilder::build($generatedTree);
+
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
-    // validate the files
-    $file = $navItems->get(0);
+
+    // Validate root files
     foreach ([$navItems->get(0), $navItems->get(1)] as $item) {
         expect($item)->toBeInstanceOf(NavigationItem::class);
         expect($item->getDepth())->toBe(0);
     }
 
-    expect($file->getlabel())->toBe('Installation');
-    expect($file->getpath())->toBe('docs/01-installation.md');
-    expect($file->geturl())->toBe('installation');
-
+    // Validate group (Fields)
     $group = $navItems->get(2);
     expect($group)->toBeInstanceOf(NavigationGroup::class);
     expect($group->getLabel())->toBe('Fields');
     expect($group->getItems())->toBeInstanceOf(Collection::class);
+
+    // Validate truncation of children
     expect($group->getItems()->count())
         ->toBe(2)
         ->not
-        ->toBe(3); // if the children of a group empty it need to remove the group entirely
+        ->toBe(3); // Ensure the subgroup (Sub Fields) was removed
     expect($group->getDepth())->toBe(0);
-    expect($group->getItems()->get(0)->getDepth())->toBe(1);
+
+    // Validate remaining group's children
+    $child = $group->getItems()->get(0);
+    expect($child)->toBeInstanceOf(NavigationItem::class);
+    expect($child->getDepth())->toBe(1);
 });
