@@ -6,7 +6,23 @@
                 <div class="h-10  bg-gray-100 dark:bg-black">
                 </div>
             </div>
-            <livewire:global-search/>
+            <div 
+                class="flex items-center w-60  justify-center" 
+            >
+                <div class="pointer-events-auto  relative bg-white dark:bg-black rounded-lg">
+                    <button
+                        class="hidden w-full items-center rounded-lg py-1.5 pl-2 pr-3 text-sm leading-6 text-slate-400 shadow-sm ring-2  ring-purple-500/15 hover:ring-purple-500 transition-all duration-300 dark:hover:bg-[#02031C] lg:flex"
+                        type="button"
+                    >
+                        <svg class="mr-3 flex-none" aria-hidden="true" width="24" height="24" fill="none">
+                            <path d="m19 19-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"></circle>
+                        </svg>Quick search...<span class="ml-auto flex-none pl-3 text-xs font-semibold">Ctrl K</span>
+                    </button>
+                </div>
+            </div>
             <div class="h-4 bg-gray-100 dark:bg-black dark:to-transparent "></div>
         </div>
         <x-aside-titles :categories="$categories" />
