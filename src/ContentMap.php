@@ -9,6 +9,11 @@ class ContentMap
     public function __construct(FilesTreeBuilder $filesTreeBuilder)
     {
         $this->filesTreeBuilder = $filesTreeBuilder;
+        $path = base_path('docs');
+        if (empty(FilesTreeBuilder::$urlToPathMap)) {
+            // Set the root directory and max depth as required
+            FilesTreeBuilder::build($path, 2);
+        }
     }
 
     /**
@@ -31,6 +36,7 @@ class ContentMap
      */
     public function getFileByUrl(string $url): ?string
     {
+        // dd(FilesTreeBuilder::$urlToPathMap);
         return FilesTreeBuilder::$urlToPathMap[$url] ?? null;
     }
 }
