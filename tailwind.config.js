@@ -3,7 +3,13 @@ module.exports = {
   darkMode: "selector",
   content: ["./resources/views/**/*.blade.php", "./src/**/*.php"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        gray: {
+          950: '#000000',
+        },
+      }
+    },
   },
   plugins: [],
 };
