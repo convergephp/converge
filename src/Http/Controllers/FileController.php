@@ -8,10 +8,12 @@ use Fluxtor\Converge\FilesTreeBuilder;
 class FileController
 {
     protected ContentMap $map;
+
     public function __construct(ContentMap $map)
     {
         $this->map = $map;
     }
+    
     public function show($url)
     {
         // dd($url);
