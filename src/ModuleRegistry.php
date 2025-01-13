@@ -20,7 +20,7 @@ class ModuleRegistry
         }
 
         App::make()->resolving(
-            'filament',
+            Module::class,
             fn(Module $manager) => $manager->setActiveModule($panel),
         );
     }
