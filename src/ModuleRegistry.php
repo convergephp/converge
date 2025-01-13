@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge;
 
 use Illuminate\Support\Facades\App;
 
 class ModuleRegistry
 {
-    private  $registry = [];
+    private $registry = [];
 
-    public  function addModule(Module $module)
+    public function addModule(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;
-
 
         if (App::make()->resolved(Module::class)) {
             resolve(Module::class)->setActiveModule($panel);
@@ -20,11 +21,11 @@ class ModuleRegistry
 
         App::make()->resolving(
             Module::class,
-            fn(Module $manager) => $manager->setActiveModule($panel),
+            fn (Module $manager) => $manager->setActiveModule($panel),
         );
     }
 
-    public  function get($id)
+    public function get($id)
     {
         if (array_key_exists($id, $this->registry)) {
             return $this->registry[$id];
