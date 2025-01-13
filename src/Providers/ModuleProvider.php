@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Providers;
 
 use Fluxtor\Converge\Module;
@@ -10,9 +12,9 @@ abstract class ModuleProvider extends ServiceProvider
 {
     abstract public function module(Module $module): Module;
 
-    public function register()
+    final public function register()
     {
-        // register a module insance 
+        // register a module insance
         $this->app->make(ModuleRegistry::class);
     }
 }

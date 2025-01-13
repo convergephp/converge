@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Concerns\HasId;
