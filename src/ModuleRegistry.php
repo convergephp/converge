@@ -13,7 +13,6 @@ class ModuleRegistry
 
         $this->registry[$module->getId()] = $module;
 
-        $module->add();
 
         if (App::make()->resolved(Module::class)) {
             resolve(Module::class)->setActiveModule($panel);

@@ -8,7 +8,7 @@ use Closure;
 
 trait Resolver
 {
-    public function resolve(mixed $value)
+    public function resolve(mixed $value): mixed
     {
         if ($value instanceof Closure) {
             return $value();
