@@ -6,11 +6,11 @@ Converge is a Laravel-powered static site generator framework designed to create
 
 ## 🚀 Key Features
 
-- **Modules**: Organize content into independent modules for better scalability.
+- **Modules**: Organize content into independent modules
 - **Dynamic File-to-Section Mapping**: Map files to sections dynamically to reflect the underlying structure.
 - **Groups, Clusters, and Versioning**:
   - Group content logically for better organization.
-  - Support versioning (e.g., displayed on the top or right of the page).
+  - Support versioning.
 - **Custom Sorting**: Implement custom sorting after reading content from storage.
 - **Sidebar**:
   - Fully customizable sidebar with support for icons, badges, and hierarchical collapse.
@@ -33,7 +33,6 @@ Converge is a Laravel-powered static site generator framework designed to create
 - **Static Build Option**: Generate a static tree structure for deployment.
 - **Manual Cache Control**: Fine-grained caching controls.
 - **Prefetching for SPA Mode**: Enhance speed with single-page application optimizations.
-
 ---
 
 ## ✨ Layout and Components
