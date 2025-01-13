@@ -17,7 +17,7 @@ class Converge extends Facade
     public static function registerModule(Module | Closure $module): void
     {
         // dd(value($module));
-        static::getFacadeApplication()->resolving(
+        self::getFacadeApplication()->resolving(
             ModuleRegistry::class,
             fn(ModuleRegistry $registry) => $registry->add($module()),
         );
