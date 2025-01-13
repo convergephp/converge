@@ -1,12 +1,12 @@
-@props(['navItems' => null])
+@props(['sidebarItems' => null])
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = $navItems ?? resolve('sidebar')->getItems(); // resolve only in the first level
+    $sidebarItems = $sidebarItems ?? resolve('sidebar')->getItems(); 
 @endphp
 
 <ul>
-    @foreach ($sidebarItems as $key => $item)
+    @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item 
                 :label="$item->getLabel()" 

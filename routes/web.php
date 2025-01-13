@@ -6,7 +6,7 @@ use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Sidebar\SidebarBuilder;
 use Illuminate\Support\Facades\Route;
 
-Route::get('converge/docs', function () {
+Route::get('/docs', function () {
 
     $path = base_path('docs');
     $tree = FilesTreeBuilder::build($path, 2);

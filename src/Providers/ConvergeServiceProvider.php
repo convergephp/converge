@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
+use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\FilesTreeBuilder;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,5 +26,9 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->bind('sidebar', function () {
             return new \Fluxtor\Converge\Sidebar\SidebarManager();
         });
+
+        $this->app->singleton(ContentMap::class, function ($app) {
+            return new \Fluxtor\Converge\ContentMap($app->make(\Fluxtor\Converge\FilesTreeBuilder::class));
+        });
     }
-}
+}   
