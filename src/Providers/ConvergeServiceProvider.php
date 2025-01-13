@@ -20,28 +20,28 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->bind('sidebar', function () {
             return new \Fluxtor\Converge\Sidebar\SidebarManager();
         });
-        
+
         $this->app->scoped(Converge::class, function () {
-            return new \Fluxtor\Converge\Converge();
+            return new Converge();
         });
 
         $this->app->scoped(ModuleRegistry::class, function () {
-            return new \Fluxtor\Converge\ModuleRegistry();
+            return new ModuleRegistry();
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {
-            return new \Fluxtor\Converge\ContentMap($app->make(FilesTreeBuilder::class));
+            return new ContentMap($app->make(FilesTreeBuilder::class));
         });
     }
 
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/converge.php' => config_path('converge.php'),
+            __DIR__.'/../config/converge.php' => config_path('converge.php'),
         ]);
 
-        $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
+        $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
-        Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
+        Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
     }
 }
