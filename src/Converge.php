@@ -2,4 +2,8 @@
 
 namespace Fluxtor\Converge;
 
-class Converge {}
+class Converge {
+    public function setActiveModule(){
+        
+    }
+}
