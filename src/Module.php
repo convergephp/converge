@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Illuminate\Support\Facades\App;
+use Fluxtor\Converge\Concerns\HasId;
+use Fluxtor\Converge\Concerns\HasPath;
+
 class Module
 {
-    protected ?string $id = null;
+    use HasId;
+    use HasPath;
 
-    public function id(string $id)
+    public static function make(): static
     {
-        $this->id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
+        return App::make(static::class);
     }
 }

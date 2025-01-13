@@ -10,18 +10,18 @@ class ModuleRegistry
 {
     private $registry = [];
 
-    public function addModule(Module $module)
+    public  function add(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;
 
-        if (App::make()->resolved(Module::class)) {
-            resolve(Module::class)->setActiveModule($panel);
+        if (App::make()->resolved(Converge::class)) {
+            resolve(Converge::class)->setActiveModule($module);
         }
 
         App::make()->resolving(
-            Module::class,
-            fn (Module $manager) => $manager->setActiveModule($panel),
+            Converge::class,
+            fn (Converge $manager) => $manager->setActiveModule($module),
         );
     }
 
