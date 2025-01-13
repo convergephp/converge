@@ -6,9 +6,13 @@
 @endphp
 
 <ul>
-    @foreach ($navItems as $key => $item)
+    @foreach ($sidebarItems as $key => $item)
         @if ($item instanceof SidebarItem)
-            <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" />
+            <x-converge::sidebar.item 
+                :label="$item->getLabel()" 
+                :url="$item->getUrl()" 
+                :depth="$item->getDepth()"
+            />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
         @endif
