@@ -20,9 +20,10 @@ class ConvergeServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {
-            return new \Fluxtor\Converge\ContentMap($app->make(\Fluxtor\Converge\FilesTreeBuilder::class));
+            return new ContentMap($app->make(FilesTreeBuilder::class));
         });
     }
+
     public function boot(): void
     {
         $this->publishes([
@@ -34,4 +35,4 @@ class ConvergeServiceProvider extends ServiceProvider
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
     }
-}   
+}

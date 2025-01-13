@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Http\Controllers;
 
 use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\FilesTreeBuilder;
 
 class FileController
 {
@@ -13,7 +14,7 @@ class FileController
     {
         $this->map = $map;
     }
-    
+
     public function show($url)
     {
         // dd($url);

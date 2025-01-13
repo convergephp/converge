@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge;
 
 class ContentMap
@@ -18,10 +20,6 @@ class ContentMap
 
     /**
      * Get the full file tree structure
-     *
-     * @param string $root
-     * @param int $maxDepth
-     * @return array
      */
     public function getTree(string $root, int $maxDepth = PHP_INT_MAX): array
     {
@@ -30,9 +28,6 @@ class ContentMap
 
     /**
      * Fetch a single file using its URL.
-     *
-     * @param string $url
-     * @return string|null
      */
     public function getFileByUrl(string $url): ?string
     {
