@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
-use Illuminate\Support\Facades\App;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasPath;
+use Illuminate\Support\Facades\App;
 
 class Module
 {
