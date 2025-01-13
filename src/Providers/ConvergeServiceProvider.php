@@ -7,6 +7,7 @@ namespace Fluxtor\Converge\Providers;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
+use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,11 +22,15 @@ class ConvergeServiceProvider extends ServiceProvider
         });
         
         $this->app->scoped(Converge::class, function () {
-            return new Converge();
+            return new \Fluxtor\Converge\Converge();
+        });
+
+        $this->app->scoped(ModuleRegistry::class, function () {
+            return new \Fluxtor\Converge\ModuleRegistry();
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {
-            return new ContentMap($app->make(FilesTreeBuilder::class));
+            return new \Fluxtor\Converge\ContentMap($app->make(FilesTreeBuilder::class));
         });
     }
 

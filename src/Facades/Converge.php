@@ -1,4 +1,5 @@
 <?php
+
 namespace Fluxtor\Converge\Facades;
 
 use Closure;
@@ -6,17 +7,23 @@ use Fluxtor\Converge\Module;
 use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Facade;
 
-class Converge extends Facade {
+class Converge extends Facade
+{
+
     protected static function getFacadeAccessor(): string
     {
-        return 'converge';
+        return \Fluxtor\Converge\Converge::class;
     }
 
-    public static function registerPanel(Module | Closure $module): void
+    /**
+     * @param Module $module
+     * @return void
+     */
+    public static function registerModule(Module $module): void
     {
         static::getFacadeApplication()->resolving(
             ModuleRegistry::class,
-            fn (ModuleRegistry $registry) => $registry->add(value($module)),
+            fn(ModuleRegistry $registry) => $registry->add(value($module)),
         );
     }
 }
