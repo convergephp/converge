@@ -8,7 +8,7 @@ class ModuleRegistry
 {
     private  $registry = [];
 
-    public  function addModule(Module $module)
+    public  function add(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;

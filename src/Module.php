@@ -2,15 +2,11 @@
 
 namespace Fluxtor\Converge;
 
+use Fluxtor\Converge\Concerns\HasId;
+use Fluxtor\Converge\Concerns\HasPath;
+
 class Module
 {
-    protected ?string $id = null;
-    public function id(string $id)
-    {
-        $this->id = $id;
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
+    use HasId;
+    use HasPath;
 }
