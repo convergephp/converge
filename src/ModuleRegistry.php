@@ -19,6 +19,7 @@ class ModuleRegistry
         $this->registry[$module->getId()] = $module;
 
         $this->converge->setActiveModule($module);
+        dump($this->registry);
         
     }
 

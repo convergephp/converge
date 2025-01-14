@@ -1,7 +1,6 @@
 {
     "name": "fluxtor/converge",
     "description": "static site generator for web artisans",
-    "type": "module",
     "license": "MIT",
     "autoload": {
         "files": [
