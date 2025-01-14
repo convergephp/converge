@@ -10,10 +10,13 @@ use Fluxtor\Converge\Converge;
 
 class ModuleController
 {
-    function __invoke(Converge $converge)
+    function __invoke()
     {
-        dd(resolve('converge')->getActiveModule());
+        $module = resolve('converge')->getActiveModule();
+        dd($module);
         // get the current active module grap it's settings applying them to UI 
-        return view('converge::index');
+        return view('converge::index',[
+            'sidebarItems'=>'',
+        ]);
     }
 }

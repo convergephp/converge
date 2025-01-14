@@ -9,15 +9,13 @@ use Illuminate\Support\Collection;
 
 class SidebarManager
 {
-    protected $module;
 
     protected Collection $sidebarItem;
 
-    public function getItems()
+    public function getItems($path, FilesTreeBuilder $builder)
     {
-        $path = base_path('docs');
 
-        $tree = FilesTreeBuilder::build($path, 2);
+        $tree = $builder->build($path, 2);
 
         $items = SidebarBuilder::build($tree[0]);
 
