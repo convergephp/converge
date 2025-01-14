@@ -17,10 +17,11 @@ class Converge extends Facade
     public static function registerModule(Module|Closure $module): void
     {
         // dd(value($module));
-        self::getFacadeApplication()->resolving(
-            ModuleRegistry::class,
-            fn (ModuleRegistry $registry) => $registry->add($module()),
-        );
+        resolve(ModuleRegistry::class)->add(value($module));
+        // self::getFacadeApplication()->makeWith(
+        //     ModuleRegistry::class,
+        //     [$module],
+        // );
     }
 
     protected static function getFacadeAccessor(): string

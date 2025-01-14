@@ -15,6 +15,6 @@ class Module
 
     public static function make(): static
     {
-        return App::make(static::class);
+        return resolve(static::class);
     }
 }

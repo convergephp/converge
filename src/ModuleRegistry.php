@@ -8,21 +8,25 @@ use Illuminate\Support\Facades\App;
 
 class ModuleRegistry
 {
-    private $registry = [];
+    private array $registry = [];
+
+    public function __construct(private Converge $converge ) {
+    }
 
     public function add(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;
 
-        if (App::make()->resolved(Converge::class)) {
-            resolve(Converge::class)->setActiveModule($module);
-        }
+        $this->converge->setActiveModule($module);
+        // if (App::make()->resolved(Converge::class)) {
+        //     resolve(Converge::class)->setActiveModule($module);
+        // }
 
-        App::make()->resolving(
-            Converge::class,
-            fn (Converge $manager) => $manager->setActiveModule($module),
-        );
+        // App::make()->resolving(
+        //     Converge::class,
+        //     fn (Converge $manager) => $manager->setActiveModule($module),
+        // );
     }
 
     public function get($id)
