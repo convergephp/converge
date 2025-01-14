@@ -14,11 +14,12 @@ class Converge extends Facade
     /**
      * @param  Module  $module
      */
-    public static function registerModule(Module|Closure $module): void
+    public static function registerModule(Module | Closure $module): void
     {
-        static::getFacadeApplication()->resolving(
+        // dd(value($module));
+        self::getFacadeApplication()->resolving(
             ModuleRegistry::class,
-            fn (ModuleRegistry $registry) => $registry->add(value($module)),
+            fn(ModuleRegistry $registry) => $registry->add($module()),
         );
     }
 

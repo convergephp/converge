@@ -13,12 +13,8 @@ trait HasPath
      */
     protected string|Closure|null $path = null;
 
-    /**
-     * register the path
-     *
-     * @return Fluxtor\Converge\Module
-     */
-    public function path(string|Closure|null $path)
+
+    public function path(string|Closure|null $path): static
     {
         $this->path = $path;
 
