@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
-use Illuminate\Support\Facades\App;
-
 class ModuleRegistry
 {
     private array $registry = [];
@@ -27,6 +25,7 @@ class ModuleRegistry
             return $this->registry[$id];
         }
     }
+
     public function all(): array
     {
         return $this->registry;

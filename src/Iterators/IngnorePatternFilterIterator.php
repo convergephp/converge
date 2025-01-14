@@ -1,7 +1,8 @@
 <?php
 
-namespace Fluxtor\Converge\Iterators;
+declare(strict_types=1);
 
+namespace Fluxtor\Converge\Iterators;
 
 class IgnorePatternFilterIterator
 {

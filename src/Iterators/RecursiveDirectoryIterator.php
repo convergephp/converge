@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Iterators;
 
 use RecursiveDirectoryIterator as BaseRecursiveDirectoryIterator;
@@ -16,7 +18,7 @@ class RecursiveDirectoryIterator extends BaseRecursiveDirectoryIterator
     {
         return resolve(static::class, [
             'path' => $path,
-            'flags' => $flags
+            'flags' => $flags,
         ]);
     }
 }

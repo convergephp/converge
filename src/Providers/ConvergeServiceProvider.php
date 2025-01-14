@@ -29,7 +29,7 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->scoped('converge', function () {
             return new Converge();
         });
-        
+
         $this->app->singleton(ModuleRegistry::class, function () {
             return new ModuleRegistry();
         });
@@ -42,13 +42,13 @@ class ConvergeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/converge.php' => config_path('converge.php'),
+            __DIR__.'/../config/converge.php' => config_path('converge.php'),
         ]);
 
-        $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
+        $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
-        Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
-        require __DIR__ . '/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂   
+        Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
+        require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
         // dd(converge());
     }
 }

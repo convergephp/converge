@@ -8,7 +8,6 @@ class Converge
 {
     protected ?Module $activeModule = null;
 
-
     public function setActiveModule(Module $module)
     {
         $this->activeModule = $module;
@@ -18,10 +17,12 @@ class Converge
     {
         return $this->activeModule;
     }
+
     public function getPath()
     {
         return $this->getActiveModule()->getPath();
     }
+
     public function getId()
     {
         return $this->getActiveModule()->getId();

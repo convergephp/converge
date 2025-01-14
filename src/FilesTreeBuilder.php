@@ -51,7 +51,7 @@ final class FilesTreeBuilder
         // Collect and sort directory entries for consistent order across filesystems
 
         $entries = iterator_to_array($iterator);
-        
+
         // Sort entries in natural sort for consistent order
         usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
 trait CanHandleDefault
 {
-
     protected $isDefault = false;
 
     public function isDefault(): bool

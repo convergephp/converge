@@ -16,8 +16,8 @@ class Converge extends Facade
      */
     public static function registerModule(Module|Closure $module): void
     {
-        
-        $module = $module instanceof Closure ? $module():$module;
+
+        $module = $module instanceof Closure ? $module() : $module;
 
         resolve(ModuleRegistry::class)->add($module);
     }
