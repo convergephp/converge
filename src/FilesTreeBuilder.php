@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Exception;
-use RecursiveDirectoryIterator;
+use Fluxtor\Converge\Iterators\RecursiveDirectoryIterator;
 
 final class FilesTreeBuilder
 {
@@ -46,18 +46,12 @@ final class FilesTreeBuilder
         }
 
         $tree = [];
-        $iterator = new RecursiveDirectoryIterator(
-            $path,
-            RecursiveDirectoryIterator::SKIP_DOTS
-        );
+        $iterator = RecursiveDirectoryIterator::make($path);
 
         // Collect and sort directory entries for consistent order across filesystems
 
-        $entries = [];
-        foreach ($iterator as $fileInfo) {
-            $entries[] = $fileInfo;
-        }
-
+        $entries = iterator_to_array($iterator);
+        
         // Sort entries in natural sort for consistent order
         usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
