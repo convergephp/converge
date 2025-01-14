@@ -13,7 +13,7 @@ class Converge
         $this->activeModule = $module;
     }
 
-    public function getActiveModule()
+    public function getActiveModule(): ?Module
     {
         return $this->activeModule;
     }

@@ -3,6 +3,7 @@
 namespace Fluxtor\Converge\Concerns;
 
 use Fluxtor\Converge\Sidebar\SidebarManager;
+use ReflectionClass;
 
 trait HasSidebar
 {
@@ -11,6 +12,8 @@ trait HasSidebar
 
     public function getSidebarItems()
     {
-        return new SidebarManager($this->getPath(), $this->Depth());
+        $sidebar = (new SidebarManager($this->getPath(), $this->getDepth()));
+        // dd($sidebar->getItems());
+        return $sidebar->getItems();
     }
 }
