@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\ModuleRegistry;
-use Illuminate\Support\Facades\Route;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
-
+use Fluxtor\Converge\Http\Middleware\ActivateModule;
+use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
     Route::name($module->getId())
         // ->prefix($module->getPrefix())
-        ->middleware(ActivateModule::class . ':' . $module->getId())
+        ->middleware(ActivateModule::class.':'.$module->getId())
         ->get($module->getRoutePath(), ModuleController::class);
 }
 

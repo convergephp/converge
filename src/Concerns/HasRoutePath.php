@@ -8,7 +8,6 @@ use Closure;
 
 trait HasRoutePath
 {
-
     protected string|Closure|null $routePath = null;
 
     public function routePath(string|Closure|null $routePath): static

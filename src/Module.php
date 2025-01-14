@@ -14,8 +14,8 @@ class Module
 {
     use CanHandleDefault;
     use HasId;
-    use HasRoutePath;
     use HasPath;
+    use HasRoutePath;
     use Resolver;
 
     public static function make(): static

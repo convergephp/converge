@@ -9,7 +9,6 @@ use Illuminate\Support\Collection;
 
 class SidebarManager
 {
-
     protected Collection $sidebarItem;
 
     public function getItems($path, FilesTreeBuilder $builder)
