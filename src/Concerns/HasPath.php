@@ -27,6 +27,6 @@ trait HasPath
      */
     public function getPath()
     {
-        $this->resolve($this->path);
+        return $this->resolve($this->path);
     }
 }

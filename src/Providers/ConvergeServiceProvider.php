@@ -11,6 +11,8 @@ use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
+use function Fluxtor\Converge\converge;
+
 class ConvergeServiceProvider extends ServiceProvider
 {
     public function register()
@@ -21,12 +23,15 @@ class ConvergeServiceProvider extends ServiceProvider
             return new \Fluxtor\Converge\Sidebar\SidebarManager();
         });
 
-        $this->app->scoped(Converge::class, function () {
+        $this->app->singleton(Converge::class, function () {
+            return new Converge();
+        });
+        $this->app->singleton('converge', function () {
             return new Converge();
         });
 
-        $this->app->scoped(ModuleRegistry::class, function () {
-            return new ModuleRegistry();
+        $this->app->singleton(ModuleRegistry::class, function () {
+            return new ModuleRegistry($this->app->make(Converge::class));
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {
@@ -43,5 +48,7 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
+        require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
+        // dd(converge());
     }
 }

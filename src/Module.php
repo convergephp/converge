@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasPath;
-use Illuminate\Support\Facades\App;
+use Fluxtor\Converge\Concerns\Resolver;
 
 class Module
 {
+    use CanHandleDefault;
     use HasId;
     use HasPath;
+    use Resolver;
 
     public static function make(): static
     {
-        return App::make(static::class);
+        return resolve(static::class);
     }
 }
