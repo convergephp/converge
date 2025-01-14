@@ -31,6 +31,7 @@ class ModuleRegistry
     {
         Context::add('active_module', $module);
     }
+
     public function putActiveModuleIntoTheContext(Module $module)
     {
         // if (App::resolved('converge')) {
@@ -40,7 +41,7 @@ class ModuleRegistry
 
         App::resolving(
             Converge::class,
-            fn(Converge $manager) => $manager->setActiveModule($module),
+            fn (Converge $manager) => $manager->setActiveModule($module),
         );
     }
 
@@ -55,6 +56,7 @@ class ModuleRegistry
     {
         return $this->default;
     }
+
     public function all(): array
     {
         return $this->registry;
