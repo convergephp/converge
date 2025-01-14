@@ -4,19 +4,44 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Context;
+
 class ModuleRegistry
 {
     private array $registry = [];
 
-    // public function __construct(private Converge $converge) {}
+    private string $default;
+
+    public function __construct(private Converge $converge) {}
 
     public function add(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;
 
-        // $this->converge->setActiveModule($module);
-        // dump($this->registry);
+        $this->loadTheActiveModuleIntoTheContext($module);
+        if ($module->isDefault()) {
+            $this->default = $module->getId();
+            $this->putActiveModuleIntoTheContext($module);
+        }
+    }
+
+    public function loadTheActiveModuleIntoTheContext($module)
+    {
+        Context::add('active_module', $module);
+    }
+    public function putActiveModuleIntoTheContext(Module $module)
+    {
+        // if (App::resolved('converge')) {
+        //     app('converge')->setCurrentPanel($module);
+        //     dd('here');
+        // }
+
+        App::resolving(
+            Converge::class,
+            fn(Converge $manager) => $manager->setActiveModule($module),
+        );
     }
 
     public function get($id)
@@ -26,6 +51,10 @@ class ModuleRegistry
         }
     }
 
+    public function getDefault()
+    {
+        return $this->default;
+    }
     public function all(): array
     {
         return $this->registry;

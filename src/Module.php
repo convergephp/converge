@@ -14,7 +14,7 @@ class Module
     use CanHandleDefault;
     use HasId;
     use HasPath;
-    use Resolver;
+    use Resolver;   
 
     public static function make(): static
     {
