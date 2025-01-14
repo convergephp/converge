@@ -7,12 +7,14 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\HasRoutePath;
 use Fluxtor\Converge\Concerns\Resolver;
 
 class Module
 {
     use CanHandleDefault;
     use HasId;
+    use HasRoutePath;
     use HasPath;
     use Resolver;
 

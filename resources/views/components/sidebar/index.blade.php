@@ -11,7 +11,7 @@
             >
                 <div class="pointer-events-auto  relative bg-white dark:bg-gray-950 rounded-lg">
                     <button
-                        class="hidden w-full items-center rounded-lg py-1.5 pl-2 pr-3 text-sm leading-6 text-slate-400 shadow-sm ring-2  ring-purple-500/15 hover:ring-purple-500 transition-all duration-300 dark:hover:bg-[#02031C] lg:flex"
+                        class="hidden w-full items-center rounded-lg py-1.5 pl-2 pr-3 text-sm leading-6 text-slate-400 shadow-sm ring-2  ring-purple-500/15 hover:ring-indigo-950 transition-all duration-300 dark:hover:bg-[#02031C] lg:flex"
                         type="button"
                     >
                         <svg class="mr-3 flex-none" aria-hidden="true" width="24" height="24" fill="none">

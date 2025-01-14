@@ -2,18 +2,24 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Route;
+use Fluxtor\Converge\Facades\Converge;
+use Fluxtor\Converge\Http\Controllers\FileController;
+use Fluxtor\Converge\Http\Controllers\ModuleController;
 
-use function Fluxtor\Converge\converge;
+
+foreach (Converge::getModules() as $module) {
+    Route::name($module->getId())
+        ->middleware(ActivateModule::class)
+        ->get($module->getRoutePath(), ModuleController::class);
+}
+
+// dd($modules);
 
 Route::get('/docs', function () {
-    // $converge = app('converge');
-    // $moduleRegistry = app(ModuleRegistry::class);
-    // $module = $moduleRegistry->get('global-search-modal'); // or the module you want to set
-    // $converge->setActiveModule($module);
-    dd(app('converge')->getActiveModule());
+
+    // dd(app('converge')->getActiveModule());
 
     return view('converge::index');
 });
