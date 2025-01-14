@@ -26,4 +26,14 @@ class Converge
     {
         return $this->getActiveModule()->getId();
     }
+
+    /**
+     * get all modules
+     *
+     * @return array
+     */
+    public function getModules()
+    {
+        return resolve(ModuleRegistry::class)->all();
+    }
 }

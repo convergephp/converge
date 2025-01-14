@@ -10,8 +10,7 @@ class ModuleRegistry
 {
     private array $registry = [];
 
-    public function __construct(private Converge $converge ) {
-    }
+    public function __construct(private Converge $converge) {}
 
     public function add(Module $module)
     {
@@ -19,8 +18,7 @@ class ModuleRegistry
         $this->registry[$module->getId()] = $module;
 
         $this->converge->setActiveModule($module);
-        dump($this->registry);
-        
+        // dump($this->registry);
     }
 
     public function get($id)
@@ -28,5 +26,9 @@ class ModuleRegistry
         if (array_key_exists($id, $this->registry)) {
             return $this->registry[$id];
         }
+    }
+    public function all(): array
+    {
+        return $this->registry;
     }
 }

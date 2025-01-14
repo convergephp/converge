@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
-use Fluxtor\Converge\Converge as ConvergeConverge;
-use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Module;
+use Fluxtor\Converge\ModuleRegistry;
+use Fluxtor\Converge\Facades\Converge;
 use Illuminate\Support\ServiceProvider;
+use Fluxtor\Converge\Converge as ConvergeConverge;
 
 abstract class ModuleProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ abstract class ModuleProvider extends ServiceProvider
 
     final public function register(): void
     {
-        Converge::registerModule(fn(): Module => $this->module(Module::make()));
+        resolve(ModuleRegistry::class)->add($this->module(Module::make()));
+        // Converge::registerModule(fn(): Module => $this->module(Module::make()));
     }
 }
