@@ -13,7 +13,6 @@ trait HasPath
      */
     protected string|Closure|null $path = null;
 
-
     public function path(string|Closure|null $path): static
     {
         $this->path = $path;

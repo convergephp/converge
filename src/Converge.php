@@ -16,6 +16,7 @@ class Converge
             resolve(ModuleRegistry::class);
         }
     }
+
     public function setActiveModule(Module $module)
     {
         $this->activeModule = $module;
