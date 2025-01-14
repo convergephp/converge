@@ -18,11 +18,7 @@ class ConvergeServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
-
-        $this->app->bind('sidebar', function () {
-            return new \Fluxtor\Converge\Sidebar\SidebarManager();
-        });
-
+        
         $this->app->singleton(Converge::class, function () {
             return new Converge();
         });

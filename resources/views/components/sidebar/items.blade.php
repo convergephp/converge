@@ -2,7 +2,7 @@
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = $sidebarItems ?? resolve('sidebar')->getItems(); 
+    $sidebarItems = app('converve')->getSidebarNavigation(); 
 @endphp
 
 <ul>
