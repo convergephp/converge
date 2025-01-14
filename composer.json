@@ -1,41 +1,44 @@
 {
-  "name": "fluxtor/converge",
-  "description": "static site generator for web artisans",
-  "type": "module",
-  "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "Fluxtor\\Converge\\": "src/"
+    "name": "fluxtor/converge",
+    "description": "static site generator for web artisans",
+    "type": "module",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Fluxtor\\Converge\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "charrafi mohamed",
+            "email": "charrafimohamed27@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "larastan/larastan": "2.9.8",
+        "laravel/pint": "dev-main",
+        "pestphp/pest": "3.x-dev",
+        "orchestra/testbench": "9.x-dev"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fluxtor\\Converge\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fluxtor\\Converge\\Providers\\ConvergeServiceProvider"
+            ]
+        }
     }
-  },
-  "authors": [
-    {
-      "name": "charrafi mohamed",
-      "email": "charrafimohamed27@gmail.com"
-    }
-  ],
-  "minimum-stability": "stable",
-  "require-dev": {
-    "larastan/larastan": "2.9.8",
-    "laravel/pint": "dev-main",
-    "pestphp/pest": "3.x-dev",
-    "orchestra/testbench": "9.x-dev"
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Fluxtor\\Converge\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Fluxtor\\Converge\\Providers\\ConvergeServiceProvider"
-      ]
-    }
-  }
 }

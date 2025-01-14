@@ -19,14 +19,7 @@ class ModuleRegistry
         $this->registry[$module->getId()] = $module;
 
         $this->converge->setActiveModule($module);
-        // if (App::make()->resolved(Converge::class)) {
-        //     resolve(Converge::class)->setActiveModule($module);
-        // }
-
-        // App::make()->resolving(
-        //     Converge::class,
-        //     fn (Converge $manager) => $manager->setActiveModule($module),
-        // );
+        
     }
 
     public function get($id)

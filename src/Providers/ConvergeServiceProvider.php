@@ -11,6 +11,8 @@ use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
+use function Fluxtor\Converge\converge;
+
 class ConvergeServiceProvider extends ServiceProvider
 {
     public function register()
@@ -43,5 +45,10 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
 
         Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
+        $helperFile = __DIR__ . '/../helpers.php'; // Adjust the path if needed
+        if (file_exists($helperFile)) {
+            // require ($helperFile);
+        }
+        dd(converge());
     }
 }

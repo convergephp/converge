@@ -13,4 +13,17 @@ class Converge
     {
         $this->activeModule = $module;
     }
+
+    public function getActiveModule()
+    {
+        return $this->activeModule;
+    }
+    public function getPath()
+    {
+        return $this->getActiveModule()->getPath();
+    }
+    public function getId()
+    {
+        return $this->getActiveModule()->getId();
+    }
 }

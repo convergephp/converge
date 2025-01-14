@@ -6,10 +6,12 @@ namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Facades\App;
 
 class Module
-{
+{   
+    use Resolver;
     use HasId;
     use HasPath;
 
