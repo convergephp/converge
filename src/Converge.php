@@ -12,7 +12,9 @@ class Converge
     {
         // Resolve the panel registry to set the current panel
         // as the default, which uses a `resolving()` callback.
-        app()->resolved(ModuleRegistry::class) || app(ModuleRegistry::class);
+        if (app()->resolved(ModuleRegistry::class)) {
+            resolve(ModuleRegistry::class);
+        }
     }
     public function setActiveModule(Module $module)
     {
