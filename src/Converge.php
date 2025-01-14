@@ -32,6 +32,7 @@ class Converge
     {
         return resolve(ModuleRegistry::class)->get($id);
     }
+    
     /**
      * get all modules
      *

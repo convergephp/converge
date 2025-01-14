@@ -6,12 +6,14 @@ namespace Fluxtor\Converge\Http\Controllers;
 
 use Fluxtor\Converge\Module;
 use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\Converge;
 
 class ModuleController
 {
-    function __invoke(Module $module)
+    function __invoke(Converge $converge)
     {
-        dd($module);
+        dd(resolve('converge')->getActiveModule());
+        // get the current active module grap it's settings applying them to UI 
         return view('converge::index');
     }
 }

@@ -12,6 +12,7 @@ use Fluxtor\Converge\Http\Controllers\ModuleController;
 
 foreach (Converge::getModules() as $module) {
     Route::name($module->getId())
+        // ->prefix($module->getPrefix())
         ->middleware(ActivateModule::class . ':' . $module->getId())
         ->get($module->getRoutePath(), ModuleController::class);
 }
