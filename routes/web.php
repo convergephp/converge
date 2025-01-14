@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use function Fluxtor\Converge\converge;
 
 Route::get('/docs', function () {
-    dd(app('converge')->getActiveModule());
+    // dd(app('converge')->getActiveModule());
     return view('converge::index');
 });
 Route::get('/docs/{url}', [FileController::class, 'show']);

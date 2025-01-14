@@ -10,14 +10,14 @@ class ModuleRegistry
 {
     private array $registry = [];
 
-    public function __construct(private Converge $converge) {}
+    // public function __construct(private Converge $converge) {}
 
     public function add(Module $module)
     {
 
         $this->registry[$module->getId()] = $module;
 
-        $this->converge->setActiveModule($module);
+        // $this->converge->setActiveModule($module);
         // dump($this->registry);
     }
 
