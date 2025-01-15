@@ -25,7 +25,7 @@ final class FilesTreeBuilder
             throw new Exception("Invalid directory provided: {$root}");
         }
 
-        if ($maxDepth < 1) {
+        if ($maxDepth <= 0) {
             throw new Exception("The provided maxDepth parameter must be a positive integer; received: {$maxDepth}");
         }
 
@@ -53,9 +53,9 @@ final class FilesTreeBuilder
         $entries = iterator_to_array($iterator);
 
         // Sort entries in natural sort for consistent order
-        usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
-        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($root, '', $fileInfo->getRealPath());
@@ -65,6 +65,7 @@ final class FilesTreeBuilder
                 'label' => self::formatLabel($fileInfo->getBasename()),
                 'path' => $normalize($fileInfo->getRealPath()),
             ];
+            // @TODO: add some metadata when required from the developer 
 
             $tree[] = match (true) {
                 $fileInfo->isDir() => array_merge($baseNode, [
@@ -97,7 +98,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);

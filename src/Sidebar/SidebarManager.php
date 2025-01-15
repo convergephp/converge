@@ -10,7 +10,8 @@ use Illuminate\Support\Collection;
 class SidebarManager
 {
     public function __construct(protected string $path, protected int $depth = PHP_INT_MAX) {}
-    public function getItems()
+
+      public function getItems(): Collection
     {
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);

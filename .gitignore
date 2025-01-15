@@ -3,3 +3,4 @@
 /.phpunit.cache/
 /node_modules/
 /dist/
+/build
