@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Fluxtor\Converge\Sidebar\SidebarManager;
+use Illuminate\Support\Collection;
 
 trait HasSidebar
 {
-    protected $navigationItems;
-
-    public function getSidebarItems()
+    /**
+     * lazy initialization 
+     *
+     * @return Collection
+     */
+    public function getSidebarItems(): Collection
     {
-        // dd('here');
         $sidebar = (new SidebarManager($this->getPath(), $this->getDepth()));
         return $sidebar->getItems();
     }

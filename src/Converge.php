@@ -34,7 +34,6 @@ class Converge
     }
     public function getClusters()
     {
-        dd($this->getActiveModule());
         return $this->getActiveModule()->getClusters();
     }
     public function getVersions()
