@@ -15,11 +15,11 @@ use Fluxtor\Converge\Concerns\Resolver;
 class Module
 {
     use CanHandleDefault;
+    use HasDepth;
     use HasId;
     use HasPath;
-    use HasSidebar;
-    use HasDepth;
     use HasRoutePath;
+    use HasSidebar;
     use Resolver;
 
     public static function make(): static

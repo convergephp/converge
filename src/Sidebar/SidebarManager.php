@@ -11,7 +11,7 @@ class SidebarManager
 {
     public function __construct(protected string $path, protected int $depth = PHP_INT_MAX) {}
 
-      public function getItems(): Collection
+    public function getItems(): Collection
     {
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);

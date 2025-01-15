@@ -8,7 +8,7 @@ use Closure;
 
 trait HasDepth
 {
-    protected int | Closure $depth = PHP_INT_MAX;
+    protected int|Closure $depth = PHP_INT_MAX;
 
     public function depth(string|Closure|null $depth): static
     {

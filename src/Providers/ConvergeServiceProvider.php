@@ -11,8 +11,6 @@ use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
-use function Fluxtor\Converge\converge;
-
 class ConvergeServiceProvider extends ServiceProvider
 {
     public function register()
@@ -22,7 +20,7 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->singleton(Converge::class, function () {
             return new Converge();
         });
-        
+
         $this->app->singleton('converge', function () {
             return new Converge();
         });
