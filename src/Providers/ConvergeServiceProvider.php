@@ -26,7 +26,7 @@ class ConvergeServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(ModuleRegistry::class, function () {
-            return new ModuleRegistry($this->app->make(Converge::class));
+            return new ModuleRegistry();
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {

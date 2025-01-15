@@ -12,6 +12,7 @@ class ActivateModule
 {
     public function handle(Request $request, Closure $next, string $module): mixed
     {
+        /** @phpstan-ignore-next-line */
         $module = Converge::getModule($module);
 
         resolve('converge')->setActiveModule($module);

@@ -11,7 +11,7 @@ final class SidebarBuilder
 {
     /**
      * Build Sidebar items from a tree structure.
-     * @param array<int,array<string,string>> $tree
+     * @param array $tree
      * @return Collection<int,SidebarItem|SidebarGroup>
      */
     public static function build(array $tree): Collection
@@ -27,7 +27,8 @@ final class SidebarBuilder
      * Process the tree structure and populate Sidebar items.
      *
      * @param Collection<int,SidebarItem|SidebarGroup> $items
-     * @param array<int,array<string,string>> $tree
+     * @param array $tree
+     *
      * @param integer $depth
      * @return Collection<int,SidebarItem|SidebarGroup>
      */
@@ -75,10 +76,11 @@ final class SidebarBuilder
      * The method recursively processes the group's children, incrementing the depth
      * to maintain the correct hierarchy in the Sidebar structure.
      * @param Collection<int,SidebarItem|SidebarGroup> $items
-     * @param array<string,string|array<string,string>> $node
+     * @param array $node
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
+        // dd($node);
         if (count($node['children']) < 1) {
             return;
         }

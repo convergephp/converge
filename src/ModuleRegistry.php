@@ -13,7 +13,6 @@ class ModuleRegistry
 
     private string $default;
 
-    public function __construct(private Converge $converge) {}
 
     public function add(Module $module): void
     {
@@ -33,11 +32,12 @@ class ModuleRegistry
         );
     }
 
-    public function get($id): Module
+    public function get($id): ?Module
     {
         if (array_key_exists($id, $this->registry)) {
             return $this->registry[$id];
         }
+        return null;
     }
 
     public function getDefault(): string
