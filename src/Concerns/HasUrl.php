@@ -19,7 +19,7 @@ trait HasUrl
 
     public function getUrl(): ?string
     {
-        // @php 
+        // @php
         return $this->resolve($this->url);
     }
 }

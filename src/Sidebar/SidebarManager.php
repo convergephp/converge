@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\Sidebar\SidebarItem;
-use Fluxtor\Converge\Sidebar\SidebarGroup;
+use Illuminate\Support\Collection;
 
 class SidebarManager
 {
@@ -24,6 +22,7 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
 
         $items = SidebarBuilder::build($tree[0]);
+
         return $items;
     }
 }

@@ -37,7 +37,7 @@ class SidebarItem
         return $this;
     }
 
-    public function group(string|null $group): static
+    public function group(?string $group): static
     {
         $this->group = $group;
 

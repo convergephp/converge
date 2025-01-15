@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Context;
 
 class ModuleRegistry
 {
     private array $registry = [];
 
     private string $default;
-
 
     public function add(Module $module): void
     {
@@ -24,11 +22,12 @@ class ModuleRegistry
             $this->putActiveModuleIntoTheContext($module);
         }
     }
+
     public function putActiveModuleIntoTheContext(Module $module): void
     {
         App::resolving(
             Converge::class,
-            fn(Converge $converge) => $converge->setActiveModule($module),
+            fn (Converge $converge) => $converge->setActiveModule($module),
         );
     }
 
@@ -37,6 +36,7 @@ class ModuleRegistry
         if (array_key_exists($id, $this->registry)) {
             return $this->registry[$id];
         }
+
         return null;
     }
 

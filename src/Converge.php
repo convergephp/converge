@@ -52,8 +52,6 @@ class Converge
 
     /**
      * get all modules
-     *
-     * @return array
      */
     public function getModules(): array
     {

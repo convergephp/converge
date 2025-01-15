@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Concerns\Resolver;
-use Fluxtor\Converge\Sidebar\SidebarItem;
+use Illuminate\Support\Collection;
 
 class SidebarGroup
 {
