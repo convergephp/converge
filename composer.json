@@ -18,10 +18,11 @@
     ],
     "minimum-stability": "stable",
     "require-dev": {
-        "larastan/larastan": "2.9.8",
         "laravel/pint": "dev-main",
         "pestphp/pest": "3.x-dev",
-        "orchestra/testbench": "9.x-dev"
+        "orchestra/testbench": "9.x-dev",
+        "phpstan/phpstan": "^2.1",
+        "larastan/larastan": "3.0"
     },
     "config": {
         "allow-plugins": {

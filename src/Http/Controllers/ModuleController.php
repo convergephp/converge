@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Http\Controllers;
 
+use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\Module;
+use Fluxtor\Converge\Sidebar\SidebarManager;
 
 class ModuleController
 {
     public function __invoke()
     {
-        $module = resolve('converge')->getActiveModule();
-        dd($module);
+        // dd($module);
 
-        // get the current active module grap it's settings applying them to UI
-        return view('converge::index', [
-            'sidebarItems' => '',
-        ]);
+
+        return view('converge::index');
     }
 }

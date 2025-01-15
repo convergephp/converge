@@ -1,8 +1,9 @@
 @props(['sidebarItems' => null])
+{{-- when the sidebarItems is null that mean we are in first recursive iteration so when to resolve the sidebar manager first then w use the reguralr sidebarItems   --}}
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = $sidebarItems ?? resolve('sidebar')->getItems(); 
+    $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems(); 
 @endphp
 
 <ul>

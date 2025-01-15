@@ -6,7 +6,7 @@ namespace Fluxtor\Converge;
 
 if (! function_exists('converge')) {
     // /** @return \Fluxtor\Converge\Converge */
-    function converge()
+    function converge(): Converge
     {
         return app(Converge::class);
     }

@@ -19,13 +19,10 @@ class ConvergeServiceProvider extends ServiceProvider
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
-        $this->app->bind('sidebar', function () {
-            return new \Fluxtor\Converge\Sidebar\SidebarManager();
-        });
-
         $this->app->singleton(Converge::class, function () {
             return new Converge();
         });
+        
         $this->app->singleton('converge', function () {
             return new Converge();
         });
@@ -48,7 +45,7 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
+
         require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
-        // dd(converge());
     }
 }

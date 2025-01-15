@@ -13,7 +13,7 @@ class Converge
         $this->activeModule = $module;
     }
 
-    public function getActiveModule()
+    public function getActiveModule(): ?Module
     {
         return $this->activeModule;
     }
@@ -28,6 +28,10 @@ class Converge
         return $this->getActiveModule()->getId();
     }
 
+    public function getSidebarItems()
+    {
+        return $this->getActiveModule()->getSidebarItems();
+    }
     public function getModule(string $id)
     {
         return resolve(ModuleRegistry::class)->get($id);
