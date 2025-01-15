@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Fluxtor\Converge\Concerns\CanHandleClusters;
 use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
@@ -21,6 +22,7 @@ class Module
     use HasRoutePath;
     use HasSidebar;
     use Resolver;
+    use CanHandleClusters;
 
     public static function make(): static
     {
