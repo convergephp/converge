@@ -41,7 +41,7 @@ class ModuleRegistry
 
         App::resolving(
             Converge::class,
-            fn (Converge $manager) => $manager->setActiveModule($module),
+            fn (Converge $converge) => $converge->setActiveModule($module),
         );
     }
 

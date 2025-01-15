@@ -33,6 +33,16 @@ class Converge
         return $this->getActiveModule()->getSidebarItems();
     }
 
+    public function getClusters()
+    {
+        return $this->getActiveModule()->getClusters();
+    }
+
+    public function getVersions()
+    {
+        return $this->getActiveModule()->getVersions();
+    }
+
     public function getModule(string $id)
     {
         return resolve(ModuleRegistry::class)->get($id);

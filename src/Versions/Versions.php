@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Versions;
 
-use Closure;
 use Fluxtor\Converge\CollectionsRegistry;
-use Fluxtor\Converge\Concerns\CanHandleClusters;
-use Illuminate\Support\Collection;
 
 class Versions extends CollectionsRegistry
 {
@@ -13,6 +12,7 @@ class Versions extends CollectionsRegistry
     {
         return new Version();
     }
+
     public function createLink()
     {
         return new VersionLink();

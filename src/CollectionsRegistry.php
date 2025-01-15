@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge;
 
 use Closure;
 use Illuminate\Support\Collection;
-use Fluxtor\Converge\Clusters\Version;
-use Fluxtor\Converge\Clusters\VersionLink;
 
 abstract class CollectionsRegistry
 {
-
     public Collection $items;
 
     public function __construct()
@@ -17,26 +16,31 @@ abstract class CollectionsRegistry
         $this->items = new Collection();
     }
 
-    abstract function createItem();
-    abstract function createLink();
+    abstract public function createItem();
 
-    public function add(Closure $callback)
+    abstract public function createLink();
+
+    final public function add(Closure $callback)
     {
         $item = $this->createItem();
         $callback($item);
         $this->items->push($item);
+
+        // dump($this->items);
         return $this;
     }
 
-    public function getItems(): Collection
+    final public function getItems(): Collection
     {
         return $this->items;
     }
-    public function addLink(Closure $callback)
+
+    final public function addLink(Closure $callback)
     {
         $item = $this->createLink();
         $callback($item);
         $this->items->push($item);
+
         return $this;
     }
 }

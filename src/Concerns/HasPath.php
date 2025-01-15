@@ -19,11 +19,14 @@ trait HasPath
 
         return $this;
     }
+
     public function in(string|Closure|null $path)
     {
         $this->path = $path;
+
         return $this;
     }
+
     /**
      * getter for the path
      *

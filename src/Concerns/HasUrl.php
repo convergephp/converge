@@ -1,7 +1,8 @@
 <?php
 
-namespace Fluxtor\Converge\Concerns;
+declare(strict_types=1);
 
+namespace Fluxtor\Converge\Concerns;
 
 trait HasUrl
 {
@@ -10,6 +11,7 @@ trait HasUrl
     public function url(string $url): static
     {
         $this->url = $url;
+
         return $this;
     }
 
