@@ -4,6 +4,8 @@
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
     $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems(); 
+    // dd(app('converge')->getActiveModule());
+
 @endphp
 
 <ul>
