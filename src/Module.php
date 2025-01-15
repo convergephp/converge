@@ -6,6 +6,7 @@ namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Concerns\CanHandleClusters;
 use Fluxtor\Converge\Concerns\CanHandleDefault;
+use Fluxtor\Converge\Concerns\CanHandleVersions;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasPath;
@@ -23,9 +24,17 @@ class Module
     use HasSidebar;
     use Resolver;
     use CanHandleClusters;
+    use CanHandleVersions;
 
+    public function __construct()
+    {
+        $this->initClusters();
+        $this->initVersions();
+    } 
     public static function make(): static
     {
         return resolve(static::class);
     }
+
+    
 }

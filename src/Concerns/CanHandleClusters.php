@@ -12,6 +12,9 @@ trait CanHandleClusters
 {
     protected Collection $clusters;
 
+    public function initClusters(){
+        $this->clusters = new Collection();
+    }
     public function hasClusters(): bool
     {
         return $this->clusters->isEmpty();
@@ -21,24 +24,6 @@ trait CanHandleClusters
     {
         $clusters = new Clusters();
         $callable($clusters);
-        dd($clusters);
         return $this;
     }
-    // defineClusters(function (Clusters $cluster) {
-    //     $cluster->add(
-    //         fn(Cluster $cluster) => $cluster
-    //             ->label('Documentation')
-    //             ->in(base_path('docs/03-fields'))
-    //     );
-    //     $cluster->add(
-    //         fn(Cluster $cluster) => $cluster
-    //             ->label('Api Reference')
-    //             ->in(base_path('docs/api-refrence'))
-    //     );
-    //     $cluster->addLink(
-    //         fn(ClusterLink $cluster) => $cluster
-    //             ->label('Blog ')
-    //             ->url(route('blog.index'))
-    //     );
-    // })
 }

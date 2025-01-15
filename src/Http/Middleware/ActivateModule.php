@@ -15,7 +15,7 @@ class ActivateModule
         $module = Converge::getModule($module);
 
         resolve('converge')->setActiveModule($module);
-
+        
         return $next($request);
     }
 }

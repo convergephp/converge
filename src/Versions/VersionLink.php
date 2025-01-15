@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxtor\Converge\Clusters;
+namespace Fluxtor\Converge\Versions;
 
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasUrl;

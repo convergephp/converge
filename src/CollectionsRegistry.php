@@ -27,7 +27,12 @@ abstract class CollectionsRegistry
         $this->items->push($item);
         return $this;
     }
-    public function addLink(Version $callback)
+
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+    public function addLink(Closure $callback)
     {
         $item = $this->createLink();
         $callback($item);
