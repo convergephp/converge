@@ -11,16 +11,25 @@ final class SidebarBuilder
 {
     /**
      * Build Sidebar items from a tree structure.
+     * @param array<int,array<int,mixed>> $tree
+     * @return Collection<int,SidebarItem|SidebarGroup>
      */
     public static function build(array $tree): Collection
     {
+        // dd($tree);
         $items = new Collection();
 
         return (new self())->process($items, $tree);
     }
 
+
     /**
      * Process the tree structure and populate Sidebar items.
+     *
+     * @param Collection<int,SidebarItem|SidebarGroup> $items
+     * @param array<int,array<int,mixed>> $tree
+     * @param integer $depth
+     * @return Collection<int,SidebarItem|SidebarGroup>
      */
     public function process(Collection $items, array $tree, int $depth = 0): Collection
     {

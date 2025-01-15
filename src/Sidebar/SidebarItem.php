@@ -11,7 +11,7 @@ class SidebarItem
 {
     use Resolver;
 
-    protected string|Closure|null $group = null;
+    protected ?string $group = null;
 
     protected string|Closure $label;
 
@@ -30,21 +30,21 @@ class SidebarItem
         return $static;
     }
 
-    public function depth(int $depth)
+    public function depth(int $depth): static
     {
         $this->depth = $depth;
 
         return $this;
     }
 
-    public function group(string|Closure|null $group): static
+    public function group(string|null $group): static
     {
         $this->group = $group;
 
         return $this;
     }
 
-    public function path(string|Closure|null $path): static
+    public function path(string|Closure $path): static
     {
         $this->path = $path;
 
@@ -77,9 +77,9 @@ class SidebarItem
         return $this->group;
     }
 
-    public function getPath(): ?string
+    public function getPath(): mixed
     {
-        return $this->path;
+        return $this->resolve($this->path);
     }
 
     public function getDepth(): int
@@ -87,18 +87,18 @@ class SidebarItem
         return $this->depth;
     }
 
-    public function getLabel(): string
+    public function getLabel(): mixed
     {
-        return $this->label;
+        return $this->resolve($this->label);
     }
 
-    public function getSort(): int
+    public function getSort(): mixed
     {
-        return $this->sort ?? -1;
+        return $this->resolve($this->sort) ?? -1;
     }
 
-    public function getUrl(): ?string
+    public function getUrl(): mixed
     {
-        return $this->url;
+        return $this->resolve($this->url);
     }
 }

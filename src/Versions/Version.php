@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Versions;
 
 use Closure;
+use Illuminate\Support\Collection;
+use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasPath;
-use Illuminate\Support\Collection;
 
 class Version
 {
     use HasLabel;
     use HasPath;
 
+    /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
 
     public function __construct()
@@ -38,8 +40,14 @@ class Version
         return $this;
     }
 
-    public function getClusters():Collection
+    /**
+     * module clusters
+     *
+     * @return Collection<int,Cluster>
+     */
+    public function getClusters(): Collection
     {
+        // dd($this->scopedClusters);
         return $this->scopedClusters;
     }
 }

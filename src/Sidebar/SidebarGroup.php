@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
+use Fluxtor\Converge\Concerns\Resolver;
+use Fluxtor\Converge\Sidebar\SidebarItem;
 
 class SidebarGroup
 {
@@ -13,6 +14,11 @@ class SidebarGroup
 
     protected string $label;
 
+    /**
+     * groups items
+     *
+     * @var Collection<int,SidebarItem>
+     */
     protected Collection $items;
 
     protected int $depth;
@@ -32,14 +38,14 @@ class SidebarGroup
         return $static;
     }
 
-    public function depth(int $depth)
+    public function depth(int $depth): static
     {
         $this->depth = $depth;
 
         return $this;
     }
 
-    public function getDepth()
+    public function getDepth(): int
     {
         return $this->depth;
     }
@@ -75,6 +81,11 @@ class SidebarGroup
         return $this->sort;
     }
 
+    /**
+     * group sidebar items
+     *
+     * @return Collection<int,SidebarItem>
+     */
     public function getItems(): Collection
     {
         return $this->items;
