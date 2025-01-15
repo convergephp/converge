@@ -20,7 +20,7 @@ trait HasPath
         return $this;
     }
 
-    public function in(string|Closure|null $path)
+    public function in(string|Closure|null $path): static
     {
         $this->path = $path;
 
@@ -32,7 +32,7 @@ trait HasPath
      *
      * @return string|null
      */
-    public function getPath()
+    public function getPath() :string
     {
         return $this->resolve($this->path);
     }

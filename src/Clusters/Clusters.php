@@ -8,12 +8,12 @@ use Fluxtor\Converge\CollectionsRegistry;
 
 class Clusters extends CollectionsRegistry
 {
-    public function createItem()
+    public function createItem(): Cluster
     {
         return new Cluster();
     }
 
-    public function createLink()
+    public function createLink(): ClusterLink
     {
         return new ClusterLink();
     }

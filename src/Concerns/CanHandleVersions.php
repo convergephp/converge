@@ -12,7 +12,7 @@ trait CanHandleVersions
 {
     protected Collection $versions;
 
-    public function initVersions()
+    public function initVersions(): void
     {
         $this->versions = new Collection();
     }
