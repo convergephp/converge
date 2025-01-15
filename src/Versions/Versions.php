@@ -3,29 +3,18 @@
 namespace Fluxtor\Converge\Clusters;
 
 use Closure;
+use Fluxtor\Converge\CollectionsRegistry;
 use Illuminate\Support\Collection;
 
-class Versions
+class Versions extends CollectionsRegistry
 {
-    public Collection $clusters;
 
-    public function __construct()
+    public function createItem()
     {
-        $this->clusters = new Collection();
+        return new Version();
     }
-
-    public function add(Closure $callback)
+    public function createLink()
     {
-        $cluster = new Version();
-        $callback($cluster);
-        $this->clusters->push($cluster);
-        return $this;
-    }
-    public function addLink(Version $callback)
-    {
-        $cluster = new VersionLink();
-        $callback($cluster);
-        $this->clusters->push($cluster);
-        return $this;
+        return new VersionLink();
     }
 }

@@ -2,30 +2,17 @@
 
 namespace Fluxtor\Converge\Clusters;
 
-use Closure;
-use Illuminate\Support\Collection;
+use Fluxtor\Converge\CollectionsRegistry;
 
-class Clusters
+class Clusters extends CollectionsRegistry
 {
-    public Collection $clusters;
 
-    public function __construct()
+    public function createItem()
     {
-        $this->clusters = new Collection();
+        return new Cluster();
     }
-
-    public function add(Closure $callback)
+    public function createLink()
     {
-        $cluster = new Cluster();
-        $callback($cluster);
-        $this->clusters->push($cluster);
-        return $this;
-    }
-    public function addLink(Closure $callback)
-    {
-        $cluster = new ClusterLink();
-        $callback($cluster);
-        $this->clusters->push($cluster);
-        return $this;
+        return new ClusterLink();
     }
 }
