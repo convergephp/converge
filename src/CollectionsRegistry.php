@@ -25,6 +25,7 @@ abstract class CollectionsRegistry
         $item = $this->createItem();
         $callback($item);
         $this->items->push($item);
+        // dump($this->items);
         return $this;
     }
 

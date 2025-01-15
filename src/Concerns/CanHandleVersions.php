@@ -26,7 +26,16 @@ trait CanHandleVersions
     public function defineVersions(Closure $callable): static
     {
         $verions = new Versions();
+
         $callable($verions);
+
+        $this->versions = $verions->getItems();
+
         return $this;
+    }
+
+    public function getVersions(): Collection
+    {
+        return $this->versions;
     }
 }

@@ -17,11 +17,11 @@ class ConvergeServiceProvider extends ServiceProvider
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
-        $this->app->singleton(Converge::class, function () {
+        $this->app->scoped(Converge::class, function () {
             return new Converge();
         });
 
-        $this->app->singleton('converge', function () {
+        $this->app->scoped('converge', function () {
             return new Converge();
         });
 

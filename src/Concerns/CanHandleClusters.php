@@ -12,7 +12,8 @@ trait CanHandleClusters
 {
     protected Collection $clusters;
 
-    public function initClusters(){
+    public function initClusters()
+    {
         $this->clusters = new Collection();
     }
     public function hasClusters(): bool
@@ -23,7 +24,16 @@ trait CanHandleClusters
     public function defineClusters(Closure $callable): static
     {
         $clusters = new Clusters();
+
         $callable($clusters);
+
+        $this->clusters = $clusters->getItems();
+
         return $this;
+    }
+
+    public function getClusters(): Collection
+    {
+        return $this->clusters;
     }
 }

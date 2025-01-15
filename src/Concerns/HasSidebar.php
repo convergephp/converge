@@ -12,9 +12,8 @@ trait HasSidebar
 
     public function getSidebarItems()
     {
+        // dd('here');
         $sidebar = (new SidebarManager($this->getPath(), $this->getDepth()));
-
-        // dd($sidebar->getItems());
         return $sidebar->getItems();
     }
 }
