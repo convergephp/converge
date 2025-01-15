@@ -8,14 +8,14 @@ trait HasId
 {
     protected ?string $id = null;
 
-    public function id(string $id)
+    public function id(?string $id): static
     {
         $this->id = $id;
 
         return $this;
     }
 
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }

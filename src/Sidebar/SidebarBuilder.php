@@ -11,9 +11,12 @@ final class SidebarBuilder
 {
     /**
      * Build Sidebar items from a tree structure.
+     *
+     * @return Collection<int,SidebarItem|SidebarGroup>
      */
     public static function build(array $tree): Collection
     {
+        // dd($tree);
         $items = new Collection();
 
         return (new self())->process($items, $tree);
@@ -21,9 +24,13 @@ final class SidebarBuilder
 
     /**
      * Process the tree structure and populate Sidebar items.
+     *
+     * @param  Collection<int,SidebarItem|SidebarGroup>  $items
+     * @return Collection<int,SidebarItem|SidebarGroup>
      */
     public function process(Collection $items, array $tree, int $depth = 0): Collection
     {
+        // dd($tree);
         foreach ($tree as $key => $node) {
             match ($node['type']) {
                 'file' => $this->addFileNode($items, $node, $key, $depth),
@@ -36,7 +43,10 @@ final class SidebarBuilder
     }
 
     /**
-     * Add a file item to the Sidebar collection.
+     * add a file item to the sidebar collection
+     *
+     * @param  Collection<int,SidebarItem|SidebarGroup>  $items
+     * @param  array<string,string>  $node
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth): void
     {
@@ -58,9 +68,12 @@ final class SidebarBuilder
      *
      * The method recursively processes the group's children, incrementing the depth
      * to maintain the correct hierarchy in the Sidebar structure.
+     *
+     * @param  Collection<int,SidebarItem|SidebarGroup>  $items
      */
     private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
     {
+        // dd($node);
         if (count($node['children']) < 1) {
             return;
         }

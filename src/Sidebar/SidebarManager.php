@@ -11,6 +11,11 @@ class SidebarManager
 {
     public function __construct(protected string $path, protected int $depth = PHP_INT_MAX) {}
 
+    /**
+     * sidebar items
+     *
+     * @return Collection<int,SidebarItem|SidebarGroup>
+     */
     public function getItems(): Collection
     {
 

@@ -12,7 +12,7 @@ trait CanHandleClusters
 {
     protected Collection $clusters;
 
-    public function initClusters()
+    public function initClusters(): void
     {
         $this->clusters = new Collection();
     }

@@ -13,7 +13,7 @@ use Illuminate\Support\ServiceProvider;
 
 class ConvergeServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
@@ -26,7 +26,7 @@ class ConvergeServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(ModuleRegistry::class, function () {
-            return new ModuleRegistry($this->app->make(Converge::class));
+            return new ModuleRegistry();
         });
 
         $this->app->singleton(ContentMap::class, function ($app) {
