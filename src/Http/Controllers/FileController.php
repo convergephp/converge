@@ -15,7 +15,7 @@ class FileController
         $this->map = $map;
     }
 
-    public function show($url)
+    public function show($url): void
     {
         // dd($url);
         $file = $this->map->getFileByUrl($url);

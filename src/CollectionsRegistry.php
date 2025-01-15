@@ -20,7 +20,7 @@ abstract class CollectionsRegistry
 
     abstract public function createLink();
 
-    final public function add(Closure $callback)
+    final public function add(Closure $callback): static
     {
         $item = $this->createItem();
         $callback($item);
@@ -35,7 +35,7 @@ abstract class CollectionsRegistry
         return $this->items;
     }
 
-    final public function addLink(Closure $callback)
+    final public function addLink(Closure $callback): static
     {
         $item = $this->createLink();
         $callback($item);

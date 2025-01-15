@@ -14,7 +14,7 @@ class RecursiveDirectoryIterator extends BaseRecursiveDirectoryIterator
         parent::__construct($path, $flags);
     }
 
-    public static function make(string $path, int $flags = 0)
+    public static function make(string $path, int $flags = 0): static
     {
         return resolve(static::class, [
             'path' => $path,

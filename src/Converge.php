@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Illuminate\Support\Collection;
+
 class Converge
 {
     protected ?Module $activeModule = null;
@@ -18,32 +20,32 @@ class Converge
         return $this->activeModule;
     }
 
-    public function getPath()
+    public function getPath(): string
     {
         return $this->getActiveModule()->getPath();
     }
 
-    public function getId()
+    public function getId(): string
     {
         return $this->getActiveModule()->getId();
     }
 
-    public function getSidebarItems()
+    public function getSidebarItems(): Collection
     {
         return $this->getActiveModule()->getSidebarItems();
     }
 
-    public function getClusters()
+    public function getClusters(): Collection
     {
         return $this->getActiveModule()->getClusters();
     }
 
-    public function getVersions()
+    public function getVersions(): Collection
     {
         return $this->getActiveModule()->getVersions();
     }
 
-    public function getModule(string $id)
+    public function getModule(string $id): Module
     {
         return resolve(ModuleRegistry::class)->get($id);
     }
@@ -53,7 +55,7 @@ class Converge
      *
      * @return array
      */
-    public function getModules()
+    public function getModules(): array
     {
         return resolve(ModuleRegistry::class)->all();
     }

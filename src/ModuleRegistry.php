@@ -15,44 +15,32 @@ class ModuleRegistry
 
     public function __construct(private Converge $converge) {}
 
-    public function add(Module $module)
+    public function add(Module $module): void
     {
 
         $this->registry[$module->getId()] = $module;
 
-        $this->loadTheActiveModuleIntoTheContext($module);
         if ($module->isDefault()) {
             $this->default = $module->getId();
             $this->putActiveModuleIntoTheContext($module);
         }
     }
-
-    public function loadTheActiveModuleIntoTheContext($module)
+    public function putActiveModuleIntoTheContext(Module $module): void
     {
-        Context::add('active_module', $module);
-    }
-
-    public function putActiveModuleIntoTheContext(Module $module)
-    {
-        // if (App::resolved('converge')) {
-        //     app('converge')->setCurrentPanel($module);
-        //     dd('here');
-        // }
-
         App::resolving(
             Converge::class,
-            fn (Converge $converge) => $converge->setActiveModule($module),
+            fn(Converge $converge) => $converge->setActiveModule($module),
         );
     }
 
-    public function get($id)
+    public function get($id): Module
     {
         if (array_key_exists($id, $this->registry)) {
             return $this->registry[$id];
         }
     }
 
-    public function getDefault()
+    public function getDefault(): string
     {
         return $this->default;
     }

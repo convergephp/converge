@@ -8,12 +8,12 @@ use Fluxtor\Converge\CollectionsRegistry;
 
 class Versions extends CollectionsRegistry
 {
-    public function createItem()
+    public function createItem(): Version
     {
         return new Version();
     }
 
-    public function createLink()
+    public function createLink(): VersionLink
     {
         return new VersionLink();
     }

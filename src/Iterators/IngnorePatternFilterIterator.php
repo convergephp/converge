@@ -8,5 +8,5 @@ class IgnorePatternFilterIterator
 {
     public function __construct(string $path, int $flags = 0) {}
 
-    public static function make(string $path, int $flags = 0) {}
+    public static function make(string $path, int $flags = 0): void {}
 }

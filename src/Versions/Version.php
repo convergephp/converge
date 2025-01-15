@@ -38,7 +38,7 @@ class Version
         return $this;
     }
 
-    public function getClusters()
+    public function getClusters():Collection
     {
         return $this->scopedClusters;
     }
