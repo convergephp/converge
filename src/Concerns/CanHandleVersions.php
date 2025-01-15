@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Versions\Versions;
+use Illuminate\Support\Collection;
 
 trait CanHandleVersions
 {
     protected Collection $versions;
-
 
     public function initVersions()
     {
@@ -20,7 +19,7 @@ trait CanHandleVersions
 
     public function hasVersions(): bool
     {
-        return !$this->verions->isEmpty();
+        return ! $this->verions->isEmpty();
     }
 
     public function defineVersions(Closure $callable): static

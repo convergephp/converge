@@ -16,25 +16,24 @@ use Fluxtor\Converge\Concerns\Resolver;
 
 class Module
 {
+    use CanHandleClusters;
     use CanHandleDefault;
+    use CanHandleVersions;
     use HasDepth;
     use HasId;
     use HasPath;
     use HasRoutePath;
     use HasSidebar;
     use Resolver;
-    use CanHandleClusters;
-    use CanHandleVersions;
 
     public function __construct()
     {
         $this->initClusters();
         $this->initVersions();
-    } 
+    }
+
     public static function make(): static
     {
         return resolve(static::class);
     }
-
-    
 }

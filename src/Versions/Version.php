@@ -1,24 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Versions;
 
 use Closure;
-use Illuminate\Support\Collection;
-use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\CanHandleClusters;
+use Fluxtor\Converge\Concerns\HasPath;
+use Illuminate\Support\Collection;
 
 class Version
 {
     use HasLabel;
     use HasPath;
+
     protected Collection $scopedClusters;
 
     public function __construct()
     {
         $this->scopedClusters = new Collection();
     }
+
     public function hasClusters(): bool
     {
         return $this->scopedClusters->isEmpty();
@@ -34,6 +37,7 @@ class Version
 
         return $this;
     }
+
     public function getClusters()
     {
         return $this->scopedClusters;

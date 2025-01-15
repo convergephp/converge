@@ -32,10 +32,12 @@ class Converge
     {
         return $this->getActiveModule()->getSidebarItems();
     }
+
     public function getClusters()
     {
         return $this->getActiveModule()->getClusters();
     }
+
     public function getVersions()
     {
         return $this->getActiveModule()->getVersions();

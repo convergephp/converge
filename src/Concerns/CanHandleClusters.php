@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Clusters\Clusters;
+use Illuminate\Support\Collection;
 
 trait CanHandleClusters
 {
@@ -16,6 +16,7 @@ trait CanHandleClusters
     {
         $this->clusters = new Collection();
     }
+
     public function hasClusters(): bool
     {
         return $this->clusters->isEmpty();

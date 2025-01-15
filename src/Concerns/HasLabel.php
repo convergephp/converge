@@ -1,15 +1,17 @@
 <?php
 
-namespace Fluxtor\Converge\Concerns;
+declare(strict_types=1);
 
+namespace Fluxtor\Converge\Concerns;
 
 trait HasLabel
 {
     protected string $label;
 
-    public function label(string $label):static
+    public function label(string $label): static
     {
         $this->label = $label;
+
         return $this;
     }
 

@@ -10,13 +10,12 @@ use Illuminate\Support\Collection;
 trait HasSidebar
 {
     /**
-     * lazy initialization 
-     *
-     * @return Collection
+     * lazy initialization
      */
     public function getSidebarItems(): Collection
     {
         $sidebar = (new SidebarManager($this->getPath(), $this->getDepth()));
+
         return $sidebar->getItems();
     }
 }
