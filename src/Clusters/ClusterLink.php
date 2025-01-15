@@ -2,30 +2,12 @@
 
 namespace Fluxtor\Converge\Clusters;
 
+use Fluxtor\Converge\Concerns\HasUrl;
+use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\HasLabel;
+
 class ClusterLink
 {
-    protected string $label;
-    protected string $url;
-    // @todo add iconable support
-
-
-    public function label(string $label)
-    {
-        $this->label = $label;
-        return $this;
-    }
-    public function url(string $url)
-    {
-        $this->url = $url;
-        return $this;
-    }
-
-    public function getLabel()
-    {
-        return $this->label;
-    }
-    public function getUrl()
-    {
-        return $this->url;
-    }
+    use HasLabel;
+    use HasUrl;
 }
