@@ -31,7 +31,7 @@ final class FilesTreeBuilder
 
         $path = $root;
         $tree = self::tree($path, $root, $maxDepth);
-
+        // dump(self::$urlToPathMap);
         return [$tree, self::$urlToPathMap];
     }
 
@@ -58,7 +58,7 @@ final class FilesTreeBuilder
         $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
-            $relativePath = str_replace($root, '', $fileInfo->getRealPath());
+            $relativePath = str_replace($normalize($root), '', $fileInfo->getRealPath());
             $relativePath = ltrim($relativePath, DIRECTORY_SEPARATOR);
 
             $baseNode = [
@@ -92,7 +92,6 @@ final class FilesTreeBuilder
      */
     public static function generateUrl(string $relativePath): string
     {
-        // dd($relativePath);
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
         // Split the path into segments using explode
@@ -106,7 +105,6 @@ final class FilesTreeBuilder
 
         // Remove the file extension, if any
         $url = preg_replace('~\.[^\.]+$~', '', $url);
-        // dd($url);
 
         return $url;
     }

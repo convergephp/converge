@@ -6,15 +6,18 @@ namespace Fluxtor\Converge;
 
 class ContentMap
 {
-    protected FilesTreeBuilder $filesTreeBuilder;
 
-    public function __construct(FilesTreeBuilder $filesTreeBuilder)
-    {
-        $this->filesTreeBuilder = $filesTreeBuilder;
-        $path = base_path('docs');
+    public function __construct(
+        protected FilesTreeBuilder $filesTreeBuilder
+    ) {
+        $module = app('converge');
+        $path = $module->getPath();
+        $depth = $module->getMaxDepth();
+        // dd($path, $depth);
+
         if (empty(FilesTreeBuilder::$urlToPathMap)) {
             // Set the root directory and max depth as required
-            FilesTreeBuilder::build($path, 2);
+            FilesTreeBuilder::build($path, $depth);
         }
     }
 
@@ -31,6 +34,7 @@ class ContentMap
      */
     public function getFileByUrl(string $url): ?string
     {
+        // dd($url);
         // dd(FilesTreeBuilder::$urlToPathMap);
         return FilesTreeBuilder::$urlToPathMap[$url] ?? null;
     }

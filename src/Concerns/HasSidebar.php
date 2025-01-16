@@ -14,7 +14,7 @@ trait HasSidebar
      */
     public function getSidebarItems(): Collection
     {
-        $sidebar = new SidebarManager($this->getPath(), $this->getDepth());
+        $sidebar = new SidebarManager($this->getPath(), $this->getMaxDepth());
 
         return $sidebar->getItems();
     }

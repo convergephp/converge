@@ -17,7 +17,7 @@ trait HasDepth
         return $this;
     }
 
-    public function getDepth(): ?int
+    public function getMaxDepth(): ?int
     {
         return $this->resolve($this->maxDepth);
     }

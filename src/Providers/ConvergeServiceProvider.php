@@ -32,18 +32,21 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->singleton(ContentMap::class, function ($app) {
             return new ContentMap($app->make(FilesTreeBuilder::class));
         });
+        $this->app->singleton(FilesTreeBuilder::class, function () {
+            return new FilesTreeBuilder();
+        });
     }
 
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/converge.php' => config_path('converge.php'),
+            __DIR__ . '/../config/converge.php' => config_path('converge.php'),
         ]);
 
-        $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
+        $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
 
-        Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
+        Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
 
-        require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
+        require __DIR__ . '/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
     }
 }

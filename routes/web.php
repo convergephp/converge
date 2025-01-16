@@ -9,21 +9,15 @@ use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
-    $ModuleId = $module->getId();
-    Route::name($ModuleId)
-        ->middleware(ActivateModule::class.':'.$ModuleId)
-        ->get($module->getRoutePath(), ModuleController::class);
-    Route::name($ModuleId.'show')
-        ->middleware(ActivateModule::class.':'.$ModuleId)
-        ->get($module->getRoutePath().'/{url}', [FileController::class]);
+    $moduleId = $module->getId();
+    $moduleRoutePath = $module->getRoutePath();
+
+    Route::middleware(ActivateModule::class . ':' . $moduleId)->group(function () use ($moduleId, $moduleRoutePath) {
+        Route::name($moduleId)
+            ->get($moduleRoutePath, ModuleController::class);
+
+        Route::name("{$moduleId}.show")
+            ->get("{$moduleRoutePath}/{url}", FileController::class)
+            ->where('url', '.*');
+    });
 }
-
-// dd($modules);
-
-Route::get('/docs', function () {
-
-    // dd(app('converge')->getActiveModule());
-
-    return view('converge::index');
-});
-Route::get('/docs/{url}', [FileController::class, 'show']);
