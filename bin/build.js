@@ -67,6 +67,7 @@ const defaultOptions = {
   ],
 };
 
+// compile the entry point
 compile({
   ...defaultOptions,
   entryPoints: [`./resources/js/app.js`],
