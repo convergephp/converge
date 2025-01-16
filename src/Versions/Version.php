@@ -25,6 +25,7 @@ class Version
 
     protected bool $isQuiet = false;
     protected bool $isDefault = false;
+    protected string $route;
 
 
     public function __construct()
@@ -42,7 +43,19 @@ class Version
         $this->isDefault = $condition;
         return $this;
     }
-    public function quiet(bool $condition = true)
+
+    public function route(string $route): static
+    {
+        $this->route = $route;
+        return $this;
+    }
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    public function quiet(bool $condition = true): static
     {
         if (!$this->isDefault()) {
             throw new LogicException('Can\'t make non-default version quiet.');
@@ -50,10 +63,12 @@ class Version
         $this->isQuiet = $condition;
         return $this;
     }
+
     public function isQuiet()
     {
         return $this->resolve($this->isQuiet);
     }
+
     public function isDefault()
     {
         return $this->resolve($this->isDefault);
