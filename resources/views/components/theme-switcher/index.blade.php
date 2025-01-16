@@ -19,7 +19,7 @@
             return this.theme === mode;
         }  
     }">
-        <x-dropdown>
+        <x-converge::dropdown>
             <x-slot:button >
                 <div aria-expanded="false">
                     <span  class="dark:hidden">
@@ -49,7 +49,7 @@
                 </div>
             </x-slot:button>
             <x-slot:items class="w-36 dark:bg-transparent bg-gray-100">
-                <x-dropdown.item class="flex items-center gap-1" x-on:click="setTheme('light')">
+                <x-converge::dropdown.item class="flex items-center gap-1" x-on:click="setTheme('light')">
                     <svg class="mr-1 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path x-bind:class="themeIs('light') ? 'stroke-violet-500' : 'stroke-slate-400'" 
@@ -58,8 +58,8 @@
                             d="M12 4v1M17.66 6.344l-.828.828M20.005 12.004h-1M17.66 17.664l-.828-.828M12 20.01V19M6.34 17.664l.835-.836M3.995 12.004h1.01M6 6l.835.836"></path>
                     </svg>
                     <span x-bind:class="themeIs('light') ? 'text-violet-500 dark:text-violet-400':'text-gray-900 dark:text-white'">Light</span>
-                </x-dropdown.item>
-                <x-dropdown.item class="flex items-center gap-1" x-on:click="setTheme('dark')">
+                </x-converge::dropdown.item>
+                <x-converge::dropdown.item class="flex items-center gap-1" x-on:click="setTheme('dark')">
                     <svg class="mr-1 h-5 w-5" viewBox="0 0 24 24" fill="none">
                         <path class="fill-transparent" fill-rule="evenodd" clip-rule="evenodd"
                             d="M17.715 15.15A6.5 6.5 0 0 1 9 6.035C6.106 6.922 4 9.645 4 12.867c0 3.94 3.153 7.136 7.042 7.136 3.101 0 5.734-2.032 6.673-4.853Z">
@@ -72,8 +72,8 @@
                         </path>
                     </svg>
                     <span x-bind:class="themeIs('dark') ? 'text-violet-500 dark:text-violet-400':'text-gray-900 dark:text-white'">Dark</span>
-                </x-dropdown.item>
-                <x-dropdown.item class="flex items-center gap-1" x-on:click="setTheme('system')">
+                </x-converge::dropdown.item>
+                <x-converge::dropdown.item class="flex items-center gap-1" x-on:click="setTheme('system')">
                     <svg class="mr-1 h-5 w-5" viewBox="0 0 24 24" fill="none">
                         <path x-bind:class="themeIs('system') ? 'dark:stroke-violet-500 stroke-violet-400' : 'dark:stroke-slate-500 stroke-slate-400'"
                             d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke-width="2"
@@ -84,9 +84,9 @@
                             stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                     <span x-bind:class="themeIs('system') ? 'text-violet-500 dark:text-violet-400' : 'text-gray-900 dark:text-white'">System </span>
-                </x-dropdown.item>
+                </x-converge::dropdown.item>
             </x-slot:items>
-        </x-dropdown>
+        </x-converge::dropdown>
     </div>
     
 </div>

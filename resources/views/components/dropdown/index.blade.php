@@ -1,4 +1,4 @@
-@props(['position' => 'bottom-center'])
+@props(['position' => 'bottom-left'])
 
 <div {{ $attributes->merge(['class'=>'flex justify-center']) }}>
     <div
