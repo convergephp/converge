@@ -10,7 +10,6 @@ class FileController
 {
     protected ContentMap $map;
 
-
     public function __construct(ContentMap $map)
     {
         $this->map = $map;
@@ -21,7 +20,7 @@ class FileController
         $file = $this->map->getFileByUrl($url);
 
         return view('converge::show', [
-            'contents' => file_get_contents($file)
+            'contents' => file_get_contents($file),
         ]);
     }
 }

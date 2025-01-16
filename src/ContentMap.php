@@ -6,7 +6,6 @@ namespace Fluxtor\Converge;
 
 class ContentMap
 {
-
     public function __construct(
         protected FilesTreeBuilder $filesTreeBuilder
     ) {

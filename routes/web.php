@@ -12,7 +12,7 @@ foreach (Converge::getModules() as $module) {
     $moduleId = $module->getId();
     $moduleRoutePath = $module->getRoutePath();
 
-    Route::middleware(ActivateModule::class . ':' . $moduleId)->group(function () use ($moduleId, $moduleRoutePath) {
+    Route::middleware(ActivateModule::class.':'.$moduleId)->group(function () use ($moduleId, $moduleRoutePath) {
         Route::name($moduleId)
             ->get($moduleRoutePath, ModuleController::class);
 
