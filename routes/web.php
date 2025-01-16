@@ -9,9 +9,13 @@ use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
-    Route::name($module->getId())
-        ->middleware(ActivateModule::class.':'.$module->getId())
+    $ModuleId = $module->getId();
+    Route::name($ModuleId)
+        ->middleware(ActivateModule::class.':'.$ModuleId)
         ->get($module->getRoutePath(), ModuleController::class);
+    Route::name($ModuleId.'show')
+        ->middleware(ActivateModule::class.':'.$ModuleId)
+        ->get($module->getRoutePath().'/{url}', [FileController::class]);
 }
 
 // dd($modules);

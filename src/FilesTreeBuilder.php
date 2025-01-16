@@ -92,6 +92,7 @@ final class FilesTreeBuilder
      */
     public static function generateUrl(string $relativePath): string
     {
+        // dd($relativePath);
         $path = str_replace(DIRECTORY_SEPARATOR, '/', $relativePath);
 
         // Split the path into segments using explode
@@ -105,6 +106,7 @@ final class FilesTreeBuilder
 
         // Remove the file extension, if any
         $url = preg_replace('~\.[^\.]+$~', '', $url);
+        // dd($url);
 
         return $url;
     }

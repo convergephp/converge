@@ -9,7 +9,8 @@
             class="pointer-events-none fixed bottom-0 right-[90%] h-[100px] w-[200px] rotate-45 rounded-full bg-indigo-500/[0.12] shadow-[50px_50px_40px_3px] shadow-cyan-500/10 blur-2xl">
         </div>
     </div>
-    @foreach (range(0, 5) as $item)
-        {{-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, consequuntur! Veritatis minus repellat quod aliquid assumenda itaque, architecto a ullam, similique eum explicabo necessitatibus nostrum ab veniam doloremque quisquam quo molestiae! Veritatis nisi enim fugiat. Consequatur ipsa velit vel fugit modi distinctio dolor vitae quis nisi, tempore commodi voluptates dolore sequi natus ipsum nostrum harum! Vel sequi omnis praesentium cum dolore, tempora dicta qui? Nam et eaque necessitatibus sequi tempora alias voluptates ad deserunt officia ab sit sapiente officiis est, consequatur maiores praesentium inventore qui explicabo ullam, vero numquam architecto, fuga saepe fugiat. Sapiente eaque atque nemo quisquam voluptates! Quidem.</p> --}}
-    @endforeach
+    <div class="bg-gray-20 prose dark:prose-invert">
+        {{-- @dd() --}}
+        {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!}
+    </div>
 </x-converge::page>

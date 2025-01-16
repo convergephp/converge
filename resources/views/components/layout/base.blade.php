@@ -1,3 +1,4 @@
+@use(Fluxtor\Converge\Facades\Converge)
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -31,14 +32,14 @@
             document.documentElement.classList.add('dark')
         }
     </script>
-    {{-- @endif --}}    
-    <script src="https://cdn.tailwindcss.com"></script>
+    {!! Converge::css() !!}
+    {!! Converge::js() !!}
 </head>
 
-<body
+<body 
     {{ $attributes->class([
         'converge-body',
-        'min-h-screen bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white',
+        'min-h-screen dark bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white',
     ]) }}>
     {{ $slot }}
 </body>
