@@ -9,6 +9,9 @@ use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
+    if($module->hasVersions()){
+        dd('here');
+    }
     $moduleId = $module->getId();
     $moduleRoutePath = $module->getRoutePath();
 

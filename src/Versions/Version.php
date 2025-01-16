@@ -11,6 +11,7 @@ use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
+use LogicException;
 
 class Version
 {
@@ -23,6 +24,8 @@ class Version
     protected Collection $scopedClusters;
 
     protected bool $isQuiet = false;
+    protected bool $isDefault = false;
+
 
     public function __construct()
     {
@@ -33,10 +36,27 @@ class Version
     {
         return $this->scopedClusters->isEmpty();
     }
-    
+
+    public function default(bool $condition = true)
+    {
+        $this->isDefault = $condition;
+        return $this;
+    }
+    public function quiet(bool $condition = true)
+    {
+        if (!$this->isDefault()) {
+            throw new LogicException('Can\'t make non-default version quiet.');
+        }
+        $this->isQuiet = $condition;
+        return $this;
+    }
     public function isQuiet()
     {
         return $this->resolve($this->isQuiet);
+    }
+    public function isDefault()
+    {
+        return $this->resolve($this->isDefault);
     }
 
     public function defineScopedClusters(Closure $callable): static

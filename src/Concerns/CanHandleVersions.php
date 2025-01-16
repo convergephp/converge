@@ -19,16 +19,16 @@ trait CanHandleVersions
 
     public function hasVersions(): bool
     {
-        return ! $this->verions->isEmpty();
+        return ! $this->versions->isEmpty();
     }
 
     public function defineVersions(Closure $callable): static
     {
-        $verions = new Versions();
+        $versions = new Versions();
 
-        $callable($verions);
+        $callable($versions);
 
-        $this->versions = $verions->getItems();
+        $this->versions = $versions->getItems();
 
         return $this;
     }
