@@ -28,10 +28,8 @@
                 const button = this.$refs.button
                 const target = event.target
 
-                // If the panel or the button  contains the focused element, do nothing
                 if (panel.contains(target)||button.contains(target)) return;
 
-                // If the focus is outside both the panel and button, check DOM order
                 const lastFocusedElement = document.activeElement
 
                 if (this.shouldCloseDropdown(button,panel,lastFocusedElement)) this.close(button);

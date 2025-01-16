@@ -18,8 +18,11 @@ class Version
     use HasLabel;
     use HasPath;
 
+
     /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
+
+    protected bool $isQuiet = false;
 
     public function __construct()
     {
@@ -29,6 +32,11 @@ class Version
     public function hasClusters(): bool
     {
         return $this->scopedClusters->isEmpty();
+    }
+    
+    public function isQuiet()
+    {
+        return $this->resolve($this->isQuiet);
     }
 
     public function defineScopedClusters(Closure $callable): static

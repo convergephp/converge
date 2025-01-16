@@ -7,7 +7,7 @@
         'class' => 'dropdown-item cursor-pointer hover:rounded px-2 py-0.5 dark:focus-within:bg-white/5 dark:hover:bg-white/5 hover:bg-white  dark:focus:bg-white/5 focus-within:bg-white hover:bg-white focus:bg-white',
     ]) }}
     x-data="{
-        show: false, // usefull for nested dropdowns
+        show: false,
         init() {
             $el.addEventListener('click', () => this.isClosedAfterClick())
         },
@@ -22,11 +22,11 @@
     x-on:mouseleave="show = false"
     x-on:keydown.enter.prevent="$el.click()">
     @if (filled($href))
-        <a href="{{ $href }}" wire:navigate.hover>
+        <a href="{{ $href }}">
             {{ $slot }}
         </a>
     @else
-    {{ $slot }}
+        {{ $slot }}
     @endif
 </div>
     
