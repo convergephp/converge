@@ -19,6 +19,9 @@ class FileController
     public function __invoke($url)
     {
         $file = $this->map->getFileByUrl($url);
-        dd(file_get_contents($file));
+
+        return view('converge::show', [
+            'contents' => file_get_contents($file)
+        ]);
     }
 }

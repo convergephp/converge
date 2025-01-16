@@ -34,6 +34,7 @@ class ContentMap
      */
     public function getFileByUrl(string $url): ?string
     {
+        // dd($url);
         // dd(FilesTreeBuilder::$urlToPathMap);
         return FilesTreeBuilder::$urlToPathMap[$url] ?? null;
     }

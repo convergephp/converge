@@ -47,6 +47,12 @@ class Converge
     {
         return $this->getActiveModule()->getClusters();
     }
+
+    public function getRoutePath(): string
+    {
+        return $this->getActiveModule()->getRoutePath();
+    }
+    
     public function getMaxDepth(): int
     {
         return $this->getActiveModule()->getMaxDepth();
