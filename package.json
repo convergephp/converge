@@ -9,6 +9,7 @@
     "dev": "npx tailwindcss -i resources/css/app.css -o dist/css/converge.css --postcss --watch",
     "dev:js": "node bin/build.js --dev"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fluxtorphp/converge.git"

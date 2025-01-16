@@ -9,7 +9,7 @@
             class="pointer-events-none fixed bottom-0 right-[90%] h-[100px] w-[200px] rotate-45 rounded-full bg-indigo-500/[0.12] shadow-[50px_50px_40px_3px] shadow-cyan-500/10 blur-2xl">
         </div>
     </div>
-    <div class="bg-gray-20">
+    <div class="bg-gray-20 prose">
         {{-- @dd() --}}
         {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!}
     </div>
