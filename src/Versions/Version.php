@@ -9,10 +9,12 @@ use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
 
 class Version
 {
+    use Resolver;
     use HasLabel;
     use HasPath;
 

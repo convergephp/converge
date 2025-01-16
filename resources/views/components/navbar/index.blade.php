@@ -4,6 +4,8 @@
         <div class="max-w-8xl mx-auto">
             <div class="mx-4 border-b py-4 dark:border-slate-300/10 lg:mx-0 lg:border-0 lg:px-8">
                 <div class="relative flex items-center">
+                    <x-converge::logo/>
+                    <x-converge::versions/>
                     <div class="relative ml-auto space-x-2 hidden items-center lg:flex">
                         <nav class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
                             <ul class="flex space-x-8">
@@ -14,7 +16,7 @@
                                 </li>    
                             </ul>
                         </nav>
-                        <x-theme-switcher class="border-l border-slate-200 dark:border-slate-800"/>
+                        <x-converge::theme-switcher class="border-l border-slate-200 dark:border-slate-800"/>
 
                         <a href="#">
                             <span class="absolute top-0 right-0 flex w-3 h-3">
