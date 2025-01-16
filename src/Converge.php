@@ -47,6 +47,10 @@ class Converge
     {
         return $this->getActiveModule()->getClusters();
     }
+    public function getMaxDepth(): int
+    {
+        return $this->getActiveModule()->getMaxDepth();
+    }
 
     public function getVersions(): Collection
     {

@@ -10,15 +10,15 @@ class FileController
 {
     protected ContentMap $map;
 
+
     public function __construct(ContentMap $map)
     {
         $this->map = $map;
     }
 
-    public function show($url): void
+    public function __invoke($url)
     {
-        dd($url);
         $file = $this->map->getFileByUrl($url);
-        // dd(file_get_contents($file)); so we're good
+        dd(file_get_contents($file));
     }
 }

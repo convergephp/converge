@@ -16,7 +16,7 @@ foreach (Converge::getModules() as $module) {
         ->get($module->getRoutePath(), ModuleController::class);
     Route::name($ModuleId.'show')
         ->middleware(ActivateModule::class.':'.$ModuleId)
-        ->get($module->getRoutePath().'/{url}', [FileController::class]);
+        ->get($module->getRoutePath().'/{url}', FileController::class);
 }
 
 // dd($modules);
