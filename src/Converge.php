@@ -16,6 +16,8 @@ class Converge
 
     protected $css = [__DIR__ . '/../dist/css/converge.css'];
 
+    protected $js = __DIR__ . '/../dist/js/converge.js';
+
     public function setActiveModule(Module $module)
     {
         $this->activeModule = $module;
@@ -94,7 +96,7 @@ class Converge
      */
     public function js(): string
     {
-        if (($pulse = @file_get_contents(__DIR__ . '/../dist/js/converge.js')) === false) {
+        if (($pulse = @file_get_contents($this->js)) === false) {
             throw new RuntimeException('Unable to load the Pulse dashboard JavaScript.');
         }
 
