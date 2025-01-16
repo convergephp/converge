@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Route;
 foreach (Converge::getModules() as $module) {
     $ModuleId = $module->getId();
     Route::name($ModuleId)
-        ->middleware(ActivateModule::class . ':' . $ModuleId)
+        ->middleware(ActivateModule::class.':'.$ModuleId)
         ->get($module->getRoutePath(), ModuleController::class);
-    Route::name($ModuleId . 'show')
-        ->middleware(ActivateModule::class . ':' . $ModuleId)
-        ->get($module->getRoutePath() . '/{url}', [FileController::class]);
+    Route::name($ModuleId.'show')
+        ->middleware(ActivateModule::class.':'.$ModuleId)
+        ->get($module->getRoutePath().'/{url}', [FileController::class]);
 }
 
 // dd($modules);
