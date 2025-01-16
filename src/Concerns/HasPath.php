@@ -15,18 +15,29 @@ trait HasPath
 
     public function path(string|Closure|null $path): static
     {
-        $this->path = $path;
+        $this->path = $this->normalizePath($path);
 
         return $this;
     }
 
     public function in(string|Closure|null $path): static
     {
-        $this->path = $path;
+        $this->path($path);
 
         return $this;
     }
 
+    /**
+     * cross platform
+     *
+     * @param string $path
+     * 
+     * @return string
+     */
+    public function normalizePath($path)
+    {
+        return str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+    }
     /**
      * getter for the path
      *

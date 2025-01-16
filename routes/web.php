@@ -9,6 +9,7 @@ use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
+    // dump($module->getSidebarItems());
     $ModuleId = $module->getId();
     Route::name($ModuleId)
         ->middleware(ActivateModule::class.':'.$ModuleId)
