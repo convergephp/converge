@@ -17,7 +17,8 @@ class Markdown
 
 
     public function convert(string $markdown)
-    {
+    {   
+        
         // dd(new Highlighter());
         $html = Str::markdown(
             string: $markdown,
@@ -31,10 +32,11 @@ class Markdown
                 'table_of_contents' => [
                     'style' => 'bullet',
                     'position' => 'top',
+                    'normalize'=>'relative'
                 ],
             ],
             extensions: [
-                // new HighlightExtension(),
+                new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
                 new TableOfContentsExtension(),
                 new AutolinkExtension(),

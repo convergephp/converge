@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Route;
 use Fluxtor\Converge\Facades\Converge;
+use Fluxtor\Converge\Versions\Version;
+use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
-use Fluxtor\Converge\Http\Middleware\ActivateModule;
-use Fluxtor\Converge\Versions\Version;
-use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
+
     $moduleId = $module->getId();
     $uri = $module->getRoutePath();
 

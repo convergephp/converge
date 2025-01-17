@@ -47,6 +47,6 @@ class ConvergeServiceProvider extends ServiceProvider
 
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
-        require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
+        // require __DIR__.'/../helpers.php'; // I am dump I can't get it using composer files autoload 🙂
     }
 }

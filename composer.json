@@ -3,9 +3,7 @@
     "description": "static site generator for web artisans",
     "license": "MIT",
     "autoload": {
-        "files": [
-            "src/helpers.php"
-        ],
+
         "psr-4": {
             "Fluxtor\\Converge\\": "src/"
         }
@@ -43,5 +41,7 @@
     },
     "require": {
         "tempest/highlight": "^2.11"
+
     }
+    
 }
