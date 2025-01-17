@@ -1,10 +1,10 @@
 <?php
 
-namespace Fluxtor\Converge\Support;
+namespace Fluxtor\Converge\Documents;
 
 use Symfony\Component\Yaml\Yaml;
 
-class DocumentParser
+class Parser
 {
     public static function make(string $content)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxtor\Converge\Support;
+namespace Fluxtor\Converge\Documents;
 
 class Document
 {
