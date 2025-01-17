@@ -10,6 +10,6 @@
         </div>
     </div>
     <div class="prose max-w-none dark:prose-invert prose-pre:text-gray-500 dark:prose-pre:text-[#babed8] dark:prose-pre:bg-white/5 prose-code:rounded prose-pre:bg-white prose-code:bg-black/5 dark:prose-code:bg-white/20">
-        {!! ($contents) !!}
+        {!! $contents!!}
     </div>
 </x-converge::page>

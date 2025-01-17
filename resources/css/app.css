@@ -110,3 +110,12 @@
 .hl-gutter-deletion {
     @apply bg-red-600/50 text-slate-100;
 }
+
+.table-of-contents a {
+  text-underline-offset: 0.2em;
+  text-decoration: none !important;
+  @apply dark:text-white dark:hover:text-purple-500 hover:text-purple-600 transition-colors text-gray-700;
+}
+.table-of-contents a:hover {
+  text-decoration: none !important;
+}   
