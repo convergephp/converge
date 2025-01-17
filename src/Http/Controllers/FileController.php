@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Http\Controllers;
 
-use Document\Parser;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents;
-use Fluxtor\Converge\Support\DocumentParser;
+use Fluxtor\Converge\Documents\Markdown;
 
 class FileController
 {
@@ -18,7 +17,7 @@ class FileController
         $this->map = $map;
     }
 
-    public function __invoke($url)
+    public function __invoke($url, Markdown $markdown)
     {
         $path = $this->map->getFilePathByUrl($url);
 
@@ -26,11 +25,15 @@ class FileController
 
         $contents = $document->body(); // process the body 
 
+        $html = $markdown->convert($contents);
         // highlith code blocks 
+
+
+
         // render declared blade components 
-         
+
         return view('converge::show', [
-            'contents' => $contents,
+            'contents' => $html,
             'metadata' => $document->matter()
         ]);
     }

@@ -31,7 +31,7 @@ final class FilesTreeBuilder
 
         $path = $root;
         $tree = self::tree($path, $root, $maxDepth);
-
+        
         // dump(self::$urlToPathMap);
         return [$tree, self::$urlToPathMap];
     }
