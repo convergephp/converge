@@ -20,14 +20,17 @@ class FileController
 
     public function __invoke($url)
     {
-        $path = $this->map->getFileByUrl($url);
+        $path = $this->map->getFilePathByUrl($url);
 
-        $contents = file_get_contents($path);
+        $document = Documents\Parser::make(file_get_contents($path));
 
-        $document = Documents\Parser::make($contents);
+        $contents = $document->body(); // process the body 
 
+        // highlith code blocks 
+        // render declared blade components 
+         
         return view('converge::show', [
-            'contents' => $document->body(),
+            'contents' => $contents,
             'metadata' => $document->matter()
         ]);
     }
