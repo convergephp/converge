@@ -1,8 +1,8 @@
 <x-converge::layout>
-    <div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+    <div class="max-w-8xl  mx-auto px-4 sm:px-6 md:px-8">
         <x-converge::sidebar/>
         <div 
-            class="lg:pl-[17.125rem]"
+            class="lg:pl-[17.125rem] scroll-m-20"
             x-data="tableOfContents" 
             x-on:scroll.window="handlePermalinks"
         >
