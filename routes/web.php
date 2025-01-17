@@ -10,6 +10,7 @@ use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
 
 foreach (Converge::getModules() as $module) {
+
     $moduleId = $module->getId();
     $uri = $module->getRoutePath();
 

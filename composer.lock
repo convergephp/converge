@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce25b29714b72372dbd5c788cf0227f2",
+    "content-hash": "3df2b21cd6b44541d13123bde0a7832b",
     "packages": [
         {
             "name": "tempest/highlight",
-            "version": "2.8.0",
+            "version": "2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "f79dd7a66a082fc70212c51126df9224e75e5fbe"
+                "reference": "ef92ffe89566038f579df5ddff2f00144c0865aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/f79dd7a66a082fc70212c51126df9224e75e5fbe",
-                "reference": "f79dd7a66a082fc70212c51126df9224e75e5fbe",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/ef92ffe89566038f579df5ddff2f00144c0865aa",
+                "reference": "ef92ffe89566038f579df5ddff2f00144c0865aa",
                 "shasum": ""
             },
             "require": {
@@ -26,10 +26,10 @@
             "require-dev": {
                 "assertchris/ellison": "^1.0.2",
                 "friendsofphp/php-cs-fixer": "^3.21",
-                "larapack/dd": "^1.1",
                 "league/commonmark": "^2.4",
                 "phpstan/phpstan": "^1.10.0",
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^10.0",
+                "symfony/var-dumper": "^6.4|^7.0"
             },
             "suggest": {
                 "assertchris/ellison": "Allows you to analyse sentence complexity",
@@ -54,7 +54,7 @@
             "description": "Fast, extensible, server-side code highlighting",
             "support": {
                 "issues": "https://github.com/tempestphp/highlight/issues",
-                "source": "https://github.com/tempestphp/highlight/tree/2.8.0"
+                "source": "https://github.com/tempestphp/highlight/tree/2.11.2"
             },
             "funding": [
                 {
@@ -62,7 +62,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-04T05:04:16+00:00"
+            "time": "2024-11-14T09:11:08+00:00"
         }
     ],
     "packages-dev": [

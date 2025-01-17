@@ -1,13 +1,4 @@
-/* @import 'theme.css'; */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-::-webkit-scrollbar{
-    width: 10px;
-  }
-
-  .dark .hl-keyword {
+.dark .hl-keyword {
     color: #F78C6C;
 }
 .hl-keyword {

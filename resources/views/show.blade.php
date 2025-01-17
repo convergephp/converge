@@ -9,7 +9,7 @@
             class="pointer-events-none fixed bottom-0 right-[90%] h-[100px] w-[200px] rotate-45 rounded-full bg-indigo-500/[0.12] shadow-[50px_50px_40px_3px] shadow-cyan-500/10 blur-2xl">
         </div>
     </div>
-    <div class="bg-gray-20 prose dark:prose-invert">
-        {!! str()->markdown($contents) !!}
+    <div class="prose max-w-none dark:prose-invert prose-pre:text-gray-500 dark:prose-pre:text-[#babed8] dark:prose-pre:bg-white/5 prose-code:rounded prose-pre:bg-white prose-code:bg-black/5 dark:prose-code:bg-white/20">
+        {!! ($contents) !!}
     </div>
 </x-converge::page>

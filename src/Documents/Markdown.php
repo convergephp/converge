@@ -18,8 +18,8 @@ class Markdown
 
     public function convert(string $markdown)
     {   
-        dd(new Highlighter());
         
+        // dd(new Highlighter());
         $html = Str::markdown(
             string: $markdown,
             options: [
@@ -35,7 +35,7 @@ class Markdown
                 ],
             ],
             extensions: [
-                // new HighlightExtension(),
+                new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
                 new TableOfContentsExtension(),
                 new AutolinkExtension(),
