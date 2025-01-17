@@ -6,9 +6,11 @@ namespace Fluxtor\Converge\Versions;
 
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasUrl;
+use Fluxtor\Converge\Concerns\Resolver;
 
 class VersionLink
 {
+    use Resolver;
     use HasLabel;
     use HasUrl;
 }

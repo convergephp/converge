@@ -30,14 +30,14 @@ trait HasPath
     /**
      * cross platform
      *
-     * @param string $path
-     * 
+     * @param  string  $path
      * @return string
      */
     public function normalizePath($path)
     {
         return str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
     }
+
     /**
      * getter for the path
      *

@@ -6,7 +6,6 @@ namespace Fluxtor\Converge;
 
 class ContentMap
 {
-
     public function __construct(
         protected FilesTreeBuilder $filesTreeBuilder
     ) {
@@ -32,7 +31,7 @@ class ContentMap
     /**
      * Fetch a single file using its URL.
      */
-    public function getFileByUrl(string $url): ?string
+    public function getFilePathByUrl(string $url): ?string
     {
         // dd($url);
         // dd(FilesTreeBuilder::$urlToPathMap);

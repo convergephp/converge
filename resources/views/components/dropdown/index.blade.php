@@ -28,10 +28,8 @@
                 const button = this.$refs.button
                 const target = event.target
 
-                // If the panel or the button  contains the focused element, do nothing
                 if (panel.contains(target)||button.contains(target)) return;
 
-                // If the focus is outside both the panel and button, check DOM order
                 const lastFocusedElement = document.activeElement
 
                 if (this.shouldCloseDropdown(button,panel,lastFocusedElement)) this.close(button);
@@ -57,7 +55,7 @@
                 x-bind:aria-expanded="open"
                 x-bind:aria-controls="$id('dropdown-button')"
                 type="button"
-                {{ $button->attributes->merge(['class'=>'flex items-center px-2 py-1 rounded-md']) }}
+                {{ $button->attributes->merge(['class'=>'flex items-center px-2 py-1 ']) }}
             >
             {{ $button }}
         </button>
