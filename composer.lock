@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3df2b21cd6b44541d13123bde0a7832b",
+    "content-hash": "ce25b29714b72372dbd5c788cf0227f2",
     "packages": [
         {
             "name": "tempest/highlight",
-            "version": "2.11.2",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tempestphp/highlight.git",
-                "reference": "ef92ffe89566038f579df5ddff2f00144c0865aa"
+                "reference": "f79dd7a66a082fc70212c51126df9224e75e5fbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/ef92ffe89566038f579df5ddff2f00144c0865aa",
-                "reference": "ef92ffe89566038f579df5ddff2f00144c0865aa",
+                "url": "https://api.github.com/repos/tempestphp/highlight/zipball/f79dd7a66a082fc70212c51126df9224e75e5fbe",
+                "reference": "f79dd7a66a082fc70212c51126df9224e75e5fbe",
                 "shasum": ""
             },
             "require": {
@@ -26,10 +26,10 @@
             "require-dev": {
                 "assertchris/ellison": "^1.0.2",
                 "friendsofphp/php-cs-fixer": "^3.21",
+                "larapack/dd": "^1.1",
                 "league/commonmark": "^2.4",
                 "phpstan/phpstan": "^1.10.0",
-                "phpunit/phpunit": "^10.0",
-                "symfony/var-dumper": "^6.4|^7.0"
+                "phpunit/phpunit": "^10.0"
             },
             "suggest": {
                 "assertchris/ellison": "Allows you to analyse sentence complexity",
@@ -54,7 +54,7 @@
             "description": "Fast, extensible, server-side code highlighting",
             "support": {
                 "issues": "https://github.com/tempestphp/highlight/issues",
-                "source": "https://github.com/tempestphp/highlight/tree/2.11.2"
+                "source": "https://github.com/tempestphp/highlight/tree/2.8.0"
             },
             "funding": [
                 {
@@ -62,7 +62,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-14T09:11:08+00:00"
+            "time": "2024-08-04T05:04:16+00:00"
         }
     ],
     "packages-dev": [
@@ -1733,16 +1733,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.38.1",
+            "version": "v11.38.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "297652d91811fda163cc1929716117dccae2adbd"
+                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/297652d91811fda163cc1929716117dccae2adbd",
-                "reference": "297652d91811fda163cc1929716117dccae2adbd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/9d290aa90fcad44048bedca5219d2b872e98772a",
+                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a",
                 "shasum": ""
             },
             "require": {
@@ -1943,7 +1943,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-14T18:11:19+00:00"
+            "time": "2025-01-15T00:06:46+00:00"
         },
         {
             "name": "laravel/pail",
@@ -2029,12 +2029,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "f606d0beb2417f52753d2cfd7c8ffaadb1145506"
+                "reference": "df4438b0cf097b22ede6147611466a3a141a6006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/f606d0beb2417f52753d2cfd7c8ffaadb1145506",
-                "reference": "f606d0beb2417f52753d2cfd7c8ffaadb1145506",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/df4438b0cf097b22ede6147611466a3a141a6006",
+                "reference": "df4438b0cf097b22ede6147611466a3a141a6006",
                 "shasum": ""
             },
             "require": {
@@ -2088,7 +2088,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2025-01-14T16:22:53+00:00"
+            "time": "2025-01-16T19:21:56+00:00"
         },
         {
             "name": "laravel/prompts",

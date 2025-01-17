@@ -42,6 +42,8 @@
         }
     },
     "require": {
-        "tempest/highlight": "^2.11"
+        "tempest/highlight": "2.8"
+
     }
+    
 }

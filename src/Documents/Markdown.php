@@ -17,8 +17,9 @@ class Markdown
 
 
     public function convert(string $markdown)
-    {
-        // dd(new Highlighter());
+    {   
+        dd(new Highlighter());
+        
         $html = Str::markdown(
             string: $markdown,
             options: [
