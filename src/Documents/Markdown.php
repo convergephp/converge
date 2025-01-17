@@ -32,7 +32,7 @@ class Markdown
                 'table_of_contents' => [
                     'style' => 'bullet',
                     'position' => 'top',
-                    'normalize'=>'flat'
+                    'normalize'=>'relative'
                 ],
             ],
             extensions: [
