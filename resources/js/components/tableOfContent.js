@@ -1,7 +1,7 @@
 export default () => {
     return {
         tableOfContent: "",
-        offset: 60,
+        offset: 100,
         headingPermalinks: [],
         activeTocLink: null,
         init() {
@@ -20,15 +20,31 @@ export default () => {
                     }
                 });
                 this.adjustTableOfContent();
+                // this.handlePermalinks();
+                if (!this.activeTocLink && this.tableOfContentLinks.length > 0) {
+                    this.activeTocLink = this.tableOfContentLinks[0];
+                }
             });
         },
         get tableOfContentLinks() {
             return this.$el.querySelectorAll("ul.table-of-contents a");
         },
         handlePermalinks() {
-            let links = Array.from(this.headingPermalinks).map((link) => {
-                this.handlePermalink(link);
-            });
+            for (const link of this.headingPermalinks) {
+                const rect = link.getBoundingClientRect();
+                const isInViewport =
+                    rect.top > this.offset && rect.top < window.innerHeight;
+
+                if (isInViewport) {
+                    this.activeTocLink = Array.from(this.tableOfContentLinks).find(
+                        (item) => item.href === link.href
+                    );
+                    break; // Stop after activating the first link
+                }
+            }
+            // let links = Array.from(this.headingPermalinks).map((link) => {
+            //     this.handlePermalink(link);
+            // });
         },
         handlePermalink(link) {
             const rect = link.getBoundingClientRect();
