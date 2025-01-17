@@ -6,7 +6,7 @@
             x-data="tableOfContents" 
             x-on:scroll.window="handlePermalinks"
         >
-            <div data-doc class="mx-auto max-w-3xl pt-10 xl:ml-0 xl:mr-[10.5rem] xl:max-w-none xl:pr-14">
+            <div data-doc class="mx-auto max-w-3xl pt-10 xl:ml-0 xl:mr-[13.5rem] xl:max-w-none xl:pr-14">
                 {{ $slot }}
             </div>
             <x-converge::table-of-contents />
