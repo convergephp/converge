@@ -40,5 +40,8 @@
                 "Fluxtor\\Converge\\Providers\\ConvergeServiceProvider"
             ]
         }
+    },
+    "require": {
+        "tempest/highlight": "^2.11"
     }
 }

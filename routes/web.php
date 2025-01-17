@@ -31,7 +31,7 @@ foreach (Converge::getModules() as $module) {
             }
 
             // Debugging dump for versions
-            dump($version);
+            // dump($version);
         }
     }
 

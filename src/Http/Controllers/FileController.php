@@ -17,10 +17,12 @@ class FileController
 
     public function __invoke($url)
     {
-        $file = $this->map->getFileByUrl($url);
+        $path = $this->map->getFileByUrl($url);
 
+        $contents = file_get_contents($path);
+        
         return view('converge::show', [
-            'contents' => file_get_contents($file),
+            'contents' => $contents,
         ]);
     }
 }
