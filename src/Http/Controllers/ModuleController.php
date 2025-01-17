@@ -10,8 +10,6 @@ class ModuleController
 {
     public function __invoke(): View
     {
-        // dd($module);
-
         return view('converge::index');
     }
 }

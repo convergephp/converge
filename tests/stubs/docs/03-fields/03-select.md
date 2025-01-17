@@ -1,7 +1,7 @@
 ---
 title: Select
 ---
-import AutoScreenshot from "@components/AutoScreenshot.astro"
+
 import LaracastsBanner from "@components/LaracastsBanner.astro"
 
 ## Overview

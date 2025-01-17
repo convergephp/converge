@@ -1,7 +1,7 @@
 ---
 title: Text input
 ---
-import AutoScreenshot from "@components/AutoScreenshot.astro"
+
 
 ## Overview
 
