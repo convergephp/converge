@@ -25,7 +25,7 @@ class Version
 
     protected bool $isQuiet = false;
     protected bool $isDefault = false;
-    protected string $route;
+    protected ?string $route = null;
 
 
     public function __construct()
@@ -50,7 +50,7 @@ class Version
         return $this;
     }
 
-    public function getRoute()
+    public function getRoute(): ?string
     {
         return $this->route;
     }

@@ -11,38 +11,37 @@ use Illuminate\Support\Facades\Route;
 
 foreach (Converge::getModules() as $module) {
     $moduleId = $module->getId();
-    $moduleRoutePath = $module->getRoutePath();
+    $uri = $module->getRoutePath();
 
-    // when the version is present 
-    // the route name must append it a version route
-    // the route path must be changes 
-
+    // Check if the module has versions
     if ($module->hasVersions()) {
         foreach ($module->getVersions() as $version) {
-            // we don't need version links
-            if (! $version instanceof Version) {
-                return;
+            if (!$version instanceof Version) {
+                continue;  // Skip non-version links
             }
 
+            // If the version is default and quiet, we skip it (it behaves like no version)
             if ($version->isDefault() && $version->isQuiet()) {
+                continue;
             }
 
-            if ($version->isDefault() && !$version->isQuiet()) {
+            // Otherwise, we modify the URI with the version route
+            if (($version->isDefault() && !$version->isQuiet()) || !$version->isDefault()) {
+                $uri .= '/' . $version->getRoute();  // Concatenate version to URI
             }
 
-            if (!$version->isDefault()) {
-            }
-
+            // Debugging dump for versions
             dump($version);
         }
     }
 
-    Route::middleware(ActivateModule::class . ':' . $moduleId)->group(function () use ($moduleId, $moduleRoutePath) {
+    // Register the routes for the module
+    Route::middleware(ActivateModule::class . ':' . $moduleId)->group(function () use ($moduleId, $uri) {
         Route::name($moduleId)
-            ->get($moduleRoutePath, ModuleController::class);
+            ->get($uri, ModuleController::class);
 
         Route::name("{$moduleId}.show")
-            ->get("{$moduleRoutePath}/{url}", FileController::class)
+            ->get("{$uri}/{url}", FileController::class)
             ->where('url', '.*');
     });
 }
