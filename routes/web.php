@@ -15,43 +15,48 @@ foreach (Converge::getModules() as $module) {
     // dump($module);
     $uri = $module->getRoutePath();
     $moduleId = $module->getId();
-    $excludedPattern = '';
+    $pattern = [];
     // Check if the module has versions
     if ($module->hasVersions()) {
         foreach ($module->getVersions() as $version) {
-            $uri = $module->getRoutePath();
+            $versionUri = $module->getRoutePath();
 
             if (! $version instanceof Version) {
                 continue;  // Skip non-version links
             }
 
             if ($version->isDefault() && $version->isQuiet()) {
-                // do nothing
+                continue;
             }
 
             // Otherwise, we modify the URI with the version route
             if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
-                $uri .= '/' . $version->getRoute();  // Concatenate version to URI
-                $excludedPattern = '^' . preg_quote($version->getRoute(), '/') . '(/.*)?$'; // Versioned base route and optional {url} part
+                $versionUri .= '/' . $version->getRoute();
+                $excludedPatterns[] = preg_quote($version->getRoute(), '/');
             }
             generateRoutes($uri, $moduleId);
         }
-        // $excludedPatterns=
+        // Create a combined exclusion regex or set as null
+        $pattern = count($excludedPatterns) > 0
+            ? '^(?!(' . implode('|', $excludedPatterns) . '))(.*)$'
+            : '.*';
 
         continue; // explicitly go treat other module
     }
-    generateRoutes($uri, $moduleId, $excludedPattern);
+    $pattern = is_array($pattern) ? '' : $pattern;
+
+    generateRoutes($uri, $moduleId, $pattern);
     // Register the routes for the module
 }
 
-function generateRoutes(string $uri, string $id, ?string $ExcludedPatten = null)
+function generateRoutes(string $uri, string $id, ?string $pattern = '.*')
 {
-    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $uri) {
+    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $uri, $pattern) {
         Route::name($id)
             ->get($uri, ModuleController::class);
 
         Route::name("{$id}.show")
             ->get("{$uri}/{url}", FileController::class)
-            ->where('url', $excludedPattern ?? '.*');
+            ->where('url', $pattern);
     });
 }
