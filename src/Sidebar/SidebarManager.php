@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Sidebar;
 
 use Fluxtor\Converge\FilesTreeBuilder;
+use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
 
 class SidebarManager
 {
-    public function __construct(protected string $path, protected int $depth = PHP_INT_MAX) {}
+    public function __construct(
+        protected string $path,
+        protected int $depth = PHP_INT_MAX,
+        protected ?Version $version 
+        
+        ) {}
 
     /**
      * sidebar items
@@ -21,7 +27,7 @@ class SidebarManager
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
 
-        $items = SidebarBuilder::build($tree[0]);
+        $items = SidebarBuilder::build($tree[0], version: $this->version?->getRoute());
 
         return $items;
     }

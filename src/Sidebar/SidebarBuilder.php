@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -14,12 +15,11 @@ final class SidebarBuilder
      *
      * @return Collection<int,SidebarItem|SidebarGroup>
      */
-    public static function build(array $tree): Collection
+    public static function build(array $tree, ?string $version = null): Collection
     {
-        // dd($tree);
         $items = new Collection();
 
-        return (new self())->process($items, $tree);
+        return (new self())->process($items, $tree, version: $version);
     }
 
     /**
@@ -28,13 +28,13 @@ final class SidebarBuilder
      * @param  Collection<int,SidebarItem|SidebarGroup>  $items
      * @return Collection<int,SidebarItem|SidebarGroup>
      */
-    public function process(Collection $items, array $tree, int $depth = 0): Collection
+    public function process(Collection $items, array $tree, int $depth = 0, ?string $version = null): Collection
     {
         // dd($tree);
         foreach ($tree as $key => $node) {
             match ($node['type']) {
-                'file' => $this->addFileNode($items, $node, $key, $depth),
-                'folder' => $this->addGroupNode($items, $node, $key, $depth),
+                'file' => $this->addFileNode($items, $node, $key, $depth, $version),
+                'folder' => $this->addGroupNode($items, $node, $key, $depth, $version),
                 default => throw new InvalidArgumentException("Unknown type: {$node['type']}"),
             };
         }
@@ -48,13 +48,14 @@ final class SidebarBuilder
      * @param  Collection<int,SidebarItem|SidebarGroup>  $items
      * @param  array<string,string>  $node
      */
-    private function addFileNode(Collection $items, array $node, int $sortKey, int $depth): void
+    private function addFileNode(Collection $items, array $node, int $sortKey, int $depth, ?string $version): void
     {
+        $url = $version ? $version . '/' . $node['url'] : $node['url']; // prefix the url if needed
         $items->add(
             SidebarItem::make()
                 ->label($node['label'])
                 ->path($node['path'])
-                ->url($node['url'])
+                ->url($url)
                 ->sort($sortKey)
                 ->depth($depth)
         );
@@ -71,7 +72,7 @@ final class SidebarBuilder
      *
      * @param  Collection<int,SidebarItem|SidebarGroup>  $items
      */
-    private function addGroupNode(Collection $items, array $node, int $sort, int $depth): void
+    private function addGroupNode(Collection $items, array $node, int $sort, int $depth, ?string $version): void
     {
         // dd($node);
         if (count($node['children']) < 1) {
@@ -85,6 +86,6 @@ final class SidebarBuilder
         $items->add($group);
 
         $children = $node['children'];
-        $this->process($group->getItems(), $children, $depth + 1);
+        $this->process($group->getItems(), $children, $depth + 1, version: $version);
     }
 }

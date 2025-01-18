@@ -9,7 +9,7 @@ use Fluxtor\Converge\Http\Middleware\UseModule;
 use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Storage;
 
 foreach (Converge::getModules() as $module) {
     // dump($module);
@@ -55,7 +55,6 @@ foreach (Converge::getModules() as $module) {
 function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
 {
     $params = ':'. $versionId ? ':' . $id . ',' . $versionId : $id;
-    dump($params);
     Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);
