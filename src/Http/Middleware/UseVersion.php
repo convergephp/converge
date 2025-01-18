@@ -9,7 +9,7 @@ use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Http\Request;
 
-class ActivateVersion
+class UseVersion
 {
     public function handle(Request $request, Closure $next, string $module, string $versionId = null): mixed
     {
@@ -17,7 +17,6 @@ class ActivateVersion
         if (!is_null($versionId)) {
             Converge::getModule($module)->useVersion($versionId);
         }
-        dd(Converge::getModule($module));
         return $next($request);
     }
 }
