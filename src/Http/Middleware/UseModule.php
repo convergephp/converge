@@ -8,7 +8,7 @@ use Closure;
 use Fluxtor\Converge\Facades\Converge;
 use Illuminate\Http\Request;
 
-class ActivateModule
+class UseModule
 {
     public function handle(Request $request, Closure $next, string $module): mixed
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use ArrayAccess;
 use Closure;
 use Illuminate\Support\Collection;
 
@@ -33,6 +34,12 @@ abstract class CollectionsRegistry
     final public function getItems(): Collection
     {
         return $this->items;
+    }
+
+    public function get($key, $id)
+    {
+        return $this->items->filter(fn($item) => $item->$key === $id);
+        // $this->items->get($key, $id);
     }
 
     final public function addLink(Closure $callback): static

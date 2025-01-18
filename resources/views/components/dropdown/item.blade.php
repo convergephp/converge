@@ -22,7 +22,7 @@
     x-on:mouseleave="show = false"
     x-on:keydown.enter.prevent="$el.click()">
     @if (filled($href))
-        <a href="{{ $href }}">
+        <a href="/{{ $href }}" class="w-full">
             {{ $slot }}
         </a>
     @else

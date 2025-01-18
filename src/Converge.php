@@ -63,6 +63,11 @@ class Converge
         return $this->getActiveModule()->getVersions();
     }
 
+    public function getUiVersions(): Collection
+    {
+        return $this->getActiveModule()->getUiVersions();
+    }
+
     public function getModule(string $id): Module
     {
         return resolve(ModuleRegistry::class)->get($id);
@@ -94,7 +99,7 @@ class Converge
                 return $carry.Str::finish($css->toHtml(), PHP_EOL);
             }
             if (($contents = @file_get_contents($css)) === false) {
-                throw new RuntimeException("Unable to load Pulse dashboard CSS path [$css].");
+                throw new RuntimeException("Unable to load Converge CSS path [$css].");
             }
 
             return $carry."<style>{$contents}</style>".PHP_EOL;
@@ -108,7 +113,7 @@ class Converge
     public function js(): string
     {
         if (($pulse = @file_get_contents($this->js)) === false) {
-            throw new RuntimeException('Unable to load the Pulse dashboard JavaScript.');
+            throw new RuntimeException('Unable to load the Converge JavaScript.');
         }
 
         return "<script>{$pulse}</script>";

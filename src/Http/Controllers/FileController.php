@@ -21,11 +21,13 @@ class FileController
     {
         $path = $this->map->getFilePathByUrl($url);
 
+        abort_if(is_null($path), 404);
+
         $document = Documents\Parser::make(file_get_contents($path));
 
         $contents = $document->body(); // process the body
 
-        $html = $markdown->convert($contents);
+        $html = $markdown->convert($contents);  
         // highlith code blocks
 
         // render declared blade components

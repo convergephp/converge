@@ -1,5 +1,5 @@
 @php
-    $versions = app('converge')->getVersions();
+    $versions = app('converge')->getUiVersions();
     // dd($versions);
 @endphp
 <div 
@@ -30,8 +30,11 @@
             </x-slot:button>
             <x-slot:items class="w-36 dark:bg-transparent bg-gray-100">
                 @foreach($versions as $version)
-                    <x-converge::dropdown.item class="flex items-center gap-1" x-on:click="setTheme('light')">
-                        <span class="text-gray-800 dark:text-white">{{ $version->getLabel() }}</span>
+                    <x-converge::dropdown.item 
+                        class="flex items-center gap-1" 
+                        :href="$version['url']"
+                    >
+                        <span class="text-gray-800 dark:text-white">{{ $version['label'] }}</span>
                     </x-converge::dropdown.item>
                 @endforeach
             </x-slot:items>

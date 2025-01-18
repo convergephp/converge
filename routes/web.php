@@ -5,11 +5,11 @@ declare(strict_types=1);
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
-use Fluxtor\Converge\Http\Middleware\ActivateModule;
+use Fluxtor\Converge\Http\Middleware\UseModule;
+use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
-
-define('SLASH', '/');
+use Illuminate\Support\Facades\Storage;
 
 foreach (Converge::getModules() as $module) {
     // dump($module);
@@ -29,6 +29,7 @@ foreach (Converge::getModules() as $module) {
             }
 
             if ($version->isDefault() && $version->isQuiet()) {
+                // @TODO: redirect when accessing the Quieted version
                 continue;
             }
 
@@ -39,7 +40,7 @@ foreach (Converge::getModules() as $module) {
 
             $versionName = $name . '.' . $version->getRoute();
 
-            generateRoutes($versionUri, $moduleId, $versionName);
+            generateRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
         } // foreach end 
 
         $pattern = count($excludUrlVersions) > 0
@@ -51,10 +52,10 @@ foreach (Converge::getModules() as $module) {
     // Register the routes for the module
 }
 
-function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*')
+function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
 {
-    // dump($pattern);
-    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $name, $uri, $pattern) {
+    $params = ':'. $versionId ? ':' . $id . ',' . $versionId : $id;
+    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);
 

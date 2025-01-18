@@ -56,6 +56,10 @@ class Version
     {
         return $this->route;
     }
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
 
     public function quiet(bool $condition = true): static
     {
