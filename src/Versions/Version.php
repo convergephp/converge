@@ -15,18 +15,18 @@ use LogicException;
 
 class Version
 {
-    use Resolver;
     use HasLabel;
     use HasPath;
-
+    use Resolver;
 
     /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
 
     protected bool $isQuiet = false;
-    protected bool $isDefault = false;
-    protected ?string $route = null;
 
+    protected bool $isDefault = false;
+
+    protected ?string $route = null;
 
     public function __construct()
     {
@@ -41,12 +41,14 @@ class Version
     public function default(bool $condition = true)
     {
         $this->isDefault = $condition;
+
         return $this;
     }
 
     public function route(string $route): static
     {
         $this->route = $route;
+
         return $this;
     }
 
@@ -57,10 +59,11 @@ class Version
 
     public function quiet(bool $condition = true): static
     {
-        if (!$this->isDefault()) {
+        if (! $this->isDefault()) {
             throw new LogicException('Can\'t make non-default version quiet.');
         }
         $this->isQuiet = $condition;
+
         return $this;
     }
 

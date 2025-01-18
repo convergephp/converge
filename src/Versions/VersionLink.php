@@ -10,7 +10,7 @@ use Fluxtor\Converge\Concerns\Resolver;
 
 class VersionLink
 {
-    use Resolver;
     use HasLabel;
     use HasUrl;
+    use Resolver;
 }

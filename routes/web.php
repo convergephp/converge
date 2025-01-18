@@ -2,44 +2,65 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Http\Middleware\ActivateModule;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
+use Fluxtor\Converge\Http\Middleware\ActivateModule;
+use Fluxtor\Converge\Versions\Version;
+use Illuminate\Support\Facades\Route;
+
+define('SLASH', '/');
 
 foreach (Converge::getModules() as $module) {
-
-    $moduleId = $module->getId();
+    // dump($module);
     $uri = $module->getRoutePath();
+    $moduleId = $module->getId();
+    $pattern = '.*';
+    $name = $moduleId;
     // Check if the module has versions
     if ($module->hasVersions()) {
+        $excludUrlVersions = [];
+
         foreach ($module->getVersions() as $version) {
-            if (!$version instanceof Version) {
-                continue;  // Skip non-version links
+            $versionUri = $module->getRoutePath();
+
+            if (! $version instanceof Version) {
+                continue;
             }
-            
-            // If the version is default and quiet, we skip it (it behaves like no version)
+
             if ($version->isDefault() && $version->isQuiet()) {
                 continue;
             }
-            
-            // Otherwise, we modify the URI with the version route
-            if (($version->isDefault() && !$version->isQuiet()) || !$version->isDefault()) {
-                $uri .= '/' . $version->getRoute();  // Concatenate version to URI
+
+            if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
+                $versionUri .= '/' . $version->getRoute();
+                $excludUrlVersions[] = preg_quote($version->getRoute(), '/');
             }
 
-            // Debugging dump for versions
-        }
+            $versionName = $name . '.' . $version->getRoute();
+
+            generateRoutes($versionUri, $moduleId, $versionName);
+        } // foreach end 
+
+        $pattern = count($excludUrlVersions) > 0
+            ? '^(?!(' . implode('|', $excludUrlVersions) . '))(.*)$'
+            : '.*';
     }
+
+    generateRoutes(uri: $uri, id: $moduleId, name: $name, pattern: $pattern);
     // Register the routes for the module
-    Route::middleware(ActivateModule::class . ':' . $moduleId)->group(function () use ($moduleId, $uri) {
-        Route::name($moduleId)
+}
+
+function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*')
+{
+    // dump($pattern);
+    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $name, $uri, $pattern) {
+        Route::name($name)
             ->get($uri, ModuleController::class);
 
-        Route::name("{$moduleId}.show")
+
+        Route::name("{$name}.show")
             ->get("{$uri}/{url}", FileController::class)
-            ->where('url', '.*');
+            ->where('url', $pattern);
     });
 }

@@ -23,18 +23,16 @@ class FileController
 
         $document = Documents\Parser::make(file_get_contents($path));
 
-        $contents = $document->body(); // process the body 
+        $contents = $document->body(); // process the body
 
         $html = $markdown->convert($contents);
-        // highlith code blocks 
+        // highlith code blocks
 
-
-
-        // render declared blade components 
+        // render declared blade components
 
         return view('converge::show', [
             'contents' => $html,
-            'metadata' => $document->matter()
+            'metadata' => $document->matter(),
         ]);
     }
 }
