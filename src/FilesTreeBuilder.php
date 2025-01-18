@@ -20,7 +20,7 @@ final class FilesTreeBuilder
      *
      * @param  int  $maxDepth  Default is PHP_INT_MAX
      */
-    public static function build(string $root, int $maxDepth = PHP_INT_MAX): array
+    public static function  build(string $root, int $maxDepth = PHP_INT_MAX): array
     {
         if (! is_dir($root)) {
             throw new Exception("Invalid directory provided: {$root}");

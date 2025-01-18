@@ -63,6 +63,11 @@ class Converge
         return $this->getActiveModule()->getVersions();
     }
 
+    public function getUiVersions(): Collection
+    {
+        return $this->getActiveModule()->getUiVersions();
+    }
+
     public function getModule(string $id): Module
     {
         return resolve(ModuleRegistry::class)->get($id);

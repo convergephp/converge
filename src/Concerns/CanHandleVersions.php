@@ -6,6 +6,7 @@ namespace Fluxtor\Converge\Concerns;
 
 use Closure;
 use Fluxtor\Converge\Versions\Version;
+use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 
@@ -48,5 +49,14 @@ trait CanHandleVersions
     public function getVersions(): Collection
     {
         return $this->versions;
+    }
+    public function getUiVersions(): Collection
+    {
+        $moduleRoute = $this->getRoutePath();
+        return   $this->versions->map(fn(Version|VersionLink   $version) => [
+            'url' => $moduleRoute . '/' . $version->getRoute(),
+            'label' => $version->getLabel()
+        ]);
+        // dd();
     }
 }

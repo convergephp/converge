@@ -27,7 +27,7 @@ class FileController
 
         $contents = $document->body(); // process the body
 
-        $html = $markdown->convert($contents);
+        $html = $markdown->convert($contents);  
         // highlith code blocks
 
         // render declared blade components
