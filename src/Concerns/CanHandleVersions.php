@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
+use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 
 trait CanHandleVersions
 {
     protected Collection $versions;
-    protected ?string $activeVersion;
+    protected ?Version $activeVersion;
 
     public function initVersions(): void
     {
@@ -23,15 +24,15 @@ trait CanHandleVersions
         return ! $this->versions->isEmpty();
     }
 
-    public function useVersion(string $version): static
+    public function useVersion(string $id): static
     {
-        $this->activeVersion = $version;
+        $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
         return $this;
     }
 
-    public function getUsedVersion(): ?string
+    public function getUsedVersion(): ?Version
     {
-        return $this->activeVersion;
+        return $this->activeVersionq;
     }
     public function defineVersions(Closure $callable): static
     {
