@@ -54,7 +54,8 @@ foreach (Converge::getModules() as $module) {
 
 function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
 {
-    $params = $versionId ? ':' . $id . ',' . $versionId : $id;
+    $params = ':'. $versionId ? ':' . $id . ',' . $versionId : $id;
+    dump($params);
     Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);

@@ -51,7 +51,6 @@ trait HasPath
         if ($version = $this->getUsedVersion()) {
             return  $version->getPath();
         }
-        dd();
         return $this->resolve($this->path);
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 trait CanHandleVersions
 {
     protected Collection $versions;
-    protected ?Version $activeVersion;
+    protected ?Version $activeVersion = null;
 
     public function initVersions(): void
     {
@@ -32,7 +32,7 @@ trait CanHandleVersions
 
     public function getUsedVersion(): ?Version
     {
-        return $this->activeVersionq;
+        return $this->activeVersion;
     }
     public function defineVersions(Closure $callable): static
     {
