@@ -1,7 +1,7 @@
 export default () => {
     return {
         tableOfContent: "",
-        offset: 100,
+        offset: 40,
         headingPermalinks: [],
         activeTocLink: null,
         init() {
@@ -16,7 +16,7 @@ export default () => {
                     });
                    
                     if (this.activeTocLink) {
-                        this.activeTocLink.style.setProperty("color", "#9F7AEA");
+                        this.activeTocLink.style.setProperty("color", "#9333ea");
                     }
                 });
                 this.adjustTableOfContent();

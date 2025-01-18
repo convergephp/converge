@@ -114,7 +114,7 @@
 .table-of-contents a {
   text-underline-offset: 0.2em;
   text-decoration: none !important;
-  @apply dark:text-gray-400 block py-1 font-medium dark:hover:text-purple-500 hover:text-purple-600 transition-colors text-gray-700;
+  @apply dark:text-gray-400 block py-1 leading-[1.6] font-medium dark:hover:text-purple-500 hover:text-purple-600 transition-colors text-gray-700;
 }
 .table-of-contents a:hover {
   text-decoration: none !important;

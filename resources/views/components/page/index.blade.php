@@ -5,7 +5,7 @@
             <div
                 class="lg:pl-[17.125rem] scroll-m-20"
                 x-data="tableOfContents"
-                x-on:scroll.window="handlePermalinks"
+                x-on:scroll.window="handlePermalinks()"
             >
                 <div data-doc class="mx-auto stick max-w-3xl pt-10 xl:ml-0 xl:mr-[13.5rem] xl:max-w-none xl:pr-14">
                     {{ $slot }}
