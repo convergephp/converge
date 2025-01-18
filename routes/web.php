@@ -15,6 +15,7 @@ foreach (Converge::getModules() as $module) {
     $moduleId = $module->getId();
     // Check if the module has versions
     if ($module->hasVersions()) {
+        $pattern = '';
         foreach ($module->getVersions() as $version) {
             $uri = $module->getRoutePath();
 
@@ -26,10 +27,9 @@ foreach (Converge::getModules() as $module) {
             }
             // Otherwise, we modify the URI with the version route
             if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
-                $uri .= '/'.$version->getRoute();  // Concatenate version to URI
+                $uri .= '/' . $version->getRoute();  // Concatenate version to URI
             }
-
-            generateRoutes($uri, $moduleId);
+            generateRoutes($uri, $moduleId, $pattern);
         }
 
         continue; // explicitly go treat other module
@@ -40,7 +40,7 @@ foreach (Converge::getModules() as $module) {
 
 function generateRoutes(string $uri, string $id, ?string $ExcludedPatten = null)
 {
-    Route::middleware(ActivateModule::class.':'.$id)->group(function () use ($id, $uri) {
+    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $uri) {
         Route::name($id)
             ->get($uri, ModuleController::class);
 
