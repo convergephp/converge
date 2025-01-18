@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Documents;
 
 use Symfony\Component\Yaml\Yaml;
@@ -11,10 +13,10 @@ class Parser
         $content = str_replace(["\r\n", "\r"], "\n", $content);
 
         if (preg_match('/^\s*---\s*[\n]+(.*?)---\s*[\n]+(.*)$/s', $content, $matches)) {
-            $matter = Yaml::parse($matches[1]); 
-            $body = $matches[2]; 
+            $matter = Yaml::parse($matches[1]);
+            $body = $matches[2];
         } else {
-            $matter = null; 
+            $matter = null;
             $body = $content;
         }
 
