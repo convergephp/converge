@@ -15,47 +15,49 @@ foreach (Converge::getModules() as $module) {
     // dump($module);
     $uri = $module->getRoutePath();
     $moduleId = $module->getId();
-    $pattern = [];
+    $pattern = '.*';
+    $name = $moduleId;
     // Check if the module has versions
     if ($module->hasVersions()) {
+        $excludUrlVersions = [];
+
         foreach ($module->getVersions() as $version) {
             $versionUri = $module->getRoutePath();
 
             if (! $version instanceof Version) {
-                continue;  // Skip non-version links
-            }
-
-            if ($version->isDefault() && $version->isQuiet()) {
                 continue;
             }
 
-            // Otherwise, we modify the URI with the version route
-            if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
-                $versionUri .= '/' . $version->getRoute();
-                $excludedPatterns[] = preg_quote($version->getRoute(), '/');
+            if ($version->isDefault() && $version->isQuiet()) {
+                // redirect to the prefixed route 
+                continue;
             }
-            generateRoutes($uri, $moduleId);
-        }
-        // Create a combined exclusion regex or set as null
-        $pattern = count($excludedPatterns) > 0
-            ? '^(?!(' . implode('|', $excludedPatterns) . '))(.*)$'
+
+            if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
+                $versionUri .= '-' . $version->getRoute();
+                $excludUrlVersions[] = preg_quote($version->getRoute(), '/');
+            }
+            $versionName = $name . '-' . $version->getRoute();
+            generateRoutes($versionUri, $moduleId, $versionName);
+        } // end of version iteration
+        $pattern = count($excludUrlVersions) > 0
+            ? '^(?!(' . implode('|', $excludUrlVersions) . '))(.*)$'
             : '.*';
-
-        continue; // explicitly go treat other module
     }
-    $pattern = is_array($pattern) ? '' : $pattern;
 
-    generateRoutes($uri, $moduleId, $pattern);
+    generateRoutes(uri: $uri, id: $moduleId, name: $name, pattern: $pattern);
     // Register the routes for the module
 }
 
-function generateRoutes(string $uri, string $id, ?string $pattern = '.*')
+function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*')
 {
-    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $uri, $pattern) {
-        Route::name($id)
+    dump($pattern);
+    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $name, $uri, $pattern) {
+        Route::name($name)
             ->get($uri, ModuleController::class);
+        
 
-        Route::name("{$id}.show")
+        Route::name("{$name}-show")
             ->get("{$uri}/{url}", FileController::class)
             ->where('url', $pattern);
     });
