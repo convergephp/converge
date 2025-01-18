@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Fluxtor\Converge\Iterators\RecursiveDirectoryIterator;
 
 final class FilesTreeBuilder
@@ -28,11 +29,26 @@ final class FilesTreeBuilder
         if ($maxDepth <= 0) {
             throw new Exception("The provided maxDepth parameter must be a positive integer; received: {$maxDepth}");
         }
+        $cacheKey = self::getCacheKey($root, $maxDepth);
 
+        // if ($forceRefresh) {
+        //     Cache::forget($cacheKey);
+        // }
+        // Cache both tree and urlToPathMap
+        [$tree, $urlToPathMap] = Cache::remember($cacheKey, 3600, function () use ($root, $maxDepth) {
+            $tree = self::tree($root, $root, $maxDepth);
+            return [$tree, self::$urlToPathMap];
+        });
+
+        // Restore urlToPathMap when fetched from cache
+        self::$urlToPathMap = $urlToPathMap;
+
+        return [$tree, $urlToPathMap];
         $path = $root;
         $tree = self::tree($path, $root, $maxDepth);
 
         // dump(self::$urlToPathMap);
+
         return [$tree, self::$urlToPathMap];
     }
 
@@ -41,6 +57,7 @@ final class FilesTreeBuilder
      */
     public static function tree(string $path, string $root, int $maxDepth, int $currentDepth = 0): array
     {
+        // dd('here');  
         // Stop recursion if the maximum depth is reached
         if ($currentDepth >= $maxDepth) {
             return [];
@@ -54,9 +71,9 @@ final class FilesTreeBuilder
         $entries = iterator_to_array($iterator);
 
         // Sort entries in natural sort for consistent order
-        usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
-        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($normalize($root), '', $fileInfo->getRealPath());
@@ -87,7 +104,13 @@ final class FilesTreeBuilder
 
         return $tree;
     }
-
+    /**
+     * Generate a unique cache key based on root and maxDepth
+     */
+    private static function getCacheKey(string $root, int $maxDepth): string
+    {
+        return 'files_tree:' . md5($root . '|' . $maxDepth);
+    }
     /**
      * generate url from the path
      */
@@ -99,7 +122,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
