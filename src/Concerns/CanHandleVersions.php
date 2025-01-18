@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 trait CanHandleVersions
 {
     protected Collection $versions;
+    protected ?string $activeVersion;
 
     public function initVersions(): void
     {
@@ -22,6 +23,16 @@ trait CanHandleVersions
         return ! $this->versions->isEmpty();
     }
 
+    public function useVersion(string $version): void
+    {
+        $this->activeVersion = $version;
+    }
+
+    public function getUsedVersion(): ?string
+    {
+        $this->activeVersion;
+        return $this;
+    }
     public function defineVersions(Closure $callable): static
     {
         $versions = new Versions();

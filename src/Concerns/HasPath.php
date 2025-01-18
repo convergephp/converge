@@ -15,6 +15,7 @@ trait HasPath
 
     public function path(string|Closure|null $path): static
     {
+        dd($this->versions);
         $this->path = $this->normalizePath($path);
 
         return $this;

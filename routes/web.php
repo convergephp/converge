@@ -6,6 +6,7 @@ use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
 use Fluxtor\Converge\Http\Middleware\ActivateModule;
+use Fluxtor\Converge\Http\Middleware\ActivateVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ foreach (Converge::getModules() as $module) {
             }
 
             if ($version->isDefault() && $version->isQuiet()) {
+                // @TODO: redirect when accessing the Quieted version
                 continue;
             }
 
@@ -39,7 +41,7 @@ foreach (Converge::getModules() as $module) {
 
             $versionName = $name . '.' . $version->getRoute();
 
-            generateRoutes($versionUri, $moduleId, $versionName);
+            generateRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
         } // foreach end 
 
         $pattern = count($excludUrlVersions) > 0
@@ -51,10 +53,11 @@ foreach (Converge::getModules() as $module) {
     // Register the routes for the module
 }
 
-function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*')
+function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
 {
+    $params = $versionId ? ':' . $id . ',' . $versionId : $id;
     // dump($pattern);
-    Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $name, $uri, $pattern) {
+    Route::middleware([ActivateModule::class . ':' . $id, ActivateVersion::class . $params])->group(function () use ($id, $name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);
 

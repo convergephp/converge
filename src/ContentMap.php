@@ -12,10 +12,8 @@ class ContentMap
         $module = app('converge');
         $path = $module->getPath();
         $depth = $module->getMaxDepth();
-        // dd($path, $depth);
 
         if (empty(FilesTreeBuilder::$urlToPathMap)) {
-            // Set the root directory and max depth as required
             FilesTreeBuilder::build($path, $depth);
         }
     }
@@ -33,8 +31,6 @@ class ContentMap
      */
     public function getFilePathByUrl(string $url): ?string
     {
-        // dd($url);
-        // dd(FilesTreeBuilder::$urlToPathMap);
         return FilesTreeBuilder::$urlToPathMap[$url] ?? null;
     }
 }
