@@ -29,17 +29,19 @@ foreach (Converge::getModules() as $module) {
             }
 
             if ($version->isDefault() && $version->isQuiet()) {
-                // redirect to the prefixed route 
                 continue;
             }
 
             if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
-                $versionUri .= '-' . $version->getRoute();
+                $versionUri .= '/' . $version->getRoute();
                 $excludUrlVersions[] = preg_quote($version->getRoute(), '/');
             }
-            $versionName = $name . '-' . $version->getRoute();
+
+            $versionName = $name . '.' . $version->getRoute();
+
             generateRoutes($versionUri, $moduleId, $versionName);
-        } // end of version iteration
+        } // foreach end 
+
         $pattern = count($excludUrlVersions) > 0
             ? '^(?!(' . implode('|', $excludUrlVersions) . '))(.*)$'
             : '.*';
@@ -51,13 +53,13 @@ foreach (Converge::getModules() as $module) {
 
 function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*')
 {
-    dump($pattern);
+    // dump($pattern);
     Route::middleware(ActivateModule::class . ':' . $id)->group(function () use ($id, $name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);
-        
 
-        Route::name("{$name}-show")
+
+        Route::name("{$name}.show")
             ->get("{$uri}/{url}", FileController::class)
             ->where('url', $pattern);
     });
