@@ -14,7 +14,7 @@ class UseVersion
     public function handle(Request $request, Closure $next, string $module, string $versionId = null): mixed
     {
         /** @phpstan-ignore-next-line */
-        if (!is_null($versionId)) {
+        if ($versionId) {
             Converge::getModule($module)->useVersion($versionId);
         }
         return $next($request);

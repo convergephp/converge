@@ -23,15 +23,15 @@ trait CanHandleVersions
         return ! $this->versions->isEmpty();
     }
 
-    public function useVersion(string $version): void
+    public function useVersion(string $version): static
     {
         $this->activeVersion = $version;
+        return $this;
     }
 
     public function getUsedVersion(): ?string
     {
-        $this->activeVersion;
-        return $this;
+        return $this->activeVersion;
     }
     public function defineVersions(Closure $callable): static
     {

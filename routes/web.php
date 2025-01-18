@@ -5,14 +5,11 @@ declare(strict_types=1);
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
-use Fluxtor\Converge\Http\Middleware\ActivateModule;
-use Fluxtor\Converge\Http\Middleware\ActivateVersion;
 use Fluxtor\Converge\Http\Middleware\UseModule;
 use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
-define('SLASH', '/');
 
 foreach (Converge::getModules() as $module) {
     // dump($module);
@@ -58,7 +55,7 @@ foreach (Converge::getModules() as $module) {
 function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
 {
     $params = $versionId ? ':' . $id . ',' . $versionId : $id;
-    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($id, $name, $uri, $pattern) {
+    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($name, $uri, $pattern) {
         Route::name($name)
             ->get($uri, ModuleController::class);
 

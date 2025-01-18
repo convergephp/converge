@@ -45,7 +45,7 @@ trait HasPath
      */
     public function getPath(): string
     {
-         dd($this->versions);
+         dd($this->getUsedVersion());
         return $this->resolve($this->path);
     }
 }
