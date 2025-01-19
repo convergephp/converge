@@ -11,6 +11,7 @@
     </div>
     <div class="bg-gray-20 prose dark:prose-invert">
         {{-- @dd() --}}
-        {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!}
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sed assumenda fuga soluta minima, reiciendis quas velit est ipsum inventore officiis ducimus officia vero commodi tenetur! Rerum laboriosam nam mollitia quasi voluptatum corporis! Corporis optio delectus accusamus hic nisi! Suscipit quam praesentium aperiam quas laboriosam atque exercitationem doloribus iusto. Quis quod numquam neque mollitia accusantium consectetur dolor natus dolorem illo hic aspernatur quas deleniti asperiores beatae necessitatibus, ratione delectus officiis, accusamus magnam eum sapiente optio incidunt. Eligendi suscipit cupiditate architecto voluptates tempore culpa doloremque at sed ipsam eum quisquam ipsa ea sit et, magni distinctio ullam quos adipisci deleniti! Tempora, inventore?
+        {{-- {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!} --}}
     </div>
 </x-converge::page>

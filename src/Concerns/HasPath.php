@@ -49,8 +49,9 @@ trait HasPath
         // we check first if there is any used version
         // then check if there is any used cluster
         if ($version = $this->getUsedVersion()) {
-            return  $version->getPath();
+            return $version->getPath();
         }
+
         return $this->resolve($this->path);
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
-use ArrayAccess;
 use Closure;
 use Illuminate\Support\Collection;
 
@@ -36,9 +35,9 @@ abstract class CollectionsRegistry
         return $this->items;
     }
 
-    public function get($key, $id)
+    final public function get($key, $id)
     {
-        return $this->items->filter(fn($item) => $item->$key === $id);
+        return $this->items->filter(fn ($item) => $id === $item->$key);
         // $this->items->get($key, $id);
     }
 

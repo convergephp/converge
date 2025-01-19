@@ -12,10 +12,10 @@ class SidebarManager
 {
     public function __construct(
         protected string $path,
-        protected int $depth = PHP_INT_MAX,
-        protected ?Version $version 
-        
-        ) {}
+        protected int $depth,
+        protected ?Version $version
+
+    ) {}
 
     /**
      * sidebar items
