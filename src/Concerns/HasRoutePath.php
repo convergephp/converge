@@ -12,7 +12,7 @@ trait HasRoutePath
 
     public function routePath(string|Closure|null $routePath): static
     {
-        $this->routePath = $routePath;
+        $this->routePath = str($routePath)->ltrim('/')->toString();
 
         return $this;
     }
