@@ -7,6 +7,7 @@ namespace Fluxtor\Converge\Versions;
 use Closure;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
+use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\Resolver;
@@ -27,6 +28,8 @@ class Version
 
     protected ?string $route = null;
 
+    protected ?string $versionId = null;
+
     protected ?VersionUrlGenerator $urlGenerator = null;
 
     public function __construct()
@@ -41,9 +44,16 @@ class Version
 
     public function route(string $route): static
     {
+        $this->versionId = md5($route);
+
         $this->route = $route;
 
         return $this;
+    }
+
+    public function getId()
+    {
+        return $this->versionId;
     }
 
     public function getUrlGenerator(): VersionUrlGenerator

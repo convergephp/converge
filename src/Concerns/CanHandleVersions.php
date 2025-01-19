@@ -19,6 +19,8 @@ trait CanHandleVersions
 
     protected ?string $versionAs = null;
 
+    protected ?string $versionId = null;
+
     protected ?string $quietedVersionUrlAs = null;
 
     public function initVersions(): void
@@ -31,13 +33,19 @@ trait CanHandleVersions
         return ! $this->versions->isEmpty();
     }
 
+    public function getVersionId()
+    {
+        return $this->versionId;
+    }
 
     public function quietedVersionUrlAs(?string $url): static
     {
+        $this->versionId = md5($url);
         $this->ensureVersionLabelSet();
         $this->quietedVersionUrlAs = $url;
         return $this;
     }
+
     public function getQuietedVersionUrl(): ?string
     {
         return $this->quietedVersionUrlAs;
@@ -70,8 +78,11 @@ trait CanHandleVersions
     public function getUiUsedVersion(): ?array
     {
         return [
+            'id' => $this->activeVersion?->getId() ?? $this->versionId,
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
+            'isActive' => fn($id) => (($this->activeVersion?->getId() === $id)
+                || ($this->versionId === $id))
         ];
     }
 
@@ -96,13 +107,15 @@ trait CanHandleVersions
     public function getUiVersions(): array
     {
         $moduleRoute = $this->getRoutePath();
-        // dd($this->getQuietedVersionUrl());
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
-            $versionData = ['label' => $version->getLabel()];
+            $versionData = [
+                'label' => $version->getLabel(),
+            ];
 
             if ($version instanceof Version) {
                 return array_merge($versionData, [
+                    'id' => $version->getId(),
                     'type' => 'internal',
                     'url' => $version->getUrlGenerator()->generate($moduleRoute, $version->getRoute()),
                 ]);
@@ -110,6 +123,7 @@ trait CanHandleVersions
 
             if ($version instanceof VersionLink) {
                 return array_merge($versionData, [
+                    'id' => 'link',
                     'type' => 'link',
                     'url' => trim($version->getRoute(), '/'),
                 ]);
@@ -120,8 +134,8 @@ trait CanHandleVersions
 
         if ($label = $this->getQuietedVersion()) {
             $route = $this->getQuietedVersionUrl() ?? $moduleRoute;
-            // dd($route);
             array_unshift($versions, [
+                'id' => $this->versionId,
                 'type' => 'internal',
                 'label' => $label,
                 'url' => '/' . trim($route, '/'),
