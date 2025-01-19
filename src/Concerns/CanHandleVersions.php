@@ -31,7 +31,7 @@ trait CanHandleVersions
 
     public function useVersion(string $id): static
     {
-        $this->activeVersion = $this->versions->first(fn ($item) => $item->getRoute() === $id);
+        $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
 
         return $this;
     }
@@ -91,13 +91,13 @@ trait CanHandleVersions
             if ($version instanceof Version) {
                 return array_merge($versionData, [
                     'type' => 'internal',
-                    'url' => '/'.trim($moduleRoute, '/').'/'.trim($version->getRoute(), '/'),
+                    'url' => $version->getUrlGenerator()->generate($moduleRoute, $version->getRoute()),
                 ]);
             }
 
             if ($version instanceof VersionLink) {
                 return array_merge($versionData, [
-                    'type' => 'external',
+                    'type' => 'link',
                     'url' => trim($version->getRoute(), '/'),
                 ]);
             }
@@ -109,7 +109,7 @@ trait CanHandleVersions
             array_unshift($versions, [
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/'.$this->getRoutePath(), // module level
+                'url' => '/' . $this->getRoutePath(), // module level
             ]);
         }
 
