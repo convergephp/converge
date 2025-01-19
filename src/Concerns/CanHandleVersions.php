@@ -46,6 +46,13 @@ trait CanHandleVersions
     {
         return $this->activeVersion;
     }
+    public function getUiUsedVersion(): ?array
+    {
+        return ([
+            'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
+            'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
+        ]);
+    }
 
     public function defineVersions(Closure $callable): static
     {
@@ -90,10 +97,9 @@ trait CanHandleVersions
             array_unshift($versions, [
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/'.$this->getRoutePath() // module level
+                'url' => '/' . $this->getRoutePath() // module level
             ]);
         }
-        // dd($versions);
         return $versions;
     }
 }
