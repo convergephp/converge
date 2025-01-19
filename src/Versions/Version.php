@@ -50,12 +50,24 @@ class Version
 
     public function getUrlGenerator(): VersionUrlGenerator
     {
-        return $this->urlGenerator ?? new SubdomainUrlGenerator('fluxtor.dev');
+        return $this->urlGenerator ?? new PrefixedUrlGenerator('fluxtor.dev');
     }
 
-    public function setUrlGenerator(VersionUrlGenerator $urlGenerator): void
+    public function asAbsolute()
+    {
+        $this->setUrlGenerator(new AbsoluteUrlGenerator());
+        return $this;
+    }
+    public function asSubdomain(string $domain)
+    {
+        $this->setUrlGenerator(new SubdomainUrlGenerator($domain));
+        return $this;
+    }
+
+    public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;
+        return $this;
     }
 
     public function getRoute(): ?string

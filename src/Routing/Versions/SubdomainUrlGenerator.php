@@ -7,6 +7,7 @@ use Fluxtor\Converge\Contracts\VersionUrlGenerator;
 class SubdomainUrlGenerator implements VersionUrlGenerator
 {
     protected static string $domain;
+    
     public function __construct(string $domain)
     {
         static::$domain = $domain;

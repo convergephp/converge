@@ -25,7 +25,7 @@
                 </x-slot:button>
                 <x-slot:items class="w-36 bg-white dark:bg-transparent">
                     @foreach ($versions as $version)
-                        @php
+                        @php    
                             $pattern = preg_quote($usedVersion['url'],'~');
                             $isActive = preg_match("~$pattern$~", $version['url']);
                         @endphp
