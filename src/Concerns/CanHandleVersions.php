@@ -31,15 +31,22 @@ trait CanHandleVersions
         $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
         return $this;
     }
-    
-    public function versionAs(?string $version) {
 
+    public function versionAs(?string $version): static
+    {
+        $this->versionAs = $version;
+        return $this;
+    }
+    public function getQuietedVersion()
+    {
+        return $this->versionAs;
     }
 
     public function getUsedVersion(): ?Version
     {
         return $this->activeVersion;
     }
+
     public function defineVersions(Closure $callable): static
     {
         $versions = new Versions();
@@ -55,6 +62,7 @@ trait CanHandleVersions
     {
         return $this->versions;
     }
+
     public function getUiVersions(): Collection
     {
         $moduleRoute = $this->getRoutePath();
@@ -76,7 +84,7 @@ trait CanHandleVersions
                 ]);
             }
 
-            return $versionData; //fallback
+            return $versionData;
         });
     }
 }
