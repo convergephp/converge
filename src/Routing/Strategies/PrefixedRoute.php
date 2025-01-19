@@ -9,7 +9,7 @@ use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
 
-class PrefixedRouteStrategy implements RouteStrategy
+class PrefixedRoute implements RouteStrategy
 {
     public function generateRoutes($module): void
     {

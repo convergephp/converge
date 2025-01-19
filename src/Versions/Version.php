@@ -10,6 +10,8 @@ use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\Resolver;
+use Fluxtor\Converge\Contracts\VersionUrlGenerator;
+use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
 use Illuminate\Support\Collection;
 use LogicException;
 
@@ -22,8 +24,9 @@ class Version
     /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
 
-
     protected ?string $route = null;
+
+    protected ?VersionUrlGenerator $urlGenerator = null;
 
     public function __construct()
     {
@@ -41,6 +44,16 @@ class Version
         $this->route = $route;
 
         return $this;
+    }
+
+    public function getUrlGenerator(): VersionUrlGenerator
+    {
+        return $this->urlGenerator ?? new PrefixedUrlGenerator();
+    }
+
+    public function setUrlGenerator(VersionUrlGenerator $urlGenerator): void
+    {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function getRoute(): ?string
