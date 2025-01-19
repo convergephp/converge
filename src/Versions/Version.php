@@ -22,9 +22,6 @@ class Version
     /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
 
-    protected bool $isQuiet = false;
-
-    protected bool $isDefault = false;
 
     protected ?string $route = null;
 
@@ -38,12 +35,6 @@ class Version
         return $this->scopedClusters->isEmpty();
     }
 
-    public function default(bool $condition = true)
-    {
-        $this->isDefault = $condition;
-
-        return $this;
-    }
 
     public function route(string $route): static
     {
@@ -59,26 +50,6 @@ class Version
     public function getPath(): ?string
     {
         return $this->path;
-    }
-
-    public function quiet(bool $condition = true): static
-    {
-        if (! $this->isDefault()) {
-            throw new LogicException('Can\'t make non-default version quiet.');
-        }
-        $this->isQuiet = $condition;
-
-        return $this;
-    }
-
-    public function isQuiet()
-    {
-        return $this->resolve($this->isQuiet);
-    }
-
-    public function isDefault()
-    {
-        return $this->resolve($this->isDefault);
     }
 
     public function defineScopedClusters(Closure $callable): static
@@ -99,7 +70,6 @@ class Version
      */
     public function getClusters(): Collection
     {
-        // dd($this->scopedClusters);
         return $this->scopedClusters;
     }
 }

@@ -14,6 +14,7 @@ trait CanHandleVersions
 {
     protected Collection $versions;
     protected ?Version $activeVersion = null;
+    protected ?string $versionAs = null;
 
     public function initVersions(): void
     {
@@ -29,6 +30,10 @@ trait CanHandleVersions
     {
         $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
         return $this;
+    }
+    
+    public function versionAs(?string $version) {
+
     }
 
     public function getUsedVersion(): ?Version
@@ -53,26 +58,25 @@ trait CanHandleVersions
     public function getUiVersions(): Collection
     {
         $moduleRoute = $this->getRoutePath();
-    
+
         return $this->versions->map(function ($version) use ($moduleRoute) {
             $versionData = ['label' => $version->getLabel()];
-    
+
             if ($version instanceof Version) {
                 return array_merge($versionData, [
                     'type' => 'internal',
                     'url' => '/' . trim($moduleRoute, '/') . '/' . trim($version->getRoute(), '/'),
                 ]);
             }
-    
+
             if ($version instanceof VersionLink) {
                 return array_merge($versionData, [
                     'type' => 'external',
                     'url' => trim($version->getRoute(), '/'),
                 ]);
             }
-    
+
             return $versionData; //fallback
         });
     }
-    
 }

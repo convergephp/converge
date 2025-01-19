@@ -16,7 +16,6 @@ foreach (Converge::getModules() as $module) {
     $pattern = '.*';
     $name = $moduleId;
 
-    $quietedVersion = null;
 
     if ($module->hasVersions()) {
         foreach ($module->getVersions() as $version) {
@@ -24,39 +23,24 @@ foreach (Converge::getModules() as $module) {
                 continue;
             }
 
-            $versionUri = $uri;
-            if ($version->isDefault() && $version->isQuiet()) {
-                $quietedVersion = $version;
-                continue;
-            }
-
-            if (! $version->isQuiet()) {
-                $versionUri .= '/' . $version->getRoute();
-            }
-
+            // $versionUri = $uri;
+            $versionUri = $uri. '/' . $version->getRoute();
             $versionName = $name . '.' . $version->getRoute();
             generateRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
         }
 
-        $excludedVersions = implode('|', array_map(fn($v) => preg_quote($v->getRoute(), '/'), $module->getVersions()->filter(fn($version) => $version instanceof Version)->toArray()));
+        $excludedVersions = implode('|', array_map(
+            fn($v) => preg_quote($v->getRoute(), '/'),
+            $module->getVersions()
+                ->filter(
+                    fn($version) => $version instanceof Version
+                )->toArray()
+        ));
         $pattern = "^(?!($excludedVersions))(.*)$";
     }
 
     generateRoutes($uri, $moduleId, $name, $pattern);
 
-    if ($quietedVersion) {
-        $quietVersionRoute = $quietedVersion->getRoute();
-
-        // Redirect quiet version index to non-versioned route
-        Route::get("{$uri}/{$quietVersionRoute}", function () use ($name) {
-            return redirect()->route($name);
-        })->name("{$name}.quieted.index");
-
-        // Redirect quiet version show route to non-versioned show route
-        Route::get("{$uri}/{$quietVersionRoute}/{url}", function ($url) use ($name) {
-            return redirect()->route("{$name}.show", ['url' => $url]);
-        })->name("{$name}.quieted.show");
-    }
 }
 
 function generateRoutes(string $uri, string $id, string $name, string $pattern = '.*', ?string $versionId = null)
