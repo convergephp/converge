@@ -9,59 +9,65 @@ use Fluxtor\Converge\Http\Middleware\UseModule;
 use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 
 foreach (Converge::getModules() as $module) {
-    // dump($module);
     $uri = $module->getRoutePath();
     $moduleId = $module->getId();
     $pattern = '.*';
     $name = $moduleId;
-    // Check if the module has versions
+
+    $quietedVersion = null;
+
     if ($module->hasVersions()) {
-        $excludUrlVersions = [];
-
         foreach ($module->getVersions() as $version) {
-            $versionUri = $module->getRoutePath();
-
             if (! $version instanceof Version) {
                 continue;
             }
 
+            $versionUri = $uri;
             if ($version->isDefault() && $version->isQuiet()) {
-                // @TODO: redirect when accessing the Quieted version
+                $quietedVersion = $version;
                 continue;
             }
 
-            if (($version->isDefault() && ! $version->isQuiet()) || ! $version->isDefault()) {
+            if (! $version->isQuiet()) {
                 $versionUri .= '/' . $version->getRoute();
-                $excludUrlVersions[] = preg_quote($version->getRoute(), '/');
             }
 
             $versionName = $name . '.' . $version->getRoute();
-
             generateRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
-        } // foreach end 
+        }
 
-        $pattern = count($excludUrlVersions) > 0
-            ? '^(?!(' . implode('|', $excludUrlVersions) . '))(.*)$'
-            : '.*';
+        $excludedVersions = implode('|', array_map(fn($v) => preg_quote($v->getRoute(), '/'), $module->getVersions()->filter(fn($version) => $version instanceof Version)->toArray()));
+        $pattern = "^(?!($excludedVersions))(.*)$";
     }
 
-    generateRoutes(uri: $uri, id: $moduleId, name: $name, pattern: $pattern);
-    // Register the routes for the module
+    generateRoutes($uri, $moduleId, $name, $pattern);
+
+    if ($quietedVersion) {
+        $quietVersionRoute = $quietedVersion->getRoute();
+
+        // Redirect quiet version index to non-versioned route
+        Route::get("{$uri}/{$quietVersionRoute}", function () use ($name) {
+            return redirect()->route($name);
+        })->name("{$name}.quieted.index");
+
+        // Redirect quiet version show route to non-versioned show route
+        Route::get("{$uri}/{$quietVersionRoute}/{url}", function ($url) use ($name) {
+            return redirect()->route("{$name}.show", ['url' => $url]);
+        })->name("{$name}.quieted.show");
+    }
 }
 
-function generateRoutes(string $uri, string $id, string $name, ?string $pattern = '.*', ?string $versionId = null)
+function generateRoutes(string $uri, string $id, string $name, string $pattern = '.*', ?string $versionId = null)
 {
-    $params = ':'. $versionId ? ':' . $id . ',' . $versionId : $id;
-    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . $params])->group(function () use ($name, $uri, $pattern) {
-        Route::name($name)
-            ->get($uri, ModuleController::class);
+    $params = $versionId ? "$id,$versionId" : $id;
 
+    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . ':' . $params])->group(function () use ($name, $uri, $pattern) {
+        Route::get($uri, ModuleController::class)->name($name);
 
-        Route::name("{$name}.show")
-            ->get("{$uri}/{url}", FileController::class)
-            ->where('url', $pattern);
+        Route::get("{$uri}/{url}", FileController::class)
+            ->where('url', $pattern)
+            ->name("{$name}.show");
     });
 }
