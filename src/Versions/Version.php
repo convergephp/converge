@@ -36,7 +36,7 @@ class Version
 
     public function hasClusters(): bool
     {
-        return $this->scopedClusters->isEmpty();
+        return !$this->scopedClusters->isEmpty();
     }
 
     public function route(string $route): static
@@ -48,7 +48,7 @@ class Version
 
     public function getUrlGenerator(): VersionUrlGenerator
     {
-        return $this->urlGenerator ?? new PrefixedUrlGenerator('fluxtor.dev');
+        return $this->urlGenerator ?? new PrefixedUrlGenerator();
     }
 
     public function asAbsolute()
@@ -64,7 +64,7 @@ class Version
 
         return $this;
     }
-
+    
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;

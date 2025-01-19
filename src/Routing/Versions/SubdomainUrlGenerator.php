@@ -17,6 +17,6 @@ class SubdomainUrlGenerator implements VersionUrlGenerator
 
     public static function generate(?string $moduleUri, string $versionUri): string
     {
-        return $versionUri.'.'.static::$domain;
+        return '/'.$versionUri.'.'.static::$domain;
     }
 }
