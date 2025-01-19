@@ -26,7 +26,8 @@
                 <x-slot:items class="w-36 bg-white dark:bg-transparent">
                     @foreach ($versions as $version)
                         @php
-                            $isActive = preg_match("/{$usedVersion['url']}$/", $version['url']);
+                            $pattern = preg_quote($usedVersion['url'],'~');
+                            $isActive = preg_match("~$pattern$~", $version['url']);
                         @endphp
                         <x-converge::dropdown.item @class([
                             'flex items-center gap-1',
