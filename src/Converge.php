@@ -68,7 +68,7 @@ class Converge
         return $this->getActiveModule()->hasVersions();
     }
 
-    public function getUiVersions(): Collection
+    public function getUiVersions(): ?array
     {
         return $this->getActiveModule()->getUiVersions();
     }

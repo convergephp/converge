@@ -63,11 +63,11 @@ trait CanHandleVersions
         return $this->versions;
     }
 
-    public function getUiVersions(): Collection
+    public function getUiVersions(): array
     {
         $moduleRoute = $this->getRoutePath();
 
-        return $this->versions->map(function ($version) use ($moduleRoute) {
+        $versions = $this->versions->map(function ($version) use ($moduleRoute) {
             $versionData = ['label' => $version->getLabel()];
 
             if ($version instanceof Version) {
@@ -83,8 +83,17 @@ trait CanHandleVersions
                     'url' => trim($version->getRoute(), '/'),
                 ]);
             }
-
             return $versionData;
-        });
+        })->toArray();
+
+        if ($label = $this->getQuietedVersion()) {
+            array_unshift($versions, [
+                'type' => 'internal',
+                'label' => $label,
+                'url' => '/'.$this->getRoutePath() // module level
+            ]);
+        }
+        // dd($versions);
+        return $versions;
     }
 }
