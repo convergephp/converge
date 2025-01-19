@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use RuntimeException;
+use stdClass;
 
 class Converge
 {
@@ -78,7 +79,7 @@ class Converge
         return $this->getActiveModule()->getUsedVersion();
     }
 
-    public function getUiUsedVersion(): ?array
+    public function getUiUsedVersion(): ?stdClass
     {
         return $this->getActiveModule()->getUiUsedVersion();
     }
