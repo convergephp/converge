@@ -1,4 +1,4 @@
-@props(['position' => 'bottom-left'])
+@props(['position' => 'bottom-start'])
 
 <div {{ $attributes->merge(['class'=>'flex justify-center']) }}>
     <div
@@ -79,7 +79,7 @@
             x-on:click.away="close($refs.button)"
             x-bind:id="$id('dropdown-button')"
             style="display: none;"
-            {{ $items->attributes->merge(['class'=>'absolute left-0 z-10 py-3 px-1 max-w-96  rounded-md shadow-md px-2 py-3  backdrop-blur-xl border border-white/15']) }}
+            {{ $items->attributes->merge(['class'=>'absolute left-0 z-10 py-3 px-1 max-w-96  rounded-md shadow-md px-2 py-3  backdrop-blur-xl border dark:border-white/15 border-gray-800/15']) }}
         >
             {{ $items }}
         </div>
