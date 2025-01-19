@@ -1,5 +1,5 @@
 @php
-    $hasVersions = app('converge')->hasVersions();
+    $hasVersions = count(app('converge')->getUiVersions());
 @endphp
 <nav class="dark:bg-white/[0.03] bg-gray-100 text-white backdrop-blur-2xl z-40 sticky top-0 rounded-xl">
     <div
@@ -9,6 +9,9 @@
                 <div class="relative flex items-center">
                     <x-converge::logo/>
                     @if($hasVersions)
+                        {{-- @php
+                            $usedVersion
+                        @endphp --}}
                         <x-converge::versions/>
                     @endif
                     <div class="relative ml-auto space-x-2 hidden items-center lg:flex">
