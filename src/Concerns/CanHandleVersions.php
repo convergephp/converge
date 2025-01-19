@@ -34,6 +34,7 @@ trait CanHandleVersions
 
     public function quietedVersionUrlAs(?string $url): static
     {
+        $this->ensureVersionLabelSet();
         $this->quietedVersionUrlAs = $url;
         return $this;
     }
@@ -76,9 +77,7 @@ trait CanHandleVersions
 
     public function defineVersions(Closure $callable): static
     {
-        if (! $this->getQuietedVersion()) {
-            throw new LogicException('No default version label set, Use versionAs() to define which version should be used.');
-        }
+        $this->ensureVersionLabelSet();
 
         $versions = new Versions();
 
@@ -130,5 +129,12 @@ trait CanHandleVersions
         }
 
         return $versions;
+    }
+
+    public function ensureVersionLabelSet()
+    {
+        if (! $this->getQuietedVersion()) {
+            throw new LogicException('No default version label set, Use versionAs() to define which version should be used.');
+        }
     }
 }
