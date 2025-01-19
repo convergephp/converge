@@ -11,7 +11,9 @@ use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Contracts\VersionUrlGenerator;
+use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
+use Fluxtor\Converge\Routing\Versions\SubdomainUrlGenerator;
 use Illuminate\Support\Collection;
 use LogicException;
 
@@ -48,7 +50,7 @@ class Version
 
     public function getUrlGenerator(): VersionUrlGenerator
     {
-        return $this->urlGenerator ?? new PrefixedUrlGenerator();
+        return $this->urlGenerator ?? new SubdomainUrlGenerator('fluxtor.dev');
     }
 
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): void
