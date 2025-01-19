@@ -1,3 +1,6 @@
+@php
+    $hasVersions = app('converge')->hasVersions();
+@endphp
 <nav class="dark:bg-white/[0.03] bg-gray-100 text-white backdrop-blur-2xl z-40 sticky top-0 rounded-xl">
     <div
         class="supports-backdrop-blur:bg-white/60 z-40 w-full flex-none  border-lg backdrop-blur transition-colors duration-500 dark:border-slate-50/[0.06] bg-transparent lg:z-50 lg:border-b lg:border-slate-900/10">
@@ -5,7 +8,9 @@
             <div class="mx-4 border-b py-4 dark:border-slate-300/10 lg:mx-0 lg:border-0 lg:px-8">
                 <div class="relative flex items-center">
                     <x-converge::logo/>
-                    <x-converge::versions/>
+                    @if($hasVersions)
+                        <x-converge::versions/>
+                    @endif
                     <div class="relative ml-auto space-x-2 hidden items-center lg:flex">
                         <nav class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-200">
                             <ul class="flex space-x-8">

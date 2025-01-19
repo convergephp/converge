@@ -53,10 +53,26 @@ trait CanHandleVersions
     public function getUiVersions(): Collection
     {
         $moduleRoute = $this->getRoutePath();
-        return   $this->versions->map(fn(Version|VersionLink   $version) => [
-            'url' => $moduleRoute . '/' . $version->getRoute(),
-            'label' => $version->getLabel()
-        ]);
-        // dd();
+    
+        return $this->versions->map(function ($version) use ($moduleRoute) {
+            $versionData = ['label' => $version->getLabel()];
+    
+            if ($version instanceof Version) {
+                return array_merge($versionData, [
+                    'type' => 'internal',
+                    'url' => '/' . trim($moduleRoute, '/') . '/' . trim($version->getRoute(), '/'),
+                ]);
+            }
+    
+            if ($version instanceof VersionLink) {
+                return array_merge($versionData, [
+                    'type' => 'external',
+                    'url' => trim($version->getRoute(), '/'),
+                ]);
+            }
+    
+            return $versionData; //fallback
+        });
     }
+    
 }

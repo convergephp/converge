@@ -31,25 +31,15 @@ final class FilesTreeBuilder
         }
         $cacheKey = self::getCacheKey($root, $maxDepth);
 
-        // if ($forceRefresh) {
-        //     Cache::forget($cacheKey);
-        // }
-        // Cache both tree and urlToPathMap
+      
         [$tree, $urlToPathMap] = Cache::remember($cacheKey, 3600, function () use ($root, $maxDepth) {
             $tree = self::tree($root, $root, $maxDepth);
             return [$tree, self::$urlToPathMap];
         });
 
-        // Restore urlToPathMap when fetched from cache
         self::$urlToPathMap = $urlToPathMap;
 
         return [$tree, $urlToPathMap];
-        $path = $root;
-        $tree = self::tree($path, $root, $maxDepth);
-
-        // dump(self::$urlToPathMap);
-
-        return [$tree, self::$urlToPathMap];
     }
 
     /**
