@@ -9,11 +9,14 @@ use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
+use LogicException;
 
 trait CanHandleVersions
 {
     protected Collection $versions;
+
     protected ?Version $activeVersion = null;
+
     protected ?string $versionAs = null;
 
     public function initVersions(): void
@@ -28,15 +31,18 @@ trait CanHandleVersions
 
     public function useVersion(string $id): static
     {
-        $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
+        $this->activeVersion = $this->versions->first(fn ($item) => $item->getRoute() === $id);
+
         return $this;
     }
 
     public function versionAs(?string $version): static
     {
         $this->versionAs = $version;
+
         return $this;
     }
+
     public function getQuietedVersion()
     {
         return $this->versionAs;
@@ -46,6 +52,7 @@ trait CanHandleVersions
     {
         return $this->activeVersion;
     }
+
     public function getUiUsedVersion(): ?array
     {
         return [
@@ -56,8 +63,8 @@ trait CanHandleVersions
 
     public function defineVersions(Closure $callable): static
     {
-        if (!$this->getQuietedVersion()) {
-            throw new \LogicException('No default version label set, Use versionAs() to define which version should be used.');
+        if (! $this->getQuietedVersion()) {
+            throw new LogicException('No default version label set, Use versionAs() to define which version should be used.');
         }
 
         $versions = new Versions();
@@ -84,7 +91,7 @@ trait CanHandleVersions
             if ($version instanceof Version) {
                 return array_merge($versionData, [
                     'type' => 'internal',
-                    'url' => '/' . trim($moduleRoute, '/') . '/' . trim($version->getRoute(), '/'),
+                    'url' => '/'.trim($moduleRoute, '/').'/'.trim($version->getRoute(), '/'),
                 ]);
             }
 
@@ -94,6 +101,7 @@ trait CanHandleVersions
                     'url' => trim($version->getRoute(), '/'),
                 ]);
             }
+
             return $versionData;
         })->toArray();
 
@@ -101,9 +109,10 @@ trait CanHandleVersions
             array_unshift($versions, [
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/' . $this->getRoutePath() // module level
+                'url' => '/'.$this->getRoutePath(), // module level
             ]);
         }
+
         return $versions;
     }
 }

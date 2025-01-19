@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Routing\RouteManager;
-use Fluxtor\Converge\Http\Middleware\UseModule;
-use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
-
+use Fluxtor\Converge\Http\Middleware\UseModule;
+use Fluxtor\Converge\Http\Middleware\UseVersion;
+use Fluxtor\Converge\Routing\RouteManager;
+use Fluxtor\Converge\Versions\Version;
+use Illuminate\Support\Facades\Route;
 
 // Create an instance of RouteManager
 $routeManager = new RouteManager();
@@ -24,7 +23,6 @@ foreach (Converge::getModules() as $module) {
     $pattern = '.*';
     $name = $moduleId;
 
-
     if ($module->hasVersions()) {
         foreach ($module->getVersions() as $version) {
             if (! $version instanceof Version) {
@@ -32,16 +30,16 @@ foreach (Converge::getModules() as $module) {
             }
 
             // $versionUri = $uri;
-            $versionUri = $uri. '/' . $version->getRoute();
-            $versionName = $name . '.' . $version->getRoute();
+            $versionUri = $uri.'/'.$version->getRoute();
+            $versionName = $name.'.'.$version->getRoute();
             generateRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
         }
 
         $excludedVersions = implode('|', array_map(
-            fn($v) => preg_quote($v->getRoute(), '/'),
+            fn ($v) => preg_quote($v->getRoute(), '/'),
             $module->getVersions()
                 ->filter(
-                    fn($version) => $version instanceof Version
+                    fn ($version) => $version instanceof Version
                 )->toArray()
         ));
         $pattern = "^(?!($excludedVersions))(.*)$";
@@ -55,7 +53,7 @@ function generateRoutes(string $uri, string $id, string $name, string $pattern =
 {
     $params = $versionId ? "$id,$versionId" : $id;
 
-    Route::middleware([UseModule::class . ':' . $id, UseVersion::class . ':' . $params])->group(function () use ($name, $uri, $pattern) {
+    Route::middleware([UseModule::class.':'.$id, UseVersion::class.':'.$params])->group(function () use ($name, $uri, $pattern) {
         Route::get($uri, ModuleController::class)->name($name);
 
         Route::get("{$uri}/{url}", FileController::class)

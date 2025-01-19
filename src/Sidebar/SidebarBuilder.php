@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -50,7 +49,7 @@ final class SidebarBuilder
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth, ?string $version): void
     {
-        $url = $version ? $version . '/' . $node['url'] : $node['url']; // prefix the url if needed
+        $url = $version ? $version.'/'.$node['url'] : $node['url']; // prefix the url if needed
         $items->add(
             SidebarItem::make()
                 ->label($node['label'])

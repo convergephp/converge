@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     $pattern = '.*';
 //     $name = $moduleId;
 
-
 //     if ($module->hasVersions()) {
 //         foreach ($module->getVersions() as $version) {
 //             if (! $version instanceof Version) {

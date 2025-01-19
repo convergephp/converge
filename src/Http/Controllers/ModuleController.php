@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ModuleController
 {
-
     public function __invoke(Request $request): View
     {
         return view('converge::index');

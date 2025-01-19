@@ -6,18 +6,18 @@ namespace Fluxtor\Converge\Http\Middleware;
 
 use Closure;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Http\Request;
 
 class UseVersion
 {
-    public function handle(Request $request, Closure $next, string $module, string $versionId = null): mixed
+    public function handle(Request $request, Closure $next, string $module, ?string $versionId = null): mixed
     {
         /** @phpstan-ignore-next-line */
         // dd($versionId);
         if ($versionId) {
             Converge::getModule($module)->useVersion($versionId);
         }
+
         return $next($request);
     }
 }

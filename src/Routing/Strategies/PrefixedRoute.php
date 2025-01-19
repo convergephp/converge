@@ -1,13 +1,16 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Routing\Strategies;
 
-use Illuminate\Support\Facades\Route;
-use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Contracts\RouteStrategy;
-use Fluxtor\Converge\Http\Middleware\UseModule;
-use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
+use Fluxtor\Converge\Http\Middleware\UseModule;
+use Fluxtor\Converge\Http\Middleware\UseVersion;
+use Fluxtor\Converge\Versions\Version;
+use Illuminate\Support\Facades\Route;
 
 class PrefixedRoute implements RouteStrategy
 {
@@ -24,15 +27,15 @@ class PrefixedRoute implements RouteStrategy
                     continue;
                 }
 
-                $versionUri = $uri . '/' . $version->getRoute();
-                $versionName = $name . '.' . $version->getRoute();
+                $versionUri = $uri.'/'.$version->getRoute();
+                $versionName = $name.'.'.$version->getRoute();
                 $this->generateVersionRoutes($versionUri, $moduleId, $versionName, $version->getRoute());
             }
 
             $excludedVersions = implode('|', array_map(
-                fn($v) => preg_quote($v->getRoute(), '/'),
+                fn ($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
-                    ->filter(fn($version) => $version instanceof Version)
+                    ->filter(fn ($version) => $version instanceof Version)
                     ->toArray()
             ));
             $pattern = "^(?!($excludedVersions))(.*)$";
@@ -43,7 +46,7 @@ class PrefixedRoute implements RouteStrategy
 
     protected function generateBaseRoutes(string $uri, string $id, string $name, string $pattern): void
     {
-        Route::middleware([UseModule::class . ':' . $id])->group(function () use ($name, $uri, $pattern) {
+        Route::middleware([UseModule::class.':'.$id])->group(function () use ($name, $uri, $pattern) {
             Route::get($uri, ModuleController::class)->name($name);
 
             Route::get("{$uri}/{url}", FileController::class)
@@ -56,7 +59,7 @@ class PrefixedRoute implements RouteStrategy
     {
         $params = "$id,$versionId";
 
-        Route::middleware([UseModule::class . ':' . $id, UseVersion::class . ':' . $params])->group(function () use ($name, $uri) {
+        Route::middleware([UseModule::class.':'.$id, UseVersion::class.':'.$params])->group(function () use ($name, $uri) {
             Route::get($uri, ModuleController::class)->name($name);
 
             Route::get("{$uri}/{url}", FileController::class)

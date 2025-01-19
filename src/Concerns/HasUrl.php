@@ -13,7 +13,7 @@ trait HasUrl
 
     public function url(string|Closure|null $url): static
     {
-        if (is_string($url) && !filter_var($url, FILTER_VALIDATE_URL)) {
+        if (is_string($url) && ! filter_var($url, FILTER_VALIDATE_URL)) {
             throw new InvalidArgumentException("Invalid URL provided: {$url} on module provider");
         }
         $this->url = $url;

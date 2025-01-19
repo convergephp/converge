@@ -15,7 +15,6 @@ use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\SubdomainUrlGenerator;
 use Illuminate\Support\Collection;
-use LogicException;
 
 class Version
 {
@@ -40,7 +39,6 @@ class Version
         return $this->scopedClusters->isEmpty();
     }
 
-
     public function route(string $route): static
     {
         $this->route = $route;
@@ -56,17 +54,21 @@ class Version
     public function asAbsolute()
     {
         $this->setUrlGenerator(new AbsoluteUrlGenerator());
+
         return $this;
     }
+
     public function asSubdomain(string $domain)
     {
         $this->setUrlGenerator(new SubdomainUrlGenerator($domain));
+
         return $this;
     }
 
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;
+
         return $this;
     }
 
@@ -74,6 +76,7 @@ class Version
     {
         return $this->route;
     }
+
     public function getPath(): ?string
     {
         return $this->path;
