@@ -30,13 +30,12 @@ class RouteManager
 
                     $versionUri = $urlGenerator->generate($moduleUri, $version->getRoute(), $version->getRoute());
 
-                    $versionName = $moduleId.'.'.$version->getRoute();
+                    $versionName = $moduleId . '.' . $version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
-
             }
-            $this->registerRoutes($moduleUri, $moduleId, $moduleId, $defaultPattern);
+            $this->registerRoutes($module->getQuietedVersionUrl() ?? $moduleUri, $moduleId, $moduleId, $defaultPattern);
         }
     }
 
@@ -44,7 +43,7 @@ class RouteManager
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
 
-        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
+        Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
             ->group(function () use ($uri, $name, $pattern) {
                 Route::get($uri, ModuleController::class)->name($name);
                 Route::get("{$uri}/{url}", FileController::class)->where('url', $pattern)->name("{$name}.show");

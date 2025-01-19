@@ -57,14 +57,15 @@ class Version
 
         return $this;
     }
+    // @NOT SUPPORTED YET
 
-    public function asSubdomain(string $domain)
-    {
-        $this->setUrlGenerator(new SubdomainUrlGenerator($domain));
+    // public function asSubdomain(string $domain)
+    // {
+    //     $this->setUrlGenerator(new SubdomainUrlGenerator($domain));
 
-        return $this;
-    }
-    
+    //     return $this;
+    // }
+
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;
@@ -77,7 +78,7 @@ class Version
         return $this->route;
     }
 
-        public function getPath(): ?string
+    public function getPath(): ?string
     {
         return $this->path;
     }

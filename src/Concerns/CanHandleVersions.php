@@ -19,6 +19,8 @@ trait CanHandleVersions
 
     protected ?string $versionAs = null;
 
+    protected ?string $quietedVersionUrlAs = null;
+
     public function initVersions(): void
     {
         $this->versions = new Collection();
@@ -27,6 +29,17 @@ trait CanHandleVersions
     public function hasVersions(): bool
     {
         return ! $this->versions->isEmpty();
+    }
+
+
+    public function quietedVersionUrlAs(?string $url): static
+    {
+        $this->quietedVersionUrlAs = $url;
+        return $this;
+    }
+    public function getQuietedVersionUrl(): ?string
+    {
+        return $this->quietedVersionUrlAs;
     }
 
     public function useVersion(string $id): static
@@ -84,6 +97,7 @@ trait CanHandleVersions
     public function getUiVersions(): array
     {
         $moduleRoute = $this->getRoutePath();
+        // dd($this->getQuietedVersionUrl());
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
             $versionData = ['label' => $version->getLabel()];
@@ -106,10 +120,12 @@ trait CanHandleVersions
         })->toArray();
 
         if ($label = $this->getQuietedVersion()) {
+            $route = $this->getQuietedVersionUrl() ?? $moduleRoute;
+            // dd($route);
             array_unshift($versions, [
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/' . $this->getRoutePath(), // module level
+                'url' => '/' . trim($route, '/'),
             ]);
         }
 
