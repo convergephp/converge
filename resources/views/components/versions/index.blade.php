@@ -1,7 +1,6 @@
 @php
     $versions = app('converge')->getUiVersions();
     $usedVersion = app('converge')->getUiUsedVersion();
-    // dump($usedVersion)
 @endphp
 
 <div class='ml-6 flex items-center pl-6'>

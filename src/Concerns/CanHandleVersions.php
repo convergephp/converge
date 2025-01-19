@@ -48,14 +48,18 @@ trait CanHandleVersions
     }
     public function getUiUsedVersion(): ?array
     {
-        return ([
+        return [
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
-        ]);
+        ];
     }
 
     public function defineVersions(Closure $callable): static
     {
+        if (!$this->getQuietedVersion()) {
+            throw new \LogicException('No default version label set, Use versionAs() to define which version should be used.');
+        }
+
         $versions = new Versions();
 
         $callable($versions);

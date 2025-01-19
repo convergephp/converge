@@ -9,9 +9,6 @@
                 <div class="relative flex items-center">
                     <x-converge::logo/>
                     @if($hasVersions)
-                        {{-- @php
-                            $usedVersion
-                        @endphp --}}
                         <x-converge::versions/>
                     @endif
                     <div class="relative ml-auto space-x-2 hidden items-center lg:flex">
