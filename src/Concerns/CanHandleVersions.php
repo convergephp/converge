@@ -71,7 +71,7 @@ trait CanHandleVersions
                 ]);
             }
     
-            return $versionData; 
+            return $versionData; //fallback
         });
     }
     
