@@ -67,7 +67,7 @@ trait CanHandleVersions
             if ($version instanceof VersionLink) {
                 return array_merge($versionData, [
                     'type' => 'external',
-                    'url' => '/' . trim($version->getRoute(), '/'),
+                    'url' => trim($version->getRoute(), '/'),
                 ]);
             }
     
