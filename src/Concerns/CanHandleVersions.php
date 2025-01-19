@@ -10,7 +10,6 @@ use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 use LogicException;
-use stdClass;
 
 trait CanHandleVersions
 {
@@ -76,15 +75,23 @@ trait CanHandleVersions
         return $this->activeVersion;
     }
 
-    public function getUiUsedVersion(): ?stdClass
+    public function getUiUsedVersion(): ?array
     {
-        return ((object)[
+        return [
             'id' => $this->activeVersion?->getId() ?? $this->versionId,
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
-            'isActive' => fn($id) => (($this->activeVersion?->getId() === $id)
-                || ($this->versionId === $id))
-        ]);
+            'isActive' => fn($id) => $this->isActive($id),
+        ];
+    }
+    
+    public function isActive($id)
+    {
+        if ($this->activeVersion) {
+            return $this->activeVersion->getId() === $id;
+        }
+
+        return $this->versionId === $id;
     }
 
     public function defineVersions(Closure $callable): static
@@ -115,7 +122,7 @@ trait CanHandleVersions
             ];
 
             if ($version instanceof Version) {
-                return (object)array_merge($versionData, [
+                return array_merge($versionData, [
                     'id' => $version->getId(),
                     'type' => 'internal',
                     'url' => $version->getUrlGenerator()->generate($moduleRoute, $version->getRoute()),
@@ -123,7 +130,7 @@ trait CanHandleVersions
             }
 
             if ($version instanceof VersionLink) {
-                return (object)array_merge($versionData, [
+                return array_merge($versionData, [
                     'id' => 'link',
                     'type' => 'link',
                     'url' => trim($version->getRoute(), '/'),
