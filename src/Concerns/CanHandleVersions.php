@@ -10,6 +10,7 @@ use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 use LogicException;
+use stdClass;
 
 trait CanHandleVersions
 {
@@ -84,14 +85,17 @@ trait CanHandleVersions
             'isActive' => fn($id) => $this->isActive($id),
         ];
     }
-    
+
     public function isActive($id)
     {
-        if ($this->activeVersion) {
-            return $this->activeVersion->getId() === $id;
-        }
+        return $this->activeVersion ?
+            $this->activeVersion->getId() === $id :
+            $this->versionId === $id;
+        // if ($this->activeVersion) {
+        //     return $this->activeVersion->getId() === $id;
+        // }
 
-        return $this->versionId === $id;
+        // return $this->versionId === $id;
     }
 
     public function defineVersions(Closure $callable): static

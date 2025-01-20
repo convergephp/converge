@@ -13,9 +13,13 @@ class SidebarManager
     public function __construct(
         protected string $path,
         protected int $depth,
-        protected ?Version $version
+        protected ?Version $version,
+        protected ?string $moduleId=null
 
-    ) {}
+    ) {
+        $this->moduleId = app('converge')->getActiveModule()->getId();
+        // dd( $this->version->getRoute());
+    }
 
     /**
      * sidebar items
@@ -27,7 +31,7 @@ class SidebarManager
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
 
-        $items = SidebarBuilder::build($tree[0], version: $this->version?->getRoute());
+        $items = SidebarBuilder::build($tree[0], versionUrl: $this->version->getUrlGenerator()->generate($this->moduleId, $this->version->getRoute()));
 
         return $items;
     }
