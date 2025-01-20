@@ -20,18 +20,17 @@ class FileController
     public function __invoke($url, Markdown $markdown)
     {
         $path = $this->map->getFilePathByUrl($url);
-
-        abort_if(is_null($path), 404);
+        
+        abort_if(is_null($path),404);
 
         $document = Documents\Parser::make(file_get_contents($path));
-
+        // dd($document);
         $contents = $document->body(); // process the body
 
         $html = $markdown->convert($contents);
         // highlith code blocks
 
         // render declared blade components
-
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),

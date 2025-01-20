@@ -10,6 +10,7 @@ use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 use LogicException;
+use stdClass;
 
 trait CanHandleVersions
 {
@@ -40,8 +41,8 @@ trait CanHandleVersions
 
     public function quietedVersionUrlAs(?string $url): static
     {
-        $this->versionId = md5($url);
         $this->ensureVersionLabelSet();
+        $this->versionId = md5($url);
         $this->quietedVersionUrlAs = $url;
         return $this;
     }
@@ -67,7 +68,7 @@ trait CanHandleVersions
 
     public function getQuietedVersion()
     {
-        return $this->versionAs;
+        return ltrim($this->getRoutePath()) . '/' . ltrim($this->versionAs, '/');
     }
 
     public function getUsedVersion(): ?Version
@@ -84,14 +85,12 @@ trait CanHandleVersions
             'isActive' => fn($id) => $this->isActive($id),
         ];
     }
-    
+
     public function isActive($id)
     {
-        if ($this->activeVersion) {
-            return $this->activeVersion->getId() === $id;
-        }
-
-        return $this->versionId === $id;
+        return $this->activeVersion ?
+            $this->activeVersion->getId() === $id :
+            $this->versionId === $id;
     }
 
     public function defineVersions(Closure $callable): static
@@ -114,7 +113,7 @@ trait CanHandleVersions
 
     public function getUiVersions(): array
     {
-        $moduleRoute = $this->getRoutePath();
+        $moduleRoute = $this->getRawRoutePath();
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
             $versionData = [

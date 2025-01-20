@@ -67,15 +67,7 @@ class Version
 
         return $this;
     }
-    // @NOT SUPPORTED YET
-
-    // public function asSubdomain(string $domain)
-    // {
-    //     $this->setUrlGenerator(new SubdomainUrlGenerator($domain));
-
-    //     return $this;
-    // }
-
+    
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;
