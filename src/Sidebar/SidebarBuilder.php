@@ -17,7 +17,7 @@ final class SidebarBuilder
     public static function build(array $tree, ?string $versionUrl = null): Collection
     {
         $items = new Collection();
-        dump('side:'.$versionUrl);
+        // dump('side:'.$versionUrl);
 
         return (new self())->process($items, $tree, versionUrl: $versionUrl);
     }

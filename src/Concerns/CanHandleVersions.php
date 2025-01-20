@@ -113,7 +113,7 @@ trait CanHandleVersions
 
     public function getUiVersions(): array
     {
-        $moduleRoute = $this->getRoutePath();
+        $moduleRoute = $this->getRawRoutePath();
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
             $versionData = [

@@ -32,9 +32,8 @@ class SidebarManager
             // dd($this->versionUrl); docs/V2.X
         }else{
             $this->versionUrl= $this->moduleRoute;
-            dd('not a dedicated version '.$this->versionUrl);
+            // dd('not a dedicated version '.$this->versionUrl);
         }
-        dump('ver:',$versionUrl);
 
     }
 
