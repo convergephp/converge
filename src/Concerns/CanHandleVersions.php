@@ -41,8 +41,8 @@ trait CanHandleVersions
 
     public function quietedVersionUrlAs(?string $url): static
     {
-        $this->versionId = md5($url);
         $this->ensureVersionLabelSet();
+        $this->versionId = md5($url);
         $this->quietedVersionUrlAs = $url;
         return $this;
     }
@@ -91,11 +91,6 @@ trait CanHandleVersions
         return $this->activeVersion ?
             $this->activeVersion->getId() === $id :
             $this->versionId === $id;
-        // if ($this->activeVersion) {
-        //     return $this->activeVersion->getId() === $id;
-        // }
-
-        // return $this->versionId === $id;
     }
 
     public function defineVersions(Closure $callable): static

@@ -14,11 +14,28 @@ class SidebarManager
         protected string $path,
         protected int $depth,
         protected ?Version $version,
-        protected ?string $moduleId=null
+        protected ?string $versionUrl = null,
+        protected ?string $rawModuleRoute = null,
+        protected ?string $moduleRoute = null
 
     ) {
-        $this->moduleId = app('converge')->getActiveModule()->getId();
-        // dd( $this->version->getRoute());
+        $module = app('converge')->getActiveModule();
+
+        $this->rawModuleRoute = $module->getRawRoutePath();
+        $this->moduleRoute = $module->getRoutePath();
+
+        // we have the route path 
+        $urlGenerator = $this->version?->getUrlGenerator();
+        if (!is_null($urlGenerator)) {
+            // it's a real version so to append to it the real module route path 
+            $this->versionUrl = $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute());
+            // dd($this->versionUrl); docs/V2.X
+        }else{
+            $this->versionUrl= $this->moduleRoute;
+            dd($this->versionUrl);
+        }
+        dump('ver:',$versionUrl);
+
     }
 
     /**
@@ -31,7 +48,7 @@ class SidebarManager
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
 
-        $items = SidebarBuilder::build($tree[0], versionUrl: $this->version->getUrlGenerator()->generate($this->moduleId, $this->version->getRoute()));
+        $items = SidebarBuilder::build($tree[0], versionUrl: $this->versionUrl);
 
         return $items;
     }

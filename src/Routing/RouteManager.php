@@ -12,12 +12,16 @@ use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
-class RouteManager
+final class RouteManager
 {
     public function generateRoutes(): void
     {
         foreach (Converge::getModules() as $module) {
-            $moduleUri = $module->getRoutePath();
+            
+            $rawModuleUri = $module->getRawRoutePath();
+            $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules 
+
+
             $moduleId = $module->getId();
             $defaultPattern = '.*';
 
@@ -28,14 +32,22 @@ class RouteManager
                     }
                     $urlGenerator = $version->getUrlGenerator();
 
-                    $versionUri = $urlGenerator->generate($moduleUri, $version->getRoute(), $version->getRoute());
+                    $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
 
                     $versionName = $moduleId . '.' . $version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
-            $this->registerRoutes($module->getQuietedVersionUrl() ?? $moduleUri, $moduleId, $moduleId, $defaultPattern);
+            $excludedVersions = implode('|', array_map(
+                fn ($v) => preg_quote($v->getRoute(), '/'),
+                $module->getVersions()
+                    ->filter(
+                        fn ($version) => $version instanceof Version
+                    )->toArray()
+            ));
+            $pattern = "^(?!($excludedVersions))(.*)$";
+            $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern);
         }
     }
 

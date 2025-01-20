@@ -5,6 +5,7 @@
     use Fluxtor\Converge\Sidebar\SidebarItem;
     $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems(); 
     // dd(app('converge'));
+    // dd($sidebarItems);
 
 @endphp
 
