@@ -23,8 +23,7 @@ final class RouteManager
 
 
             $moduleId = $module->getId();
-            $defaultPattern = '.*';
-
+            $pattern ='.*';
             if ($module->hasVersions()) {
                 foreach ($module->getVersions() as $version) {
                     if (! $version instanceof Version) {
@@ -46,7 +45,9 @@ final class RouteManager
                         fn ($version) => $version instanceof Version
                     )->toArray()
             ));
-            $pattern = "^(?!($excludedVersions))(.*)$";
+            if($excludedVersions){
+                $pattern = "^(?!($excludedVersions))(.*)$";
+            }
             $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern);
         }
     }
@@ -54,7 +55,6 @@ final class RouteManager
     protected function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-
         Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
             ->group(function () use ($uri, $name, $pattern) {
                 Route::get($uri, ModuleController::class)->name($name);
