@@ -68,7 +68,7 @@ trait CanHandleVersions
 
     public function getQuietedVersion()
     {
-        return $this->versionAs;
+        return ltrim($this->getRoutePath()) . '/' . ltrim($this->versionAs, '/');
     }
 
     public function getUsedVersion(): ?Version

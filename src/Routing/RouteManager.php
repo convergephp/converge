@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 final class RouteManager
 {
+
     public function generateRoutes(): void
     {
         foreach (Converge::getModules() as $module) {
@@ -59,18 +60,22 @@ final class RouteManager
         Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
             ->group(function () use ($uri, $name, $pattern, $isQuieted) {
                 Route::get($uri, ModuleController::class)->name($name);
+
                 if (!$isQuieted) { // regular version 
-                    Route::get("{$uri}/{url}", FileController::class)->where('url', $pattern)->name("{$name}.show");
-                }
-                if ($isQuieted) { // the magic behind the version binded directly to the module
-                    $escapedUri = preg_quote($uri, '/');
-                    Route::get("{url}", function ($url) use ($uri) {
-                        $url = str($url)->remove($uri)->ltrim('/')->toString();
-                        return app(FileController::class)->__invoke($url, app(Markdown::class));
-                    })
-                        ->where('url', "^(?!{$escapedUri}$).*$")
+                    Route::get("{$uri}/{url}", FileController::class)
+                        ->where('url', $pattern)
                         ->name("{$name}.show");
+                        dump('de'.$name);
                 }
+                // if ($isQuieted) { // the magic behind the version binded directly to the module
+                //     $escapedUri = preg_quote($uri, '/');
+                //     Route::get("{url}", function ($url) use ($uri) {
+                //         $url = str($url)->remove($uri)->ltrim('/')->toString();
+                //         return app(FileController::class)->__invoke($url, app(Markdown::class));
+                //     })
+                //         ->where('url', "^(?!({$escapedUri})$).*$")
+                //         ->name("{$name}.show");
+                // }
             });
     }
 }
