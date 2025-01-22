@@ -18,7 +18,7 @@ class ModuleMakeCommand extends GeneratorCommand
      * @var string
      */
     // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
-    protected $signature = 'converge:make-module {name}  {--id=} {--route-url=} {--path=}';
+    protected $signature = 'converge:make-module {name}  {--id=} {--route=} {--path=} {--force}';
 
     /**
      * The console command description.
@@ -57,6 +57,14 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $moduleClass = $this->constructClass($moduleName);
 
+        if ((! $this->hasOption('force') ||
+                ! $this->option('force')) &&
+            $this->alreadyExists($moduleClass)
+        ) {
+            $this->components->error($this->type . ' already exists.');
+            return false;
+        }
+
         $path = $this->getPath($moduleClass);
 
         $this->makeDirectory($path);
@@ -78,6 +86,7 @@ class ModuleMakeCommand extends GeneratorCommand
             $this->qualifyClass($this->constructClass($moduleName)),
             $this->laravel->getBootstrapProvidersPath(),
         );
+        $this->askToStar();
     }
 
     public function constructClass($inputModuleName)
@@ -88,7 +97,6 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function buildClassFile($name, $options)
     {
         $stub = $this->files->get($this->getStub());
-        // dd($stub);
 
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
@@ -96,22 +104,22 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->replacePath($stub, $options['path'] ?? '');
 
-        $this->replaceRoutePath($stub, $options['route-url'] ?? '');
+        $this->replaceRoutePath($stub, $options['route'] ?? '');
 
         return $stub;
     }
 
     public function replacePath(&$stub, $path)
     {
-        $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
+        return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
     }
     public function replaceId(&$stub, $path)
     {
-        $stub = str_replace(['{{ id }}', '{{id}}'], $path, $stub);
+        return $stub = str_replace(['{{ id }}', '{{id}}'], $path, $stub);
     }
     public function replaceRoutePath(&$stub, $path)
     {
-        $stub = str_replace(['{{ route }}', '{{route}}'], $path, $stub);
+        return $stub = str_replace(['{{ route }}', '{{route}}'], $path, $stub);
     }
 
     protected function getStub()
@@ -144,7 +152,7 @@ class ModuleMakeCommand extends GeneratorCommand
         }
 
         if (confirm(
-            label: 'All done! Would you like to show some love by starring the Filament repo on GitHub?',
+            label: 'All done! Would you like to show some love by starring the Converge repo on GitHub?',
             default: true,
         )) {
             if (PHP_OS_FAMILY === 'Darwin') {

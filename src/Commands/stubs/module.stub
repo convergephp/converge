@@ -3,6 +3,7 @@
 namespace {{ namespace }};
 
 use Illuminate\Support\ServiceProvider;
+use Fluxtor\Converge\Module;
 
 class {{ class }} extends ServiceProvider
 {
