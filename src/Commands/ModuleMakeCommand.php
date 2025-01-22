@@ -18,7 +18,11 @@ class ModuleMakeCommand extends GeneratorCommand
      * @var string
      */
     // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
-    protected $signature = 'converge:make-module {name}  {--id=} {--route=} {--path=} {--force}';
+    protected $signature = 'converge:make-module {name}  
+                                                 {--id=}
+                                                 {--route=}
+                                                 {--path=}
+                                                 {--force}';
 
     /**
      * The console command description.
@@ -91,7 +95,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     public function constructClass($inputModuleName)
     {
-        return $this->qualifyClass(Str::ucfirst(Str::camel($inputModuleName)));
+        return $this->qualifyClass(Str::finish(Str::ucfirst(Str::camel($inputModuleName)), 'ModuleProvider'));
     }
 
     protected function buildClassFile($name, $options)
@@ -111,7 +115,12 @@ class ModuleMakeCommand extends GeneratorCommand
 
     public function replacePath(&$stub, $path)
     {
-        return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
+        // support of path functions (eg. storage_path()...)
+        if (preg_match('/^[a-zA-Z_0-9]+\(.*\)$/', $path)) {
+            return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
+        }
+
+        return $stub = str_replace(['{{ path }}', '{{path}}'], "'" . $path . "'", $stub);
     }
     public function replaceId(&$stub, $path)
     {

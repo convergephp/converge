@@ -15,7 +15,7 @@ class {{ class }} extends ServiceProvider
         return $module
             ->id('{{ id }}')
             ->routePath('{{ route }}')
-            ->in("{{ path }}");
+            ->in({{ path }});
     }
 }
 
