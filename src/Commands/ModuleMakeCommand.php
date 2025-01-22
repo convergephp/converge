@@ -4,6 +4,7 @@ namespace Fluxtor\Converge\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
+use function Laravel\Prompts\confirm;
 class ModuleMakeCommand extends GeneratorCommand {
 
         /**
@@ -47,5 +48,29 @@ class ModuleMakeCommand extends GeneratorCommand {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
             : __DIR__.$stub;
+    }
+
+    protected function askToStar(): void
+    {
+        if ($this->option('no-interaction')) {
+            return;
+        }
+
+        if (confirm(
+            label: 'All done! Would you like to show some love by starring the Filament repo on GitHub?',
+            default: true,
+        )) {
+            if (PHP_OS_FAMILY === 'Darwin') {
+                exec('open https://github.com/convergephp/converge');
+            }
+            if (PHP_OS_FAMILY === 'Linux') {
+                exec('xdg-open https://github.com/convergephp/converge');
+            }
+            if (PHP_OS_FAMILY === 'Windows') {
+                exec('start https://github.com/convergephp/converge');
+            }
+
+            $this->components->info('Thank you!');
+        }
     }
 }
