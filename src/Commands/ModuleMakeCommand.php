@@ -18,7 +18,7 @@ class ModuleMakeCommand extends GeneratorCommand
      * @var string
      */
     // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
-    protected $signature = 'converge:make-module {name}  {--id=} {--route-path=} {--path= }';
+    protected $signature = 'converge:make-module {name}  {--id=} {--route-url=} {--path=}';
 
     /**
      * The console command description.
@@ -61,7 +61,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->makeDirectory($path);
 
-        dd($this->buildClass($moduleClass));
+        dd($this->buildClassFile($moduleClass, $options));
 
         $this->files->put($path, $this->sortImports($this->buildClassFile($moduleClass, $options)));
 
@@ -92,13 +92,26 @@ class ModuleMakeCommand extends GeneratorCommand
         $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
         $this->replaceId($stub, $options['id'] ?? '');
+
         $this->replacePath($stub, $options['path'] ?? '');
-        $this->replaceRoutePath($stub, $options['route-path'] ?? '');
+
+        $this->replaceRoutePath($stub, $options['route-url'] ?? '');
+
+        return $stub;
     }
 
-    public function replacePath() {}
-    public function replaceId() {}
-    public function replaceRoutePath() {}
+    public function replacePath(&$stub, $path)
+    {
+        $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
+    }
+    public function replaceId(&$stub, $path)
+    {
+        $stub = str_replace(['{{ id }}', '{{id}}'], $path, $stub);
+    }
+    public function replaceRoutePath(&$stub, $path)
+    {
+        $stub = str_replace(['{{ route }}', '{{route}}'], $path, $stub);
+    }
 
     protected function getStub()
     {

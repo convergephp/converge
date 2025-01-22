@@ -12,9 +12,9 @@ class {{ class }} extends ServiceProvider
     public function module(Module $module): Module
     {
         return $module
-            ->id({{ id }})
-            ->routePath({{ route }})
-            ->in(base_path({{ path }}));
+            ->id('{{ id }}')
+            ->routePath('{{ route }}')
+            ->in("{{ path }}");
     }
 }
 
