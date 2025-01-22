@@ -7,10 +7,14 @@ use Illuminate\Support\ServiceProvider;
 class {{ class }} extends ServiceProvider
 {
     /**
-     * Register services.
+     * Register New Module Service Provider.
      */
-    public function register(): void
+    public function module(Module $module): Module
     {
-        //
+        return $module
+            ->id({{ id }})
+            ->routePath({{ route }})
+            ->in(base_path({{ path }}));
     }
 }
+

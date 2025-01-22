@@ -2,17 +2,20 @@
 
 namespace Fluxtor\Converge\Commands;
 
+use function Laravel\Prompts\confirm;
+
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\GeneratorCommand;
 
-use function Laravel\Prompts\confirm;
-class ModuleMakeCommand extends GeneratorCommand {
+class ModuleMakeCommand extends GeneratorCommand
+{
 
-        /**
+    /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'converge:make-module';
+    protected $name = 'converge:make-module ';
 
     /**
      * The console command description.
@@ -26,11 +29,39 @@ class ModuleMakeCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $type = 'Provider';
+    protected $type = 'Module';
 
-    public function handle(){
-        dd(file_get_contents($this->getStub()));
+        /**
+     * Execute the console command.
+     *
+     * @return bool|null
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function handle()
+    {
+        if ($this->isReservedName($this->getNameInput())) {
+            $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+
+            return false;
+        }
+        dd($this->getNameInput());
+        $id =  $this->getNameInput();
+        $moduleClass=$this->constructClass($id);
+        $result = parent::handle();
+        // dd($result);
+        if ($result === false) {
+            return $result;
+        }
+
+        ServiceProvider::addProviderToBootstrapFile(
+            $this->qualifyClass($this->getNameInput()),
+            $this->laravel->getBootstrapProvidersPath(),
+        );
+
+        return $result;
     }
+
 
     protected function getStub()
     {
@@ -47,7 +78,12 @@ class ModuleMakeCommand extends GeneratorCommand {
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__.$stub;
+            : __DIR__ . $stub;
+    }
+
+    protected function getDefaultNamespace($rootNamespace)
+    {
+        return $rootNamespace.'\Providers\Converge';
     }
 
     protected function askToStar(): void
