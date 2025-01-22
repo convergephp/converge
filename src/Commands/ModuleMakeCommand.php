@@ -2,10 +2,12 @@
 
 namespace Fluxtor\Converge\Commands;
 
-use function Laravel\Prompts\confirm;
+use Illuminate\Support\Str;
 
+use function Laravel\Prompts\confirm;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Contracts\Console\PromptsForMissingInput;
 
 class ModuleMakeCommand extends GeneratorCommand
 {
@@ -15,7 +17,8 @@ class ModuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'converge:make-module ';
+    // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
+    protected $signature = 'converge:make-module {name}  {--id=} {--route-path=} {--path= }';
 
     /**
      * The console command description.
@@ -31,7 +34,7 @@ class ModuleMakeCommand extends GeneratorCommand
      */
     protected $type = 'Module';
 
-        /**
+    /**
      * Execute the console command.
      *
      * @return bool|null
@@ -41,27 +44,61 @@ class ModuleMakeCommand extends GeneratorCommand
     public function handle()
     {
         if ($this->isReservedName($this->getNameInput())) {
-            $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
-
+            $this->components->error('The name "' . $this->getNameInput() . '" is reserved by PHP.');
             return false;
         }
-        dd($this->getNameInput());
-        $id =  $this->getNameInput();
-        $moduleClass=$this->constructClass($id);
-        $result = parent::handle();
-        // dd($result);
-        if ($result === false) {
-            return $result;
+
+        // dd($this->getNameInput());
+
+        $moduleName = $this->getNameInput();
+
+        $options = $this->options();
+
+
+        $moduleClass = $this->constructClass($moduleName);
+
+        $path = $this->getPath($moduleClass);
+
+        $this->makeDirectory($path);
+
+        dd($this->buildClass($moduleClass));
+
+        $this->files->put($path, $this->sortImports($this->buildClassFile($moduleClass, $options)));
+
+        $info = $this->type;
+
+        if (windows_os()) {
+            $path = str_replace('/', '\\', $path);
         }
+
+        $this->components->info(sprintf('%s [%s] created successfully.', $info, $path));
+
 
         ServiceProvider::addProviderToBootstrapFile(
             $this->qualifyClass($this->getNameInput()),
             $this->laravel->getBootstrapProvidersPath(),
         );
-
-        return $result;
     }
 
+    public function constructClass($inputModuleName)
+    {
+        return $this->qualifyClass(Str::ucfirst(Str::camel($inputModuleName)));
+    }
+
+    protected function buildClassFile($name, $options)
+    {
+        $stub = $this->files->get($this->getStub());
+
+        $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
+
+        $this->replaceId($stub, $options['id'] ?? '');
+        $this->replacePath($stub, $options['path'] ?? '');
+        $this->replaceRoutePath($stub, $options['route-path'] ?? '');
+    }
+
+    public function replacePath() {}
+    public function replaceId() {}
+    public function replaceRoutePath() {}
 
     protected function getStub()
     {
@@ -83,7 +120,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Providers\Converge';
+        return $rootNamespace . '\Providers\Converge';
     }
 
     protected function askToStar(): void
@@ -102,7 +139,7 @@ class ModuleMakeCommand extends GeneratorCommand
             if (PHP_OS_FAMILY === 'Linux') {
                 exec('xdg-open https://github.com/convergephp/converge');
             }
-            if (PHP_OS_FAMILY === 'Windows') {
+            if (windows_os()) {
                 exec('start https://github.com/convergephp/converge');
             }
 
