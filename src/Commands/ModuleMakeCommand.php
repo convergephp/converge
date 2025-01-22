@@ -61,7 +61,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->makeDirectory($path);
 
-        dd($this->buildClassFile($moduleClass, $options));
+        // dd($this->buildClassFile($moduleClass, $options));
 
         $this->files->put($path, $this->sortImports($this->buildClassFile($moduleClass, $options)));
 
@@ -75,7 +75,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
 
         ServiceProvider::addProviderToBootstrapFile(
-            $this->qualifyClass($this->getNameInput()),
+            $this->qualifyClass($this->constructClass($moduleName)),
             $this->laravel->getBootstrapProvidersPath(),
         );
     }
@@ -88,8 +88,9 @@ class ModuleMakeCommand extends GeneratorCommand
     protected function buildClassFile($name, $options)
     {
         $stub = $this->files->get($this->getStub());
+        // dd($stub);
 
-        $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
+        $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
         $this->replaceId($stub, $options['id'] ?? '');
 
