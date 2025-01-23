@@ -7,14 +7,12 @@ namespace Fluxtor\Converge\Versions;
 use Closure;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
-use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Contracts\VersionUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
-use Fluxtor\Converge\Routing\Versions\SubdomainUrlGenerator;
 use Illuminate\Support\Collection;
 
 class Version
@@ -39,7 +37,7 @@ class Version
 
     public function hasClusters(): bool
     {
-        return !$this->scopedClusters->isEmpty();
+        return ! $this->scopedClusters->isEmpty();
     }
 
     public function route(string $route): static
@@ -67,7 +65,7 @@ class Version
 
         return $this;
     }
-    
+
     public function setUrlGenerator(VersionUrlGenerator $urlGenerator): static
     {
         $this->urlGenerator = $urlGenerator;

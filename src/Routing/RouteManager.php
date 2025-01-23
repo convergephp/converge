@@ -15,14 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 final class RouteManager
 {
-
     public function generateRoutes(): void
     {
         foreach (Converge::getModules() as $module) {
 
             $rawModuleUri = $module->getRawRoutePath();
-            $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules 
-            $isQuieted = $quietedModuleUri != $rawModuleUri;
+            $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
+            $isQuieted = $quietedModuleUri !== $rawModuleUri;
 
             $moduleId = $module->getId();
             $pattern = '.*';
@@ -35,16 +34,16 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
 
-                    $versionName = $moduleId . '.' . $version->getRoute();
+                    $versionName = $moduleId.'.'.$version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
             $excludedVersions = implode('|', array_map(
-                fn($v) => preg_quote($v->getRoute(), '/'),
+                fn ($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn($version) => $version instanceof Version
+                        fn ($version) => $version instanceof Version
                     )->toArray()
             ));
             if ($excludedVersions) {
@@ -54,14 +53,14 @@ final class RouteManager
         }
     }
 
-    protected function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null, bool $isQuieted = false): void
+    private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null, bool $isQuieted = false): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-        Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
+        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
             ->group(function () use ($uri, $name, $pattern, $isQuieted) {
                 Route::get($uri, ModuleController::class)->name($name);
 
-                if (!$isQuieted) { // regular version 
+                if (! $isQuieted) { // regular version
                     Route::get("{$uri}/{url}", FileController::class)
                         ->where('url', $pattern)
                         ->name("{$name}.show");

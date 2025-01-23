@@ -1,18 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Commands;
 
+use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 use function Laravel\Prompts\confirm;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Console\GeneratorCommand;
-use Illuminate\Contracts\Console\PromptsForMissingInput;
-use Illuminate\Support\Lottery;
 
 class ModuleMakeCommand extends GeneratorCommand
 {
-
     /**
      * The console command name.
      *
@@ -49,7 +48,8 @@ class ModuleMakeCommand extends GeneratorCommand
     public function handle()
     {
         if ($this->isReservedName($this->getNameInput())) {
-            $this->components->error('The name "' . $this->getNameInput() . '" is reserved by PHP.');
+            $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+
             return false;
         }
 
@@ -59,14 +59,14 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $options = $this->options();
 
-
         $moduleClass = $this->constructClass($moduleName);
 
         if ((! $this->hasOption('force') ||
                 ! $this->option('force')) &&
             $this->alreadyExists($moduleClass)
         ) {
-            $this->components->error($this->type . ' already exists.');
+            $this->components->error($this->type.' already exists.');
+
             return false;
         }
 
@@ -86,12 +86,11 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->components->info(sprintf('%s [%s] created successfully.', $info, $path));
 
-
         ServiceProvider::addProviderToBootstrapFile(
             $this->qualifyClass($this->constructClass($moduleName)),
             $this->laravel->getBootstrapProvidersPath(),
         );
-        
+
         if (rand(min: 0, max: 1) > 1 / 2) {
             $this->askToStar();
         }
@@ -100,6 +99,26 @@ class ModuleMakeCommand extends GeneratorCommand
     public function constructClass($inputModuleName)
     {
         return $this->qualifyClass(Str::finish(Str::ucfirst(Str::camel($inputModuleName)), 'ModuleProvider'));
+    }
+
+    public function replacePath(&$stub, $path)
+    {
+        // support of path functions (eg. storage_path()...)
+        if (preg_match('/^[a-zA-Z_0-9]+\(.*\)$/', $path)) {
+            return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
+        }
+
+        return $stub = str_replace(['{{ path }}', '{{path}}'], "'".$path."'", $stub);
+    }
+
+    public function replaceId(&$stub, $path)
+    {
+        return $stub = str_replace(['{{ id }}', '{{id}}'], $path, $stub);
+    }
+
+    public function replaceRoutePath(&$stub, $path)
+    {
+        return $stub = str_replace(['{{ route }}', '{{route}}'], $path, $stub);
     }
 
     protected function buildClassFile($name, $options)
@@ -117,24 +136,6 @@ class ModuleMakeCommand extends GeneratorCommand
         return $stub;
     }
 
-    public function replacePath(&$stub, $path)
-    {
-        // support of path functions (eg. storage_path()...)
-        if (preg_match('/^[a-zA-Z_0-9]+\(.*\)$/', $path)) {
-            return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
-        }
-
-        return $stub = str_replace(['{{ path }}', '{{path}}'], "'" . $path . "'", $stub);
-    }
-    public function replaceId(&$stub, $path)
-    {
-        return $stub = str_replace(['{{ id }}', '{{id}}'], $path, $stub);
-    }
-    public function replaceRoutePath(&$stub, $path)
-    {
-        return $stub = str_replace(['{{ route }}', '{{route}}'], $path, $stub);
-    }
-
     protected function getStub()
     {
         return $this->resolveStubPath('/stubs/module.stub');
@@ -150,12 +151,12 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__ . $stub;
+            : __DIR__.$stub;
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Providers\Converge';
+        return $rootNamespace.'\Providers\Converge';
     }
 
     protected function askToStar(): void
