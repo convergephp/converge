@@ -8,6 +8,7 @@ use function Laravel\Prompts\confirm;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Contracts\Console\PromptsForMissingInput;
+use Illuminate\Support\Lottery;
 
 class ModuleMakeCommand extends GeneratorCommand
 {
@@ -90,7 +91,10 @@ class ModuleMakeCommand extends GeneratorCommand
             $this->qualifyClass($this->constructClass($moduleName)),
             $this->laravel->getBootstrapProvidersPath(),
         );
-        $this->askToStar();
+        
+        if (rand(min: 0, max: 1) > 1 / 2) {
+            $this->askToStar();
+        }
     }
 
     public function constructClass($inputModuleName)
