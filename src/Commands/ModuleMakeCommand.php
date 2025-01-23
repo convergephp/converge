@@ -17,7 +17,6 @@ class ModuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
     protected $signature = 'converge:make-module {name}  
                                                  {--id=}
                                                  {--route=}
@@ -52,8 +51,6 @@ class ModuleMakeCommand extends GeneratorCommand
 
             return false;
         }
-
-        // dd($this->getNameInput());
 
         $moduleName = $this->getNameInput();
 
