@@ -65,7 +65,6 @@ final class RouteManager
                     Route::get("{$uri}/{url}", FileController::class)
                         ->where('url', $pattern)
                         ->name("{$name}.show");
-                        dump('de'.$name);
                 }
                 // if ($isQuieted) { // the magic behind the version binded directly to the module
                 //     $escapedUri = preg_quote($uri, '/');
