@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Versions;
 
 class VersionPresenter
 {
     public function __construct(
-        protected Version|null $activeVersion,
+        protected ?Version $activeVersion,
         protected ?string $versionId,
         protected ?string $label,
         protected ?string $url

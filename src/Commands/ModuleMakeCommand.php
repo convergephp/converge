@@ -18,7 +18,6 @@ class ModuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    // protected $name = 'converge:make-module {--id=} {--route-path=} {--path= }';
     protected $signature = 'converge:make-module {name}  
                                                  {--id=}
                                                  {--route=}
@@ -52,8 +51,6 @@ class ModuleMakeCommand extends GeneratorCommand
             $this->components->error('The name "' . $this->getNameInput() . '" is reserved by PHP.');
             return false;
         }
-
-        // dd($this->getNameInput());
 
         $moduleName = $this->getNameInput();
 

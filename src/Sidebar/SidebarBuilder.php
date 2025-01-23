@@ -50,7 +50,7 @@ final class SidebarBuilder
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth, ?string $versionUrl): void
     {
-        $url = $versionUrl ? $versionUrl . '/' . $node['url'] : $node['url']; // prefix the url if needed
+        $url = $versionUrl ? $versionUrl.'/'.$node['url'] : $node['url']; // prefix the url if needed
         // dd($url);
         $items->add(
             SidebarItem::make()
