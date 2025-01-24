@@ -11,6 +11,7 @@ use Tempest\Highlight\CommonMark\HighlightExtension;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
 use Fluxtor\Converge\Markdown\Extensions\BladeCompilerExtension;
+use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
 
@@ -41,12 +42,11 @@ class Markdown
             ],
             extensions: [
                 new HighlightExtension(new Highlighter()),
-                new BladeCompilerExtension(),
                 new HeadingPermalinkExtension(),
                 new TableOfContentsExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
-                new BladeCompilerExtension()
+                new BladeParserExtension()
             ],
         );
 

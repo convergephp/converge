@@ -14,11 +14,21 @@
             return Array.from(parent.children).indexOf(el) + 1
         }
     }"
-
     x-id="['tab']"
     {{ $attributes->merge(['class'=>'mx-auto dark:text-white']) }}
->
-    <!-- Tab List -->
+>    <!-- Tab List -->
+<style>
+    ul {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    ul li {
+        list-style-type: none;
+    }
+</style>
+
     <ul
         x-ref="tablist"
         x-on:keydown.right.prevent.stop="$focus.wrap().next()"

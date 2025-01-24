@@ -46,6 +46,7 @@ class ConvergeServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
+        
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
         if ($this->app->runningInConsole()) {
