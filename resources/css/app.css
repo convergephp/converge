@@ -1,4 +1,4 @@
-/* @import 'theme.css'; */
+/* @import './converge.css'; */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -124,4 +124,12 @@ ul.table-of-contents li::marker {
 }
 ul.table-of-contents ul > li  {
   @apply ps-3 my-1    
+}
+
+.blade ul {
+    @apply list-none pl-0 ml-0;
+}
+
+.blade ul li {
+    @apply list-none;
 }

@@ -1,5 +1,5 @@
 @props([
-    'activeClasses'=>'bg-white/5'
+    'activeClasses'=>'dark:bg-white/[0.06] bg-gray-100 dark:text-violet-400 text-violet-500'
 ])
 <li>
     <button
@@ -11,7 +11,7 @@
         x-bind:aria-selected="isActive($el.id)"
         x-bind:class="isActive($el.id) 
             ? @js($activeClasses) 
-            : 'border-b-transparent'"
+            : 'my-2 rounded-lg group flex items-center gap-x-2  px-3 py-2 text-sm font-semibold outline-none transition duration-75'"
         {{ $attributes->merge(['class'=>'inline-flex items-center px-5 rounded-t-md ']) }}
         role="tab"
     >
