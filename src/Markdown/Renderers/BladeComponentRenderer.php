@@ -20,6 +20,7 @@ class BladeComponentRenderer implements NodeRendererInterface
         }
 
         $bladeContent = $node->getContent();
+        
         dd($bladeContent);
 
         try {
