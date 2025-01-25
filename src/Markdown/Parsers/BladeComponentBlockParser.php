@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxtor\Converge\Markdown\Extensions;
+namespace Fluxtor\Converge\Markdown\Parsers;
 
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\Block\BlockStart;
@@ -12,7 +12,7 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinueParserInterface;
 
-class BladeDetectorExtension extends AbstractBlockContinueParser
+class BladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
 
@@ -66,7 +66,7 @@ class BladeDetectorExtension extends AbstractBlockContinueParser
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
                 if (str_contains($cursor->getLine(), '<x-converge::')) {
-                    return BlockStart::of(new BladeDetectorExtension())->at($cursor);
+                    return BlockStart::of(new BladeComponentBlockParser())->at($cursor);
                 }
 
                 return BlockStart::none();
