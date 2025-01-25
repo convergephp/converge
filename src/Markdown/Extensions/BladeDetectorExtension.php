@@ -12,8 +12,7 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinueParserInterface;
 
-
-class BladeDetectorExtension extends AbstractBlockContinueParser 
+class BladeDetectorExtension extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
     
@@ -29,7 +28,7 @@ class BladeDetectorExtension extends AbstractBlockContinueParser
 
     public function canHaveLazyContinuationLines(): bool
     {
-        return true;  // Allow multi-line content
+        return true; 
     }
 
     public function addLine(string $line): void
@@ -40,7 +39,7 @@ class BladeDetectorExtension extends AbstractBlockContinueParser
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         if (str_contains($cursor->getLine(), '</x-converge>')) {
-            return BlockContinue::none(); // End parsing when closing tag is found
+            return BlockContinue::none();
         }
 
         return BlockContinue::at($cursor);
@@ -59,12 +58,11 @@ class BladeDetectorExtension extends AbstractBlockContinueParser
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
                 if (str_contains($cursor->getLine(), '<x-converge::')) {
-                    return BlockStart::of(new BladeComponentBlock())->at($cursor);
+                    return BlockStart::of(new BladeDetectorExtension())->at($cursor);
                 }
 
                 return BlockStart::none();
             }
         };
     }
-
 }
