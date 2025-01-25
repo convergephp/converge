@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Markdown\Extensions;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Blade;
-use League\CommonMark\Renderer\HtmlRenderer;
-use League\CommonMark\Output\RenderedContent;
+use Illuminate\Support\Str;
 use League\CommonMark\Environment\Environment;
+use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Event\DocumentRenderedEvent;
-use League\CommonMark\Extension\ExtensionInterface;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
-use League\CommonMark\Environment\EnvironmentBuilderInterface;
-use League\CommonMark\Extension\CommonMark\Node\Block\HtmlBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
+use League\CommonMark\Extension\CommonMark\Node\Block\HtmlBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use League\CommonMark\Extension\ExtensionInterface;
+use League\CommonMark\Output\RenderedContent;
+use League\CommonMark\Renderer\HtmlRenderer;
 
 class BladeCompilerExtension implements ExtensionInterface
 {
-
     protected Environment $environment;
 
     protected array $rendered = [];
@@ -39,24 +40,21 @@ class BladeCompilerExtension implements ExtensionInterface
 
         $this->environment = $environment;
     }
+
     public function onDocumentParsed(DocumentParsedEvent $event)
     {
         // dd($event);
 
         foreach ($event->getDocument()->iterator() as $node) {
-            if (!$this->isCodeNode($node)) {
+            if (! $this->isCodeNode($node)) {
                 // dump($node);
 
                 continue;
             }
 
-
-
             // Create a unique, random ID
 
             $id = Str::uuid()->toString();
-
-
 
             // Create a new HTML block that just has our placeholder
 
@@ -64,20 +62,15 @@ class BladeCompilerExtension implements ExtensionInterface
 
             $replacement->setLiteral("[[replace:$id]]");
 
-            
             // Replace the code node with our placeholder
-            
+
             $node->replaceWith($replacement);
-            
+
             dump($node);
-
-
 
             // Create an identical renderer to the main one
 
             $renderer = new HtmlRenderer($this->environment);
-
-
 
             // Render the code node and stash it away.
 
@@ -86,14 +79,11 @@ class BladeCompilerExtension implements ExtensionInterface
     }
 
     public function onDocumentRendered(DocumentRenderedEvent $event)
-
     {
 
         $search = [];
 
         $replace = [];
-
-
 
         // Gather up all the placeholders and their real content
 
@@ -105,25 +95,17 @@ class BladeCompilerExtension implements ExtensionInterface
             $replace[] = $content;
         }
 
-
-
         // The HTML that Commonmark generated
 
         $content = $event->getOutput()->getContent();
-
-
 
         // First render the output without code blocks.
 
         $content = Blade::render($content);
 
-
-
         // Then add the code blocks back in.
 
         $content = Str::replace($search, $replace, $content);
-
-
 
         // And replace the entire response with our new, Blade-processed output.
 
@@ -133,8 +115,8 @@ class BladeCompilerExtension implements ExtensionInterface
 
         );
     }
-    protected function isCodeNode($node)
 
+    protected function isCodeNode($node)
     {
 
         return $node instanceof FencedCode
