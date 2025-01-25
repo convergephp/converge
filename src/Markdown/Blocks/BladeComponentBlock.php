@@ -1,4 +1,5 @@
 <?php
+
 namespace Fluxtor\Converge\Markdown\Blocks;
 
 
@@ -22,5 +23,15 @@ class BladeComponentBlock extends AbstractBlock implements StringContainerInterf
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function setLiteral(string $literal): void
+    {
+        $this->content = $literal;
+    }
+
+    public function getLiteral(): string
+    {
+        return $this->getContent();
     }
 }
