@@ -60,7 +60,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
         if ((! $this->hasOption('force') ||
                 ! $this->option('force')) &&
-            $this->alreadyExists($moduleClass)
+            $this->alreadyExwists($moduleClass)
         ) {
             $this->components->error($this->type.' already exists.');
 
@@ -163,7 +163,7 @@ class ModuleMakeCommand extends GeneratorCommand
         }
 
         if (confirm(
-            label: 'All done! Would you like to show some love by starring the Converge repo on GitHub?',
+            label: 'Join our growing community! Would you like to star Converge on GitHub and show your support?',
             default: true,
         )) {
             if (PHP_OS_FAMILY === 'Darwin') {
