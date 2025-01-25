@@ -3,7 +3,6 @@
 namespace Fluxtor\Converge\Markdown\Renderers;
 
 use Throwable;
-use Illuminate\Cache\TagSet;
 use InvalidArgumentException;
 use League\CommonMark\Node\Node;
 use Illuminate\Support\Facades\Blade;
@@ -14,15 +13,15 @@ use League\CommonMark\Renderer\ChildNodeRendererInterface;
 
 class BladeComponentRenderer implements NodeRendererInterface
 {
-    public function render(Node $node, ChildNodeRendererInterface $childContents): HtmlElement
+    public function render(Node $node, ChildNodeRendererInterface $childContents): HtmlElement|null|string
     {
         if (!($node instanceof BladeComponentBlock)) {
             throw new InvalidArgumentException('Invalid block type.');
         }
 
         $bladeContent = $node->getContent();
+        dd($bladeContent);
 
-        // Render Blade component using Laravel's Blade engine
         try {
             $renderedHtml = Blade::render($bladeContent);
         } catch (Throwable $e) {
