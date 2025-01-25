@@ -19,9 +19,9 @@ class BladeComponentRenderer implements NodeRendererInterface
             throw new InvalidArgumentException('Invalid block type.');
         }
 
-        $bladeContent = $node->getContent();
-        
-        dd($bladeContent);
+        $bladeContent = $node->getLiteral();
+
+        // dd($bladeContent);
 
         try {
             $renderedHtml = Blade::render($bladeContent);
