@@ -1,7 +1,8 @@
 <?php
 
-namespace Fluxtor\Converge\Markdown\Blocks;
+declare(strict_types=1);
 
+namespace Fluxtor\Converge\Markdown\Blocks;
 
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Node\StringContainerInterface;
@@ -12,7 +13,7 @@ class BladeComponentBlock extends AbstractBlock implements StringContainerInterf
 
     public function addLine(string $line): void
     {
-        $this->literal .= $line . "\n";
+        $this->literal .= $line."\n";
     }
 
     public function finalize(): void
