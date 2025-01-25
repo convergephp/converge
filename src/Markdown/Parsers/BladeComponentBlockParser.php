@@ -39,7 +39,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        if (str_contains($cursor->getLine(), '</x-converge>')) {
+        if (str_contains($cursor->getLine(), '</x-converge')) {
             return BlockContinue::none();
         }
 

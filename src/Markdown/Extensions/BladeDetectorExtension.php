@@ -2,75 +2,16 @@
 
 namespace Fluxtor\Converge\Markdown\Extensions;
 
-use League\CommonMark\Parser\Cursor;
-use League\CommonMark\Parser\Block\BlockStart;
-use League\CommonMark\Node\Block\AbstractBlock;
-use League\CommonMark\Parser\Block\BlockContinue;
-use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
-use League\CommonMark\Parser\MarkdownParserStateInterface;
-use League\CommonMark\Parser\Block\BlockStartParserInterface;
-use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
-use League\CommonMark\Parser\Block\BlockContinueParserInterface;
+use Fluxtor\Converge\Markdown\Parsers\BladeComponentBlockParser;
+use League\CommonMark\Extension\ExtensionInterface;
+use League\CommonMark\Environment\EnvironmentBuilderInterface;
 
-class BladeDetectorExtension extends AbstractBlockContinueParser
+class BladeDetectorExtension implements ExtensionInterface
 {
-    private BladeComponentBlock $block;
-
-    public function __construct()
+    public  function register(EnvironmentBuilderInterface $environment): void
     {
-        $this->block = new BladeComponentBlock();
+        $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(),100);
+        // dd($environment);
     }
 
-    public function getBlock(): AbstractBlock
-    {
-        return $this->block;
-    }
-
-    public function canHaveLazyContinuationLines(): bool
-    {
-        return true;
-    }
-
-    public function addLine(string $line): void
-    {
-        $this->block->addLine($line);
-    }
-
-
-    public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
-    {
-        if (str_contains($cursor->getLine(), '</x-converge>')) {
-            return BlockContinue::none();
-        }
-
-        return BlockContinue::at($cursor);
-    }
-
-    public function closeBlock(): void
-    {
-        $this->block->finalize();
-    }
-
-    public static function createBlockStartParser(): BlockStartParserInterface
-    {
-        return new class implements BlockStartParserInterface
-        {
-            /**
-             * Check whether we should handle the block at the current position
-             *
-             * @param Cursor                       $cursor
-             * @param MarkdownParserStateInterface $parserState
-             *
-             * @return BlockStart|null
-             */
-            public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
-            {
-                if (str_contains($cursor->getLine(), '<x-converge::')) {
-                    return BlockStart::of(new BladeDetectorExtension())->at($cursor);
-                }
-
-                return BlockStart::none();
-            }
-        };
-    }
 }
