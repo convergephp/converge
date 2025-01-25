@@ -15,7 +15,7 @@ use League\CommonMark\Parser\Block\BlockContinueParserInterface;
 class BladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
-    
+
 
     public function __construct()
     {
@@ -40,8 +40,9 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        if (str_contains($cursor->getLine(), '</x-converge::tabs>')) {
-            // dd($cursor);
+        $line = $cursor->getLine();
+        if (str_contains($line, '</x-converge::tabs>')) {
+            // $this->block->addLine($line);
             return BlockContinue::none();
         }
 
@@ -68,7 +69,6 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
                 if (str_contains($cursor->getLine(), '<x-converge::tabs>')) {
-                    // dd($cursor->getLine());
                     return BlockStart::of(new BladeComponentBlockParser())->at($cursor);
                 }
 
