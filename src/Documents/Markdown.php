@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Documents;
 
+use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use Illuminate\Support\Str;
-use Tempest\Highlight\Highlighter;
+use League\CommonMark\Extension\Autolink\AutolinkExtension;
+use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
+use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\Util\HtmlFilter;
 use Tempest\Highlight\CommonMark\HighlightExtension;
-use League\CommonMark\Extension\Autolink\AutolinkExtension;
-use League\CommonMark\Extension\TaskList\TaskListExtension;
-use Fluxtor\Converge\Markdown\Extensions\BladeCompilerExtension;
-use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
-use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
+use Tempest\Highlight\Highlighter;
 
 class Markdown
 {
@@ -28,7 +27,7 @@ class Markdown
         $html = Str::markdown(
             string: $markdown,
             options: [
-                'html_input' =>  HtmlFilter::ALLOW,
+                'html_input' => HtmlFilter::ALLOW,
                 'allow_unsafe_links' => false,
                 'max_nesting_level' => 5,
                 'heading_permalink' => [
@@ -46,7 +45,7 @@ class Markdown
                 new TableOfContentsExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
-                new BladeParserExtension()
+                new BladeParserExtension(),
             ],
         );
 

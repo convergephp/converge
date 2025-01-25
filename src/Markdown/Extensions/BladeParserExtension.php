@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Markdown\Extensions;
 
-use League\CommonMark\Node\Node;
 use Illuminate\Support\Facades\Blade;
-use League\CommonMark\Extension\ExtensionInterface;
-use League\CommonMark\Renderer\NodeRendererInterface;
-use League\CommonMark\Renderer\ChildNodeRendererInterface;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\IndentedCode;
+use League\CommonMark\Extension\ExtensionInterface;
+use League\CommonMark\Node\Node;
+use League\CommonMark\Renderer\ChildNodeRendererInterface;
+use League\CommonMark\Renderer\NodeRendererInterface;
 
 class BladeParserExtension implements ExtensionInterface, NodeRendererInterface
 {
@@ -20,14 +22,10 @@ class BladeParserExtension implements ExtensionInterface, NodeRendererInterface
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer)
-
     {
 
-        /** @var FencedCode|IndentedCode $node  */
-
+        /** @var FencedCode|IndentedCode $node */
         $info = $node->getInfoWords();
-
- 
 
         // Look for our magic word
 
@@ -37,7 +35,7 @@ class BladeParserExtension implements ExtensionInterface, NodeRendererInterface
 
             return Blade::render($node->getLiteral());
 
-        } 
+        }
 
     }
 }
