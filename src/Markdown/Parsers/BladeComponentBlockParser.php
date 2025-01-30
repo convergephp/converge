@@ -41,7 +41,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         $line = $cursor->getLine();
-        
+
         if (str_contains($line, '</x-converge::tabs>')) {
             $this->block->addLine($line);
             return BlockContinue::finished();
@@ -69,7 +69,9 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
+                
                 if (str_contains($cursor->getLine(), '<x-converge::tabs>')) {
+                    // dd($parserState);
                     return BlockStart::of(new BladeComponentBlockParser())->at($cursor);
                 }
 
