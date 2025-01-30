@@ -17,8 +17,9 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
     private BladeComponentBlock $block;
 
 
-    public function __construct()
-    {
+    public function __construct(
+        private string $componentName
+    ) {
         $this->block = new BladeComponentBlock();
     }
 
@@ -41,8 +42,8 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         $line = $cursor->getLine();
-
-        if (str_contains($line, '</x-converge::tabs>')) {
+        $closingTag = "</x-{$this->componentName}>";
+        if (str_contains($line, $closingTag)) {
             $this->block->addLine($line);
             return BlockContinue::finished();
         }
@@ -69,10 +70,13 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-                
-                if (str_contains($cursor->getLine(), '<x-converge::tabs>')) {
-                    // dd($parserState);
-                    return BlockStart::of(new BladeComponentBlockParser())->at($cursor);
+                $line = $cursor->getLine();
+
+                $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
+
+                if (preg_match($pattern, $line, $matches)) {
+                    // dd($matches[1]);
+                    return BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
                 }
 
                 return BlockStart::none();
