@@ -10,6 +10,7 @@ use League\CommonMark\Util\HtmlFilter;
 use Tempest\Highlight\CommonMark\HighlightExtension;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
+use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use Fluxtor\Converge\Markdown\Extensions\BladeDetectorExtension;
 use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
@@ -23,7 +24,6 @@ class Markdown
     public function convert(string $markdown)
     {
 
-        // dd(new Highlighter());
         $html = Str::markdown(
             string: $markdown,
             options: [
@@ -46,7 +46,7 @@ class Markdown
                 new BladeDetectorExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
-                // new BladeParserExtension()
+                new BladeParserExtension()
             ],
         );
 
