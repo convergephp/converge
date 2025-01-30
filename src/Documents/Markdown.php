@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Documents;
 
 use Fluxtor\Converge\Markdown\Extensions\BladeDetectorExtension;
+use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
@@ -23,7 +24,6 @@ class Markdown
     public function convert(string $markdown)
     {
 
-        // dd(new Highlighter());
         $html = Str::markdown(
             string: $markdown,
             options: [
@@ -46,7 +46,7 @@ class Markdown
                 new BladeDetectorExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
-                // new BladeParserExtension()
+                new BladeParserExtension(),
             ],
         );
 
