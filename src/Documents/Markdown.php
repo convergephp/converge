@@ -49,7 +49,6 @@ class Markdown
                 new BladeParserExtension()
             ],
         );
-
         return $html;
     }
 }

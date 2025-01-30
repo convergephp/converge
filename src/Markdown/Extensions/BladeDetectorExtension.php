@@ -12,7 +12,7 @@ class BladeDetectorExtension implements ExtensionInterface
 {
     public  function register(EnvironmentBuilderInterface $environment): void
     {
-        $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(),100);
+        $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(),250);
         $environment->addRenderer(BladeComponentBlock::class,new BladeComponentRenderer());
     }
 
