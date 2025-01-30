@@ -1,5 +1,4 @@
 <?php
-
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use League\CommonMark\Parser\Cursor;
@@ -22,10 +21,13 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
     {
         $this->block = new BladeComponentBlock();
     }
-    public function hasClosedInTheSameLine(){
+
+    public function hasClosedInTheSameLine()
+    {
         $this->hasClosedInTheSameLine = true;
         return $this;
     }
+
     public function getBlock(): AbstractBlock
     {
         return $this->block;
@@ -41,16 +43,16 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
         $this->block->addLine($line);
     }
 
-
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        if($this->hasClosedInTheSameLine){
+        // If the block was closed on the same line, finish the parsing.
+        if ($this->hasClosedInTheSameLine) {
             $this->closed = true;
             return BlockContinue::finished();
         }
-                
-        $line = $cursor->getLine();
 
+        // If it's not self-closing and needs to be continued, check if the closing tag appears on the next line.
+        $line = $cursor->getLine();
         $pattern = "/\/\s*>$/";
 
         if (preg_match($pattern, $line)) {
@@ -59,13 +61,13 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
             return BlockContinue::finished();
         }
 
-        return BlockContinue::at($cursor);
+        return BlockContinue::at($cursor); // Continue if the block is still open.
     }
 
     public function closeBlock(): void
     {
         if (!$this->closed) {
-            throw new \Exception("Blade component was not closed properly");
+            throw new \Exception("Blade component was not closed properly.");
         }
         $this->block->finalize();
     }
@@ -74,24 +76,19 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
     {
         return new class implements BlockStartParserInterface
         {
-            /**
-             * Check whether we should handle the block at the current position
-             *
-             * @param Cursor                       $cursor
-             * @param MarkdownParserStateInterface $parserState
-             *
-             * @return BlockStart|null
-             */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
                 $line = $cursor->getLine();
 
-                $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
-
-                if (preg_match($pattern, $line, $matches)) { // has closing tag in the same line let's finish it
-                    
-                    // dd($matches);
+                // Check for self-closing Blade component on the same line.
+                $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/"; // Self-closing tag
+                if (preg_match($pattern, $line)) {
                     return BlockStart::of((new SelfClosingBladeComponentBlockParser())->hasClosedInTheSameLine())->at($cursor);
+                }
+
+                // Check for opening Blade component tag, which could span multiple lines.
+                if (preg_match("/<\s*x[-:]([\w\-:.]+)/", $line)) {
+                    return BlockStart::of(new SelfClosingBladeComponentBlockParser())->at($cursor);
                 }
 
                 return BlockStart::none();

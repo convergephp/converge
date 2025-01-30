@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Markdown\Extensions;
 
-use League\CommonMark\Extension\ExtensionInterface;
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
-use League\CommonMark\Environment\EnvironmentBuilderInterface;
-use Fluxtor\Converge\Markdown\Renderers\BladeComponentRenderer;
 use Fluxtor\Converge\Markdown\Parsers\BladeComponentBlockParser;
 use Fluxtor\Converge\Markdown\Parsers\SelfClosingBladeComponentBlockParser;
-use Fluxtor\Converge\Markdown\Parsers\SelfClosingInOneLineBladeComponentBlockParser;
+use Fluxtor\Converge\Markdown\Renderers\BladeComponentRenderer;
+use League\CommonMark\Environment\EnvironmentBuilderInterface;
+use League\CommonMark\Extension\ExtensionInterface;
 
 class BladeDetectorExtension implements ExtensionInterface
 {
-    public  function register(EnvironmentBuilderInterface $environment): void
+    public function register(EnvironmentBuilderInterface $environment): void
     {
         $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(), 250);
         $environment->addBlockStartParser(SelfClosingBladeComponentBlockParser::createBlockStartParser(), 250);
