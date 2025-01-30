@@ -15,16 +15,16 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
     private bool $closed = false;
-    private bool $hasClosedInTheSameLine = false;
+    private bool $isInlineClosed = false;
 
     public function __construct()
     {
         $this->block = new BladeComponentBlock();
     }
 
-    public function hasClosedInTheSameLine()
+    public function closedImmediately()
     {
-        $this->hasClosedInTheSameLine = true;
+        $this->isInlineClosed = true;
         return $this;
     }
 
@@ -46,7 +46,7 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         // If the block was closed on the same line, finish the parsing.
-        if ($this->hasClosedInTheSameLine) {
+        if ($this->isInlineClosed) {
             $this->closed = true;
             return BlockContinue::finished();
         }
@@ -83,7 +83,7 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
                 // Check for self-closing Blade component on the same line.
                 $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/"; // Self-closing tag
                 if (preg_match($pattern, $line)) {
-                    return BlockStart::of((new SelfClosingBladeComponentBlockParser())->hasClosedInTheSameLine())->at($cursor);
+                    return BlockStart::of((new SelfClosingBladeComponentBlockParser())->closedImmediately())->at($cursor);
                 }
 
                 // Check for opening Blade component tag, which could span multiple lines.

@@ -1,4 +1,4 @@
-@props(['label'])
-<div>
+@props(['label','class'])
+<div class="{{ $class }}">
     {{ $label }}
 </div>
