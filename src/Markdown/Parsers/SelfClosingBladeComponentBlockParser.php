@@ -16,12 +16,16 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
     private bool $closed = false;
+    private bool $hasClosedInTheSameLine = false;
 
     public function __construct()
     {
         $this->block = new BladeComponentBlock();
     }
-
+    public function hasClosedInTheSameLine(){
+        $this->hasClosedInTheSameLine = true;
+        return $this;
+    }
     public function getBlock(): AbstractBlock
     {
         return $this->block;
@@ -40,6 +44,11 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
+        if($this->hasClosedInTheSameLine){
+            $this->closed = true;
+            return BlockContinue::finished();
+        }
+                
         $line = $cursor->getLine();
 
         $pattern = "/\/\s*>$/";
@@ -77,12 +86,12 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
             {
                 $line = $cursor->getLine();
 
-                // has closing tag in the same line 
                 $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
 
-                if (preg_match($pattern, $line, $matches)) {
-                    dd($matches);
-                    return BlockStart::of(new SelfClosingBladeComponentBlockParser())->at($cursor);
+                if (preg_match($pattern, $line, $matches)) { // has closing tag in the same line let's finish it
+                    
+                    // dd($matches);
+                    return BlockStart::of((new SelfClosingBladeComponentBlockParser())->hasClosedInTheSameLine())->at($cursor);
                 }
 
                 return BlockStart::none();

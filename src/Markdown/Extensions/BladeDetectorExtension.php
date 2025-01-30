@@ -16,7 +16,6 @@ class BladeDetectorExtension implements ExtensionInterface
     {
         $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(), 250);
         $environment->addBlockStartParser(SelfClosingBladeComponentBlockParser::createBlockStartParser(), 250);
-        $environment->addInlineParser(new SelfClosingInOneLineBladeComponentBlockParser(), 100);
         $environment->addRenderer(BladeComponentBlock::class, new BladeComponentRenderer());
     }
 }
