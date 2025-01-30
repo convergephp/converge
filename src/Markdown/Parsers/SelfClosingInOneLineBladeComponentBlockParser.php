@@ -2,91 +2,29 @@
 
 namespace Fluxtor\Converge\Markdown\Parsers;
 
-use League\CommonMark\Parser\Cursor;
-use League\CommonMark\Parser\Block\BlockStart;
-use League\CommonMark\Node\Block\AbstractBlock;
-use League\CommonMark\Parser\Block\BlockContinue;
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
-use League\CommonMark\Parser\MarkdownParserStateInterface;
-use League\CommonMark\Parser\Block\BlockStartParserInterface;
-use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
-use League\CommonMark\Parser\Block\BlockContinueParserInterface;
+use League\CommonMark\Parser\InlineParserContext;
+use League\CommonMark\Parser\Inline\InlineParserMatch;
+use League\CommonMark\Parser\Inline\InlineParserInterface;
 
-class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
+class SelfClosingInOneLineBladeComponentBlockParser extends InlineParserInterface
 {
-    private BladeComponentBlock $block;
-    private bool $closed = false;
 
-    public function __construct()
+    public function getMatchDefinition(): InlineParserMatch
     {
-        $this->block = new BladeComponentBlock();
+        return InlineParserMatch::regex('/<\s*x[-:]([\w\-:.]+)(\s[^>]+)?\s*\/>/');
     }
 
-    public function getBlock(): AbstractBlock
+    public function parse(InlineParserContext $inlineContext): bool
     {
-        return $this->block;
-    }
+        $cursor = $inlineContext->getCursor();
+        $match = $inlineContext->getFullMatch();
 
-    public function canHaveLazyContinuationLines(): bool
-    {
-        return true;
-    }
+        // Advance the cursor to the end of the match
+        $cursor->advanceBy(strlen($match));
 
-    public function addLine(string $line): void
-    {
-        $this->block->addLine($line);
-    }
+        $inlineContext->getContainer()->appendChild((new BladeComponentBlock())->setContents($match));
 
-
-    public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
-    {
-        $line = $cursor->getLine();
-
-        $pattern = "/\/\s*>$/";
-
-        if (preg_match($pattern, $line)) {
-            $this->block->addLine($line);
-            $this->closed = true;
-            return BlockContinue::finished();
-        }
-
-        return BlockContinue::at($cursor);
-    }
-
-    public function closeBlock(): void
-    {
-        if (!$this->closed) {
-            throw new \Exception("Blade component was not closed properly");
-        }
-        $this->block->finalize();
-    }
-
-    public static function createBlockStartParser(): BlockStartParserInterface
-    {
-        return new class implements BlockStartParserInterface
-        {
-            /**
-             * Check whether we should handle the block at the current position
-             *
-             * @param Cursor                       $cursor
-             * @param MarkdownParserStateInterface $parserState
-             *
-             * @return BlockStart|null
-             */
-            public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
-            {
-                $line = $cursor->getLine();
-
-                // has closing tag in the same line 
-                $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
-
-                if (preg_match($pattern, $line, $matches)) {
-                    dd($matches);
-                    return BlockStart::of(new SelfClosingBladeComponentBlockParser())->at($cursor);
-                }
-
-                return BlockStart::none();
-            }
-        };
+        return true; // Successfully parsed the match
     }
 }
