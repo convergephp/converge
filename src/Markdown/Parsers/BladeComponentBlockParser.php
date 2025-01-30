@@ -38,7 +38,6 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
                 $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
 
                 if (preg_match($pattern, $line, $matches)) {
-                    // dd($matches[1]);
                     return BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
                 }
 
