@@ -145,7 +145,8 @@ trait CanHandleVersions
         })->toArray();
 
         if ($label = $this->getQuietedVersion()) {
-            $route = $this->getQuietedVersionUrl() ?? $moduleRoute;
+            //  
+            $route =$this->getRoutePath();
             array_unshift($versions, [
                 'id' => $this->versionId,
                 'type' => 'internal',
