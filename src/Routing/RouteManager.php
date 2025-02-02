@@ -21,16 +21,16 @@ final class RouteManager
 
             // each module can have a latest version 
             $rawModuleUri = $module->getRawRoutePath();
-            $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
-            $isQuieted = $module->isQuieted();
             
+            $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
+            
+            $isQuieted = $module->isQuieted();
 
             $moduleId = $module->getId();
 
             $pattern = '.*';
 
             if ($module->hasVersions()) {
-
                 foreach ($module->getVersions() as $version) {
                     if (! $version instanceof Version) {
                         continue;
@@ -39,23 +39,24 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
 
-                    $versionName = $moduleId.'.'.$version->getRoute();
+                    $versionName = $moduleId . '.' . $version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
+
             $excludedVersions = implode('|', array_map(
-                fn ($v) => preg_quote($v->getRoute(), '/'),
+                fn($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn ($version) => $version instanceof Version
+                        fn($version) => $version instanceof Version
                     )->toArray()
             ));
 
             if ($excludedVersions) {
                 $pattern = "^(?!($excludedVersions))(.*)$";
             }
-
+            
             $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern, isQuieted: $isQuieted);
         }
     }
@@ -63,7 +64,7 @@ final class RouteManager
     private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null, bool $isQuieted = false): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
+        Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
             ->group(function () use ($uri, $name, $pattern, $isQuieted) {
                 Route::get($uri, ModuleController::class)->name($name);
 
@@ -72,6 +73,7 @@ final class RouteManager
                         ->where('url', $pattern)
                         ->name("{$name}.show");
                 }
+
                 if ($isQuieted) { // the magic behind the version binded directly to the module
                     $escapedUri = preg_quote($uri, '/');
                     Route::get("{url}", function ($url) use ($uri) {
