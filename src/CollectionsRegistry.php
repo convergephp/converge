@@ -23,10 +23,11 @@ abstract class CollectionsRegistry
     final public function add(Closure $callback): static
     {
         $item = $this->createItem();
+        
         $callback($item);
+        
         $this->items->push($item);
 
-        // dump($this->items);
         return $this;
     }
 
@@ -38,7 +39,6 @@ abstract class CollectionsRegistry
     final public function get($key, $id)
     {
         return $this->items->filter(fn ($item) => $id === $item->$key);
-        // $this->items->get($key, $id);
     }
 
     final public function addLink(Closure $callback): static
