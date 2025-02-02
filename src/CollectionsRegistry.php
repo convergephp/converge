@@ -23,9 +23,9 @@ abstract class CollectionsRegistry
     final public function add(Closure $callback): static
     {
         $item = $this->createItem();
-        
+
         $callback($item);
-        
+
         $this->items->push($item);
 
         return $this;

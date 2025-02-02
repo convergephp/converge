@@ -25,7 +25,7 @@ trait HasRoutePath
 
     public function getRoutePath()
     {
-        if (!$this->isQuieted()) {
+        if (! $this->isQuieted()) {
             return $this->getRawRoutePath();
         }
 

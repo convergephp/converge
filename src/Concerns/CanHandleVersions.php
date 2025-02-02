@@ -43,6 +43,7 @@ trait CanHandleVersions
         $this->ensureVersionLabelSet();
         $this->versionId = md5($url);
         $this->quietedVersionUrl = $url;
+
         return $this;
     }
 
@@ -58,7 +59,7 @@ trait CanHandleVersions
 
     public function useVersion(string $id): static
     {
-        $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
+        $this->activeVersion = $this->versions->first(fn ($item) => $item->getRoute() === $id);
 
         return $this;
     }
@@ -68,6 +69,11 @@ trait CanHandleVersions
         $this->versionAs = $version;
 
         return $this;
+    }
+
+    public function latestVersionLabel(?string $label)
+    {
+        return $this->versionAs($label);
     }
 
     public function getQuietedVersion(): ?string
@@ -86,7 +92,7 @@ trait CanHandleVersions
             'id' => $this->activeVersion?->getId() ?? $this->versionId,
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
-            'isActive' => fn($id) => $this->isActive($id),
+            'isActive' => fn ($id) => $this->isActive($id),
         ];
     }
 
@@ -120,7 +126,7 @@ trait CanHandleVersions
         $moduleRoute = $this->getRawRoutePath();
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
-            
+
             $versionData = [
                 'label' => $version->getLabel(),
             ];
@@ -145,13 +151,13 @@ trait CanHandleVersions
         })->toArray();
 
         if ($label = $this->getQuietedVersion()) {
-            //  
-            $route =$this->getRoutePath();
+            //
+            $route = $this->getRoutePath();
             array_unshift($versions, [
                 'id' => $this->versionId,
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/' . trim($route, '/'),
+                'url' => '/'.trim($route, '/'),
             ]);
         }
 
@@ -161,7 +167,7 @@ trait CanHandleVersions
     public function ensureVersionLabelSet()
     {
         if (! $this->getQuietedVersion()) {
-            throw new LogicException('No default version label set, Use versionAs() to define which version should be used.');
+            throw new LogicException('No default version label set, Use latestVersionLabel() to define which version should be used.');
         }
     }
 }

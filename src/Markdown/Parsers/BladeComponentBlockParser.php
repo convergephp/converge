@@ -64,11 +64,11 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         $line = $cursor->getLine();
-     
+
         $closingTag = "</x-{$this->componentName}>";
-     
+
         if (str_contains($line, $closingTag)) {
-     
+
             $this->block->addLine($line);
 
             return BlockContinue::finished();

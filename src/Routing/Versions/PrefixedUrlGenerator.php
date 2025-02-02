@@ -10,7 +10,7 @@ class PrefixedUrlGenerator implements VersionUrlGenerator
 {
     public static function generate(?string $moduleUri, string $versionUri): string
     {
-        $url = '/' . trim($moduleUri, '/') . '/' . trim($versionUri, '/');
+        $url = '/'.trim($moduleUri, '/').'/'.trim($versionUri, '/');
 
         return $url;
     }

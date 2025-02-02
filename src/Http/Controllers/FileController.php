@@ -24,7 +24,7 @@ class FileController
         abort_if(is_null($path), 404);
 
         $document = Documents\Parser::make(file_get_contents($path));
-        
+
         $contents = $document->body();
 
         $html = $markdown->convert($contents);

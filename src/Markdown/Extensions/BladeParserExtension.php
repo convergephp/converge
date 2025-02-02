@@ -27,7 +27,6 @@ class BladeParserExtension implements ExtensionInterface, NodeRendererInterface
         /** @var FencedCode|IndentedCode $node */
         $info = $node->getInfoWords();
 
-
         if (in_array('+compile', $info)) {
             return Blade::render($node->getLiteral());
         }

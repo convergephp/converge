@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Routing;
 
-use Fluxtor\Converge\Documents\Markdown;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
@@ -19,7 +18,7 @@ final class RouteManager
     {
         foreach (Converge::getModules() as $module) {
 
-            // each module can have a latest version 
+            // each module can have a latest version
             $rawModuleUri = $module->getRawRoutePath();
 
             $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
@@ -39,17 +38,17 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
 
-                    $versionName = $moduleId . '.' . $version->getRoute();
+                    $versionName = $moduleId.'.'.$version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
 
             $excludedVersions = implode('|', array_map(
-                fn($v) => preg_quote($v->getRoute(), '/'),
+                fn ($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn($version) => $version instanceof Version
+                        fn ($version) => $version instanceof Version
                     )->toArray()
             ));
 
@@ -64,7 +63,7 @@ final class RouteManager
     private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-        Route::middleware([UseModule::class . ':' . $moduleId, UseVersion::class . ':' . $params])
+        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
             ->group(function () use ($uri, $name, $pattern) {
                 Route::get($uri, ModuleController::class)->name($name);
 
