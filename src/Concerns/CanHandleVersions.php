@@ -21,7 +21,7 @@ trait CanHandleVersions
 
     protected ?string $versionId = null;
 
-    protected ?string $quietedVersionUrlAs = null;
+    protected ?string $quietedVersionUrl = null;
 
     public function initVersions(): void
     {
@@ -38,18 +38,22 @@ trait CanHandleVersions
         return $this->versionId;
     }
 
-    public function quietedVersionUrlAs(?string $url): static
+    public function quietedVersionUrl(?string $url): static
     {
         $this->ensureVersionLabelSet();
         $this->versionId = md5($url);
-        $this->quietedVersionUrlAs = $url;
-
+        $this->quietedVersionUrl = $url;
         return $this;
+    }
+
+    public function latestVersionUrl(?string $url): static
+    {
+        return $this->quietedVersionUrl($url);
     }
 
     public function getQuietedVersionUrl(): ?string
     {
-        return $this->quietedVersionUrlAs;
+        return $this->quietedVersionUrl;
     }
 
     public function useVersion(string $id): static
@@ -154,7 +158,7 @@ trait CanHandleVersions
                 'url' => '/' . trim($route, '/'),
             ]);
         }
-        
+
         return $versions;
     }
 
