@@ -26,4 +26,9 @@ trait HasRoutePath
     {
         return $this->getQuietedVersionUrl() ?? $this->getRawRoutePath();
     }
+    
+    public function isQuieted(): bool
+    {
+        return $this->getRoutePath() === $this->getRawRoutePath();
+    }
 }

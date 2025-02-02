@@ -19,13 +19,18 @@ final class RouteManager
     {
         foreach (Converge::getModules() as $module) {
 
+            // each module can have a latest version 
             $rawModuleUri = $module->getRawRoutePath();
             $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
-            $isQuieted = $quietedModuleUri !== $rawModuleUri;
+            $isQuieted = $module->isQuieted();
+            
 
             $moduleId = $module->getId();
+
             $pattern = '.*';
+
             if ($module->hasVersions()) {
+
                 foreach ($module->getVersions() as $version) {
                     if (! $version instanceof Version) {
                         continue;
@@ -46,9 +51,11 @@ final class RouteManager
                         fn ($version) => $version instanceof Version
                     )->toArray()
             ));
+
             if ($excludedVersions) {
                 $pattern = "^(?!($excludedVersions))(.*)$";
             }
+
             $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern, isQuieted: $isQuieted);
         }
     }
@@ -65,15 +72,15 @@ final class RouteManager
                         ->where('url', $pattern)
                         ->name("{$name}.show");
                 }
-                // if ($isQuieted) { // the magic behind the version binded directly to the module
-                //     $escapedUri = preg_quote($uri, '/');
-                //     Route::get("{url}", function ($url) use ($uri) {
-                //         $url = str($url)->remove($uri)->ltrim('/')->toString();
-                //         return app(FileController::class)->__invoke($url, app(Markdown::class));
-                //     })
-                //         ->where('url', "^(?!({$escapedUri})$).*$")
-                //         ->name("{$name}.show");
-                // }
+                if ($isQuieted) { // the magic behind the version binded directly to the module
+                    $escapedUri = preg_quote($uri, '/');
+                    Route::get("{url}", function ($url) use ($uri) {
+                        $url = str($url)->remove($uri)->ltrim('/')->toString();
+                        return app(FileController::class)->__invoke($url, app(Markdown::class));
+                    })
+                        ->where('url', "^(?!({$escapedUri})$).*$")
+                        ->name("{$name}.show");
+                }
             });
     }
 }
