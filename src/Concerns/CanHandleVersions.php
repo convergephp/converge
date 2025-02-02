@@ -54,7 +54,7 @@ trait CanHandleVersions
 
     public function useVersion(string $id): static
     {
-        $this->activeVersion = $this->versions->first(fn ($item) => $item->getRoute() === $id);
+        $this->activeVersion = $this->versions->first(fn($item) => $item->getRoute() === $id);
 
         return $this;
     }
@@ -66,9 +66,15 @@ trait CanHandleVersions
         return $this;
     }
 
-    public function getQuietedVersion()
+    public function getQuietedVersion(): ?string
     {
-        return ltrim($this->getRoutePath()).'/'.ltrim($this->versionAs, '/');
+        if (is_null($this->versionAs)) {
+            return null;
+        }
+        return $this->versionAs;
+
+
+        return ltrim($this->getRoutePath()) . '/' . ltrim($this->versionAs, '/');
     }
 
     public function getUsedVersion(): ?Version
@@ -82,7 +88,7 @@ trait CanHandleVersions
             'id' => $this->activeVersion?->getId() ?? $this->versionId,
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
-            'isActive' => fn ($id) => $this->isActive($id),
+            'isActive' => fn($id) => $this->isActive($id),
         ];
     }
 
@@ -145,10 +151,10 @@ trait CanHandleVersions
                 'id' => $this->versionId,
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/'.trim($route, '/'),
+                'url' => '/' . trim($route, '/'),
             ]);
         }
-
+        
         return $versions;
     }
 
