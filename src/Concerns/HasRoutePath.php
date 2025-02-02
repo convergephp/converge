@@ -18,7 +18,7 @@ trait HasRoutePath
         return $this;
     }
 
-    public function getRawRoutePath()
+    public function getRawRoutePath(): mixed
     {
         return $this->resolve($this->routePath);
     }
@@ -33,7 +33,6 @@ trait HasRoutePath
             moduleUri: $this->getRawRoutePath(),
             versionUri: $this->getQuietedVersionUrl()
         );
-
     }
 
     public function isQuieted(): bool

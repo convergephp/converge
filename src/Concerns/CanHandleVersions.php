@@ -72,13 +72,7 @@ trait CanHandleVersions
 
     public function getQuietedVersion(): ?string
     {
-        // if (is_null($this->versionAs)) {
-        //     return null;
-        // }
-        
         return $this->versionAs;
-
-        // return ltrim($this->getRoutePath()) . '/' . ltrim($this->versionAs, '/');
     }
 
     public function getUsedVersion(): ?Version
@@ -126,6 +120,7 @@ trait CanHandleVersions
         $moduleRoute = $this->getRawRoutePath();
 
         $versions = $this->versions->map(function ($version) use ($moduleRoute) {
+            
             $versionData = [
                 'label' => $version->getLabel(),
             ];
