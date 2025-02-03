@@ -60,7 +60,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
         if ((! $this->hasOption('force') ||
                 ! $this->option('force')) &&
-            $this->alreadyExwists($moduleClass)
+            $this->alreadyExists($moduleClass)
         ) {
             $this->components->error($this->type.' already exists.');
 

@@ -23,7 +23,6 @@ final class RouteManager
 
             $quietedModuleUri = $module->getRoutePath(); // can be route path or quieted version for versionned modules
 
-            $isQuieted = $module->isQuieted();
 
             $moduleId = $module->getId();
 
@@ -65,13 +64,12 @@ final class RouteManager
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
         Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
             ->group(function () use ($uri, $name, $pattern) {
+                
                 Route::get($uri, ModuleController::class)->name($name);
 
                 Route::get("{$uri}/{url}", FileController::class)
                     ->where('url', $pattern)
                     ->name("{$name}.show");
-
-                // }
             });
     }
 }

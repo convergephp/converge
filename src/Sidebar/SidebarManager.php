@@ -26,6 +26,7 @@ class SidebarManager
 
         // we have the route path
         $urlGenerator = $this->version?->getUrlGenerator();
+        // dd($urlGenerator);
 
         if ($module->hasVersions()) {
             if (! is_null($urlGenerator)) {
@@ -47,8 +48,8 @@ class SidebarManager
     {
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
-
         $items = SidebarBuilder::build($tree[0], versionUrl: $this->versionUrl);
+        // dd($items);
 
         return $items;
     }
