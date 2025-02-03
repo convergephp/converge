@@ -24,13 +24,11 @@ class FileController
         abort_if(is_null($path), 404);
 
         $document = Documents\Parser::make(file_get_contents($path));
-        // dd($document);
-        $contents = $document->body(); // process the body
+
+        $contents = $document->body();
 
         $html = $markdown->convert($contents);
-        // highlith code blocks
 
-        // render declared blade components
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),

@@ -59,6 +59,11 @@ class Version
         return $this->urlGenerator ?? new PrefixedUrlGenerator();
     }
 
+    public function absoluteUrl(): static
+    {
+        return $this->asAbsolute();
+    }
+
     public function asAbsolute()
     {
         $this->setUrlGenerator(new AbsoluteUrlGenerator());

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
+use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
 
 trait HasRoutePath
 {
@@ -17,13 +18,25 @@ trait HasRoutePath
         return $this;
     }
 
-    public function getRawRoutePath()
+    public function getRawRoutePath(): mixed
     {
         return $this->resolve($this->routePath);
     }
 
     public function getRoutePath()
     {
-        return $this->getQuietedVersionUrl() ?? $this->getRawRoutePath();
+        if (! $this->isQuieted()) {
+            return $this->getRawRoutePath();
+        }
+
+        return PrefixedUrlGenerator::generate(
+            moduleUri: $this->getRawRoutePath(),
+            versionUri: $this->getQuietedVersionUrl()
+        );
+    }
+
+    public function isQuieted(): bool
+    {
+        return $this->getQuietedVersionUrl() !== null;
     }
 }

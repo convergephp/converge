@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Documents;
 
-use Fluxtor\Converge\Markdown\Extensions\BladeDetectorExtension;
+use Fluxtor\Converge\Markdown\Extensions\BladeCompilerExtension;
 use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
@@ -43,7 +43,7 @@ class Markdown
                 new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
                 new TableOfContentsExtension(),
-                new BladeDetectorExtension(),
+                new BladeCompilerExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
                 new BladeParserExtension(),
