@@ -1,22 +1,8 @@
 <div
-    x-data="{
-        activeId: null,
-        init() {
-            this.$nextTick(() => this.activate(this.$id('tab', 1)))
-        },  
-        activate(id) {
-            this.activeId = id
-        },
-        isActive(id) {
-            return this.activeId === id
-        },
-        getTabIndex(el, parent) {
-            return Array.from(parent.children).indexOf(el) + 1
-        }
-    }"
+    x-data="tabs"
     x-id="['tab']"
     {{ $attributes->merge(['class'=>'blade mx-auto dark:text-white']) }}
->    <!-- Tab List -->
+>   
     <ul
         x-ref="tablist"
         x-on:keydown.right.prevent.stop="$focus.wrap().next()"
