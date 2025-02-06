@@ -9,6 +9,7 @@ use Closure;
 trait HasLabel
 {
     use Resolver;
+
     protected string|Closure|null $label;
 
     public function label(string|Closure|null $label): static
