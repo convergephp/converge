@@ -40,7 +40,8 @@
         }
     },
     "require": {
-        "tempest/highlight": "^2.11"
+        "tempest/highlight": "^2.11",
+        "blade-ui-kit/blade-heroicons": "^2.5"
 
     }
     

@@ -10,6 +10,7 @@ class ContentMap
         protected FilesTreeBuilder $filesTreeBuilder
     ) {
         $module = app('converge');
+        
         $path = $module->getPath();
         $depth = $module->getMaxDepth();
 
