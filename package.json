@@ -6,7 +6,7 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "npx tailwindcss -i resources/css/app.css -o dist/css/converge.css --postcss --watch",
+    "dev": "npx @tailwindcss/cli  -i resources/css/app.css -o dist/css/converge.css --watch",
     "dev:js": "node bin/build.js --dev"
   },
   "type": "module",
@@ -16,6 +16,7 @@
   },
   "keywords": [
     "laravel",
+    "documentation",
     "static",
     "sites"
   ],
@@ -25,12 +26,13 @@
     "url": "https://github.com/fluxtorphp/converge/issues"
   },
   "homepage": "https://github.com/fluxtorphp/converge#readme",
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16",
-    "tailwindcss": "^3.4.17"
-  },
   "dependencies": {
     "@alpinejs/anchor": "^3.14.8",
-    "alpinejs": "^3.14.8"
+    "@tailwindcss/cli": "^4.0.3",
+    "alpinejs": "^3.14.8",
+    "tailwindcss": "^4.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16"
   }
 }

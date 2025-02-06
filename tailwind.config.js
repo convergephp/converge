@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-import typography from "@tailwindcss/typography";
 module.exports = {
-    darkMode: "selector",
-    content: ["./resources/views/**/*.blade.php", "./src/**/*.php"],
+    // darkMode: "selector",
+    // content: ["./resources/views/**/*.blade.php", "./src/**/*.php"],
     theme: {
         extend: {
             colors: {
@@ -12,5 +11,4 @@ module.exports = {
             },
         },
     },
-    plugins: [typography],
 };

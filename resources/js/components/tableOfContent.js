@@ -12,7 +12,7 @@ export default () => {
                 this.$watch("activeTocLink", () => {
 
                     this.tableOfContentLinks.forEach((item) => {
-                        item.style.setProperty("color", ""); // Remove any previously set color
+                        item.style.setProperty("color", ""); 
                     });
                    
                     if (this.activeTocLink) {

@@ -16,6 +16,7 @@
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
     </title>
 
+
     <style>
         [x-cloak] {}
     </style>

@@ -2,7 +2,7 @@
     x-data="tabs"
     x-id="['tab']"
     {{ $attributes->merge(['class'=>'blade mx-auto dark:text-white']) }}
->    <!-- Tab List -->
+>   
     <ul
         x-ref="tablist"
         x-on:keydown.right.prevent.stop="$focus.wrap().next()"
