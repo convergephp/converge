@@ -1,6 +1,7 @@
-@php
-    $clusters = (app('converge')->getClusters());
-@endphp
+@props([
+    'clusters' => null
+])
+
 <ul>
     @foreach ($clusters as $cluster)
         <li><a class="group mb-4 flex items-center font-semibold text-gray-500 lg:text-sm lg:leading-6 dark:text-gray-400"
