@@ -5,4 +5,6 @@
 
 @svg($icon, $class, array_filter($attributes->getAttributes()))
 
-{{ svg($icon) }}
+{{ svg('heroicon-c-magnifying-glass') }}
+
+{{ svg($icon) }} 
