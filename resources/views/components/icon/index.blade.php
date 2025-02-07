@@ -4,13 +4,8 @@
     'icon' => null,
 ])
 
-{{-- @php
-$path = match($variant){
-    'outline' => 'outline',
-    'solid' => 'solid',
-    'mini' => 'outline',
-    'micro' => 'outline',
-}
-@php --}}
+@php
+    $path = 'icons' . '.' . $variant . '.' . $icon;
+@endphp
 
-<x-dynamic-component :component="$icon" :class="$class" />
+<x-dynamic-component :component="$path" :class="$class" />
