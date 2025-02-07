@@ -46,6 +46,7 @@ class SidebarManager
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], versionUrl: $this->versionUrl);
+
         return $items;
     }
 }
