@@ -9,9 +9,10 @@
             <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round"></circle>
         </svg> --}}
+
         <x-converge::icon
-            icon="heroicon-c-magnifying-glass"
-            class="mr-3 flex-none size-5"
+            icon="icons.icon"
+            class="ml-2 size-5"
         />
         Quick search...<span class="ml-auto flex-none pl-3 text-xs font-semibold">Ctrl K</span>
     </button>

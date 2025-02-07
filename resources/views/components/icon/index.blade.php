@@ -1,10 +1,16 @@
 @props([
     'class' => '',
+    'variant' => 'outline',
     'icon' => null,
 ])
 
-{{-- @svg($icon, $class, array_filter($attributes->getAttributes()))
+{{-- @php
+$path = match($variant){
+    'outline' => 'outline',
+    'solid' => 'solid',
+    'mini' => 'outline',
+    'micro' => 'outline',
+}
+@php --}}
 
-{{ svg('heroicon-c-magnifying-glass') }}
-
-{{ svg($icon) }}  --}}
+<x-dynamic-component :component="$icon" :class="$class" />
