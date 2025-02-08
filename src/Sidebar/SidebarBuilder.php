@@ -17,6 +17,7 @@ final class SidebarBuilder
     public static function build(array $tree, ?string $versionUrl = null): Collection
     {
         $items = new Collection();
+
         return (new self())->process($items, $tree, versionUrl: $versionUrl);
     }
 
@@ -47,7 +48,7 @@ final class SidebarBuilder
      */
     private function addFileNode(Collection $items, array $node, int $sortKey, int $depth, ?string $versionUrl): void
     {
-        $url = $versionUrl ? $versionUrl . '/' . $node['url'] : $node['url']; // prefix the url if needed
+        $url = $versionUrl ? $versionUrl.'/'.$node['url'] : $node['url']; // prefix the url if needed
         $items->add(
             SidebarItem::make()
                 ->label($node['label'])

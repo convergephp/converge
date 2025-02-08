@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
-use Fluxtor\Converge\Converge;
-use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\ModuleRegistry;
-use Illuminate\Support\Facades\Blade;
-use Fluxtor\Converge\FilesTreeBuilder;
-use Illuminate\Support\ServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Fluxtor\Converge\Commands\ModuleMakeCommand;
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
+use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\Converge;
+use Fluxtor\Converge\FilesTreeBuilder;
+use Fluxtor\Converge\ModuleRegistry;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\ServiceProvider;
 
 class ConvergeServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
-        
+
         // $this->app->register(provider: BladeIconsServiceProvider::class, force: true);
 
         $this->app->scoped(Converge::class, function () {
@@ -47,12 +46,12 @@ class ConvergeServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/converge.php' => config_path('converge.php'),
+            __DIR__.'/../config/converge.php' => config_path('converge.php'),
         ]);
 
-        $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
+        $this->loadViewsFrom(path: __DIR__.'/../../resources/views', namespace: 'converge');
 
-        Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
+        Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
