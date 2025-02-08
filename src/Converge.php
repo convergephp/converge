@@ -49,6 +49,11 @@ class Converge
         return $this->getActiveModule()->getClusters();
     }
 
+    public function getAllClusters(): Collection
+    {
+        return $this->getActiveModule()->allClusters();
+    }
+
     public function getRoutePath(): string
     {
         return $this->getActiveModule()->getRoutePath();

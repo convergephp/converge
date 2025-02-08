@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\VersionLink;
+use Illuminate\Support\Collection;
 
 abstract class CollectionsRegistry
 {
@@ -46,7 +46,7 @@ abstract class CollectionsRegistry
 
     final public function get($key, $id)
     {
-        return $this->items->filter(fn($item) => $id === $item->$key);
+        return $this->items->filter(fn ($item) => $id === $item->$key);
     }
 
     final public function addLink(Closure $callback): static
@@ -61,7 +61,11 @@ abstract class CollectionsRegistry
 
         return $this;
     }
-    final private function  adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
+
+    /**
+     * @return void
+     */
+    final private function adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
     {
         $item->getSort() ?? $item->sort(++$this->currentSortIndex);
     }
@@ -69,11 +73,11 @@ abstract class CollectionsRegistry
     /**
      * sort items based on the sort property
      *
-     * @param Collection<Cluster|Version> $items
-     * @return Collection<Cluster|Version>
+     * @param  Collection<Version|VersionLink|Cluster|ClusterLink>  $items
+     * @return Collection<Version|VersionLink|Cluster|ClusterLink>
      */
     private function sortItems(Collection $items): Collection
     {
-        return  $items->sortBy(fn($item) => $item->getSort())->values();
+        return $items->sortBy(fn ($item) => $item->getSort())->values();
     }
 }

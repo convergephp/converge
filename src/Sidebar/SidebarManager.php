@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
+use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
@@ -56,19 +58,8 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
 
-        // dd($this->getScopedClusters());
         return $items;
     }
 
-    // clusters defined on the module level
-    public function getClusters()
-    {
-        return resolve('converge')->getClusters();
-    }
-
-    // clusters scoped to specfic version can be merged with top level clusters 
-    public function getScopedClusters()
-    {
-        return resolve('converge')->getUsedVersion()?->getClusters();
-    }
+   
 }

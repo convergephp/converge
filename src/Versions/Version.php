@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Versions;
 
 use Closure;
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Concerns\HasPath;
-use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
+use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Contracts\VersionUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
+use Illuminate\Support\Collection;
 
 class Version
 {
     use HasLabel;
     use HasPath;
-    use Resolver;
     use HasSort;
+    use Resolver;
 
     /** @var Collection<int,Cluster> */
     protected Collection $scopedClusters;
@@ -104,7 +104,7 @@ class Version
     /**
      * module clusters
      *
-     * @return Collection<int,Cluster>
+     * @return Collection<int,Cluster|ClusterLink>
      */
     public function getClusters(): Collection
     {
