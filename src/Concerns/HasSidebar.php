@@ -16,7 +16,6 @@ trait HasSidebar
     {
         $sidebar = new SidebarManager($this->getPath(), $this->getMaxDepth(), $this->getUsedVersion());
 
-        // dd($sidebar);
         return $sidebar->getItems();
     }
 }

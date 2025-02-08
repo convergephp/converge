@@ -43,7 +43,6 @@ class SidebarManager
 
         // Ensure baseUrl is always set, defaulting to the module route if not already defined
         $this->baseUrl ??= $this->moduleRoute;
-
     }
 
     /**
@@ -57,7 +56,19 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
 
-        // dd($items);
+        dd($this->getScopedClusters());
         return $items;
+    }
+
+    // clusters defined on the module level
+    public function getClusters()
+    {
+        return resolve('converge')->getClusters();
+    }
+
+    // clusters scoped to specfic version can be merged with top level clusters 
+    public function getScopedClusters()
+    {
+        return resolve('converge')->getUsedVersion()?->getClusters();
     }
 }

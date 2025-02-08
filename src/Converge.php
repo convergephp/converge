@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
+use Fluxtor\Converge\Versions\Version;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -73,7 +74,7 @@ class Converge
         return $this->getActiveModule()->getUiVersions();
     }
 
-    public function getUsedVersion(): ?array
+    public function getUsedVersion(): ?Version
     {
         return $this->getActiveModule()->getUsedVersion();
     }
