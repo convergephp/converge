@@ -10,7 +10,23 @@ use Illuminate\Support\Collection;
 
 class SidebarManager
 {
-    // the baseUrl is the prefixed route it can be the version url 
+    // The baseUrl represents the prefixed route for the module.
+    // It can be determined based on the URL generator used, as follows:
+    // 
+    // 1. If the generator used is `prefixedUrlGenerator()`, it retains the module's route path as prefix ex: docs/versions?/node-url.
+    // 2. If the generator used is `absolute`, it removes the module route from the URI.  ex: versions/node-url.
+    // 3. If the context does not use versions, the module route remains as the prefix, ex: docs/node-url.
+    //    and the node URL is appended in the SidebarBuilder.
+
+    /**
+     * 
+     * @param string $path
+     * @param integer $depth
+     * @param Version|null $version
+     * @param string|null $baseUrl
+     * @param string|null $rawModuleRoute
+     * @param string|null $moduleRoute
+     */
     public function __construct(
         protected string $path,
         protected int $depth,
@@ -28,17 +44,15 @@ class SidebarManager
         $urlGenerator = $this->version?->getUrlGenerator();
 
         if ($module->hasVersions()) {
-            if (! is_null($urlGenerator)) {
-                // it's a real version so to append to it the real module route path
-                $this->baseUrl = $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute());
-            } else {
-                $this->baseUrl = $this->moduleRoute;
-            }
+            // Use the version's URL generator if available, otherwise fallback to the module route
+            $this->baseUrl = (bool) $urlGenerator
+                ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
+                : $this->moduleRoute;
         }
-        // the version-Url is always must be set even if there is no version we take the  
-        if (is_null($this->baseUrl)) {
-            $this->baseUrl = $this->moduleRoute;
-        }
+
+        // Ensure baseUrl is always set, defaulting to the module route if not already defined
+        $this->baseUrl ??= $this->moduleRoute;
+
     }
 
     /**
