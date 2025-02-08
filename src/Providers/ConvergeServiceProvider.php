@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
-use BladeUI\Icons\BladeIconsServiceProvider;
 use Fluxtor\Converge\Commands\ModuleMakeCommand;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;

@@ -12,21 +12,12 @@ class SidebarManager
 {
     // The baseUrl represents the prefixed route for the module.
     // It can be determined based on the URL generator used, as follows:
-    // 
+    //
     // 1. If the generator used is `prefixedUrlGenerator()`, it retains the module's route path as prefix ex: docs/versions?/node-url.
     // 2. If the generator used is `absolute`, it removes the module route from the URI.  ex: versions/node-url.
     // 3. If the context does not use versions, the module route remains as the prefix, ex: docs/node-url.
     //    and the node URL is appended in the SidebarBuilder.
 
-    /**
-     * 
-     * @param string $path
-     * @param integer $depth
-     * @param Version|null $version
-     * @param string|null $baseUrl
-     * @param string|null $rawModuleRoute
-     * @param string|null $moduleRoute
-     */
     public function __construct(
         protected string $path,
         protected int $depth,
@@ -65,6 +56,7 @@ class SidebarManager
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
+
         // dd($items);
         return $items;
     }
