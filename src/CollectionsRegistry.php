@@ -6,10 +6,16 @@ namespace Fluxtor\Converge;
 
 use Closure;
 use Illuminate\Support\Collection;
+use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Clusters\ClusterLink;
+use Fluxtor\Converge\Versions\Version;
+use Fluxtor\Converge\Versions\VersionLink;
 
-abstract class CollectionsRegistry //shared between versions and clusters logic
+abstract class CollectionsRegistry
 {
     public Collection $items;
+
+    private int $currentSortIndex = 0;
 
     public function __construct()
     {
@@ -26,6 +32,8 @@ abstract class CollectionsRegistry //shared between versions and clusters logic
 
         $callback($item);
 
+        $this->adjustSort($item);
+
         $this->items->push($item);
 
         return $this;
@@ -33,7 +41,7 @@ abstract class CollectionsRegistry //shared between versions and clusters logic
 
     final public function getItems(): Collection
     {
-        return dd($this->sortItems($this->items));
+        return $this->sortItems($this->items);
     }
 
     final public function get($key, $id)
@@ -47,9 +55,15 @@ abstract class CollectionsRegistry //shared between versions and clusters logic
 
         $callback($item);
 
+        $this->adjustSort($item);
+
         $this->items->push($item);
 
         return $this;
+    }
+    final private function  adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
+    {
+        $item->getSort() ?? $item->sort(++$this->currentSortIndex);
     }
 
     /**

@@ -10,7 +10,7 @@ trait HasSort
 {
     use Resolver;
 
-    protected int|null|Closure $sort = null;
+    public int|null|Closure $sort = null;
 
     public function sort(int|Closure $sort): static
     {
