@@ -10,11 +10,12 @@ use Illuminate\Support\Collection;
 
 class SidebarManager
 {
+    // the baseUrl is the prefixed route it can be the version url 
     public function __construct(
         protected string $path,
         protected int $depth,
         protected ?Version $version,
-        protected ?string $versionUrl = null,
+        protected ?string $baseUrl = null,
         protected ?string $rawModuleRoute = null,
         protected ?string $moduleRoute = null
 
@@ -29,10 +30,14 @@ class SidebarManager
         if ($module->hasVersions()) {
             if (! is_null($urlGenerator)) {
                 // it's a real version so to append to it the real module route path
-                $this->versionUrl = $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute());
+                $this->baseUrl = $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute());
             } else {
-                $this->versionUrl = $this->moduleRoute;
+                $this->baseUrl = $this->moduleRoute;
             }
+        }
+        // the version-Url is always must be set even if there is no version we take the  
+        if (is_null($this->baseUrl)) {
+            $this->baseUrl = $this->moduleRoute;
         }
     }
 
@@ -45,8 +50,8 @@ class SidebarManager
     {
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
-        $items = SidebarBuilder::build($tree[0], versionUrl: $this->versionUrl);
-
+        $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
+        // dd($items);
         return $items;
     }
 }

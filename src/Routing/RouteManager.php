@@ -36,17 +36,17 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
 
-                    $versionName = $moduleId.'.'.$version->getRoute();
+                    $versionName = $moduleId . '.' . $version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
 
             $excludedVersions = implode('|', array_map(
-                fn ($v) => preg_quote($v->getRoute(), '/'),
+                fn($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn ($version) => $version instanceof Version
+                        fn($version) => $version instanceof Version
                     )->toArray()
             ));
 
@@ -61,7 +61,10 @@ final class RouteManager
     private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
+        Route::middleware([
+            UseModule::class . ':' . $moduleId,
+            UseVersion::class . ':' . $params
+        ])
             ->group(function () use ($uri, $name, $pattern) {
 
                 Route::get($uri, ModuleController::class)->name($name);
