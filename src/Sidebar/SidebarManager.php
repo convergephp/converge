@@ -56,7 +56,7 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
 
-        dd($this->getScopedClusters());
+        // dd($this->getScopedClusters());
         return $items;
     }
 
