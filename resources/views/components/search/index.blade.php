@@ -4,7 +4,7 @@
         type="button"
     >
     <x-converge::icon
-        icon="magnifying-glass"
+        icon="search"
         class="mr-3 size-5"
     />  
         Quick search...<span class="ml-auto flex-none pl-3 text-xs font-semibold">Ctrl K</span>

@@ -19,8 +19,6 @@ class ConvergeServiceProvider extends ServiceProvider
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
-        // $this->app->register(provider: BladeIconsServiceProvider::class, force: true);
-
         $this->app->scoped(Converge::class, function () {
             return new Converge();
         });
