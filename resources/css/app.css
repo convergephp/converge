@@ -7,6 +7,12 @@
     width: 10px;
 }
 
+html{
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+
 
 .hl-keyword {
     color: #f78c6c;
