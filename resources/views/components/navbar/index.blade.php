@@ -1,13 +1,10 @@
 @php
     $hasVersions = count(app('converge')->getUiVersions());
 @endphp
-
-<div
-    class="sticky flex flex-col w-full transition-colors duration-500 bg-transparent border-b border-b-slate-500/10 supports-backdrop-blur:bg-background-light/60 dark:bg-transparent backdrop-blur">
-    <div
-        class="flex items-center w-full h-16  min-w-0 px-4 mx-auto z-10  lg:px-[18rem]  border-b border-gray-500/5 dark:border-gray-300/[0.06]">
-        <nav class="relative flex items-center flex-1 h-full min-w-0 gap-x-4">
-
+<div class="relative mx-auto bg-transparent border-b border-b-slate-500/10">
+    {{-- NAVBARE --}}
+    <div class="border-b border-b-slate-500/10">
+        <nav class="flex items-center h-16 min-w-0 mx-auto max-w-7xl">
             {{-- BRAND --}}
             <div class="z-20">
                 <x-converge::logo />
@@ -51,39 +48,36 @@
                         <x-converge::icon icon="user-circle" class="mr-3 size-6" />
                     </a>
                 </div>
-
             </div>
         </nav>
     </div>
-    <div>
+    {{-- BREADCRUMBS --}}
+    <div class="flex items-center w-full h-12 mx-auto space-x-2 transition-colors duration-500 max-w-7xl">
+        {{-- open SIDEBARE --}}
+        <button x-ref="button" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"
+            class="inline-flex items-center justify-center mx-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <span class="sr-only">Open sidebar</span>
+            <x-converge::icon icon="bars-4" class="size-5" />
+        </button>
 
-        {{-- BREADCRUMBS --}}
-        <div class="lg:px-[18rem]  flex items-center w-full h-12 px-4 space-x-2 transition-colors duration-500 "
-            x-data="{ open: false }">
-            {{-- open SIDEBARE --}}
-            <button x-ref="button" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"
-                class="inline-flex items-center justify-center mx-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                <span class="sr-only">Open sidebar</span>
-                <x-converge::icon icon="bars-4" class="size-5" />
-            </button>
-
-            {{-- BREADCRUMBS LINKS --}}
-            <nav class="flex" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                    <li class="inline-flex items-center">
+        {{-- BREADCRUMBS LINKS --}}
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                <li class="inline-flex items-center">
+                    <a href="#"
+                        class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <x-converge::icon icon="chevron-right" class="font-extrabold size-4" />
                         <a href="#"
-                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <x-converge::icon icon="chevron-right" class="size-4" />
-                            <a href="#"
-                                class="text-sm font-medium text-gray-700 ms-1 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Projects</a>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-        </div>
+                            class="text-sm font-medium text-gray-700 ms-1 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Projects</a>
+                    </div>
+                </li>
+            </ol>
+        </nav>
     </div>
+</div>
+</div>

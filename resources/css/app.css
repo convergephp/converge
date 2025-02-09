@@ -3,10 +3,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @plugin "@tailwindcss/typography";
 /* @source "../views"; */
-
 ::-webkit-scrollbar {
     width: 10px;
 }
+
 
 .hl-keyword {
     color: #f78c6c;
@@ -68,17 +68,17 @@
 
 .hl-addition {
     min-width: 100%;
-    @apply bg-green-600/50 inline-block;
+    @apply inline-block bg-green-600/50;
 }
 
 .hl-deletion {
     min-width: 100%;
     filter: blur(0.8px);
-    @apply bg-red-600/50 inline-block;
+    @apply inline-block bg-red-600/50;
 }
 .hl-deletion:hover {
     filter: blur(0);
-    @apply transition ease-in-out duration-300;
+    @apply transition duration-300 ease-in-out;
 }
 
 .hl-gutter {
@@ -109,11 +109,11 @@ ul.table-of-contents li::marker {
     content: none;
 }
 ul.table-of-contents ul > li {
-    @apply ps-3 my-1;
+    @apply my-1 ps-3;
 }
 
 .blade ul {
-    @apply list-none pl-0 ml-0;
+    @apply pl-0 ml-0 list-none;
 }
 
 .blade ul li {
