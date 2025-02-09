@@ -1,67 +1,61 @@
 export default () => {
     return {
         tableOfContent: "",
-        offset: 40,
+        offset: 60,
         headingPermalinks: [],
         activeTocLink: null,
         init() {
             this.$nextTick(() => {
                 this.headingPermalinks = this.$el.querySelectorAll(
-                    "[data-doc] .heading-permalink"
+                    "[data-component-doc] .heading-permalink"
                 );
                 this.$watch("activeTocLink", () => {
-
                     this.tableOfContentLinks.forEach((item) => {
-                        item.style.setProperty("color", ""); 
+                        item.style.removeProperty("color");
                     });
-                   
+
                     if (this.activeTocLink) {
-                        this.activeTocLink.style.setProperty("color", "#9333ea");
+                        this.activeTocLink.style.setProperty(
+                            "color",
+                            "#9F7AEA"
+                        );
                     }
                 });
                 this.adjustTableOfContent();
-                // this.handlePermalinks();
-                if (!this.activeTocLink && this.tableOfContentLinks.length > 0) {
-                    this.activeTocLink = this.tableOfContentLinks[0];
-                }
+                setTimeout(() => {
+                    this.activateFistLinkIfIntersected();
+                }, 100);
             });
         },
         get tableOfContentLinks() {
             return this.$el.querySelectorAll("ul.table-of-contents a");
         },
         handlePermalinks() {
-            for (const link of this.headingPermalinks) {
-                const rect = link.getBoundingClientRect();
-                const isInViewport =
-                    rect.top > this.offset && rect.top < window.innerHeight;
-
-                if (isInViewport) {
-                    this.activeTocLink = Array.from(this.tableOfContentLinks).find(
-                        (item) => item.href === link.href
-                    );
-                    break; // Stop after activating the first link
-                }
-            }
-            // let links = Array.from(this.headingPermalinks).map((link) => {
-            //     this.handlePermalink(link);
-            // });
+            let visibleLinks = Array.from(this.headingPermalinks).filter(
+                (link) => this.inViewPort(link)
+            );
+            this.activateLink(visibleLinks[0]);
         },
-        handlePermalink(link) {
-            const rect = link.getBoundingClientRect();
-            const isInViewport =
-                rect.top > this.offset && rect.top < window.innerHeight;
-
-            if (isInViewport) {
-                this.activeTocLink = Array.from(this.tableOfContentLinks).find(
-                    (item) => item.href === link.href
-                );
+        activateLink(link) {
+            this.activeTocLink = Array.from(this.tableOfContentLinks).find(
+                (item) => item.href === link.href
+            );
+        },
+        activateFistLinkIfIntersected() {
+            const firstLink = Array.from(this.headingPermalinks).at(0);
+            if (this.inViewPort(firstLink)) {
+                this.activateLink(firstLink);
             }
+        },
+        inViewPort(link) {
+            const rect = link.getBoundingClientRect();
+            return rect.top > this.offset && rect.top < window.innerHeight;
         },
         adjustTableOfContent() {
             const tableOfContentElements = this.$el.querySelectorAll(
                 "ul.table-of-contents"
             );
-            if (tableOfContentElements) {
+            if (tableOfContentElements[0]) {
                 this.tableOfContent = tableOfContentElements[0].outerHTML;
                 tableOfContentElements.forEach((tableOfContentElement) =>
                     tableOfContentElement.remove()

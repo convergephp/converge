@@ -1,5 +1,9 @@
 <x-converge::layout>
-    <div class="flex max-h-[100vh] relative">
+    <div 
+        class="flex max-h-[100vh] relative" 
+        x-data="tableOfContents"
+        x-on:scroll.window="handlePermalinks()"
+        >
         {{-- SIDE BARE --}}
         <div
             class="lg:z-1 z-30 absolute w-full max-h-[100vh] overflow-scroll
@@ -10,7 +14,7 @@
 
         {{-- Wrapper pour le contenu principal avec gestion du défilement --}}
         <div class="relative flex-grow w-full overflow-y-auto" id="content-wrapper">
-            <div class="px-4 min-h-96" x-data="tableOfContent">
+            <div class="px-4 min-h-96">
                 {{-- CONTENT --}}
                 <div data-doc>
                     {{ $slot }}
