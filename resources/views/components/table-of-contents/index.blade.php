@@ -1,4 +1,4 @@
-<div class="px-3 border-dashed relative  bg-transparent border-l-5 border-l-gray-600/10 overflow-scroll max-h-[calc(100vh-1rem]">
+<div class="px-3 border-dashed  bg-transparent border-l-5 border-l-gray-600/10 overflow-scroll max-h-[calc(100vh-1rem]">
     {{-- HEADER SECTION --}}
     <div
         class="sticky top-0 flex items-center w-full h-10 px-2 transition-colors duration-500 bg-transparent border-b  border-b-slate-500/10 supports-backdrop-blur:bg-background-light/60 dark:bg-transparent backdrop-blur">

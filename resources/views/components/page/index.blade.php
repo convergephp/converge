@@ -2,7 +2,6 @@
     <div 
         class="flex max-h-[100vh] relative" 
         x-data="tableOfContents"
-        x-on:scroll.window="handlePermalinks()"
         >
         {{-- SIDE BARE --}}
         <div

@@ -7,24 +7,25 @@ export default () => {
         init() {
             this.$nextTick(() => {
                 this.headingPermalinks = this.$el.querySelectorAll(
-                    "[data-component-doc] .heading-permalink"
+                    "[data-doc] .heading-permalink"
                 );
-                this.$watch("activeTocLink", () => {
-                    this.tableOfContentLinks.forEach((item) => {
-                        item.style.removeProperty("color");
-                    });
 
-                    if (this.activeTocLink) {
-                        this.activeTocLink.style.setProperty(
-                            "color",
-                            "#9F7AEA"
-                        );
-                    }
-                });
+                // this.$watch("activeTocLink", () => {
+                //     this.tableOfContentLinks.forEach((item) => {
+                //         item.style.removeProperty("color");
+                //     });
+
+                //     if (this.activeTocLink) {
+                //         this.activeTocLink.style.setProperty(
+                //             "color",
+                //             "#9F7AEA"
+                //         );
+                //     }
+                // });
                 this.adjustTableOfContent();
-                setTimeout(() => {
-                    this.activateFistLinkIfIntersected();
-                }, 100);
+                // setTimeout(() => {
+                //     this.activateFistLinkIfIntersected();
+                // }, 100);
             });
         },
         get tableOfContentLinks() {
@@ -34,6 +35,7 @@ export default () => {
             let visibleLinks = Array.from(this.headingPermalinks).filter(
                 (link) => this.inViewPort(link)
             );
+            console.log(visibleLinks);
             this.activateLink(visibleLinks[0]);
         },
         activateLink(link) {
