@@ -43,16 +43,12 @@
                 {{-- USER DROPDOWN --}}
                 <div class="relative items-center ml-auto space-x-2 lg:flex">
                     <a href="#">
-                        <span class="absolute top-0 right-0 flex w-3 h-3">
+                        <span class="absolute top-0 flex w-3 h-3 right-2">
                             <span
                                 class="absolute inline-flex w-full h-full bg-purple-500 rounded-full opacity-75 animate-ping"></span>
                             <span class="relative inline-flex w-3 h-3 bg-purple-500 rounded-full"></span>
                         </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            class="w-8 h-8 stroke-slate-600 group-hover:stroke-slate-500">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        </svg>
+                        <x-converge::icon icon="user-circle" class="mr-3 size-6" />
                     </a>
                 </div>
 
@@ -66,14 +62,9 @@
             x-data="{ open: false }">
             {{-- open SIDEBARE --}}
             <button x-ref="button" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"
-                class="inline-flex items-center text-sm text-gray-500 rounded-lg ms-3 sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                class="inline-flex items-center justify-center mx-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                 <span class="sr-only">Open sidebar</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path clip-rule="evenodd" fill-rule="evenodd"
-                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                    </path>
-                </svg>
+                <x-converge::icon icon="bars-4" class="size-5" />
             </button>
 
             {{-- BREADCRUMBS LINKS --}}
@@ -87,11 +78,7 @@
                     </li>
                     <li>
                         <div class="flex items-center">
-                            <svg class="w-3 h-3 mx-1 text-gray-400 rtl:rotate-180" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 9 4-4-4-4" />
-                            </svg>
+                            <x-converge::icon icon="chevron-right" class="size-4" />
                             <a href="#"
                                 class="text-sm font-medium text-gray-700 ms-1 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Projects</a>
                         </div>
