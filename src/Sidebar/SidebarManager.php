@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
@@ -60,6 +58,4 @@ class SidebarManager
 
         return $items;
     }
-
-   
 }
