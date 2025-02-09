@@ -35,14 +35,22 @@
     </script>
     {!! Converge::css() !!}
     {!! Converge::js() !!}
+
 </head>
 
-<body 
+<body
     {{ $attributes->class([
         'converge-body',
-        'min-h-screen bg-gray-50 font-normal text-gray-950 antialiased dark:bg-gray-950 dark:text-white',
+        'bg-gray-50 p-0 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950 overflow-hidden dark:text-white',
     ]) }}>
+
+    {{-- BACKGROUND EFFETS --}}
+    @include('converge::Partials.background-effets')
+
+
+    {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
+
 </body>
 
 </html>
