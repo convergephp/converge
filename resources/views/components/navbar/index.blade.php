@@ -16,7 +16,7 @@
             {{-- SEARCH COMPENENT --}}
             <div class="items-center flex-grow">
                 <div class="max-w-sm mx-auto">
-                    <x-search />
+                    <x-converge::search />
                 </div>
             </div>
 
