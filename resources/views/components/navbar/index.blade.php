@@ -37,7 +37,7 @@
                     </ul>
                 </nav>
 
-                {{-- THEM SWITCHER --}}
+                {{-- THEM SWITCHER -- --}}
                 <x-converge::theme-switcher class="border-l border-slate-200 dark:border-slate-800" />
 
                 {{-- USER DROPDOWN --}}
