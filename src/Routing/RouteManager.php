@@ -61,7 +61,10 @@ final class RouteManager
     private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null): void
     {
         $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-        Route::middleware([UseModule::class.':'.$moduleId, UseVersion::class.':'.$params])
+        Route::middleware([
+            UseModule::class.':'.$moduleId,
+            UseVersion::class.':'.$params,
+        ])
             ->group(function () use ($uri, $name, $pattern) {
 
                 Route::get($uri, ModuleController::class)->name($name);

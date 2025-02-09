@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
-use BladeUI\Icons\BladeIconsServiceProvider;
 use Fluxtor\Converge\Commands\ModuleMakeCommand;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\ModuleRegistry;
+use Fluxtor\Converge\Sidebar\SidebarManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,8 +19,6 @@ class ConvergeServiceProvider extends ServiceProvider
     {
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
-        // $this->app->register(provider: BladeIconsServiceProvider::class, force: true);
-
         $this->app->scoped(Converge::class, function () {
             return new Converge();
         });
@@ -28,6 +26,10 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->scoped('converge', function () {
             return new Converge();
         });
+
+        // $this->app->scoped(SidebarManager::class, function () {
+        //     return new SidebarManager();
+        // });
 
         $this->app->singleton(ModuleRegistry::class, function () {
             return new ModuleRegistry();
