@@ -6,7 +6,7 @@
     <div class="border-b border-b-slate-500/10">
         <nav class="flex items-center h-16 min-w-0 mx-auto max-w-7xl">
             {{-- BRAND --}}
-            <div class="z-20">
+            <div class="z-20 flex items-center justify-center">
                 <x-converge::logo />
                 @if ($hasVersions)
                     <x-converge::versions />
