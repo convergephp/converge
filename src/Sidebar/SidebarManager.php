@@ -43,7 +43,6 @@ class SidebarManager
 
         // Ensure baseUrl is always set, defaulting to the module route if not already defined
         $this->baseUrl ??= $this->moduleRoute;
-
     }
 
     /**
@@ -57,7 +56,6 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
 
-        // dd($items);
         return $items;
     }
 }

@@ -9,6 +9,7 @@ use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
+use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Contracts\VersionUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
@@ -19,6 +20,7 @@ class Version
 {
     use HasLabel;
     use HasPath;
+    use HasSort;
     use Resolver;
 
     /** @var Collection<int,Cluster> */
@@ -102,7 +104,7 @@ class Version
     /**
      * module clusters
      *
-     * @return Collection<int,Cluster>
+     * @return Collection<int,Cluster|ClusterLink>
      */
     public function getClusters(): Collection
     {
