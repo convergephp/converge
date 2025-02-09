@@ -52,6 +52,6 @@ trait HasSidebar
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn($item) => $item->getSort())->values();
+        return $items->sortBy(fn ($item) => $item->getSort())->values();
     }
 }
