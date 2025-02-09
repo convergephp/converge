@@ -43,7 +43,7 @@
                 {{-- USER DROPDOWN --}}
                 <div class="relative items-center ml-auto space-x-2 lg:flex">
                     <a href="#">
-                        <span class="absolute top-0 flex w-3 h-3 right-2">
+                        <span class="absolute top-0 flex w-3 h-3 -right-1">
                             <span
                                 class="absolute inline-flex w-full h-full bg-purple-500 rounded-full opacity-75 animate-ping"></span>
                             <span class="relative inline-flex w-3 h-3 bg-purple-500 rounded-full"></span>
