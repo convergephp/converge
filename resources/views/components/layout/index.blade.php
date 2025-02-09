@@ -10,7 +10,7 @@
     </div>
 
 
-    <div class="max-h-[calc(100vh-7.2rem)] mx-auto overflow-hidden max-w-7xl ">
+    <div class="max-h-[calc(100vh-1rem)] mx-auto overflow-hidden max-w-7xl ">
         {{ $slot }}
     </div>
 </x-converge::layout.base>

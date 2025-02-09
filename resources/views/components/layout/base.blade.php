@@ -41,11 +41,11 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'bg-gray-50 p-0 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950  dark:text-white',
+        'bg-gray-50 p-0 px-2 md:px-3 lg:px-6 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950  dark:text-white',
     ]) }}>
 
     {{-- BACKGROUND EFFETS --}}
-    @include('converge::Partials.background-effets')
+    @include('converge::partials.background-effets')
 
 
     {{-- DYNAMIQUE CONTENT --}}

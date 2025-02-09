@@ -1,21 +1,23 @@
 <x-converge::layout>
-    <div class="flex max-h-[calc(100vh-7.2rem)] relative">
+    <div class="flex max-h-[100vh] relative">
         {{-- SIDE BARE --}}
         <div
-            class="lg:z-1 z-30 absolute w-full max-h-[calc(100vh-7.2rem)] overflow-scroll
-             dark:bg-gray-950 bg-gray-100 px-6 lg:px-0 lg:bg-transparent lg:sticky
+            class="lg:z-1 z-30 absolute w-full max-h-[100vh] overflow-scroll
+              px-6 lg:px-0 lg:bg-transparent lg:sticky
               lg:block  lg:w-[20rem]  border-r border-r-gray-500/10">
             <x-converge::sidebar />
         </div>
 
         {{-- Wrapper pour le contenu principal avec gestion du défilement --}}
         <div class="relative flex-grow w-full overflow-y-auto" id="content-wrapper">
-            <div class="px-4 min-h-96">
+            <div class="px-4 min-h-96" x-data="tableOfContent">
                 {{-- CONTENT --}}
-                {{ $slot }}
+                <div data-doc>
+                    {{ $slot }}
+                </div>
 
                 {{-- FOOTER --}}
-                @include('converge::Partials.footer')
+                @include('converge::partials.footer')
             </div>
         </div>
 
