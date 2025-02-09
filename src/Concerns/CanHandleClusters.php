@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
+use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
 use Illuminate\Support\Collection;
 
 trait CanHandleClusters
 {
     protected Collection $clusters;
+
+    protected ?Cluster $activeCluster = null;
 
     public function initClusters(): void
     {
@@ -31,6 +34,11 @@ trait CanHandleClusters
         $this->clusters = $clusters->getItems();
 
         return $this;
+    }
+
+    public function getUsedCluster(): ?Cluster
+    {
+        return $this->activeVersion;
     }
 
     public function getClusters(): Collection

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
+use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
@@ -43,7 +45,6 @@ class SidebarManager
 
         // Ensure baseUrl is always set, defaulting to the module route if not already defined
         $this->baseUrl ??= $this->moduleRoute;
-
     }
 
     /**
@@ -57,7 +58,8 @@ class SidebarManager
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
 
-        // dd($items);
         return $items;
     }
+
+   
 }

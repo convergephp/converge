@@ -9,6 +9,7 @@ use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\ModuleRegistry;
+use Fluxtor\Converge\Sidebar\SidebarManager;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +26,10 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->scoped('converge', function () {
             return new Converge();
         });
+
+        // $this->app->scoped(SidebarManager::class, function () {
+        //     return new SidebarManager();
+        // });
 
         $this->app->singleton(ModuleRegistry::class, function () {
             return new ModuleRegistry();
