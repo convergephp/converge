@@ -34,7 +34,7 @@
                     </ul>
                 </nav>
 
-                {{-- THEM SWITCHER --}}
+                {{-- THE SWITCHER --}}
                 <x-converge::theme-switcher class="border-l border-slate-200 dark:border-slate-800" />
 
                 {{-- USER DROPDOWN --}}
@@ -52,7 +52,7 @@
         </nav>
     </div>
     {{-- BREADCRUMBS --}}
-    <div class="flex items-center w-full h-12 mx-auto space-x-2 transition-colors duration-500 max-w-7xl">
+    <div x-data class="flex md:hidden items-center  w-full h-12 mx-auto space-x-2 transition-colors duration-500 max-w-7xl">
         {{-- open SIDEBARE --}}
         <button x-ref="button" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button"
             class="inline-flex items-center justify-center mx-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">

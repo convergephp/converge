@@ -1,4 +1,5 @@
 @use(Fluxtor\Converge\Facades\Converge)
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -41,11 +42,11 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'bg-gray-50 p-0 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950  dark:text-white',
+        'bg-gray-50 p-0 px-1 md:px-2 lg:px-3 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950  dark:text-white',
     ]) }}>
 
     {{-- BACKGROUND EFFETS --}}
-    @include('converge::Partials.background-effets')
+    @include('converge::partials.background-effets')
 
 
     {{-- DYNAMIQUE CONTENT --}}
