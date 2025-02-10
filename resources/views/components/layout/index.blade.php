@@ -5,7 +5,9 @@
             class="absolute w-full h-full backdrop-blur flex-none transition-colors duration-500 border-b border-gray-500/5 dark:border-gray-300/[0.06] bg-background-light supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75">
         </div>
         <div class="w-full">
-            <x-navbar />
+            <div class="relative px-1 mx-auto bg-transparent border-b border-b-slate-500/10 md:px-2 lg:px-3">
+                <x-navbar maxWidth="max-w-7xl" />
+            </div>
         </div>
     </div>
 
