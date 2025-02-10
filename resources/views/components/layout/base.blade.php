@@ -46,7 +46,7 @@
     ]) }}>
 
     {{-- BACKGROUND EFFETS --}}
-    @include('converge::partials.background-effets')
+    @include('converge::Partials.background-effets')
 
 
     {{-- DYNAMIQUE CONTENT --}}
