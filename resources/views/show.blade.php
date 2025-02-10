@@ -1,5 +1,5 @@
 <x-converge::page>
-    <div class="prose max-w-none dark:prose-invert content mt-12">
+    <div class="prose max-w-none dark:prose-invert content">
         {!! $contents !!}
     </div>
 </x-converge::page>
