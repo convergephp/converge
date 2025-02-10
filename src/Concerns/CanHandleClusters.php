@@ -17,6 +17,8 @@ trait CanHandleClusters
 
     protected ?Cluster $activeClusterId = null;
 
+    protected ?Cluster $defaultCluster = null;
+
     public function initClusters(): void
     {
         $this->clusters = new Collection();
@@ -43,6 +45,8 @@ trait CanHandleClusters
 
         $this->clusters = $clusters->getItems();
 
+        $this->defaultCluster = $clusters->getDefault();
+
         return $this;
     }
 
@@ -55,6 +59,12 @@ trait CanHandleClusters
     {
         return $this->activeVersion;
     }
+
+    public function getDefaultCluster()
+    {
+        return $this->defaultCluster;
+    }
+
 
     public function getClusters(): Collection
     {

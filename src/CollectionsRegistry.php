@@ -46,6 +46,11 @@ abstract class CollectionsRegistry
         $this->default = $this->items->last();
     }
 
+    public function getDefault()
+    {
+        return $this->default;
+    }
+
     final public function getItems(): Collection
     {
         return $this->sortItems($this->items);
