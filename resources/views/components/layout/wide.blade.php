@@ -53,7 +53,7 @@
         <div
             class="z-10 border-t border-slate-500/10 backdrop-blur flex-none transition-colors duration-500   dark:border-gray-300/[0.06] bg-background-light supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75 ">
             <div class="flex flex-col items-center px-4 mx-auto max-w-7xl lg:p-0 ">
-                @include('converge::Partials.footer')
+                @include('converge::partials.footer')
             </div>
         </div>
     </div>

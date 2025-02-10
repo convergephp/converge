@@ -23,7 +23,7 @@
 
             {{-- LINKS --}}
             <div class="text-left lg:mx-auto ">
-                <h4 class="text-lg font-medium dark:text-gray-200 text-gray-900 mb-7">
+                <h4 class="text-lg font-medium text-gray-900 dark:text-gray-200 mb-7">
                     Converge</h4>
                 <ul class="text-sm transition-all duration-500">
                     <li class="mb-6"><a href="javascript:;" class="text-gray-600 hover:text-gray-900">Home</a>
@@ -35,7 +35,7 @@
 
             <!--End Col-->
             <div class="text-left lg:mx-auto ">
-                <h4 class="text-lg font-medium dark:text-gray-200 text-gray-900 mb-7">
+                <h4 class="text-lg font-medium text-gray-900 dark:text-gray-200 mb-7">
                     Products</h4>
                 <ul class="text-sm transition-all duration-500">
                     <li class="mb-6"><a href="javascript:;" class="text-gray-600 hover:text-gray-900">Figma
@@ -47,7 +47,7 @@
 
             <!--End Col-->
             <div class="text-left lg:mx-auto">
-                <h4 class="text-lg font-medium dark:text-gray-200 text-gray-900 mb-7">
+                <h4 class="text-lg font-medium text-gray-900 dark:text-gray-200 mb-7">
                     Resources</h4>
                 <ul class="text-sm transition-all duration-500">
                     <li class="mb-6"><a href="javascript:;" class="text-gray-600 hover:text-gray-900">FAQs</a>
@@ -57,7 +57,7 @@
 
             <!--End Col-->
             <div class="text-left lg:mx-auto">
-                <h4 class="text-lg font-medium dark:text-gray-200 text-gray-900 mb-7">Blogs
+                <h4 class="text-lg font-medium text-gray-900 dark:text-gray-200 mb-7">Blogs
                 </h4>
                 <ul class="text-sm transition-all duration-500">
                     <li class="mb-6"><a href="javascript:;" class="text-gray-600 hover:text-gray-900">News</a>

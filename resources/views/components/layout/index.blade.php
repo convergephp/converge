@@ -30,7 +30,7 @@
                     {{ $slot }}
 
                     {{-- FOOTER --}}
-                    @include('converge::Partials.footer')
+                    @include('converge::partials.footer')
                 </div>
             </div>
 
