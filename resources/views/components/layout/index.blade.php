@@ -1,6 +1,6 @@
 <x-converge::layout.base>
     {{-- NAVBARE --}}
-    <div class="sticky top-0 z-30 w-full">
+    <div id="navbar" class="sticky top-0 z-30 w-full">
         <div
             class="absolute w-full h-full backdrop-blur flex-none transition-colors duration-500 border-b border-gray-500/5 dark:border-gray-300/[0.06] bg-background-light supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75">
         </div>
@@ -13,6 +13,7 @@
 
     <div class="max-h-[calc(100vh-4.2rem)] mx-auto overflow-hidden max-w-7xl ">
         <div class="flex max-h-[100vh] relative" x-data="tableOfContents">
+
             {{-- SIDE BARE --}}
             <div
                 class="lg:z-1 z-30 absolute w-full max-h-[100vh] overflow-scroll
@@ -21,9 +22,10 @@
                 <x-converge::sidebar />
             </div>
 
-            {{-- Wrapper pour le contenu principal avec gestion du défilement --}}
+            {{-- WRAPPER --}}
             <div class="relative flex-grow w-full overflow-y-auto" id="content-wrapper">
-                <div class="px-4 min-h-96">
+                <div class="px-4 lg:pt-10 min-h-96">
+
                     {{-- CONTENT --}}
                     {{ $slot }}
 
@@ -31,11 +33,12 @@
                     @include('converge::Partials.footer')
                 </div>
             </div>
+
+            {{-- TABLE OF CONTENT --}}
             <div
-                class="lg:z-10 md:hidden lg:sticky lg:top-0 lg:max-h-[100vh-2rem]  lg:w-[24rem] bg-transparent py-4 hidden lg:block">
+                class="lg:z-10 md:hidden lg:sticky lg:top-0 lg:max-h-[100vh-2rem]  lg:w-[24rem] bg-transparent py-4 hidden lg:block border-l border-l-gray-600/10">
                 <x-converge::table-of-contents />
             </div>
-
         </div>
     </div>
 </x-converge::layout.base>
