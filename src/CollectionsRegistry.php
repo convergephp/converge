@@ -46,7 +46,7 @@ abstract class CollectionsRegistry
 
     final public function get($key, $id)
     {
-        return $this->items->filter(fn ($item) => $id === $item->$key);
+        return $this->items->filter(fn($item) => $id === $item->$key);
     }
 
     final public function addLink(Closure $callback): static
@@ -78,6 +78,6 @@ abstract class CollectionsRegistry
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn ($item) => $item->getSort())->values();
+        return $items->sortBy(fn($item) => $item->getSort())->values();
     }
 }

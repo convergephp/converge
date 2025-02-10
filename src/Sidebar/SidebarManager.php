@@ -27,7 +27,7 @@ class SidebarManager
         protected ?string $moduleRoute = null
 
     ) {
-        $module = app('converge')->getActiveModule();
+        $module = resolve('converge')->getActiveModule();
         $this->rawModuleRoute = $module->getRawRoutePath();
         $this->moduleRoute = $module->getRoutePath();
 

@@ -13,6 +13,9 @@ use LogicException;
 
 trait CanHandleVersions
 {
+    /**
+    * @var Collection<int,Version|VersionLink>
+     */
     protected Collection $versions;
 
     protected ?Version $activeVersion = null;

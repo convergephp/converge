@@ -15,6 +15,8 @@ trait CanHandleClusters
 
     protected ?Cluster $activeCluster = null;
 
+    protected ?string $activeClusterId = null;
+
     public function initClusters(): void
     {
         $this->clusters = new Collection();
@@ -36,6 +38,11 @@ trait CanHandleClusters
         return $this;
     }
 
+    public function getClusterId()
+    {
+        return $this->activeClusterId;
+    }
+    
     public function getUsedCluster(): ?Cluster
     {
         return $this->activeVersion;
