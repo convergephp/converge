@@ -37,7 +37,7 @@ class Cluster
 
     public function absoluteUrlWithVersion(): static
     {
-        $this->setUrlGenerator(new AbsoluteUrlGenerator());
+        $this->setUrlGenerator(new AbsoluteUrlGenerator(isRelativeToVersionUrl: true));
 
         return $this;
     }

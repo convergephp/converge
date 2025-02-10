@@ -24,7 +24,14 @@ trait CanHandleClusters
 
     public function hasClusters(): bool
     {
-        return $this->clusters->isEmpty();
+        return ! $this->clusters->isEmpty();
+    }
+
+    public function useCluster(string $id): static
+    {
+        $this->activeClusterId = $this->clusters->first(fn($item) => $item->getRoute() === $id);
+
+        return $this;
     }
 
     public function defineClusters(Closure $callable): static
@@ -42,7 +49,7 @@ trait CanHandleClusters
     {
         return $this->activeClusterId;
     }
-    
+
     public function getUsedCluster(): ?Cluster
     {
         return $this->activeVersion;
