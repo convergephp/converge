@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Clusters;
 
+use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
@@ -15,6 +16,7 @@ class Cluster
 {
     use HasLabel;
     use HasPath;
+    use CanHandleDefault;
     use HasSort;
 
     protected ?ClusterUrlGenerator $urlGenerator = null;
@@ -26,6 +28,11 @@ class Cluster
     public function getUrlGenerator(): ClusterUrlGenerator
     {
         return $this->urlGenerator ?? new PrefixedUrlGenerator();
+    }
+
+    public function getId()
+    {
+        return $this->clusterId;
     }
 
     public function absoluteUrl(): static
@@ -51,7 +58,6 @@ class Cluster
     public function route(string $route): static
     {
         $this->clusterId = md5($route);
-
         $this->route = $route;
 
         return $this;

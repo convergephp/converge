@@ -45,15 +45,16 @@ trait HasPath
      */
     public function getPath(): string
     {
-        dd($this->getClusters());
+        // dd($this->getClusters());
 
         // we check first if there is any used version
         // then check if there is any used cluster
         if ($version = $this->getUsedVersion()) {
             return $version->getPath();
         }
+
         if($cluster = $this->getUsedCluster()){
-            dd($cluster);
+            // dd($cluster);
         }
 
         return $this->resolve($this->path);

@@ -43,7 +43,15 @@ abstract class CollectionsRegistry
 
     final public function default()
     {
-        $this->default = $this->items->last();
+        /**
+         * $item is cluster or version  we need to keep track the default cluster
+         *  on the clusters collection as well as mark the default cluster
+         */
+        $item = $this->items->last();
+
+        $item->default();
+
+        $this->default = $item;
     }
 
     public function getDefault()

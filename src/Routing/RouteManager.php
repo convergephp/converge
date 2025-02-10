@@ -49,23 +49,27 @@ final class RouteManager
                     //         if (! $cluster instanceof Cluster) {
                     //             continue;
                     //         }
-        
+
                     //         $urlGenerator = $cluster->getUrlGenerator();
-        
+
                     //         $versionUri = $urlGenerator->generate($rawModuleUri, null, clusterUri: $cluster->getRoute());
-        
+
                     //         $versionName = $moduleId . '.' . $cluster->getRoute();
-        
+
                     //         $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $cluster->getRoute());
                     //     }
                     // }
                 }
-
             }
 
             if ($module->hasClusters()) {
                 foreach ($module->getClusters() as $cluster) {
+                    // it can be a ClusterLink so we need to skip that
                     if (! $cluster instanceof Cluster) {
+                        continue;
+                    }
+
+                    if ($cluster->isDefault()) {
                         continue;
                     }
 
@@ -105,11 +109,11 @@ final class RouteManager
     ): void {
 
         // dd($clusterId);
-        
+
         $versionsParams = $versionId ? "$moduleId,$versionId" : $moduleId;
 
         $clustersParams = $clusterId ? "$moduleId,$clusterId" : $moduleId;
-        
+
 
         Route::middleware([
             UseModule::class . ':' . $moduleId,

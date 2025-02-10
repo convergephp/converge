@@ -21,6 +21,7 @@
                         </path>
                     </svg>
                 </div>{{ $cluster->getLabel() }}
+                {{ $cluster->getId  () }}
             </a>
         </li>
     @endforeach
