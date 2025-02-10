@@ -42,15 +42,9 @@ class Cluster
         return $this;
     }
 
-    // public function asAbsolute()
-    // {
-    //     // $this->setUrlGenerator(new AbsoluteUrlGenerator());
-
-    //     // return $this;
-    // }
-
     public function getRoute()
     {
+
         return $this->route;
     }
 

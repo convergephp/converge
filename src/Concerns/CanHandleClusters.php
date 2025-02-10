@@ -15,7 +15,7 @@ trait CanHandleClusters
 
     protected ?Cluster $activeCluster = null;
 
-    protected ?string $activeClusterId = null;
+    protected ?Cluster $activeClusterId = null;
 
     public function initClusters(): void
     {
@@ -29,6 +29,7 @@ trait CanHandleClusters
 
     public function useCluster(string $id): static
     {
+        // dd($id);
         $this->activeClusterId = $this->clusters->first(fn($item) => $item->getRoute() === $id);
 
         return $this;

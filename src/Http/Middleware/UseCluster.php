@@ -17,6 +17,7 @@ class UseCluster
             Converge::getModule($module)->useCluster($clusterId);
         }
 
+
         return $next($request);
     }
 }

@@ -17,6 +17,8 @@ abstract class CollectionsRegistry
 
     private int $currentSortIndex = 0;
 
+    private Version|Cluster|null $default = null;
+
     public function __construct()
     {
         $this->items = new Collection();
@@ -37,6 +39,11 @@ abstract class CollectionsRegistry
         $this->items->push($item);
 
         return $this;
+    }
+
+    final public function default()
+    {
+        $this->default = $this->items->last();
     }
 
     final public function getItems(): Collection
