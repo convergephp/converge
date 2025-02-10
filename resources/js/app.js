@@ -5,7 +5,7 @@ import tableOfContent from "./components/tableOfContent";
 import tabs from "./components/tabs";
 import dropdown from "./components/dropdown";
 
-window.Alpine = Alpine;     
+window.Alpine = Alpine;
 
 // control themming
 document.addEventListener("alpine:init", themeSwitcher);
