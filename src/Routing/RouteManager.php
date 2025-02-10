@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Routing;
 
+use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
@@ -40,20 +41,23 @@ final class RouteManager
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
-                
+
                 //@TODO handle version's cluster 
             }
+
             if ($module->hasClusters()) {
-                if (! $version instanceof Version) {
-                    continue;
+                foreach ($module->getClusters() as $cluster) {
+                    if (! $cluster instanceof Cluster) {
+                        continue;
+                    }
+                    $urlGenerator = $cluster->getUrlGenerator();
+
+                    $versionUri = $urlGenerator->generate($rawModuleUri, $cluster->getRoute(), $cluster->getRoute());
+
+                    $versionName = $moduleId . '.' . $cluster->getRoute();
+
+                    $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $cluster->getRoute());
                 }
-                $urlGenerator = $version->getUrlGenerator();
-
-                $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), $version->getRoute());
-
-                $versionName = $moduleId . '.' . $version->getRoute();
-
-                $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
             }
 
             $excludedVersions = implode('|', array_map(

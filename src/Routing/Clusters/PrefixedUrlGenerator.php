@@ -4,12 +4,12 @@ namespace Fluxtor\Converge\Routing\Clusters;
 
 use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 
-class AbsoluteUrlGenerator implements ClusterUrlGenerator
+class PrefixedUrlGenerator implements ClusterUrlGenerator
 {
     /**
      * Generate a full URL from the given components.
      *
-     * @param string|null $moduleUri The module URI, required for prefixed url.
+     * @param string|null $moduleUri The module URI .
      * @param string|null $versionUri The version URI, or null if not applicable.
      * @param string $clusterUri The cluster URI (required).
      * @return string The constructed URL.
