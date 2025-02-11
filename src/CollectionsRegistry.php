@@ -61,6 +61,9 @@ abstract class CollectionsRegistry
 
     final public function getItems(): Collection
     {
+        if (!$this->default) {
+            $this->ensureDefaultSet();
+        }
         return $this->sortItems($this->items);
     }
 
@@ -99,5 +102,13 @@ abstract class CollectionsRegistry
     private function sortItems(Collection $items): Collection
     {
         return $items->sortBy(fn($item) => $item->getSort())->values();
+    }
+
+    public function ensureDefaultSet()
+    {
+        throw new \LogicException(
+            'No default cluster label is set. Please specify a default cluster for the module. ' .
+                'Call the ->default() method on one of your clusters.'
+        );
     }
 }

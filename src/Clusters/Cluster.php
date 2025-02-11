@@ -51,7 +51,9 @@ class Cluster
 
     public function getRoute()
     {
-
+        if ($this->isDefault()) {
+            return app('converge')->getRoutePath();
+        }
         return $this->route;
     }
 
