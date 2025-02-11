@@ -1,12 +1,13 @@
 <x-converge::layout.base>
     <div id="__next">
         <main class="jsx-3178852779">
-            <div class="relative antialiased text-gray-500 dark:text-gray-400">
+            <div class="antialiased text-gray-500 dark:text-gray-400">
                 {{-- navbare --}}
                 @include('converge::components.layout.partials.index.navbare')
 
-
+                {{-- BODY --}}
                 <div class="lg:flex max-w-[88rem] mx-auto" x-data="tableOfContents">
+
                     {{-- SIDEBAR --}}
                     @include('converge::components.layout.partials.index.sidebar')
 

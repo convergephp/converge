@@ -4,6 +4,7 @@ import themeSwitcher from "./components/themeSwitcher";
 import tableOfContent from "./components/tableOfContent";
 import tabs from "./components/tabs";
 import dropdown from "./components/dropdown";
+import sidebar from "./components/sidebar";
 
 window.Alpine = Alpine;
 
@@ -17,5 +18,6 @@ Alpine.plugin(anchor);
 Alpine.data("tableOfContents", tableOfContent);
 Alpine.data("tabs", tabs);
 Alpine.data("dropdown", dropdown);
+Alpine.data("sidebar", sidebar);
 
 Alpine.start();

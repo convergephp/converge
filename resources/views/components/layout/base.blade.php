@@ -51,7 +51,6 @@
 
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
-
 </body>
 
 </html>
