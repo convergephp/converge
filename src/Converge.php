@@ -84,9 +84,15 @@ class Converge
     {
         return $this->getActiveModule()->getUsedVersion();
     }
+
     public function getUsedCluster(): ?Cluster
     {
         return $this->getActiveModule()->getUsedVersion();
+    }
+
+    public function getDefaultCluster(): ?Cluster
+    {
+        return $this->getActiveModule()->getDefaultCluster();
     }
 
     public function getUiUsedVersion(): ?array

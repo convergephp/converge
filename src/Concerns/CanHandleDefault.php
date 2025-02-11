@@ -10,14 +10,13 @@ trait CanHandleDefault
 
     public function isDefault(): bool
     {
-        $this->clusterId = 'default-cluster';
         return $this->isDefault;
     }
 
     public function default(bool $condition = true): static
     {
+        $this->clusterId = 'default-cluster';
         $this->isDefault = $condition;
-
         return $this;
     }
 }
