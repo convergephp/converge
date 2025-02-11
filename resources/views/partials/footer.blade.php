@@ -1,5 +1,5 @@
-<footer class="w-full shadow-lg">
-    <div class="">
+<footer class="w-full border-t shadow-lg border-t-slate-500/10">
+    <div class="max-w-[88rem] mx-auto">
         <!--Grid-->
         <div
             class="grid grid-cols-2 gap-3 py-10 sm:grid-cols-4 lg:grid-cols-6 md:gap-8 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
