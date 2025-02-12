@@ -51,6 +51,10 @@ class SidebarItem
         return $this;
     }
 
+    public function isActive(): bool
+    {
+        return dd(request()->url(), $this->getUrl());
+    }
     public function label(string|Closure $label): static
     {
         $this->label = $label;

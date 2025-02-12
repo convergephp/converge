@@ -18,4 +18,6 @@ abstract class ModuleProvider extends ServiceProvider
         resolve(ModuleRegistry::class)->add($this->module(Module::make()));
         // Converge::registerModule(fn(): Module => $this->module(Module::make()));
     }
+
+    
 }

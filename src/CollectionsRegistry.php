@@ -52,6 +52,7 @@ abstract class CollectionsRegistry
         $item->default();
 
         $this->default = $item;
+        // dd($this->default);
     }
 
     public function getDefault()
@@ -61,9 +62,19 @@ abstract class CollectionsRegistry
 
     final public function getItems(): Collection
     {
-        if (!$this->default) {
-            $this->ensureDefaultSet();
-        }
+        // dd(get_class($this->default));
+        // dd(get_class($this->default));
+        // dd([
+        //     'defaultBeforeIf' => $this->default,
+        //     'isDefaultNull' => $this->default === null,
+        // ]);
+
+        // if (!$this->default) {
+        //     dd($this->default);
+        //     // dd('here');
+        //     $this->ensureDefaultSet();
+        // }
+
         return $this->sortItems($this->items);
     }
 
@@ -101,7 +112,7 @@ abstract class CollectionsRegistry
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn($item) => $item->getSort())->values();
+        return $items->sortBy(fn(Version|VersionLink|Cluster|ClusterLink $item) => $item->getSort())->values();
     }
 
     public function ensureDefaultSet()
