@@ -1,6 +1,9 @@
-@php
+<?php
     $clusters = app('converge')->getAllClusters();
-@endphp
+    // dd(app('converge')->getRawRoutePath());
+    
+?>
+
 <nav class="">
     @if (filled($clusters))
         <x-converge::clusters :$clusters />

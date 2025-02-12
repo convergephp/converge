@@ -60,5 +60,6 @@ class ConvergeServiceProvider extends ServiceProvider
                 ModuleMakeCommand::class,
             ]);
         }
+        require_once __DIR__ . '/../helpers.php';
     }
 }

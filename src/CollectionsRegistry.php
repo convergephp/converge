@@ -99,7 +99,7 @@ abstract class CollectionsRegistry
     /**
      * @return void
      */
-    final private function adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
+    final public function adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
     {
         $item->getSort() ?? $item->sort(++$this->currentSortIndex);
     }

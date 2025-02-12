@@ -59,6 +59,10 @@ class Converge
     {
         return $this->getActiveModule()->getRoutePath();
     }
+    public function getRawRoutePath(): string
+    {
+        return $this->getActiveModule()->getRawRoutePath();
+    }
 
     public function getMaxDepth(): int
     {
@@ -87,7 +91,7 @@ class Converge
 
     public function getUsedCluster(): ?Cluster
     {
-        return $this->getActiveModule()->getUsedVersion();
+        return $this->getActiveModule()->getUsedCluster();
     }
 
     public function getDefaultCluster(): ?Cluster

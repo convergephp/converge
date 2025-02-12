@@ -41,7 +41,8 @@ trait HasSidebar
 
     public function allClusters()
     {
-        return $this->sortItems($this->getModuleClusters()->merge($this->getScopedClusters()));
+        $clusters = $this->sortItems($this->getModuleClusters()->merge($this->getScopedClusters()));
+        return $clusters;
     }
 
     /**
@@ -52,6 +53,6 @@ trait HasSidebar
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn ($item) => $item->getSort())->values();
+        return $items->sortBy(fn($item) => $item->getSort())->values();
     }
 }
