@@ -9,9 +9,11 @@ use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\CanHandleVersions;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
+use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasRoutePath;
 use Fluxtor\Converge\Concerns\HasSidebar;
+use Fluxtor\Converge\Concerns\HasTheme;
 use Fluxtor\Converge\Concerns\Resolver;
 
 class Module
@@ -21,9 +23,11 @@ class Module
     use CanHandleVersions;
     use HasDepth;
     use HasId;
+    use HasLabel;
     use HasPath;
     use HasRoutePath;
     use HasSidebar;
+    use HasTheme;
     use Resolver;
 
     // add hasTheme

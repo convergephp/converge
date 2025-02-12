@@ -2,10 +2,9 @@
 
 namespace Fluxtor\Converge\Enums;
 
-Enum Layout: string
+enum Layout: string
 {
-     case Wide = 'sm';
+    case Spacious = 'Spacious';
 
-    case Default = 'md';
-
+    case Default = 'index';
 }

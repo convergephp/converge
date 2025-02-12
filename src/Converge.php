@@ -94,6 +94,11 @@ class Converge
         return resolve(ModuleRegistry::class)->get($id);
     }
 
+    public function getTheme()
+    {
+        return $this->getActiveModule()->getTheme();
+    }
+
     /**
      * get all modules
      */
