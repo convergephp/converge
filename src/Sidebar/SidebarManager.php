@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
+use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
@@ -22,9 +23,10 @@ class SidebarManager
         protected string $path,
         protected int $depth,
         protected ?Version $version,
+        protected ?Cluster $cluster,
         protected ?string $baseUrl = null,
         protected ?string $rawModuleRoute = null,
-        protected ?string $moduleRoute = null
+        protected ?string $moduleRoute = null,
 
     ) {
         $module = resolve('converge')->getActiveModule();
@@ -42,7 +44,7 @@ class SidebarManager
         }
 
         if ($module->hasClusters()) {
-            // Use the version's URL generator if available, otherwise fallback to the module route
+            // Use the cluster's URL generator if available, otherwise fallback to the module route
             $this->baseUrl = (bool) $urlGenerator
                 ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
                 : $this->moduleRoute;
