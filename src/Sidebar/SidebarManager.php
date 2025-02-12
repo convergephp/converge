@@ -41,6 +41,14 @@ class SidebarManager
                 : $this->moduleRoute;
         }
 
+        if ($module->hasClusters()) {
+            // Use the version's URL generator if available, otherwise fallback to the module route
+            $this->baseUrl = (bool) $urlGenerator
+                ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
+                : $this->moduleRoute;
+        }
+
+
         // Ensure baseUrl is always set, defaulting to the module route if not already defined
         $this->baseUrl ??= $this->moduleRoute;
     }

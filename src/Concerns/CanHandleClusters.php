@@ -31,7 +31,7 @@ trait CanHandleClusters
 
     public function useCluster(string $id): static
     {
-        $this->activeClusterId = $this->clusters->first(fn($item) => $item->getRoute() === $id);
+        $this->activeCluster = $this->clusters->first(fn($item) => $item->getRoute() === $id);
 
         return $this;
     }
@@ -56,7 +56,7 @@ trait CanHandleClusters
 
     public function getUsedCluster(): ?Cluster
     {
-        return $this->activeVersion;
+        return $this->activeCluster;
     }
 
     public function getDefaultCluster()

@@ -8,6 +8,7 @@ use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
+use Fluxtor\Converge\Concerns\HasRawPath;
 use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
@@ -15,15 +16,28 @@ use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
 class Cluster
 {
     use HasLabel;
-    use HasPath;
-    use CanHandleDefault;
+    use HasRawPath;
     use HasSort;
 
     protected ?ClusterUrlGenerator $urlGenerator = null;
 
     protected ?string $clusterId = null;
 
-    protected ?string $route = null;
+    public ?string $route = null;
+
+    protected $isDefault = false;
+
+    public function isDefault(): bool
+    {
+        return $this->isDefault;
+    }
+
+    public function default(bool $condition = true): static
+    {
+        $this->clusterId = 'default-cluster';
+        $this->isDefault = $condition;
+        return $this;
+    }
 
     public function getUrlGenerator(): ClusterUrlGenerator
     {
@@ -51,10 +65,6 @@ class Cluster
 
     public function getRoute()
     {
-        if ($this->isDefault()) {
-            return app('converge')->getRoutePath();
-        }
-
         return $this->route;
     }
 

@@ -16,9 +16,12 @@ if (! function_exists('converge')) {
 }
 if (! function_exists('Fluxtor\Converge\format_url')) {
     // /** @return \Fluxtor\Converge\Converge */
-    function format_url(string $url): string
+    function format_url(?string $url): ?string
     {
-        return '/' . trim($url, '/');
+        if (is_null($url)) {
+            return null;
+        }
+        return '/' . trim($url ?? '', '/');
     }
 }
 
@@ -33,9 +36,9 @@ if (! function_exists('Fluxtor\Converge\generate_cluster_url')) {
             return \Fluxtor\Converge\format_url($cluster->getRoute());
         }
         // this if it a top module cluster
-        
+
         return $cluster->getUrlGenerator()->generate(converge()->getRawRoutePath(), null, $cluster->getRoute());
-        
+
         // what if the cluster belongs to a version
     }
 }

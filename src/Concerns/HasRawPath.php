@@ -8,7 +8,7 @@ use Closure;
 
 use function Fluxtor\Converge\converge;
 
-trait HasPath
+trait HasRawPath
 {
     /**
      * the path for the desired folder
@@ -47,21 +47,6 @@ trait HasPath
      */
     public function getPath(): string
     {
-
-        // we check first if there is any used version
-        // then check if there is any used cluster
-        if ($version = converge()->getUsedVersion()) {
-            return $version->getPath();
-        }
-
-        if ($cluster = converge()->getUsedCluster()) {
-            if ($this->isDefault()) {
-                return app('converge')->getRoutePath();
-                dump('dede');
-            }
-
-            return ($cluster->getPath());
-        }
-        return $this->resolve($this->path);
+        return $this->path;
     }
 }
