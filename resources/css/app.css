@@ -9,10 +9,14 @@
 
 html{
     scroll-behavior: smooth;
-    scroll-padding-top: 120px;
+    scroll-padding-top: 80px;
 }
 
-
+@media screen and (max-width: 768px) {
+    html {
+        scroll-padding-top: 120px;
+    }
+}
 
 .hl-keyword {
     color: #f78c6c;
