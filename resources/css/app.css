@@ -2,6 +2,12 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 @plugin "@tailwindcss/typography";
+
+@theme {
+    --color-converge-primary: var(--converge-primary);
+    --radius-converge-border-radius: var(--converge-border-radius);
+}
+
 /* @source "../views"; */
 ::-webkit-scrollbar {
     width: 10px;

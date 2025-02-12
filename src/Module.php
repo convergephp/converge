@@ -26,6 +26,8 @@ class Module
     use HasSidebar;
     use Resolver;
 
+    // add hasTheme
+
     public function __construct()
     {
         $this->initClusters();
