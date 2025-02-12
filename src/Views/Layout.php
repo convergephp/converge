@@ -5,13 +5,13 @@ namespace Fluxtor\Converge\Views;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class LayoutView extends Component
+class Layout extends Component
 {
     /**
      * Create the component instance.
      */
     public function __construct(
-        public string $layout
+        public string $name
     ) {}
 
     /**
@@ -19,6 +19,6 @@ class LayoutView extends Component
      */
     public function render(): View
     {
-        return view('converge::components.layout.'.$this->layout);
+        return view('converge::components.layout.'.$this->name);
     }
 }

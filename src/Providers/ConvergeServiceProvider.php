@@ -11,7 +11,7 @@ use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\ModuleRegistry;
 use Fluxtor\Converge\Services\ThemeService;
 use Fluxtor\Converge\Sidebar\SidebarManager;
-use Fluxtor\Converge\Views\LayoutView;
+use Fluxtor\Converge\Views\Layout;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,7 +61,7 @@ class ConvergeServiceProvider extends ServiceProvider
 
         Blade::anonymousComponentPath(path: __DIR__.'/../../resources/views/components', prefix: 'converge');
 
-        Blade::component('converge-layout', LayoutView::class);
+        Blade::component('converge-layout', Layout::class);
 
         if ($this->app->runningInConsole()) {
             $this->commands([

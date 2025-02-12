@@ -3,7 +3,7 @@
     $layout = app('converge')->getTheme()->getLayout()->value;
 @endphp
 
-<x-converge-layout :layout="$layout">
+<x-converge-layout :name="$layout">
     <div data-doc>
         {{ $slot }}
     </div>
