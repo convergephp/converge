@@ -25,8 +25,11 @@ trait HasTheme
         return $this;
     }
 
+    /**
+     * getTheme
+     */
     public function getTheme(): Theme
     {
-        return $this->theme;
+        return $this->theme ?? new Theme;
     }
 }
