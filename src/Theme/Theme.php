@@ -30,6 +30,6 @@ class Theme
      */
     public function getLayout(): Layout
     {
-        return $this->layout;
+        return $this->layout ?? Layout::Default;
     }
 }
