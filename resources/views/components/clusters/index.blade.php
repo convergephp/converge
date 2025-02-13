@@ -12,7 +12,7 @@
 <ul class="mt-2 space-y-2">
     @foreach ($clusters as $cluster)
         <li @class([
-            'mx-2 rounded-md px-2 py-1 hover:bg-white/5',
+            ' rounded-md  py-1 hover:bg-white/5',
             'text-purple-400' => $cluster->getId() === $id,
         ])><a class="group mb-2 flex items-center font-semibold lg:text-sm lg:leading-6"
                 href="{{ (\Fluxtor\Converge\generate_cluster_url($cluster)) }}">

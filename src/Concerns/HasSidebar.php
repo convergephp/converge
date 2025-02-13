@@ -28,7 +28,7 @@ trait HasSidebar
      */
     public function getModuleClusters()
     {
-        return converge()->getClusters();
+        return converge()->getUsedVersion()?->getClusters() ?? converge()->getClusters();
     }
 
     /**
