@@ -28,19 +28,23 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
 if (! function_exists('Fluxtor\Converge\generate_cluster_url')) {
     function generate_cluster_url($cluster)
     {
-        
+
         if ($cluster instanceof ClusterLink) {
             return $cluster->getRoute();
         }
-        
-        if ($cluster->isDefault() ) {
+
+
+        if ($cluster->isDefault() && filled(Converge()->getUsedVersion())) {
+            return converge()->getUsedVersion()->getRoute();
+        }
+        if ($cluster->isDefault() && blank(Converge()->getUsedVersion())) {
             return \Fluxtor\Converge\format_url(converge()->getRoutePath());
         }
-        
-        if(blank($cluster->getRoute())){
+
+        if (blank($cluster->getRoute())) {
             return;
         }
-        
+
         return $cluster->getUrlGenerator()->generate(converge()->getRawRoutePath(), null, $cluster->getRoute());
 
         // @todo how about clusters belongs to a cluster

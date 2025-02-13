@@ -36,16 +36,17 @@ class SidebarManager
 
         $this->depth = $module->getMaxDepth();
 
-        // we register the version routes respecting their path if there the active scope is a version scope
 
         if ($module->hasVersions()) {
             // Use the version's URL generator if available, otherwise fallback to the module route
             $version = $module->getUsedVersion();
 
             $scopedClusters = $version?->getClusters();
+            
             if(filled($scopedClusters)){
-                                
+                dd($module->getUsedCluster());
             }
+            
             $urlGenerator = $version?->getUrlGenerator();
 
             $this->baseUrl = (bool) $urlGenerator

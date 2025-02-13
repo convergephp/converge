@@ -34,16 +34,9 @@ final class RouteManager
                     if (! $version instanceof Version) {
                         continue;
                     }
-                    $urlGenerator = $version->getUrlGenerator();
-
-                    $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute());
-
-                    $versionName = $moduleId . '.' . $version->getRoute();
-
-                    $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
-
                     if ($version->hasClusters()) {
                         foreach ($version->getClusters() as $scopedCluster) {
+
                             if (! $scopedCluster instanceof Cluster) {
                                 continue;
                             }
@@ -58,26 +51,19 @@ final class RouteManager
 
                             $clusterName = $moduleId . '.' . $scopedCluster->getRoute();
 
-                            $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $scopedCluster->getRoute());
-                        };
+
+                            $this->registerRoutes($clusterUri, $moduleId, $clusterName, versionId: $version->getRoute(), clusterId: $scopedCluster->getRoute());
+                        }
                     }
-                    //@TODO handle version's cluster 
 
-                    // if ($version->hasClusters()) {
-                    //     foreach ($module->getClusters() as $cluster) {
-                    //         if (! $cluster instanceof Cluster) {
-                    //             continue;
-                    //         }
+                    // dump($version->getUrl($rawModuleUri));
+                    $urlGenerator = $version->getUrlGenerator();
 
-                    //         $urlGenerator = $cluster->getUrlGenerator();
+                    $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute());
 
-                    //         $versionUri = $urlGenerator->generate($rawModuleUri, null, clusterUri: $cluster->getRoute());
+                    $versionName = $moduleId . '.' . $version->getRoute();
 
-                    //         $versionName = $moduleId . '.' . $cluster->getRoute();
-
-                    //         $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $cluster->getRoute());
-                    //     }
-                    // }
+                    $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
             }
 
@@ -97,6 +83,7 @@ final class RouteManager
                     $clusterUri = $urlGenerator->generate($rawModuleUri, null, clusterUri: $cluster->getRoute());
 
                     $clusterName = $moduleId . '.' . $cluster->getRoute();
+
 
                     $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $cluster->getRoute());
                 }
@@ -148,20 +135,4 @@ final class RouteManager
                     ->name("{$name}.show");
             });
     }
-    // private function registerRoutes(string $uri, string $moduleId, string $name, string $pattern = '.*', ?string $versionId = null): void
-    // {
-    //     $params = $versionId ? "$moduleId,$versionId" : $moduleId;
-    //     Route::middleware([
-    //         UseModule::class . ':' . $moduleId,
-    //         UseVersion::class . ':' . $params,
-    //     ])
-    //         ->group(function () use ($uri, $name, $pattern) {
-
-    //             Route::get($uri, ModuleController::class)->name($name);
-
-    //             Route::get("{$uri}/{url}", FileController::class)
-    //                 ->where('url', $pattern)
-    //                 ->name("{$name}.show");
-    //         });
-    // }
 }

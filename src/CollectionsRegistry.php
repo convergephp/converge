@@ -43,10 +43,7 @@ abstract class CollectionsRegistry
 
     final public function default()
     {
-        /**
-         * $item is cluster or version  we need to keep track the default cluster
-         *  on the clusters collection as well as mark the default cluster
-         */
+
         $item = $this->items->last();
 
         $item->default();
@@ -62,13 +59,6 @@ abstract class CollectionsRegistry
 
     final public function getItems(): Collection
     {
-        // dd(get_class($this->default));
-        // dd(get_class($this->default));
-        // dd([
-        //     'defaultBeforeIf' => $this->default,
-        //     'isDefaultNull' => $this->default === null,
-        // ]);
-
         // if (!$this->default) {
         //     dd($this->default);
         //     // dd('here');

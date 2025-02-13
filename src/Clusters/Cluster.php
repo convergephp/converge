@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Clusters;
 
-use Fluxtor\Converge\Concerns\CanHandleDefault;
-use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasRawPath;
 use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+
+use function Fluxtor\Converge\converge;
+use function Fluxtor\Converge\format_url;
 
 class Cluster
 {
@@ -66,6 +68,28 @@ class Cluster
     public function getRoute()
     {
         return $this->route;
+    }
+
+    public function getUrl()
+    {
+        // if it not a default one we need the provided route to prefix it 
+
+        if ($this->isDefault) {
+            if ($version = converge()->getUsedVersion()) {
+                return  $version->getUrl(converge()->getRawRoutePath());
+            }
+            return format_url(converge()->getRawRoutePath());
+        }
+
+        $versionUrl = optional(converge()->getUsedVersion())->getUrl(
+            converge()->getRawRoutePath()
+        );
+
+        return ($this->getUrlGenerator()->generate(
+            converge()->getRawRoutePath(),
+            converge()->getUsedVersion()?->getRoute(),
+            $this->getRoute()
+        ));
     }
 
     public function route(string $route): static

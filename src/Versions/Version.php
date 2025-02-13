@@ -16,6 +16,8 @@ use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
 use Illuminate\Support\Collection;
 
+use function Fluxtor\Converge\converge;
+
 class Version
 {
     use HasLabel;
@@ -64,6 +66,11 @@ class Version
     public function absoluteUrl(): static
     {
         return $this->asAbsolute();
+    }
+
+    public function getUrl($modulePath)
+    {
+        return $this->getUrlGenerator()->generate($modulePath, $this->getRoute());
     }
 
     public function asAbsolute()
