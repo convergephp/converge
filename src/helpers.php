@@ -28,17 +28,30 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
 if (! function_exists('Fluxtor\Converge\generate_cluster_url')) {
     function generate_cluster_url($cluster)
     {
+        
         if ($cluster instanceof ClusterLink) {
             return $cluster->getRoute();
         }
-
-        if ($cluster->isDefault()) {
-            return \Fluxtor\Converge\format_url($cluster->getRoute());
+        
+        if ($cluster->isDefault() ) {
+            return \Fluxtor\Converge\format_url(converge()->getRoutePath());
         }
-        // this if it a top module cluster
-
+        
+        if(blank($cluster->getRoute())){
+            return;
+        }
+        
         return $cluster->getUrlGenerator()->generate(converge()->getRawRoutePath(), null, $cluster->getRoute());
 
-        // what if the cluster belongs to a version
+        // @todo how about clusters belongs to a cluster
+    }
+}
+
+if (! function_exists('Fluxtor\Converge\get_used_cluster')) {
+    function get_used_cluster()
+    {
+        if (converge()->getUsedCluster() === converge()->getDefaultCluster()) {
+            dd('de');
+        }
     }
 }

@@ -42,6 +42,25 @@ final class RouteManager
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
 
+                    if ($version->hasClusters()) {
+                        foreach ($version->getClusters() as $scopedCluster) {
+                            if (! $scopedCluster instanceof Cluster) {
+                                continue;
+                            }
+
+                            if ($scopedCluster->isDefault()) {
+                                continue;
+                            }
+
+                            $urlGenerator = $scopedCluster->getUrlGenerator();
+
+                            $clusterUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), clusterUri: $scopedCluster->getRoute());
+
+                            $clusterName = $moduleId . '.' . $scopedCluster->getRoute();
+
+                            $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $scopedCluster->getRoute());
+                        };
+                    }
                     //@TODO handle version's cluster 
 
                     // if ($version->hasClusters()) {

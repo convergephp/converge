@@ -37,14 +37,14 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
                 $line = $cursor->getLine();
 
                 // Check for self-closing Blade component on the same line.
-                $pattern = "/<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
+                $pattern = "/^<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
 
                 if (preg_match($pattern, $line)) {
                     return BlockStart::of((new SelfClosingBladeComponentBlockParser())->closedImmediately())->at($cursor);
                 }
 
                 // Check for opening Blade component tag, which could span multiple lines.
-                if (preg_match("/<\s*x[-:]([\w\-:.]+)/", $line)) {
+                if (preg_match("/^<\s*x[-:]([\w\-:.]+)/", $line)) {
                     return BlockStart::of(new SelfClosingBladeComponentBlockParser())->at($cursor);
                 }
 

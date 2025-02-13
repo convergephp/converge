@@ -67,6 +67,6 @@ trait CanHandleClusters
 
     public function getClusters(): Collection
     {
-        return $this->clusters;
+        return $this->clusters; 
     }
 }

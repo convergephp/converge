@@ -13,6 +13,9 @@ use function Fluxtor\Converge\converge;
 
 class SidebarManager
 {
+    protected string $path;
+    protected int $depth;
+    protected ?string $baseUrl = null;
     // The baseUrl represents the prefixed route for the module.
     // It can be determined based on the URL generator used, as follows:
     //
@@ -21,22 +24,28 @@ class SidebarManager
     // 3. If the context does not use versions, the module route remains as the prefix, ex: docs/node-url.
     //    and the node URL is appended in the SidebarBuilder.
 
-    public function __construct(
-        protected string $path,
-        protected int $depth,
-        protected ?string $baseUrl = null,
-    ) {
+    public function __construct()
+    {
         $module = converge()->getActiveModule();
 
         $rawModuleRoute = $module->getRawRoutePath();
 
         $moduleRoute = $module->getRoutePath();
 
+        $this->path = $module->getPath();
+
+        $this->depth = $module->getMaxDepth();
+
         // we register the version routes respecting their path if there the active scope is a version scope
 
         if ($module->hasVersions()) {
             // Use the version's URL generator if available, otherwise fallback to the module route
             $version = $module->getUsedVersion();
+
+            $scopedClusters = $version?->getClusters();
+            if(filled($scopedClusters)){
+                                
+            }
             $urlGenerator = $version?->getUrlGenerator();
 
             $this->baseUrl = (bool) $urlGenerator
@@ -48,6 +57,7 @@ class SidebarManager
         if ($module->hasClusters()) {
 
             $cluster = $module->getUsedCluster();
+            if (blank($cluster)) return;
             $urlGenerator = $cluster?->getUrlGenerator();
 
             // Use the cluster's URL generator if available, otherwise fallback to the module route

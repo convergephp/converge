@@ -16,10 +16,7 @@ trait HasSidebar
      */
     public function getSidebarItems(): Collection
     {
-        $sidebar = new SidebarManager(
-            path: $this->getPath(),
-            depth: $this->getMaxDepth(),
-        );
+        $sidebar = new SidebarManager();
 
         return $sidebar->getItems();
     }
@@ -39,14 +36,9 @@ trait HasSidebar
      *
      * @return Collection<int,Cluster|ClusterLink>
      */
-    public function getScopedClusters()
-    {
-        return converge()->getUsedVersion()?->getClusters();
-    }
-
     public function allClusters()
     {
-        $clusters = $this->sortItems($this->getModuleClusters()->merge($this->getScopedClusters()));
+        $clusters = $this->sortItems($this->getModuleClusters());
         return $clusters;
     }
 

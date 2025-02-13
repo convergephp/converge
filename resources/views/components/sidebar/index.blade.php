@@ -1,7 +1,6 @@
 <?php
-    $clusters = app('converge')->getAllClusters();
-    // dd(app('converge')->getRawRoutePath());
-    
+    use function Fluxtor\Converge\converge;
+    $clusters = converge()->getAllClusters();
 ?>
 
 <nav class="">
