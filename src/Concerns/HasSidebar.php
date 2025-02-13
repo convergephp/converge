@@ -7,6 +7,8 @@ namespace Fluxtor\Converge\Concerns;
 use Fluxtor\Converge\Sidebar\SidebarManager;
 use Illuminate\Support\Collection;
 
+use function Fluxtor\Converge\converge;
+
 trait HasSidebar
 {
     /**
@@ -15,10 +17,8 @@ trait HasSidebar
     public function getSidebarItems(): Collection
     {
         $sidebar = new SidebarManager(
-            $this->getPath(),
-            $this->getMaxDepth(),
-            $this->getUsedVersion(),
-            $this->getUsedCluster()
+            path: $this->getPath(),
+            depth: $this->getMaxDepth(),
         );
 
         return $sidebar->getItems();
@@ -31,7 +31,7 @@ trait HasSidebar
      */
     public function getModuleClusters()
     {
-        return resolve('converge')->getClusters();
+        return converge()->getClusters();
     }
 
     /**
@@ -41,7 +41,7 @@ trait HasSidebar
      */
     public function getScopedClusters()
     {
-        return resolve('converge')->getUsedVersion()?->getClusters();
+        return converge()->getUsedVersion()?->getClusters();
     }
 
     public function allClusters()
