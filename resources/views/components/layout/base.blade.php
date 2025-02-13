@@ -48,7 +48,7 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'bg-gray-50 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-converge-primary  dark:text-white',
+        'bg-gray-50 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-gray-950  dark:text-white',
     ]) }}>
 
     {{-- BACKGROUND EFFETS --}}

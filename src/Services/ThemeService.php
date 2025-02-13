@@ -28,20 +28,21 @@ class ThemeService
         return $this->config['layout'];
     }
 
-    public function getCssVariables(): string
+    public function getCssVariables()
     {
-        if (filled($this->config['preset'])) {
-            // dd($this->config['preset']);
-            // charge "---" preset
-        } else {
-            return <<<CSS
-            :root {
-                --converge-primary: {$this->config['theme']['primary']};
-                --converge-border-radius: {$this->config['theme']['border-radius']};
-            }
-CSS;
-        }
-    }
+//         if (filled($this->config['preset'])) {
+//             // dd($this->config['preset']);
+//             // charge "---" preset
+//         } else {
+//             return <<<CSS
+//             :root {
+//                 --converge-primary: {$this->config['theme']['primary']};
+//                 --converge-border-radius: {$this->config['theme']['border-radius']};
+//             }
+// CSS;
+//         }
+//     }
+}
 
     /**
      * {

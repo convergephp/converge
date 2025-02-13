@@ -17,7 +17,8 @@ trait HasSidebar
         $sidebar = new SidebarManager(
             $this->getPath(),
             $this->getMaxDepth(),
-            $this->getUsedVersion()
+            $this->getUsedVersion(),
+            $this->getUsedCluster()
         );
 
         return $sidebar->getItems();

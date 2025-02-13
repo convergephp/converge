@@ -34,19 +34,25 @@ class SidebarManager
         $this->moduleRoute = $module->getRoutePath();
 
         // we have the route path
-        $urlGenerator = $this->version?->getUrlGenerator();
 
         if ($module->hasVersions()) {
             // Use the version's URL generator if available, otherwise fallback to the module route
+            $urlGenerator = $this->version?->getUrlGenerator();
             $this->baseUrl = (bool) $urlGenerator
                 ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
                 : $this->moduleRoute;
+            // @todo: handle version cluster
         }
 
         if ($module->hasClusters()) {
+
+            if ($this->cluster) {
+                $urlGenerator = $this->cluster->getUrlGenerator();
+            }
+
             // Use the cluster's URL generator if available, otherwise fallback to the module route
             $this->baseUrl = (bool) $urlGenerator
-                ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
+                ? $urlGenerator->generate($this->rawModuleRoute, null, $this->cluster->getRoute())
                 : $this->moduleRoute;
         }
 
