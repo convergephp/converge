@@ -6,6 +6,7 @@ namespace Fluxtor\Converge\Sidebar;
 
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\FilesTreeBuilder;
+use Fluxtor\Converge\Module;
 use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
 
@@ -36,40 +37,49 @@ class SidebarManager
 
         $this->depth = $module->getMaxDepth();
 
+        if ($module->hasClusters()) {
+            $this->generateBaseUrlFromCluster($module);
+        }
 
         if ($module->hasVersions()) {
-            // Use the version's URL generator if available, otherwise fallback to the module route
+
             $version = $module->getUsedVersion();
 
-            $scopedClusters = $version?->getClusters();
-            
-            if(filled($scopedClusters)){
-                dd($module->getUsedCluster());
+            if ($cluster = $module->getUsedCluster()) {
+                $urlGenerator = $cluster?->getUrlGenerator();
+
+                $this->baseUrl = (bool) $urlGenerator
+                    ? $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute())
+                    : $moduleRoute;
+                return;
             }
-            
+
             $urlGenerator = $version?->getUrlGenerator();
 
             $this->baseUrl = (bool) $urlGenerator
                 ? $urlGenerator->generate($rawModuleRoute, $version->getRoute())
                 : $moduleRoute;
-            // @todo: handle version cluster
         }
-
-        if ($module->hasClusters()) {
-
-            $cluster = $module->getUsedCluster();
-            if (blank($cluster)) return;
-            $urlGenerator = $cluster?->getUrlGenerator();
-
-            // Use the cluster's URL generator if available, otherwise fallback to the module route
-            $this->baseUrl = (bool) $urlGenerator
-                ? $urlGenerator->generate($rawModuleRoute, null, $cluster->getRoute())
-                : $moduleRoute;
-        }
-
-
-        // Ensure baseUrl is always set, defaulting to the module route if not already defined
         $this->baseUrl ??= $moduleRoute;
+    }
+
+
+    // public function generateBaseUrl($module)
+    // {
+    //     // if module has clusters
+    //     return match (true) {
+    //         $module->hasClusters() => $this->generateBaseUrlFromCluster($module),
+    //     };
+    // }
+
+    public function generateBaseUrlFromCluster(Module $module)
+    {
+        $cluster = $module->getUsedCluster();
+        // dd($cluster);
+
+        $urlGenerator = $cluster?->getUrlGenerator();
+
+        $this->baseUrl = $urlGenerator ? $urlGenerator->generate($module->getRawRoutePath(), null, $cluster->getRoute()) : $module->getRoutePath();
     }
 
     /**

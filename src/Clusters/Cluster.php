@@ -72,22 +72,19 @@ class Cluster
 
     public function getUrl()
     {
-        // if it not a default one we need the provided route to prefix it 
+        $converge = converge();
 
         if ($this->isDefault) {
-            if ($version = converge()->getUsedVersion()) {
-                return  $version->getUrl(converge()->getRawRoutePath());
+            if ($version = $converge->getUsedVersion()) {
+                return  $version->getUrl($converge->getRawRoutePath());
             }
-            return format_url(converge()->getRawRoutePath());
+            return format_url($converge->getRoutePath());
         }
 
-        $versionUrl = optional(converge()->getUsedVersion())->getUrl(
-            converge()->getRawRoutePath()
-        );
 
         return ($this->getUrlGenerator()->generate(
-            converge()->getRawRoutePath(),
-            converge()->getUsedVersion()?->getRoute(),
+            $converge->getRawRoutePath(),
+            $converge->getUsedVersion()?->getRoute(),
             $this->getRoute()
         ));
     }
