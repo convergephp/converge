@@ -3,20 +3,15 @@
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems(); 
+    $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems();
     // dd(app('converge'));
     // dd($sidebarItems);
-
 @endphp
 
 <ul>
     @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
-            <x-converge::sidebar.item 
-                :label="$item->getLabel()" 
-                :url="$item->getUrl()" 
-                :depth="$item->getDepth()"
-            />
+            <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" :depth="$item->getDepth()" />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
         @endif

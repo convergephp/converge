@@ -18,8 +18,16 @@
     </title>
 
 
+    {{-- <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.write(`<style>{!! app('converge')->getTheme()->getLightModeTheme() !!}</style>`);
+        } else(localStorage.getItem('theme') === 'dark') {
+            document.write(`<style>{!! app('converge')->getTheme()->getDarkModeTheme() !!}</style>`);
+        }
+    </script> --}}
+
     <style>
-        {!! $convergeTheme->getCssVariables() !!}
+        {!! app('converge')->getTheme()->getDarkModeTheme() !!}
     </style>
 
     <style>
@@ -40,6 +48,7 @@
             document.documentElement.classList.add('dark')
         }
     </script>
+    @vite(['resources/css/utilities/button.css'])
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
@@ -48,8 +57,9 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'bg-gray-50 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-converge-primary  dark:text-white',
+        'font-normal bg-base-300 relative bg-base-300 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}>
+
 
     {{-- BACKGROUND EFFETS --}}
     @include('converge::partials.background-effets')

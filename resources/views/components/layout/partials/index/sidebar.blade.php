@@ -1,8 +1,8 @@
 <div x-data="{ isOpen: true }" :class="{ '-translate-x-full': !isOpen }"
     class="fixed z-50 lg:z-1 w-[19rem] lg:w-[19rem] lg:sticky flex flex-col overflow-y-auto
-           left-0 bottom-0 right-auto border-r border-gray-200/70 dark:border-white/[0.07]
+           left-0 bottom-0 right-auto border-r border-base-200
            transition-transform duration-300 ease-in-out
-           dark:bg-converge-primary bg-white lg:bg-transparent lg:dark:bg-transparent
+           bg-base-300 lg:bg-transparent
            top-0  lg:top-[4rem] lg:h-[calc(100vh-4rem)]
            transform lg:translate-x-0">
 

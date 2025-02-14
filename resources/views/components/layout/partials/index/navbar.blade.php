@@ -4,14 +4,14 @@
 
  <div id="navbar" class="fixed top-0 z-30 w-full lg:sticky">
      <div id="navbar-transition"
-         class="absolute w-full h-full backdrop-blur flex-none transition-colors duration-500 border-b border-gray-500/5 dark:border-gray-300/[0.06] supports-backdrop-blur:bg-background-light/60 dark:bg-transparent">
+         class="absolute flex-none w-full h-full transition-colors duration-500 border-b backdrop-blur border-base-200 supports-backdrop-blur:bg-base-100/60">
      </div>
+
      <div class="relative  mx-auto max-w-[88rem]">
          <div class="">
              <div class="relative">
                  <div class="flex items-center h-16 min-w-0 px-4 lg:px-6">
-                     <div
-                         class="h-full relative flex-1 flex items-center gap-x-4 min-w-0 border-b border-gray-500/5 dark:border-gray-300/[0.06] lg:border-none">
+                     <div class="relative flex items-center flex-1 h-full min-w-0 gap-x-4 ">
                          {{-- BRAND --}}
                          <div class="flex items-center flex-1 gap-x-4">
                              <x-converge::logo />
@@ -34,7 +34,7 @@
                                  <ul class="flex items-center space-x-6">
                                      <li>
                                          <a href="/docs"
-                                             class="font-medium text-gray-600 whitespace-nowrap hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                                             class="font-medium text-base-content whitespace-nowrap hover:text-primary"
                                              target="_blank">Sponsor converge</a>
                                      </li>
                                  </ul>

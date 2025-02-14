@@ -1,6 +1,6 @@
 <div class="">
     {{-- HEADER SECTION --}}
-    <div class="flex items-center space-x-2 font-medium text-gray-700 dark:text-gray-300">
+    <div class="flex items-center py-2 space-x-2 text-xs font-medium text-base-content">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"
             xmlns="http://www.w3.org/2000/svg" class="w-3 h-3">
             <path d="M2.44434 12.6665H13.5554" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -10,7 +10,8 @@
     </div>
     {{-- TOC SECTION --}}
 
-    <div class="mt-4 ml-2  text-sm max-h-[calc(100vh-3rem)]" x-html="$data.tableOfContent"></div>
+    <div class="mt-4 ml-2 text-xs max-h-[calc(100vh-3rem)] !text-base-content [&_*]:!text-base-content [&_*]:hover:!text-primary"
+        x-html="$data.tableOfContent"></div>
 
     {{-- UNDER TOC SECTION --}}
     <div>
