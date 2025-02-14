@@ -91,7 +91,7 @@ class Cluster
         }
 
         return $this->getUrlGenerator()->generate(
-            $converge->getRawRoutePath(),
+            $converge->getRoutePath(),
             $converge->getUsedVersion()?->getRoute(),
             $this->getRoute()
         );

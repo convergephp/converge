@@ -37,8 +37,14 @@ class SidebarManager
 
         $this->depth = $module->getMaxDepth();
 
-        if ($module->hasClusters()) {
-            $this->generateBaseUrlFromCluster($module);
+        if ($module->hasClusters() && blank($version = $module->getUsedVersion())) {
+            $cluster = $module->getUsedCluster();
+
+            $urlGenerator = $cluster?->getUrlGenerator();
+            if ($urlGenerator) {
+                $this->baseUrl = $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
+                return;
+            }
         }
 
         if ($module->hasVersions()) {
@@ -46,21 +52,23 @@ class SidebarManager
             $version = $module->getUsedVersion();
 
             if ($cluster = $module->getUsedCluster()) {
+
                 $urlGenerator = $cluster?->getUrlGenerator();
 
-                $this->baseUrl = (bool) $urlGenerator
-                    ? $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute())
-                    : $moduleRoute;
-
-                return;
+                if ($urlGenerator) {
+                    $this->baseUrl = $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
+                    return;
+                }
             }
 
             $urlGenerator = $version?->getUrlGenerator();
 
-            $this->baseUrl = (bool) $urlGenerator
+            $this->baseUrl = $urlGenerator
                 ? $urlGenerator->generate($rawModuleRoute, $version->getRoute())
                 : $moduleRoute;
         }
+
+
         $this->baseUrl ??= $moduleRoute;
     }
 
@@ -75,11 +83,10 @@ class SidebarManager
     public function generateBaseUrlFromCluster(Module $module)
     {
         $cluster = $module->getUsedCluster();
-        // dd($cluster);
 
         $urlGenerator = $cluster?->getUrlGenerator();
 
-        $this->baseUrl = $urlGenerator ? $urlGenerator->generate($module->getRawRoutePath(), null, $cluster->getRoute()) : $module->getRoutePath();
+        $this->baseUrl = $urlGenerator ? $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute()) : $module->getRoutePath();
     }
 
     /**
@@ -89,6 +96,7 @@ class SidebarManager
      */
     public function getItems(): Collection
     {
+
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
