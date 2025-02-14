@@ -18,6 +18,7 @@ class ClusterLink
     {
         return $this->resolve($this->url);
     }
+
     public function getId()
     {
         return 'cluster-link';

@@ -8,7 +8,6 @@ use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\ClusterLink;
 
 if (! function_exists('converge')) {
-    /** @return \Fluxtor\Converge\Converge */
     function converge(): Converge
     {
         return app('converge');
@@ -21,7 +20,8 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
         if (is_null($url)) {
             return null;
         }
-        return '/' . trim($url ?? '', '/');
+
+        return '/'.trim($url ?? '', '/');
     }
 }
 
@@ -32,7 +32,6 @@ if (! function_exists('Fluxtor\Converge\generate_cluster_url')) {
         if ($cluster instanceof ClusterLink) {
             return $cluster->getRoute();
         }
-
 
         if ($cluster->isDefault() && filled(Converge()->getUsedVersion())) {
             return converge()->getUsedVersion()->getRoute();

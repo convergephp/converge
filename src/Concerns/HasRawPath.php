@@ -6,8 +6,6 @@ namespace Fluxtor\Converge\Concerns;
 
 use Closure;
 
-use function Fluxtor\Converge\converge;
-
 trait HasRawPath
 {
     /**

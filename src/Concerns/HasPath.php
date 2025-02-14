@@ -59,12 +59,12 @@ trait HasPath
         if ($cluster = converge()->getUsedCluster()) {
 
             if ($this->isDefault()) {
-                return converge()->getRoutePath();
+                return converge()->getPath();
             }
-
 
             return $cluster->getPath();
         }
+
         return $this->resolve($this->path);
     }
 }

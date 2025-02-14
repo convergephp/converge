@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Sidebar;
 
-use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Module;
-use Fluxtor\Converge\Versions\Version;
 use Illuminate\Support\Collection;
 
 use function Fluxtor\Converge\converge;
@@ -15,7 +13,9 @@ use function Fluxtor\Converge\converge;
 class SidebarManager
 {
     protected string $path;
+
     protected int $depth;
+
     protected ?string $baseUrl = null;
     // The baseUrl represents the prefixed route for the module.
     // It can be determined based on the URL generator used, as follows:
@@ -51,6 +51,7 @@ class SidebarManager
                 $this->baseUrl = (bool) $urlGenerator
                     ? $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute())
                     : $moduleRoute;
+
                 return;
             }
 
@@ -62,7 +63,6 @@ class SidebarManager
         }
         $this->baseUrl ??= $moduleRoute;
     }
-
 
     // public function generateBaseUrl($module)
     // {

@@ -15,7 +15,6 @@ trait CanHandleClusters
 
     protected ?Cluster $activeCluster = null;
 
-
     protected ?Cluster $defaultCluster = null;
 
     public function initClusters(): void
@@ -32,7 +31,8 @@ trait CanHandleClusters
     {
         $this->activeCluster = $this->clusters
             ->merge(optional($this->getUsedVersion())->getClusters())
-            ->first(fn($item) => $item->getRoute() === $id);
+            ->first(fn ($item) => $item->getRoute() === $id);
+
         return $this;
     }
 
@@ -63,7 +63,6 @@ trait CanHandleClusters
     {
         return $this->defaultCluster;
     }
-
 
     public function getClusters(): Collection
     {

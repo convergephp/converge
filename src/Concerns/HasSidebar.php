@@ -39,6 +39,7 @@ trait HasSidebar
     public function allClusters()
     {
         $clusters = $this->sortItems($this->getModuleClusters());
+
         return $clusters;
     }
 
@@ -50,6 +51,6 @@ trait HasSidebar
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn($item) => $item->getSort())->values();
+        return $items->sortBy(fn ($item) => $item->getSort())->values();
     }
 }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Routing;
 
-use Illuminate\Support\Facades\Route;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Http\Middleware\UseModule;
-use Fluxtor\Converge\Http\Middleware\UseCluster;
-use Fluxtor\Converge\Http\Middleware\UseVersion;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
+use Fluxtor\Converge\Http\Middleware\UseCluster;
+use Fluxtor\Converge\Http\Middleware\UseModule;
+use Fluxtor\Converge\Http\Middleware\UseVersion;
+use Fluxtor\Converge\Versions\Version;
+use Illuminate\Support\Facades\Route;
 
 final class RouteManager
 {
@@ -49,8 +49,7 @@ final class RouteManager
 
                             $clusterUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), clusterUri: $scopedCluster->getRoute());
 
-                            $clusterName = $moduleId . '.' . $scopedCluster->getRoute();
-
+                            $clusterName = $moduleId.'.'.$scopedCluster->getRoute();
 
                             $this->registerRoutes($clusterUri, $moduleId, $clusterName, versionId: $version->getRoute(), clusterId: $scopedCluster->getRoute());
                         }
@@ -61,7 +60,7 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute());
 
-                    $versionName = $moduleId . '.' . $version->getRoute();
+                    $versionName = $moduleId.'.'.$version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
                 }
@@ -82,18 +81,17 @@ final class RouteManager
 
                     $clusterUri = $urlGenerator->generate($rawModuleUri, null, clusterUri: $cluster->getRoute());
 
-                    $clusterName = $moduleId . '.' . $cluster->getRoute();
-
+                    $clusterName = $moduleId.'.'.$cluster->getRoute();
 
                     $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $cluster->getRoute());
                 }
             }
 
             $excludedVersions = implode('|', array_map(
-                fn($v) => preg_quote($v->getRoute(), '/'),
+                fn ($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn($version) => $version instanceof Version
+                        fn ($version) => $version instanceof Version
                     )->toArray()
             ));
 
@@ -120,11 +118,10 @@ final class RouteManager
 
         $clustersParams = $clusterId ? "$moduleId,$clusterId" : $moduleId;
 
-
         Route::middleware([
-            UseModule::class . ':' . $moduleId,
-            UseVersion::class . ':' . $versionsParams,
-            UseCluster::class . ':' . $clustersParams
+            UseModule::class.':'.$moduleId,
+            UseVersion::class.':'.$versionsParams,
+            UseCluster::class.':'.$clustersParams,
         ])
             ->group(function () use ($uri, $name, $pattern) {
 

@@ -6,7 +6,7 @@ namespace Fluxtor\Converge\Routing\Versions;
 
 use Fluxtor\Converge\Contracts\VersionUrlGenerator;
 
-//@TODO
+// @TODO
 class SubdomainUrlGenerator implements VersionUrlGenerator
 {
     protected static string $domain;

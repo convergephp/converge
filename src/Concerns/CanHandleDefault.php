@@ -17,6 +17,7 @@ trait CanHandleDefault
     {
         $this->clusterId = 'default-cluster';
         $this->isDefault = $condition;
+
         return $this;
     }
 }

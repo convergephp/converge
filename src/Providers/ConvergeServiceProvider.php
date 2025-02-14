@@ -68,7 +68,7 @@ class ConvergeServiceProvider extends ServiceProvider
                 ModuleMakeCommand::class,
             ]);
         }
-        require_once __DIR__ . '/../helpers.php';
+        require_once __DIR__.'/../helpers.php';
 
         // Share theme property (colors and layout) a supprimer
         $themeService = new ThemeService;

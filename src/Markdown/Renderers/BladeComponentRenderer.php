@@ -22,7 +22,7 @@ class BladeComponentRenderer implements NodeRendererInterface
         }
 
         $bladeContent = $node->getLiteral();
-        // dd($bladeContent);  
+        // dd($bladeContent);
 
         try {
             $renderedHtml = Blade::render($bladeContent);

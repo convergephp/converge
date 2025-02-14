@@ -16,8 +16,6 @@ use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
 use Illuminate\Support\Collection;
 
-use function Fluxtor\Converge\converge;
-
 class Version
 {
     use HasLabel;
@@ -97,7 +95,7 @@ class Version
         return $this->path;
     }
 
-    public function defineScopedClusters(Closure $callable): static
+    public function defineClusters(Closure $callable): static
     {
         $clusters = new Clusters();
 

@@ -10,6 +10,7 @@ use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\VersionLink;
 use Illuminate\Support\Collection;
+use LogicException;
 
 abstract class CollectionsRegistry
 {
@@ -52,7 +53,7 @@ abstract class CollectionsRegistry
         // dd($this->default);
     }
 
-    public function getDefault()
+    final public function getDefault()
     {
         return $this->default;
     }
@@ -70,7 +71,7 @@ abstract class CollectionsRegistry
 
     final public function get($key, $id)
     {
-        return $this->items->filter(fn($item) => $id === $item->$key);
+        return $this->items->filter(fn ($item) => $id === $item->$key);
     }
 
     final public function addLink(Closure $callback): static
@@ -94,6 +95,14 @@ abstract class CollectionsRegistry
         $item->getSort() ?? $item->sort(++$this->currentSortIndex);
     }
 
+    final public function ensureDefaultSet()
+    {
+        throw new LogicException(
+            'No default cluster label is set. Please specify a default cluster for the module. '.
+                'Call the ->default() method on one of your clusters.'
+        );
+    }
+
     /**
      * sort items based on the sort property
      *
@@ -102,14 +111,6 @@ abstract class CollectionsRegistry
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn(Version|VersionLink|Cluster|ClusterLink $item) => $item->getSort())->values();
-    }
-
-    public function ensureDefaultSet()
-    {
-        throw new \LogicException(
-            'No default cluster label is set. Please specify a default cluster for the module. ' .
-                'Call the ->default() method on one of your clusters.'
-        );
+        return $items->sortBy(fn (Version|VersionLink|Cluster|ClusterLink $item) => $item->getSort())->values();
     }
 }

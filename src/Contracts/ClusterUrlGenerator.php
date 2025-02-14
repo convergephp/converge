@@ -8,7 +8,7 @@ interface ClusterUrlGenerator
 {
     public static function generate(
         ?string $moduleUri,
-        ?string $versionUri = null,
+        ?string $versionUri,
         string $clusterUri
     );
 }

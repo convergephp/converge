@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Clusters;
 
-use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasRawPath;
+use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
-use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 
 use function Fluxtor\Converge\converge;
 use function Fluxtor\Converge\format_url;
@@ -21,11 +20,11 @@ class Cluster
     use HasRawPath;
     use HasSort;
 
+    public ?string $route = null;
+
     protected ?ClusterUrlGenerator $urlGenerator = null;
 
     protected ?string $clusterId = null;
-
-    public ?string $route = null;
 
     protected $isDefault = false;
 
@@ -38,6 +37,7 @@ class Cluster
     {
         $this->clusterId = 'default-cluster';
         $this->isDefault = $condition;
+
         return $this;
     }
 
@@ -76,17 +76,17 @@ class Cluster
 
         if ($this->isDefault) {
             if ($version = $converge->getUsedVersion()) {
-                return  $version->getUrl($converge->getRawRoutePath());
+                return $version->getUrl($converge->getRawRoutePath());
             }
+
             return format_url($converge->getRoutePath());
         }
 
-
-        return ($this->getUrlGenerator()->generate(
+        return $this->getUrlGenerator()->generate(
             $converge->getRawRoutePath(),
             $converge->getUsedVersion()?->getRoute(),
             $this->getRoute()
-        ));
+        );
     }
 
     public function route(string $route): static
