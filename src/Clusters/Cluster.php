@@ -58,10 +58,18 @@ class Cluster
         return $this;
     }
 
-    public function absoluteUrlWithVersion(): static
+    public function absoluteUrlWithVersionUrl(): static
     {
-        $this->setUrlGenerator(new AbsoluteUrlGenerator(isRelativeToVersionUrl: true));
 
+        AbsoluteUrlGenerator::setRelativeToVersionUrl(true);
+        $this->setUrlGenerator(new AbsoluteUrlGenerator());
+        return $this;
+    }
+
+    public function absoluteUrlWithModuleUrl(): static
+    {
+        AbsoluteUrlGenerator::setRelativeToModuleUrl(true);
+        $this->setUrlGenerator(new AbsoluteUrlGenerator());
         return $this;
     }
 

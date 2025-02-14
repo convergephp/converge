@@ -8,9 +8,23 @@ use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 
 class AbsoluteUrlGenerator implements ClusterUrlGenerator
 {
-    public function __construct(
-        protected bool $isRelativeToVersionUrl = false
-    ) {}
+    protected static bool $isRelativeToVersionUrl = false;
+
+    protected static bool $isRelativeToModuleUrl = false;
+
+    public static function setRelativeToModuleUrl(bool $relative): void
+    {
+        self::$isRelativeToModuleUrl = $relative;
+    }
+
+    public static function setRelativeToVersionUrl(bool $relative): void
+    {
+        self::$isRelativeToVersionUrl = $relative;
+    }
+
+    // public function __construct(
+    //     protected bool $isRelativeToVersionUrl = false
+    // ) {}
 
     /**
      * Generate a full URL from the given components.
@@ -27,12 +41,16 @@ class AbsoluteUrlGenerator implements ClusterUrlGenerator
     ) {
         $url = '';
 
-        if (static::$isRelativeToVersionUrl && ! empty($versionUri)) {
-            $url = '/'.trim($versionUri, '/');
+        if (self::$isRelativeToModuleUrl && ! empty($moduleUri)) {
+            $url = '/' . trim($moduleUri, '/');
+        }
+
+        if (self::$isRelativeToVersionUrl && ! empty($versionUri)) {
+            $url = '/' . trim($versionUri, '/');
         }
 
         // Append the cluster URI, ensuring proper formatting
-        $url .= '/'.ltrim($clusterUri, '/');
+        $url .= '/' . trim($clusterUri, '/');
 
         return $url;
     }

@@ -79,7 +79,7 @@ final class RouteManager
 
                     $urlGenerator = $cluster->getUrlGenerator();
 
-                    $clusterUri = $urlGenerator->generate($rawModuleUri, null, clusterUri: $cluster->getRoute());
+                    $clusterUri = $urlGenerator->generate($quietedModuleUri, null, clusterUri: $cluster->getRoute());
 
                     $clusterName = $moduleId.'.'.$cluster->getRoute();
 
