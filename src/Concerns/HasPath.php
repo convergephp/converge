@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
+use Fluxtor\Converge\Repository;
 
 use function Fluxtor\Converge\converge;
 
@@ -41,24 +42,22 @@ trait HasPath
     }
 
     /**
-     * getter for the path
+     * the active path within the request
      *
      * @return string|null
      */
     public function getPath(): string
     {
+        return app(Repository::class)->getActivePath();
+    }
 
-
-        if ($version = converge()->getUsedVersion()) {
-            if (blank(converge()->getUsedCluster())) {
-                return $version->getPath();
-            }
-        }
-
-        if ($cluster = converge()->getUsedCluster()) {
-            return $cluster->getPath();
-        }
-        
+    /**
+     * the raw path provided on module level
+     *
+     * @return string
+     */
+    public function getRawPath()
+    {
         return $this->resolve($this->path);
     }
 }

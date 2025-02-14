@@ -7,11 +7,11 @@ use Fluxtor\Converge\Versions\Version;
 
 class Repository
 {
-    protected ?Version $activeVersion;
+    protected ?Version $activeVersion = null;
 
-    protected ?Cluster $activeCluster;
+    protected ?Cluster $activeCluster = null;
 
-    protected ?Module $activeModule;
+    protected ?Module $activeModule = null;
 
     protected ?string $activePath = null;
 
@@ -57,9 +57,8 @@ class Repository
 
     public function getActivePath()
     {
-
         if ($this->activeVersion) {
-            if (blank($this->activeCluster[])) {
+            if (blank($this->activeCluster)) {
                 return $this->activeVersion->getPath();
             }
         }
@@ -68,7 +67,7 @@ class Repository
             return $this->activeCluster->getPath();
         }
 
-        return $this->activeModule->getPath();
+        return $this->activeModule->getRawPath();
     }
 
     public function getActiveRoute()
