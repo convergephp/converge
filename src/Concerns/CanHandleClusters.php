@@ -7,6 +7,7 @@ namespace Fluxtor\Converge\Concerns;
 use Closure;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\Clusters;
+use Fluxtor\Converge\Repository;
 use Illuminate\Support\Collection;
 
 trait CanHandleClusters
@@ -31,7 +32,9 @@ trait CanHandleClusters
     {
         $this->activeCluster = $this->clusters
             ->merge(optional($this->getUsedVersion())->getClusters())
-            ->first(fn ($item) => $item->getRoute() === $id);
+            ->first(fn($item) => $item->getRoute() === $id);
+
+        app(Repository::class)->setActiveCluster($this->activeCluster);
 
         return $this;
     }

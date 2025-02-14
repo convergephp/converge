@@ -48,8 +48,7 @@ trait HasPath
     public function getPath(): string
     {
 
-        // we check first if there is any used version
-        // then check if there is any used cluster
+
         if ($version = converge()->getUsedVersion()) {
             if (blank(converge()->getUsedCluster())) {
                 return $version->getPath();
@@ -57,14 +56,9 @@ trait HasPath
         }
 
         if ($cluster = converge()->getUsedCluster()) {
-
-            if ($this->isDefault()) {
-                return converge()->getPath();
-            }
-
             return $cluster->getPath();
         }
-
+        
         return $this->resolve($this->path);
     }
 }
