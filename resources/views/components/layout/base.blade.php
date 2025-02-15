@@ -17,15 +17,6 @@
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
     </title>
 
-
-    {{-- <script>
-        if (localStorage.getItem('theme') === 'light') {
-            document.write(`<style>{!! app('converge')->getTheme()->getLightModeTheme() !!}</style>`);
-        } else(localStorage.getItem('theme') === 'dark') {
-            document.write(`<style>{!! app('converge')->getTheme()->getDarkModeTheme() !!}</style>`);
-        }
-    </script> --}}
-
     <style>
         {!! app('converge')->getTheme()->getDarkModeTheme() !!}
     </style>
@@ -33,8 +24,6 @@
     <style>
         [x-cloak] {}
     </style>
-
-
 
     <script>
         const theme = localStorage.getItem('theme')
@@ -48,7 +37,7 @@
             document.documentElement.classList.add('dark')
         }
     </script>
-    @vite(['resources/css/utilities/button.css'])
+
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
@@ -57,7 +46,7 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'font-normal bg-base-300 relative bg-base-300 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+        'font-display bg-base-300 relative bg-base-300 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}>
 
 
