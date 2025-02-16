@@ -1,16 +1,24 @@
 @props(['sidebarItems' => null])
-{{-- when the sidebarItems is null that mean we are in first recursive iteration so when to resolve the sidebar manager first then w use the reguralr sidebarItems   --}}
-@php
+<?php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = $sidebarItems ?? app('converge')->getSidebarItems();
-    // dd(app('converge'));
-    // dd($sidebarItems);
-@endphp
+    use function Fluxtor\Converge\converge;
+    /*
+    * when the sidebarItems is null that mean we are in first recursive 
+    * iteration so when to resolve the sidebar manager first then we
+    * use the reguralr sidebarItems 
+    */   
+    $sidebarItems = $sidebarItems ?? converge()->getSidebarItems();
+?>
 <ul>
     @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
-            <x-converge::sidebar.item :label="$item->getLabel()" :active="request()->getRequestUri() == $item->getUrl()" :url="$item->getUrl()" :depth="$item->getDepth()" />
+            <x-converge::sidebar.item 
+                :label="$item->getLabel()"
+                :isActive="$item->isActive()" 
+                :url="$item->getUrl()" 
+                :depth="$item->getDepth()" 
+            />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
         @endif
