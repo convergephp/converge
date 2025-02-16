@@ -71,13 +71,13 @@
 
 .hl-addition {
     min-width: 100%;
-    @apply bg-green-600/50 inline-block;
+    @apply inline-block bg-green-600/50;
 }
 
 .hl-deletion {
     min-width: 100%;
     filter: blur(0.8px);
-    @apply bg-red-600/50 inline-block;
+    @apply inline-block bg-red-600/50;
 }
 .hl-deletion:hover {
     filter: blur(0);

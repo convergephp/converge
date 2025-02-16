@@ -7,11 +7,10 @@
     // dd(app('converge'));
     // dd($sidebarItems);
 @endphp
-
 <ul>
     @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
-            <x-converge::sidebar.item :label="$item->getLabel()" :url="$item->getUrl()" :depth="$item->getDepth()" />
+            <x-converge::sidebar.item :label="$item->getLabel()" :active="ltrim(request()->getRequestUri(), '/') == $item->getUrl()" :url="$item->getUrl()" :depth="$item->getDepth()" />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
         @endif

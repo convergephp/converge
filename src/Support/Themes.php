@@ -36,18 +36,19 @@ class Themes
         '--border' => '2px',
         '--depth' => '1',
         '--noise' => '0',
+        '--text-sm' => '0.89rem',
     ];
 
     /**
      * dark schema
      */
     public const DARK = [
-        '--color-base-100' => 'oklch(25.33% 0.016 252.42)',
-        '--color-base-200' => 'oklch(23.26% 0.014 253.1)',
-        '--color-base-300' => 'black',
-        '--color-base-content' => 'oklch(97.807% 0.029 256.847)',
-        '--color-primary' => '#940085',
-        '--color-primary-content' => 'oklch(96% 0.018 272.314)',
+        '--color-base-100' => 'oklch(20% 0 0)',
+        '--color-base-200' => 'oklch(26% 0 0)',
+        '--color-base-300' => 'oklch(21% 0.006 285.885)',
+        '--color-base-content' => 'oklch(96% 0.001 286.375)',
+        '--color-primary' => 'oklch(40% 0.17 325.612)',
+        '--color-primary-content' => 'oklch(97% 0.021 166.113)',
         '--color-secondary' => 'oklch(65% 0.241 354.308)',
         '--color-secondary-content' => 'oklch(94% 0.028 342.258)',
         '--color-accent' => 'oklch(77% 0.152 181.912)',
@@ -63,13 +64,14 @@ class Themes
         '--color-error' => 'oklch(71% 0.194 13.428)',
         '--color-error-content' => 'oklch(27% 0.105 12.094)',
         '--radius-selector' => '0.5rem',
-        '--radius-field' => '5px',
+        '--radius-field' => '3',
         '--radius-box' => '0.5rem',
         '--size-selector' => '0.25rem',
         '--size-field' => '0.25rem',
         '--border' => '1px',
-        '--depth' => '1',
-        '--noise' => '0',
+        '--depth' => '0',
+        '--noise' => '1',
+        '--text-sm' => '0.89rem',
     ];
 
     public const BLACK = [
@@ -97,40 +99,10 @@ class Themes
         '--radius-field' => '5px',
         '--radius-box' => '1rem',
         '--size-selector' => '0.25rem',
-        '--size-field' => '0.25rem',
+        '--size-field' => '3rem',
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '0',
-    ];
-
-    public const HALOWEEN = [
-        '--color-base-100' => 'oklch(21% 0.006 56.043)',
-        '--color-base-200' => 'oklch(14% 0.004 49.25)',
-        '--color-base-300' => 'oklch(0% 0 0)',
-        '--color-base-content' => 'gray',
-        '--color-primary' => 'oklch(77.48% 0.204 60.62)',
-        '--color-primary-content' => 'oklch(19.693% 0.004 196.779)',
-        '--color-secondary' => 'oklch(45.98% 0.248 305.03)',
-        '--color-secondary-content' => 'oklch(89.196% 0.049 305.03)',
-        '--color-accent' => 'oklch(64.8% 0.223 136.073)',
-        '--color-accent-content' => 'oklch(0% 0 0)',
-        '--color-neutral' => 'oklch(24.371% 0.046 65.681)',
-        '--color-neutral-content' => 'oklch(84.874% 0.009 65.681)',
-        '--color-info' => 'oklch(54.615% 0.215 262.88)',
-        '--color-info-content' => 'oklch(90.923% 0.043 262.88)',
-        '--color-success' => 'oklch(62.705% 0.169 149.213)',
-        '--color-success-content' => 'oklch(12.541% 0.033 149.213)',
-        '--color-warning' => 'oklch(66.584% 0.157 58.318)',
-        '--color-warning-content' => 'oklch(13.316% 0.031 58.318)',
-        '--color-error' => 'oklch(65.72% 0.199 27.33)',
-        '--color-error-content' => 'oklch(13.144% 0.039 27.33)',
-        '--radius-selector' => '1rem',
-        '--radius-field' => '0.5rem',
-        '--radius-box' => '1rem',
-        '--size-selector' => '0.25rem',
-        '--size-field' => '0.25rem',
-        '--border' => '1px',
-        '--depth' => '1',
-        '--noise' => '0',
+        '--text-sm' => '0.89rem',
     ];
 }

@@ -10,7 +10,7 @@
     </div>
     {{-- TOC SECTION --}}
 
-    <div class="mt-4 ml-2 text-xs max-h-[calc(100vh-3rem)] !text-base-content [&_*]:!text-base-content [&_*]:hover:!text-primary"
+    <div class="mt-4 ml-2 text-sm max-h-[calc(100vh-3rem)] !text-base-content [&_*]:!text-base-content [&_*]:hover:!text-primary"
         x-html="$data.tableOfContent"></div>
 
     {{-- UNDER TOC SECTION --}}
