@@ -67,7 +67,7 @@ trait CanHandleVersions
     public function useVersion(string $id): static
     {
         $this->activeVersion = $this->versions->first(fn (Version $item) => $item->getRoute() === $id);
-        app(Repository::class)->setActiveVersion($this->activeVersion);
+        resolve(Repository::class)->setActiveVersion($this->activeVersion);
 
         return $this;
     }

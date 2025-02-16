@@ -10,7 +10,7 @@ use Fluxtor\Converge\Clusters\ClusterLink;
 if (! function_exists('converge')) {
     function converge(): Converge
     {
-        return app('converge');
+        return resolve('converge');
     }
 }
 if (! function_exists('Fluxtor\Converge\format_url')) {

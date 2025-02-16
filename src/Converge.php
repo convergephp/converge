@@ -24,7 +24,7 @@ class Converge
     {
         $this->activeModule = $module;
 
-        app(Repository::class)->setActiveModule($this->activeModule);
+        resolve(Repository::class)->setActiveModule($this->activeModule);
     }
 
     public function getActiveModule(): ?Module

@@ -27,7 +27,7 @@ class SidebarItem
 
     public static function make(): static
     {
-        $static = app(static::class);
+        $static = resolve(static::class);
 
         return $static;
     }

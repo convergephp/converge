@@ -46,7 +46,7 @@ trait HasPath
      */
     public function getPath(): string
     {
-        return app(Repository::class)->getActivePath();
+        return resolve(Repository::class)->getActivePath();
     }
 
     /**
