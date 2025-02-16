@@ -43,6 +43,7 @@ class SidebarManager
             $urlGenerator = $cluster?->getUrlGenerator();
             if ($urlGenerator) {
                 $this->baseUrl = $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
+
                 return;
             }
         }
@@ -57,6 +58,7 @@ class SidebarManager
 
                 if ($urlGenerator) {
                     $this->baseUrl = $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
+
                     return;
                 }
             }
@@ -68,39 +70,8 @@ class SidebarManager
                 : $moduleRoute;
         }
 
-
         $this->baseUrl ??= $moduleRoute;
     }
-
-    private function resolveBaseUrl(Module $module): ?string
-{
-    $rawModuleRoute = $module->getRawRoutePath();
-    $moduleRoute = $module->getRoutePath();
-
-    if ($module->hasClusters() && blank($module->getUsedVersion())) {
-        $cluster = $module->getUsedCluster();
-        if ($urlGenerator = $cluster?->getUrlGenerator()) {
-            return $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
-        }
-    }
-
-    if ($module->hasVersions()) {
-        $version = $module->getUsedVersion();
-
-        if ($cluster = $module->getUsedCluster()) {
-            if ($urlGenerator = $cluster?->getUrlGenerator()) {
-                return $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
-            }
-        }
-
-        if ($urlGenerator = $version?->getUrlGenerator()) {
-            return $urlGenerator->generate($rawModuleRoute, $version->getRoute());
-        }
-    }
-
-    return $moduleRoute;
-}
-
 
     /**
      * sidebar items
@@ -109,7 +80,6 @@ class SidebarManager
      */
     public function getItems(): Collection
     {
-
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);

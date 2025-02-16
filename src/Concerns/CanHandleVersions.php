@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use LogicException;
 use Fluxtor\Converge\Repository;
-use Illuminate\Support\Collection;
 use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Versions\Versions;
 use Fluxtor\Converge\Versions\VersionLink;
+use Fluxtor\Converge\Versions\Versions;
+use Illuminate\Support\Collection;
+use LogicException;
 
 trait CanHandleVersions
 {
@@ -66,8 +66,9 @@ trait CanHandleVersions
      */
     public function useVersion(string $id): static
     {
-        $this->activeVersion = $this->versions->first(fn(Version $item) => $item->getRoute() === $id);
+        $this->activeVersion = $this->versions->first(fn (Version $item) => $item->getRoute() === $id);
         app(Repository::class)->setActiveVersion($this->activeVersion);
+
         return $this;
     }
 
@@ -99,7 +100,7 @@ trait CanHandleVersions
             'id' => $this->activeVersion?->getId() ?? $this->versionId,
             'label' => $this->activeVersion?->getLabel() ?? $this->getQuietedVersion(),
             'url' => $this->activeVersion?->getRoute() ?? $this->getRoutePath(),
-            'isActive' => fn($id) => $this->isActive($id),
+            'isActive' => fn ($id) => $this->isActive($id),
         ];
     }
 
@@ -164,7 +165,7 @@ trait CanHandleVersions
                 'id' => $this->versionId,
                 'type' => 'internal',
                 'label' => $label,
-                'url' => '/' . trim($route, '/'),
+                'url' => '/'.trim($route, '/'),
             ]);
         }
 

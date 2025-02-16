@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
@@ -16,7 +18,6 @@ class Repository /**hold active contexts for the evaluated request*/
     protected ?string $activePath = null;
 
     protected ?string $activeRoute = null;
-
 
     public function setActiveVersion(Version $version)
     {

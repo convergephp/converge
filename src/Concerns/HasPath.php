@@ -7,8 +7,6 @@ namespace Fluxtor\Converge\Concerns;
 use Closure;
 use Fluxtor\Converge\Repository;
 
-use function Fluxtor\Converge\converge;
-
 trait HasPath
 {
     /**
