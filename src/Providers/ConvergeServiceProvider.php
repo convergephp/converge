@@ -63,7 +63,5 @@ class ConvergeServiceProvider extends ServiceProvider
         require_once __DIR__ . '/../helpers.php';
 
         // Share theme property (colors and layout) a supprimer
-        $themeService = new ThemeService;
-        view()->share('convergeTheme', $themeService);
     }
 }

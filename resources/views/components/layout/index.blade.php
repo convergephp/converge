@@ -1,7 +1,7 @@
 <x-converge::layout.base>
     <div>
         <main>
-            <div class="antialiased text-gray-500 dark:text-gray-400">
+            <div class="antialiased ">
                 {{-- navbare --}}
                 @include('converge::components.layout.partials.index.navbar')
 
