@@ -4,7 +4,7 @@
 
  <div id="navbar" class="fixed top-0 z-30 w-full lg:sticky">
      <div id="navbar-transition"
-         class="absolute flex-none w-full h-full transition-colors duration-500 border-b backdrop-blur border-base-200 supports-backdrop-blur:bg-base-100/60">
+         class="absolute flex-none w-full h-full transition-colors duration-500 border-b backdrop-blur border-base-300 supports-backdrop-blur:bg-base-200/60">
      </div>
 
      <div class="relative  mx-auto max-w-[88rem]">

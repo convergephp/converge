@@ -1,5 +1,5 @@
 <x-converge::page>
-    <div class="prose max-w-none dark:prose-invert">
+    <div class="text-sm prose max-w-none dark:prose-invert">
         {{-- @dd() --}}
         {{-- {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!} --}}
         

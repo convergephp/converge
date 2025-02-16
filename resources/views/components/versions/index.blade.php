@@ -9,21 +9,21 @@
     </label>
     @if (count($versions) === 1)
         <div
-            class="flex items-center px-3 py-1 space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border rounded-full border-base-200 bg-base-300 text-base-content">
+            class="flex items-center px-3 py-1 space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border rounded-full border-base-300 bg-base-100 text-base-content">
             <span>{{ $usedVersion['label'] }}</span>
         </div>
     @else
         <div>
             <x-converge::dropdown>
                 <x-slot:button
-                    class="flex items-center px-3 py-1 space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border rounded-full border-base-200 bg-base-300 text-base-content hover:opacity-80 dark:text-base-100 dark:hover:bg-base-300">
+                    class="flex items-center px-3 py-1 space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border rounded-full border-base-300 bg-base-100 text-base-content hover:bg-base-300 ">
                     <span>{{ $usedVersion['label'] }}</span>
                     <svg class="ml-2 overflow-visible" aria-hidden="true" width="6" height="3">
                         <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
                             stroke-linecap="round"></path>
                     </svg>
                 </x-slot:button>
-                <x-slot:items class="bg-base-200 w-36">
+                <x-slot:items class="bg-base-100 w-36">
                     @foreach ($versions as $version)
                         <?php   
                             $isActive = $usedVersion['isActive']($version['id']);

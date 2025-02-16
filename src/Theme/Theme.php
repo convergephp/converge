@@ -6,6 +6,7 @@ namespace Fluxtor\Converge\Theme;
 
 use Fluxtor\Converge\Enums\Layout;
 use Fluxtor\Converge\Enums\MaxWidth;
+use Fluxtor\Converge\Enums\Spotlight;
 use Fluxtor\Converge\Support\Themes;
 
 class Theme
@@ -14,9 +15,13 @@ class Theme
 
     protected ?MaxWidth $maxWith = null;
 
-    protected $darkModeCss;
+    protected string $darkModeCss;
 
-    protected $lightModeCss;
+    protected string $lightModeCss;
+
+    // protected bool $withSpotlight;
+
+    protected ?Spotlight $spotlightName = null;
 
     /**
      * layout
@@ -96,5 +101,27 @@ class Theme
         $rootCss .= '}';
 
         return $rootCss;
+    }
+
+    /**
+     * spotlight
+     *
+     * @param  mixed  $condition  default : true
+     * @param  mixed  $name  e.g : grid (default) , 'hive'
+     * @return void
+     */
+    public function spotlight(?Spotlight $name = Spotlight::Grid): static
+    {
+        $this->spotlightName = $name;
+
+        return $this;
+    }
+
+    /**
+     * getSpotlight
+     */
+    public function getSpotlight(): ?Spotlight
+    {
+        return $this->spotlightName;
     }
 }
