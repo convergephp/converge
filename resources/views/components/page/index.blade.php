@@ -1,5 +1,4 @@
 @php
-    $layout = $convergeTheme->getLayout();
     $layout = app('converge')->getTheme()->getLayout()->value;
 @endphp
 

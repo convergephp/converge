@@ -17,16 +17,13 @@
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
     </title>
 
-
     <style>
-        {!! $convergeTheme->getCssVariables() !!}
+        {!! app('converge')->getTheme()->getDarkModeTheme() !!}
     </style>
 
     <style>
         [x-cloak] {}
     </style>
-
-
 
     <script>
         const theme = localStorage.getItem('theme')
@@ -40,6 +37,7 @@
             document.documentElement.classList.add('dark')
         }
     </script>
+
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
@@ -48,8 +46,9 @@
 <body
     {{ $attributes->class([
         'converge-body',
-        'bg-gray-50 font-normal lg:max-h-screen text-gray-950 antialiased dark:bg-converge-primary  dark:text-white',
+        'font-display bg-base-300 relative bg-base-300 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}>
+
 
     {{-- BACKGROUND EFFETS --}}
     @include('converge::partials.background-effets')

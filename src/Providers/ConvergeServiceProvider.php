@@ -9,7 +9,6 @@ use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\ModuleRegistry;
-use Fluxtor\Converge\Services\ThemeService;
 use Fluxtor\Converge\Sidebar\SidebarManager;
 use Fluxtor\Converge\Views\Layout;
 use Illuminate\Support\Facades\Blade;
@@ -68,9 +67,5 @@ class ConvergeServiceProvider extends ServiceProvider
                 ModuleMakeCommand::class,
             ]);
         }
-
-        // Share theme property (colors and layout) a supprimer
-        $themeService = new ThemeService;
-        view()->share('convergeTheme', $themeService);
     }
 }
