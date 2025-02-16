@@ -25,9 +25,9 @@
                 </x-slot:button>
                 <x-slot:items class="bg-base-100 w-36">
                     @foreach ($versions as $version)
-                        @php
+                        <?php   
                             $isActive = $usedVersion['isActive']($version['id']);
-                        @endphp
+                        ?>
                         <x-converge::dropdown.item @class([
                             'flex items-center gap-1',
                             'text-primary' => $isActive,

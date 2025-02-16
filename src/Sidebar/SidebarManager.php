@@ -5,11 +5,18 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Sidebar;
 
 use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\Versions\Version;
+use Fluxtor\Converge\Module;
 use Illuminate\Support\Collection;
+
+use function Fluxtor\Converge\converge;
 
 class SidebarManager
 {
+    protected string $path;
+
+    protected int $depth;
+
+    protected ?string $baseUrl = null;
     // The baseUrl represents the prefixed route for the module.
     // It can be determined based on the URL generator used, as follows:
     //
@@ -18,32 +25,82 @@ class SidebarManager
     // 3. If the context does not use versions, the module route remains as the prefix, ex: docs/node-url.
     //    and the node URL is appended in the SidebarBuilder.
 
-    public function __construct(
-        protected string $path,
-        protected int $depth,
-        protected ?Version $version,
-        protected ?string $baseUrl = null,
-        protected ?string $rawModuleRoute = null,
-        protected ?string $moduleRoute = null
+    public function __construct()
+    {
+        $module = converge()->getActiveModule();
 
-    ) {
-        $module = app('converge')->getActiveModule();
-        $this->rawModuleRoute = $module->getRawRoutePath();
-        $this->moduleRoute = $module->getRoutePath();
+        $rawModuleRoute = $module->getRawRoutePath();
 
-        // we have the route path
-        $urlGenerator = $this->version?->getUrlGenerator();
+        $moduleRoute = $module->getRoutePath();
 
-        if ($module->hasVersions()) {
-            // Use the version's URL generator if available, otherwise fallback to the module route
-            $this->baseUrl = (bool) $urlGenerator
-                ? $urlGenerator->generate($this->rawModuleRoute, $this->version->getRoute())
-                : $this->moduleRoute;
+        $this->path = $module->getPath();
+
+        $this->depth = $module->getMaxDepth();
+
+        if ($module->hasClusters() && blank($module->getUsedVersion())) {
+            $cluster = $module->getUsedCluster();
+
+            $urlGenerator = $cluster?->getUrlGenerator();
+            if ($urlGenerator) {
+                $this->baseUrl = $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
+                return;
+            }
         }
 
-        // Ensure baseUrl is always set, defaulting to the module route if not already defined
-        $this->baseUrl ??= $this->moduleRoute;
+        if ($module->hasVersions()) {
+
+            $version = $module->getUsedVersion();
+
+            if ($cluster = $module->getUsedCluster()) {
+
+                $urlGenerator = $cluster?->getUrlGenerator();
+
+                if ($urlGenerator) {
+                    $this->baseUrl = $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
+                    return;
+                }
+            }
+
+            $urlGenerator = $version?->getUrlGenerator();
+
+            $this->baseUrl = $urlGenerator
+                ? $urlGenerator->generate($rawModuleRoute, $version->getRoute())
+                : $moduleRoute;
+        }
+
+
+        $this->baseUrl ??= $moduleRoute;
     }
+
+    private function resolveBaseUrl(Module $module): ?string
+{
+    $rawModuleRoute = $module->getRawRoutePath();
+    $moduleRoute = $module->getRoutePath();
+
+    if ($module->hasClusters() && blank($module->getUsedVersion())) {
+        $cluster = $module->getUsedCluster();
+        if ($urlGenerator = $cluster?->getUrlGenerator()) {
+            return $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
+        }
+    }
+
+    if ($module->hasVersions()) {
+        $version = $module->getUsedVersion();
+
+        if ($cluster = $module->getUsedCluster()) {
+            if ($urlGenerator = $cluster?->getUrlGenerator()) {
+                return $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
+            }
+        }
+
+        if ($urlGenerator = $version?->getUrlGenerator()) {
+            return $urlGenerator->generate($rawModuleRoute, $version->getRoute());
+        }
+    }
+
+    return $moduleRoute;
+}
+
 
     /**
      * sidebar items
@@ -52,6 +109,7 @@ class SidebarManager
      */
     public function getItems(): Collection
     {
+
 
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);

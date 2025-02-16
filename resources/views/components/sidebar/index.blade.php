@@ -1,6 +1,8 @@
-@php
-    $clusters = app('converge')->getAllClusters();
-@endphp
+<?php
+    use function Fluxtor\Converge\converge;
+    $clusters = converge()->getAllClusters();
+?>
+
 <nav class="">
     @if (filled($clusters))
         <x-converge::clusters :$clusters />
