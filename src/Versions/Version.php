@@ -66,6 +66,11 @@ class Version
         return $this->asAbsolute();
     }
 
+    public function getUrl($modulePath)
+    {
+        return $this->getUrlGenerator()->generate($modulePath, $this->getRoute());
+    }
+
     public function asAbsolute()
     {
         $this->setUrlGenerator(new AbsoluteUrlGenerator());
@@ -90,7 +95,7 @@ class Version
         return $this->path;
     }
 
-    public function defineScopedClusters(Closure $callable): static
+    public function defineClusters(Closure $callable): static
     {
         $clusters = new Clusters();
 

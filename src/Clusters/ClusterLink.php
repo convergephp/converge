@@ -13,4 +13,14 @@ class ClusterLink
     use HasLabel;
     use HasSort;
     use HasUrl;
+
+    public function getUrl(): ?string
+    {
+        return $this->resolve($this->url);
+    }
+
+    public function getId()
+    {
+        return 'cluster-link';
+    }
 }

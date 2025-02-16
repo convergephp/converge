@@ -10,12 +10,15 @@ use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\VersionLink;
 use Illuminate\Support\Collection;
+use LogicException;
 
 abstract class CollectionsRegistry
 {
     public Collection $items;
 
     private int $currentSortIndex = 0;
+
+    private Version|Cluster|null $default = null;
 
     public function __construct()
     {
@@ -39,8 +42,30 @@ abstract class CollectionsRegistry
         return $this;
     }
 
+    final public function default()
+    {
+
+        $item = $this->items->last();
+
+        $item->default();
+
+        $this->default = $item;
+        // dd($this->default);
+    }
+
+    final public function getDefault()
+    {
+        return $this->default;
+    }
+
     final public function getItems(): Collection
     {
+        // if (!$this->default) {
+        //     dd($this->default);
+        //     // dd('here');
+        //     $this->ensureDefaultSet();
+        // }
+
         return $this->sortItems($this->items);
     }
 
@@ -65,9 +90,17 @@ abstract class CollectionsRegistry
     /**
      * @return void
      */
-    final private function adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
+    final public function adjustSort(Version|VersionLink|Cluster|ClusterLink $item)
     {
         $item->getSort() ?? $item->sort(++$this->currentSortIndex);
+    }
+
+    final public function ensureDefaultSet()
+    {
+        throw new LogicException(
+            'No default cluster label is set. Please specify a default cluster for the module. '.
+                'Call the ->default() method on one of your clusters.'
+        );
     }
 
     /**
@@ -78,6 +111,6 @@ abstract class CollectionsRegistry
      */
     private function sortItems(Collection $items): Collection
     {
-        return $items->sortBy(fn ($item) => $item->getSort())->values();
+        return $items->sortBy(fn (Version|VersionLink|Cluster|ClusterLink $item) => $item->getSort())->values();
     }
 }

@@ -1,11 +1,21 @@
 @props([
-    'clusters' => null
+    'clusters' => null,
 ])
 
-<ul class=" mt-2 space-y-2">
+@php
+    use function Fluxtor\Converge\converge;
+    $activeCluster = converge()->getUsedCluster() ?? converge()->getDefaultCluster();
+    $id = $activeCluster?->getId();
+
+@endphp
+
+<ul class="mt-2 space-y-2">
     @foreach ($clusters as $cluster)
-        <li class="hover:bg-white/5 rounded-md mx-2 px-2 py-1"><a class="group mb-2 flex items-center  font-semibold text-gray-500 lg:text-sm lg:leading-6 dark:text-gray-400"
-                href="/docs/installation">
+        <li @class([
+            ' rounded-md  py-1 hover:bg-white/5',
+            'text-purple-400' => $cluster->getId() === $id,
+        ])><a class="group mb-2 flex items-center font-semibold lg:text-sm lg:leading-6"
+                href="{{ (($cluster->getUrl())) }}">
                 <div
                     class="dark:group-hover:highlight-white/10 dark:highlight-white/10 mr-4 rounded-md shadow-sm ring-1 ring-slate-900/5 group-hover:shadow group-hover:shadow-gray-200 group-hover:ring-slate-900/10 dark:bg-gray-500 dark:shadow-none dark:ring-0 dark:group-hover:bg-gray-500 dark:group-hover:shadow-none">
                     <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none">
