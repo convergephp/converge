@@ -43,10 +43,10 @@ class Themes
      * dark schema
      */
     public const DARK = [
-        '--color-base-100' => 'oklch(20% 0 0)',
-        '--color-base-200' => 'oklch(26% 0 0)',
-        '--color-base-300' => 'oklch(21% 0.006 285.885)',
-        '--color-base-content' => 'oklch(96% 0.001 286.375)',
+        '--color-base-100' => 'oklch(14% 0.004 49.25)',
+        '--color-base-200' => 'oklch(21% 0.006 56.043)',
+        '--color-base-300' => 'oklch(26% 0.007 34.298)',
+        '--color-base-content' => 'oklch(97% 0.001 106.424)',
         '--color-primary' => 'oklch(40% 0.17 325.612)',
         '--color-primary-content' => 'oklch(97% 0.021 166.113)',
         '--color-secondary' => 'oklch(65% 0.241 354.308)',
@@ -75,10 +75,10 @@ class Themes
     ];
 
     public const BLACK = [
-        '--color-base-100' => 'oklch(0% 0 0)',
-        '--color-base-200' => 'oklch(15% 0 0)',
-        '--color-base-300' => 'black',
-        '--color-base-content' => '#a3a3a3',
+        '--color-base-100' => 'oklch(20% 0 0)',
+        '--color-base-200' => 'oklch(14% 0 0)',
+        '--color-base-300' => 'oklch(26% 0 0)',
+        '--color-base-content' => 'oklch(97% 0 0)',
         '--color-primary' => '#750979',
         '--color-primary-content' => 'oklch(100% 0 0)',
         '--color-secondary' => 'oklch(35% 0 0)',
@@ -96,10 +96,10 @@ class Themes
         '--color-error' => 'oklch(62.795% 0.257 29.233)',
         '--color-error-content' => 'oklch(12.559% 0.051 29.233)',
         '--radius-selector' => '0rem',
-        '--radius-field' => '5px',
+        '--radius-field' => '1rem',
         '--radius-box' => '1rem',
         '--size-selector' => '0.25rem',
-        '--size-field' => '3rem',
+        '--size-field' => '4px',
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '0',

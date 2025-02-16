@@ -1,6 +1,6 @@
 <div class="relative flex items-center ">
-    @if (app('converge')->getTheme()->getSpotlight()['withSpotlight'])
-        @include('converge::components.spotlights.' . app('converge')->getTheme()->getSpotlight()['name']->value)
+    @if (filled(app('converge')->getTheme()->getSpotlight()))
+        @include('converge::components.spotlights.' . app('converge')->getTheme()->getSpotlight()->value)
 
         {{-- BOTTOM-LEFT --}}
         <div

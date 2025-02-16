@@ -23,12 +23,12 @@
     $previousUrl =
         $indexOfCurrentUrl == 0
             ? array_slice($paginationItems, count($paginationItems) - 1, 1)
-            : array_slice($paginationItems, $indexOfCurrentUrl - 1, 1);
+            : array_slice($paginationItems, $indexOfCurrentUrl - 1, 1); // [sidebareitem]
 
     $nextUrl =
         $indexOfCurrentUrl == count($paginationItems) - 1
             ? array_slice($paginationItems, 0, 1)
-            : array_slice($paginationItems, $indexOfCurrentUrl + 1, 1);
+            : array_slice($paginationItems, $indexOfCurrentUrl + 1, 1); // [sidebareitem]
 @endphp
 
 <x-converge::page>

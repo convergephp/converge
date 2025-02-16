@@ -19,9 +19,9 @@ class Theme
 
     protected string $lightModeCss;
 
-    protected bool $withSpotlight;
+    // protected bool $withSpotlight;
 
-    protected ?Spotlight $spotlightName;
+    protected ?Spotlight $spotlightName = null;
 
     /**
      * layout
@@ -110,9 +110,8 @@ class Theme
      * @param  mixed  $name  e.g : grid (default) , 'hive'
      * @return void
      */
-    public function spotlight(?bool $condition = true, Spotlight $name = Spotlight::Grid): static
+    public function spotlight(?Spotlight $name = Spotlight::Grid): static
     {
-        $this->withSpotlight = $condition;
         $this->spotlightName = $name;
 
         return $this;
@@ -121,11 +120,8 @@ class Theme
     /**
      * getSpotlight
      */
-    public function getSpotlight(): array
+    public function getSpotlight(): ?Spotlight
     {
-        return [
-            'withSpotlight' => $this->withSpotlight ?? true,
-            'name' => $this->spotlightName ?? Spotlight::Grid,
-        ];
+        return $this->spotlightName;
     }
 }
