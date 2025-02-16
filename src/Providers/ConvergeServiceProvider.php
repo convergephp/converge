@@ -32,13 +32,9 @@ class ConvergeServiceProvider extends ServiceProvider
 
         $this->app->singleton(ModuleRegistry::class, fn() => new ModuleRegistry);
 
-        $this->app->singleton(ContentMap::class, function ($app) {
-            return new ContentMap($app->make(FilesTreeBuilder::class));
-        });
+        $this->app->singleton(ContentMap::class, fn($app) => new ContentMap($app->make(FilesTreeBuilder::class)));
 
-        $this->app->singleton(FilesTreeBuilder::class, function () {
-            return new FilesTreeBuilder;
-        });
+        $this->app->singleton(FilesTreeBuilder::class, fn() => new FilesTreeBuilder);
 
         // charge the config file
         $this->mergeConfigFrom(

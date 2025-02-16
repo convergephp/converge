@@ -37,7 +37,7 @@ class SidebarManager
 
         $this->depth = $module->getMaxDepth();
 
-        if ($module->hasClusters() && blank($version = $module->getUsedVersion())) {
+        if ($module->hasClusters() && blank($module->getUsedVersion())) {
             $cluster = $module->getUsedCluster();
 
             $urlGenerator = $cluster?->getUrlGenerator();
@@ -72,22 +72,35 @@ class SidebarManager
         $this->baseUrl ??= $moduleRoute;
     }
 
-    // public function generateBaseUrl($module)
-    // {
-    //     // if module has clusters
-    //     return match (true) {
-    //         $module->hasClusters() => $this->generateBaseUrlFromCluster($module),
-    //     };
-    // }
+    private function resolveBaseUrl(Module $module): ?string
+{
+    $rawModuleRoute = $module->getRawRoutePath();
+    $moduleRoute = $module->getRoutePath();
 
-    public function generateBaseUrlFromCluster(Module $module)
-    {
+    if ($module->hasClusters() && blank($module->getUsedVersion())) {
         $cluster = $module->getUsedCluster();
-
-        $urlGenerator = $cluster?->getUrlGenerator();
-
-        $this->baseUrl = $urlGenerator ? $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute()) : $module->getRoutePath();
+        if ($urlGenerator = $cluster?->getUrlGenerator()) {
+            return $urlGenerator->generate($module->getRoutePath(), null, $cluster->getRoute());
+        }
     }
+
+    if ($module->hasVersions()) {
+        $version = $module->getUsedVersion();
+
+        if ($cluster = $module->getUsedCluster()) {
+            if ($urlGenerator = $cluster?->getUrlGenerator()) {
+                return $urlGenerator->generate($rawModuleRoute, $version?->getRoute(), $cluster->getRoute());
+            }
+        }
+
+        if ($urlGenerator = $version?->getUrlGenerator()) {
+            return $urlGenerator->generate($rawModuleRoute, $version->getRoute());
+        }
+    }
+
+    return $moduleRoute;
+}
+
 
     /**
      * sidebar items

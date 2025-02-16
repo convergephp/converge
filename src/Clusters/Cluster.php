@@ -90,6 +90,14 @@ class Cluster
             return format_url($converge->getRoutePath());
         }
 
+        if($version = $converge->getUsedVersion()){
+            return $this->getUrlGenerator()->generate(
+                $converge->getRawRoutePath(),
+                $version->getRoute(),
+                $this->getRoute()
+            );
+        }
+
         return $this->getUrlGenerator()->generate(
             $converge->getRoutePath(),
             $converge->getUsedVersion()?->getRoute(),
