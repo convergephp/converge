@@ -6,6 +6,7 @@ use Closure;
 use ReflectionFunction;
 use Illuminate\Support\Facades\App;
 use Fluxtor\Converge\Enums\Interceptor;
+use ReflectionClass;
 
 class ViewInterceptor
 {
@@ -19,26 +20,26 @@ class ViewInterceptor
 
     public function render($point, mixed $context = null)
     {
-        if (empty($this->viewPoints)) return;
+        if (!isset($this->viewPoints[$point->value])) return null;
 
+        $view = $this->viewPoints[$point->value];
 
-        foreach ($this->viewPoints as $pointName => $view) {
-            $reflector = new ReflectionFunction($view);
+        $reflector = new ReflectionFunction($view);
 
-            if (is_null($context) || $reflector->getNumberOfParameters() == 0) {
-                if ($point->value === $pointName) {
-                    return value($view);
-                }
+        if (is_null($context) || $reflector->getNumberOfParameters() == 0) {
+            return value($view);
+        }
+
+        if (!is_null($context)) {
+
+            if (is_object($context)) {
+                $className = (new ReflectionClass($context))->getName();
             }
 
             foreach ($reflector->getParameters() as $param) {
-
-
-
-                dd(
-                    $param->getType(),
-                    $param->getName()
-                );
+                if ($param->getType()->getName() === $className) {
+                    return $view($context);
+                }
             }
         }
     }

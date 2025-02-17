@@ -14,10 +14,7 @@
     @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item 
-                :label="$item->getLabel()"
-                :isActive="$item->isActive()" 
-                :url="$item->getUrl()" 
-                :depth="$item->getDepth()" 
+                :$item 
             />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
             <x-converge::sidebar.group :groupItem="$item" />
