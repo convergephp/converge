@@ -29,7 +29,7 @@ if (! function_exists('Fluxtor\Converge\intercept')) {
     // /** @return \Fluxtor\Converge\Converge */
     function intercept(Interceptor $point, mixed $context = null)
     {
-        converge()->intercept($point, $context);
+        return converge()->intercept($point, $context);
     }
 }
 

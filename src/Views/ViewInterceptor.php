@@ -14,7 +14,7 @@ class ViewInterceptor
     public function registerViewInterceptor(Interceptor $name, Closure $interceptor): void
     {
 
-        $this->viewPoints[$name->value][] = $interceptor;
+        $this->viewPoints[$name->value] = $interceptor;
     }
 
     public function render($point, mixed $context = null)
@@ -22,27 +22,24 @@ class ViewInterceptor
         if (empty($this->viewPoints)) return;
 
 
-        foreach ($this->viewPoints as $singlePointViews) {
+        foreach ($this->viewPoints as $pointName => $view) {
+            $reflector = new ReflectionFunction($view);
 
-            foreach ($singlePointViews as $view) {
-
-                if (is_null($context) || (new ReflectionFunction($view))->getNumberOfParameters() == 0) {
-                    return App::call($view);
+            if (is_null($context) || $reflector->getNumberOfParameters() == 0) {
+                if ($point->value === $pointName) {
+                    return value($view);
                 }
+            }
 
-                // dump($reflector);
-                // if ($reflector->getNumberOfParameters() >= 1) {
+            foreach ($reflector->getParameters() as $param) {
 
-                //     foreach ($reflector->getParameters() as $param) {
 
-                //         dump($param->getType()->getName());
-                //     }
 
-                //     // dd($reflector->getParameters()[0]->getType()->getName());
-                // }
-                // dump(Closure::fromCallable($point)->call($this));
+                dd(
+                    $param->getType(),
+                    $param->getName()
+                );
             }
         }
-        dd();
     }
 }
