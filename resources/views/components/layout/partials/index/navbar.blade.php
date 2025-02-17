@@ -2,7 +2,7 @@
      $hasVersions = count(app('converge')->getUiVersions());
  @endphp
 
- <div id="navbar" class="fixed top-0 z-30 w-full lg:sticky">
+ <div id="navbar" class="fixed top-0 z-30 w-full px-1 lg:sticky">
      <div id="navbar-transition"
          class="absolute flex-none w-full h-full transition-colors duration-500 border-b backdrop-blur border-base-300 supports-backdrop-blur:bg-base-200/60">
      </div>
@@ -13,7 +13,7 @@
                  <div class="flex items-center h-16 min-w-0 px-4 lg:px-6">
                      <div class="relative flex items-center flex-1 h-full min-w-0 gap-x-4 ">
                          {{-- BRAND --}}
-                         <div class="flex items-center flex-1 gap-x-4">
+                         <div class="flex items-center justify-between flex-1 lg:justify-start gap-x-4">
                              <x-converge::logo />
 
                              {{-- VERSON --}}
@@ -23,11 +23,11 @@
                          </div>
 
                          {{-- SEARCH BUTTON --}}
-                         <div class="flex-grow hidden max-w-md mx-auto lg:block">
+                         <div class="flex-grow hidden text-center lg:block">
                              <x-converge::search />
                          </div>
 
-                         <div class="relative items-center justify-end flex-1 hidden ml-auto lg:flex">
+                         <div class="relative items-center justify-end hidden ml-auto lg:flex">
 
                              {{-- LINKS --}}
                              <nav class="text-sm">
@@ -42,7 +42,7 @@
 
                              {{-- THEM SWITCHER --}}
                          </div>
-                         <div class="flex items-center">
+                         <div class="items-center max-w-min">
                              <x-converge::theme-switcher class="" />
                          </div>
                      </div>

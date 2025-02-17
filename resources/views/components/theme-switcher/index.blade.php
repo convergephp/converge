@@ -1,8 +1,4 @@
-<div class='flex items-center pl-6 ml-6'>
-    <label class="sr-only">
-        Theme
-    </label>
-
+<div class='flex items-center'>
     <div class="z-50" x-data="{
         theme: null,
         init() {

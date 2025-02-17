@@ -7,6 +7,7 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Concerns\CanHandleClusters;
 use Fluxtor\Converge\Concerns\CanHandleDefault;
 use Fluxtor\Converge\Concerns\CanHandleVersions;
+use Fluxtor\Converge\Concerns\HasBrandLogo;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasLabel;
@@ -22,6 +23,7 @@ class Module
     use CanHandleClusters;
     use CanHandleDefault;
     use CanHandleVersions;
+    use HasBrandLogo;
     use HasDepth;
     use HasId;
     use HasLabel;
