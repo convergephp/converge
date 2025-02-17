@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Enums\Interceptor;
 use Fluxtor\Converge\Clusters\ClusterLink;
 
 if (! function_exists('converge')) {
@@ -22,6 +23,13 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
         }
 
         return '/'.trim($url ?? '', '/');
+    }
+}
+if (! function_exists('Fluxtor\Converge\intercept')) {
+    // /** @return \Fluxtor\Converge\Converge */
+    function intercept(Interceptor $point): ?string
+    {
+        converge()->intercept($point);
     }
 }
 
