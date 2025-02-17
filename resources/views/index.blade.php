@@ -3,7 +3,7 @@
         {{-- @dd() --}}
         {{-- {!! str()->markdown(file_get_contents(realPath(__DIR__.'/../../../packages/converge/resources/views/markdown.md'))) !!} --}}
 
-        <h1 class="mb-4 font-extrabold text-base-100">Lorem 1</h1>
+        <h1 class="mb-4 font-extrabold text-base-content">Lorem 1</h1>
 
     </div>
 </x-converge::page>

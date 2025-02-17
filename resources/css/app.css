@@ -34,7 +34,7 @@
     --depth: var(--depth);
     --noise: var(--noise);
 
-    --font-display: "Poppins", "sans-serif";
+    --font-display: var(--font);
 }
 
 @layer components {

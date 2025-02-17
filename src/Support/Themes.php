@@ -36,18 +36,19 @@ class Themes
         '--border' => '2px',
         '--depth' => '1',
         '--noise' => '0',
-        '--text-sm' => '0.9rem',
+        '--text-sm' => '0.85rem',
+        '--text-base' => '1rem',
     ];
 
     /**
      * dark schema
      */
     public const DARK = [
-        '--color-base-100' => 'oklch(14% 0.004 49.25)',
-        '--color-base-200' => 'oklch(21% 0.006 56.043)',
-        '--color-base-300' => 'oklch(26% 0.007 34.298)',
+        '--color-base-100' => 'oklch(20% 0 0)',
+        '--color-base-200' => 'oklch(10% 0.034 264.665)',
+        '--color-base-300' => 'oklch(30% 0.034 264.665)',
         '--color-base-content' => 'oklch(97% 0.001 106.424)',
-        '--color-primary' => 'oklch(40% 0.17 325.612)',
+        '--color-primary' => 'oklch(60% 0.195 277.366)',
         '--color-primary-content' => 'oklch(97% 0.021 166.113)',
         '--color-secondary' => 'oklch(65% 0.241 354.308)',
         '--color-secondary-content' => 'oklch(94% 0.028 342.258)',
@@ -71,7 +72,8 @@ class Themes
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '1',
-        '--text-sm' => '0.9rem',
+        '--text-sm' => '0.85rem',
+        '--text-base' => '1rem',
     ];
 
     public const BLACK = [
@@ -103,6 +105,7 @@ class Themes
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '0',
-        '--text-sm' => '0.9rem',
+        '--text-sm' => '0.85rem',
+        '--text-base' => '1rem',
     ];
 }

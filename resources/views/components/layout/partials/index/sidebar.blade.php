@@ -1,5 +1,5 @@
 <div x-data="{ isOpen: true }" :class="{ '-translate-x-full': !isOpen }"
-    class="fixed z-50 lg:z-1 w-[19rem] lg:w-[19rem] lg:sticky flex flex-col overflow-y-auto
+    class="fixed z-50 lg:z-1 w-[18rem] min-w-[18rem] lg:sticky flex flex-col overflow-y-auto
            left-0 bottom-0 right-auto border-r border-base-300
            transition-transform duration-300 ease-in-out
            bg-base-200 lg:bg-transparent
@@ -19,7 +19,7 @@
 
     <!-- Sidebar Content -->
     <div class="flex-1 py-6 overflow-y-auto px-7">
-        <div class="relative text-sm">
+        <div class="relative text-sm lg:text-base">
             <x-converge::sidebar />
         </div>
     </div>

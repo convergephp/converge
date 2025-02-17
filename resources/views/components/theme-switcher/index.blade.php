@@ -42,7 +42,7 @@
                     </span>
                 </div>
             </x-slot:button>
-            <x-slot:items class="bg-base-300 w-36 ">
+            <x-slot:items class=" w-36">
                 <x-converge::dropdown.item class="flex items-center gap-1" x-on:click="setTheme('light')">
                     <svg class="w-5 h-5 mr-1" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
