@@ -36,7 +36,7 @@ class Themes
         '--border' => '2px',
         '--depth' => '1',
         '--noise' => '0',
-        '--text-sm' => '0.89rem',
+        '--text-sm' => '0.9rem',
     ];
 
     /**
@@ -71,7 +71,7 @@ class Themes
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '1',
-        '--text-sm' => '0.89rem',
+        '--text-sm' => '0.9rem',
     ];
 
     public const BLACK = [
@@ -103,6 +103,6 @@ class Themes
         '--border' => '1px',
         '--depth' => '0',
         '--noise' => '0',
-        '--text-sm' => '0.89rem',
+        '--text-sm' => '0.9rem',
     ];
 }

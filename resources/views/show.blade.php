@@ -2,6 +2,7 @@
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
     $sidebarItems = app('converge')->getSidebarItems();
+    // dd(app('converge')->getActiveModule()->getBrandName());
     function extractArray($sidebarItems)
     {
         $items = [];
