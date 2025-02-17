@@ -44,6 +44,7 @@
     {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 </head>
 
+{{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 <body
     {{ $attributes->class([
         'converge-body',

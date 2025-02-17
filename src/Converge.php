@@ -43,10 +43,9 @@ class Converge
         return $this->getActiveModule()->getId();
     }
 
-    public function intercept($point)
+    public function intercept($point, $context)
     {
-        dd($point);
-        return resolve(ViewInterceptor::class)->render($point);
+        return resolve(ViewInterceptor::class)->render($point, $context);
     }
 
     public function getSidebarItems(): Collection

@@ -22,14 +22,14 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
             return null;
         }
 
-        return '/'.trim($url ?? '', '/');
+        return '/' . trim($url ?? '', '/');
     }
 }
 if (! function_exists('Fluxtor\Converge\intercept')) {
     // /** @return \Fluxtor\Converge\Converge */
-    function intercept(Interceptor $point): ?string
+    function intercept(Interceptor $point, mixed $context = null)
     {
-        converge()->intercept($point);
+        converge()->intercept($point, $context);
     }
 }
 

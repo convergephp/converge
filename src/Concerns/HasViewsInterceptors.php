@@ -1,0 +1,16 @@
+<?php
+
+namespace Fluxtor\Converge\Concerns;
+
+use Closure;
+use Fluxtor\Converge\Enums\Interceptor;
+use Fluxtor\Converge\Views\ViewInterceptor;
+
+trait HasViewsInterceptors
+{
+    public function intercept(Interceptor $point, Closure $view)
+    {
+        resolve(ViewInterceptor::class)->registerViewInterceptor($point, $view);
+        return $this;
+    }
+}

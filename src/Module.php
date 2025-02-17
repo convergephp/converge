@@ -14,6 +14,7 @@ use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasRoutePath;
 use Fluxtor\Converge\Concerns\HasSidebar;
 use Fluxtor\Converge\Concerns\HasTheme;
+use Fluxtor\Converge\Concerns\HasViewsInterceptors;
 use Fluxtor\Converge\Concerns\Resolver;
 
 class Module
@@ -25,6 +26,7 @@ class Module
     use HasId;
     use HasLabel;
     use HasPath;
+    use HasViewsInterceptors;
     use HasRoutePath;
     use HasSidebar;
     use HasTheme;

@@ -23,17 +23,19 @@ class ConvergeServiceProvider extends ServiceProvider
 
         $this->app->scoped('converge', fn() => new Converge);
 
+        // $this->app->resolved('converge', fn() => new ViewInterceptor);
+
         $this->app->scoped(Repository::class, fn() => new Repository);
 
         $this->app->scoped(ViewInterceptor::class, fn() => new ViewInterceptor);
 
         $this->app->singleton(ModuleRegistry::class, fn() => new ModuleRegistry);
 
-        $this->app->singleton(ContentMap::class, fn($app) => new ContentMap($app->make(FilesTreeBuilder::class)));
-
         $this->app->singleton(FilesTreeBuilder::class, fn() => new FilesTreeBuilder);
 
-      
+        $this->app->singleton(ContentMap::class, fn($app) => new ContentMap($app->make(FilesTreeBuilder::class)));
+
+
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/converge.php',
             'converge'
