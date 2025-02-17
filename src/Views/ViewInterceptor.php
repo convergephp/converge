@@ -30,7 +30,7 @@ class ViewInterceptor
             return value($view);
         }
 
-        if (!is_null($context)) {
+        if ($context) {
 
             if (is_object($context)) {
                 $className = (new ReflectionClass($context))->getName();

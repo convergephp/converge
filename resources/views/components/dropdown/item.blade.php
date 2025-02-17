@@ -1,10 +1,10 @@
 @props([
     'closeOnClick' => true,
-    'href'=>null
+    'href' => null,
 ])
 <div role="menuitem" tabindex="-1"
     {{ $attributes->merge([
-        'class' => 'dropdown-item cursor-pointer hover:rounded px-2 py-0.5 dark:focus-within:bg-white/5 dark:hover:bg-white/5 hover:bg-gray-100  dark:focus:bg-white/5 focus-within:bg-white hover:bg-white focus:bg-white',
+        'class' => 'dropdown-item cursor-pointer hover:rounded px-2 py-0.5 dark:focus-within:bg-base-300 hover:bg-base-300',
     ]) }}
     x-data="{
         show: false,
@@ -16,10 +16,7 @@
                 close();
             }
         }
-    }" 
-    x-ref="item"
-    x-on:mouseenter="show = true" 
-    x-on:mouseleave="show = false"
+    }" x-ref="item" x-on:mouseenter="show = true" x-on:mouseleave="show = false"
     x-on:keydown.enter.prevent="$el.click()">
     @if (filled($href))
         <a href="{{ $href }}" class="w-full">
@@ -29,4 +26,3 @@
         {{ $slot }}
     @endif
 </div>
-    

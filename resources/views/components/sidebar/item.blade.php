@@ -11,7 +11,7 @@
         <div class="flex w-full justify-between text-sm transition duration-300">
             {{ $item->getLabel() }}
             @if ($item->isActive())
-                <span class="font-bold text-green-400 shadow-lg shadow-green-400">•</span>
+                <x-converge::icon icon="point" class="size-3 fill-[#24f200] shadow-lg" />
             @endif
         </div>
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SIDEBAR_ITEM) }}
