@@ -2,7 +2,7 @@
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
     $sidebarItems = app('converge')->getSidebarItems();
-    // dd(app('converge')->getActiveModule()->getBrandName());
+
     function extractArray($sidebarItems)
     {
         $items = [];
@@ -34,21 +34,23 @@
 
 <x-converge::page>
     <div
-        class="z-10 text-sm leading-8 prose max-w-none lg:max-w-screen-sm dark:prose-invert content
+        class="z-10 text-sm lg:text-base leading-8 prose max-w-none lg:max-w-screen-sm dark:prose-invert content
         [&_*]:text-base-content [&_a]:!text-accent [&_a]:py-1
         [&_a]:text-sm [&_a]:no-underline [&_a]:mr-1 text-wrap">
         {!! $contents !!}
     </div>
 
     {{-- pagination --}}
-    <div class="flex justify-between py-5 bg-transparent min-h-40 icenter7">
-        <a class="btn btn-base-100 btn-sm btn-outline text-base-content" href="/{{ current($previousUrl)->getUrl() }}">
+    <div class="flex flex-wrap items-center justify-between py-5 bg-transparent min-h-40">
+        <a class="btn btn-base-100 btn-sm md:btn-wide btn-outline text-base-content"
+            href="{{ env('APP_URL') . current($previousUrl)->getUrl() }}">
             <x-converge::icon icon="arrow-long-left" class="mr-1 size-5" />
-            Back to : {{ current($previousUrl)->getLabel() }}
+            {{ current($previousUrl)->getLabel() }}
         </a>
 
-        <a class="btn btn-base-100 btn-sm btn-outline text-base-content" href="/{{ current($nextUrl)->getUrl() }}">
-            Go to : {{ current($nextUrl)->getLabel() }}
+        <a class="btn btn-base-100 btn-sm md:btn-wide btn-outline text-base-content"
+            href="{{ env('APP_URL') . current($nextUrl)->getUrl() }}">
+            {{ current($nextUrl)->getLabel() }}
             <x-converge::icon icon="arrow-long-right" class="ml-1 size-5" />
 
             <path stroke-linecap="round" stroke-linejoin="round"

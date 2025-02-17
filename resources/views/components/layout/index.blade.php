@@ -11,7 +11,8 @@
                 @include('converge::components.layout.partials.index.sidebar')
 
                 {{-- CONTENT --}}
-                <div class="flex-1 px-5 transition-all duration-100 pt-36 lg:pt-10 lg:pl-24" id="content-container">
+                <div class="flex-1 px-5 transition-all duration-100 pt-36 lg:pt-10 lg:pl-6 2xl:pl-24"
+                    id="content-container">
                     <div class="flex max-w-5xl mx-auto gap-x-12">
                         <div class="content-center w-full pb-4">
                             {{ $slot }}

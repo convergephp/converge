@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Theme;
 
+use Fluxtor\Converge\Concerns\HasFont;
 use Fluxtor\Converge\Enums\Layout;
 use Fluxtor\Converge\Enums\MaxWidth;
 use Fluxtor\Converge\Enums\Spotlight;
@@ -11,6 +12,8 @@ use Fluxtor\Converge\Support\Themes;
 
 class Theme
 {
+    use HasFont;
+
     protected ?Layout $layout = null;
 
     protected ?MaxWidth $maxWith = null;
