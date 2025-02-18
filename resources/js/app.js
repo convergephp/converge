@@ -10,9 +10,6 @@ import themeSwitcher from "./components/themeSwitcher";
 
 window.Alpine = Alpine;
 
-// control themming
-// document.addEventListener("alp   ine:init", themeSwitcher);
-
 // plugins
 Alpine.plugin(anchor);
 

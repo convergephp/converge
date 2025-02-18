@@ -19,9 +19,6 @@ use function Fluxtor\Converge\intercept;
         <link href="{{ $favicon }}" rel="icon" />
     @endif
 
-    {{-- Themes --}}
-    {!! converge()->getActiveModule()->getTheme()->getFontHtml() !!}
-
     <title>
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
     </title>
@@ -29,13 +26,12 @@ use function Fluxtor\Converge\intercept;
         :root {
             --font: {{ converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
         }
-        /* {!! converge()->getTheme()->getDarkModeTheme() !!} */
 
     </style>
 
     <style>
         [x-cloak] {
-            
+
         }
     </style>
     {!! Converge::css() !!}
