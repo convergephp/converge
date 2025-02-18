@@ -84,7 +84,7 @@ class Theme
      */
     public function rootCssGenerator(array $variables): string
     {
-        return (json_encode($variables, JSON_PRETTY_PRINT));
+        return json_encode($variables, JSON_PRETTY_PRINT);
     }
 
     /**
