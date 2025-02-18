@@ -29,29 +29,15 @@ use function Fluxtor\Converge\intercept;
         :root {
             --font: {{ converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
         }
-        {!! converge()->getTheme()->getDarkModeTheme() !!}
+        /* {!! converge()->getTheme()->getDarkModeTheme() !!} */
 
     </style>
 
     <style>
-        [x-cloak] {}
-    </style>
-
-    <script>
-        const theme = localStorage.getItem('theme');
-
-        const root = document.documentElement;
-
-        if (
-            theme === 'dark' ||
-            (theme === 'system' &&
-                window.matchMedia('(prefers-color-scheme: dark)')
-                .matches)
-        ) {
-            document.documentElement.classList.add('dark')
+        [x-cloak] {
+            
         }
-    </script>
-
+    </style>
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
@@ -60,7 +46,7 @@ use function Fluxtor\Converge\intercept;
 
 {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
-<body x-data="themesSwitcher({
+<body x-data="themeSwitcher({
     lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
     darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
 })"
