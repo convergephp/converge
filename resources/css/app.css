@@ -33,7 +33,6 @@
     --border: var(--border);
     --depth: var(--depth);
     --noise: var(--noise);
-
     --font-display: var(--font);
 }
 
@@ -302,6 +301,16 @@
     }
 }
 
+
+.code-block-wrapper .code-block-copy-button {
+    @apply absolute right-2 top-2 text-gray-400 transition-opacity dark:text-gray-200 opacity-75 outline-none hover:text-gray-500 hover:opacity-100;
+}
+
+pre .code-block-copy-button:hover,
+pre .code-block-copy-button:focus,
+pre .code-block-copy-button:active {
+    @apply dark:text-white text-gray-800 outline-none;
+}
 
 /* @source "../views"; */
 ::-webkit-scrollbar {

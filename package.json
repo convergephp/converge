@@ -30,7 +30,8 @@
     "@alpinejs/anchor": "^3.14.8",
     "@tailwindcss/cli": "^4.0.3",
     "alpinejs": "^3.14.8",
-    "tailwindcss": "^4.0.3"
+    "tailwindcss": "^4.0.3",
+    "clipboard": "^2.0.11"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16"
