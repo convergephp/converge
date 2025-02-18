@@ -20,7 +20,7 @@
         return $items;
     }
     $paginationItems = extractArray($sidebarItems);
-    $indexOfCurrentUrl = array_search(ltrim(request()->getRequestUri(), '/'), array_keys($paginationItems));
+    $indexOfCurrentUrl = array_search(request()->getRequestUri(), array_keys($paginationItems));
     $previousUrl =
         $indexOfCurrentUrl == 0
             ? array_slice($paginationItems, count($paginationItems) - 1, 1)

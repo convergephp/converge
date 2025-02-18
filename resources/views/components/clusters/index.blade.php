@@ -9,24 +9,19 @@
 
 @endphp
 
-<ul class="mt-2 space-y-2">
+<ul class="mt-2 mb-6 space-y-4">
     @foreach ($clusters as $cluster)
         <li @class([
-            'btn btn-ghost w-full flex group hover:bg-primary/10 hover:text-primary hover:[&_*]:text-primary justify-start items-center',
-            'text-primary bg-primary/10' => $cluster->getId() === $id,
+            'w-full px-1 flex group justify-start  items-center',
+            ' [&_a]:text-primary ' => $cluster->getId() === $id,
         ])>
-            <a class="flex items-center font-semibold text-base-content lg:text-sm lg:leading-6"
+            <a class="flex items-center justify-start font-semibold text-base-content lg:text-sm lg:leading-6"
                 href="{{ $cluster->getUrl() }}">
-                <div class="mr-4 rounded-md ring-1 ring-slate-900/5 group-hover:shadow-lg">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                        <path class="fill-gray-400 group-hover:fill-primary" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M8.5 7c1.093 0 2.117.27 3 .743V17a6.345 6.345 0 0 0-3-.743c-1.093 0-2.617.27-3.5.743V7.743C5.883 7.27 7.407 7 8.5 7Z">
-                        </path>
-                        <path class="fill-gray-400 group-hover:fill-primary" fill-rule="evenodd" clip-rule="evenodd"
-                            d="M15.5 7c1.093 0 2.617.27 3.5.743V17c-.883-.473-2.407-.743-3.5-.743s-2.117.27-3 .743V7.743a6.344 6.344 0 0 1 3-.743Z">
-                        </path>
-                    </svg>
-                </div>{{ $cluster->getLabel() }}
+                <span
+                    class="p-1 mr-4 rounded-md zinc-box group-hover:bg-primary/10 group-hover:ring-primary ring-1 ring-primary dark:ring-gray-700/40">
+                    <x-converge::icon icon="ghost" class="fill-gray-400 size-4" />
+                </span>
+                {{ $cluster->getLabel() }}
             </a>
         </li>
     @endforeach
