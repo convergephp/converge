@@ -84,19 +84,7 @@ class Theme
      */
     public function rootCssGenerator(array $variables): string
     {
-        // $rootCss = ':root {';
-
         return (json_encode($variables, JSON_PRETTY_PRINT));
-        dd($variables);
-        $rootCss = '';
-
-        foreach ($variables as $property => $value) {
-            $rootCss .= '    ' . $property . ': ' . $value . ';';
-        }
-
-        // $rootCss .= '}';
-
-        return dd($rootCss);
     }
 
     /**
