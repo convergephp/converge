@@ -1,7 +1,7 @@
 @php
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
-    $sidebarItems = app('converge')->getSidebarItems();
+    $sidebarItems = \Fluxtor\Converge\converge()->getSidebarItems();
 
     function extractArray($sidebarItems)
     {

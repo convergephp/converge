@@ -1,6 +1,6 @@
 @php
-    $versions = app('converge')->getUiVersions();
-    $usedVersion = app('converge')->getUiUsedVersion();
+    $versions = \Fluxtor\Converge\converge()->getUiVersions();
+    $usedVersion = \Fluxtor\Converge\converge()->getUiUsedVersion();
 @endphp
 
 <div class='flex items-center'>
