@@ -1,5 +1,5 @@
  @php
-     $hasVersions = count(app('converge')->getUiVersions());
+     $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
  @endphp
 
  <div id="navbar" class="fixed top-0 z-30 w-full lg:sticky">

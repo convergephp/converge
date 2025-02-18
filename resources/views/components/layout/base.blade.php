@@ -8,11 +8,14 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {!! app('converge')->getActiveModule()->getTheme()->getFontHtml() !!}
 
-    {{-- @if ($favicon = filament()->getFavicon())
-            <link rel="icon" href="{{ $favicon }}" /> todo
-        @endif --}}
+    {{-- Favicon --}}
+    @if ($favicon = app('converge')->getActiveModule()->getTheme()->getFavicon())
+        <link rel="icon" href="{{ $favicon }}" />
+    @endif
+
+    {{-- Themes --}}
+    {!! \Fluxtor\Converge\converge()->getActiveModule()->getTheme()->getFontHtml() !!}
 
     <title>
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
@@ -20,10 +23,10 @@
 
     <style>
         :root {
-            --font: {{ app('converge')->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
+            --font: {{ \Fluxtor\Converge\converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
         }
 
-        {!! app('converge')->getTheme()->getDarkModeTheme() !!}
+        {!! \Fluxtor\Converge\converge()->getTheme()->getDarkModeTheme() !!}
     </style>
 
     <style>
@@ -50,6 +53,7 @@
 </head>
 
 {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+
 <body
     {{ $attributes->class([
         'converge-body',
