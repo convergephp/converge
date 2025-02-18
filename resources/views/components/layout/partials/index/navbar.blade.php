@@ -34,7 +34,7 @@
                              <nav class="text-sm lg:text-base">
                                  <ul class="flex items-center space-x-6">
                                      <li>
-                                         <a href="/docs" class="font-medium btn btn-sm btn-primary whitespace-nowrap"
+                                         <a href="/docs" class="btn btn-sm btn-primary whitespace-nowrap"
                                              target="_blank">Sponsor converge</a>
                                      </li>
                                  </ul>
