@@ -46,18 +46,18 @@
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
+    {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 </head>
 
+{{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 <body
     {{ $attributes->class([
         'converge-body',
         'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}>
 
-
     {{-- BACKGROUND EFFETS --}}
     @include('converge::partials.background-effets')
-
 
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}

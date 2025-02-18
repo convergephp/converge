@@ -7,6 +7,8 @@ namespace Fluxtor\Converge\Sidebar;
 use Closure;
 use Fluxtor\Converge\Concerns\Resolver;
 
+use function Fluxtor\Converge\format_url;
+
 class SidebarItem
 {
     use Resolver;
@@ -25,7 +27,7 @@ class SidebarItem
 
     public static function make(): static
     {
-        $static = app(static::class);
+        $static = resolve(static::class);
 
         return $static;
     }
@@ -53,7 +55,7 @@ class SidebarItem
 
     public function isActive(): bool
     {
-        return dd(request()->url(), $this->getUrl());
+        return format_url(request()->getRequestUri()) === format_url($this->getUrl());
     }
 
     public function label(string|Closure $label): static
@@ -104,6 +106,6 @@ class SidebarItem
 
     public function getUrl(): mixed
     {
-        return $this->resolve($this->url);
+        return format_url($this->resolve($this->url));
     }
 }

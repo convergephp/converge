@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\FontProviders;
 
 use Fluxtor\Converge\FontProviders\Contracts\FontProvider;

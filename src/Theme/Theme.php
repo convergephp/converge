@@ -76,19 +76,6 @@ class Theme
     }
 
     /**
-     * defaultTheme
-     *
-     * @param  mixed  $variables
-     * @return void
-     */
-    private function defaultTheme(array $variables)
-    {
-        $default = $this->rootCssGenerator($variables);
-
-        return $default;
-    }
-
-    /**
      * rootCssGenerator
      *
      * @param  mixed  $variables
@@ -126,5 +113,18 @@ class Theme
     public function getSpotlight(): ?Spotlight
     {
         return $this->spotlightName;
+    }
+
+    /**
+     * defaultTheme
+     *
+     * @param  mixed  $variables
+     * @return void
+     */
+    private function defaultTheme(array $variables)
+    {
+        $default = $this->rootCssGenerator($variables);
+
+        return $default;
     }
 }

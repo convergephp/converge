@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
 use Fluxtor\Converge\FontProviders\BunnyFontProvider;

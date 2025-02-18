@@ -32,9 +32,9 @@ trait CanHandleClusters
     {
         $this->activeCluster = $this->clusters
             ->merge(optional($this->getUsedVersion())->getClusters())
-            ->first(fn($item) => $item->getRoute() === $id);
+            ->first(fn ($item) => $item->getRoute() === $id);
 
-        app(Repository::class)->setActiveCluster($this->activeCluster);
+        resolve(Repository::class)->setActiveCluster($this->activeCluster);
 
         return $this;
     }
