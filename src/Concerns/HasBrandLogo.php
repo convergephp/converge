@@ -107,6 +107,53 @@ trait HasBrandLogo
     }
 
     /**
+     * getLogoHtml : Get logo HTML
+     *
+     * @param  mixed  $darkMode
+     */
+    public function getLogoHtml(bool $darkMode = false): HtmlString
+    {
+        $logo = $darkMode ? $this->getDarkModeBrandLogo() : $this->getBrandLogo();
+        $height = $this->getBrandLogoHeight();
+
+        // Classes de base
+        $baseClasses = 'transition-opacity duration-200';
+
+        // Classes selon le mode
+        $modeClasses = $this->hasDarkModeLogo()
+            ? ($darkMode ? 'hidden dark:block' : 'block dark:hidden')
+            : 'block';
+
+        $classes = $baseClasses.' '.$modeClasses;
+
+        // case of objet Htmlable
+        if ($logo instanceof Htmlable) {
+            return new HtmlString($logo->toHtml());
+        }
+
+        // cas Url or valide image path
+        if ($logo && ($this->isValidUrl($logo) || $this->isValidLocalPath($logo))) {
+            return new HtmlString(sprintf(
+                '<img src="%s" alt="%s" class="%s" style="height: %s" onerror="this.style.display=\'none\'">',
+                $logo,
+                htmlspecialchars(config('app.name')),
+                $classes,
+                $height
+            ));
+        }
+
+        // Plain Text (app name or brand name string)
+        $textContent = $logo ?? config('app.name');
+        $textClasses = 'text-xl font-extrabold text-primary pl-1 '.$classes;
+
+        return new HtmlString(sprintf(
+            '<span class="%s">%s</span>',
+            $textClasses,
+            htmlspecialchars($textContent)
+        ));
+    }
+
+    /**
      * validateLogo : Validate a logo value
      *
      * @param  mixed  $logo
@@ -174,55 +221,8 @@ trait HasBrandLogo
     protected function isPlainText(string $value): bool
     {
         return ! Str::contains($value, ['/', '\\', '.']) &&
-               strlen($value) <= 50 &&
+               mb_strlen($value) <= 50 &&
                ! preg_match('/[\x00-\x1F\x7F]/', $value);
-    }
-
-    /**
-     * getLogoHtml : Get logo HTML
-     *
-     * @param  mixed  $darkMode
-     */
-    public function getLogoHtml(bool $darkMode = false): HtmlString
-    {
-        $logo = $darkMode ? $this->getDarkModeBrandLogo() : $this->getBrandLogo();
-        $height = $this->getBrandLogoHeight();
-
-        // Classes de base
-        $baseClasses = 'transition-opacity duration-200';
-
-        // Classes selon le mode
-        $modeClasses = $this->hasDarkModeLogo()
-            ? ($darkMode ? 'hidden dark:block' : 'block dark:hidden')
-            : 'block';
-
-        $classes = $baseClasses.' '.$modeClasses;
-
-        // case of objet Htmlable
-        if ($logo instanceof Htmlable) {
-            return new HtmlString($logo->toHtml());
-        }
-
-        // cas Url or valide image path
-        if ($logo && ($this->isValidUrl($logo) || $this->isValidLocalPath($logo))) {
-            return new HtmlString(sprintf(
-                '<img src="%s" alt="%s" class="%s" style="height: %s" onerror="this.style.display=\'none\'">',
-                $logo,
-                htmlspecialchars(config('app.name')),
-                $classes,
-                $height
-            ));
-        }
-
-        // Plain Text (app name or brand name string)
-        $textContent = $logo ?? config('app.name');
-        $textClasses = 'text-xl font-extrabold text-primary pl-1 '.$classes;
-
-        return new HtmlString(sprintf(
-            '<span class="%s">%s</span>',
-            $textClasses,
-            htmlspecialchars($textContent)
-        ));
     }
 
     /**

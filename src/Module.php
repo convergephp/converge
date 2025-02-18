@@ -28,10 +28,10 @@ class Module
     use HasId;
     use HasLabel;
     use HasPath;
-    use HasViewsInterceptors;
     use HasRoutePath;
     use HasSidebar;
     use HasTheme;
+    use HasViewsInterceptors;
     use Resolver;
 
     // add hasTheme

@@ -17,7 +17,7 @@ class SidebarManager
     protected int $depth;
 
     protected ?string $baseUrl = null;
-    
+
     // The baseUrl represents the prefixed route for the module.
     // It can be determined based on the URL generator used, as follows:
     //

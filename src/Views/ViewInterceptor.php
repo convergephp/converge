@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Views;
 
 use Closure;
-use ReflectionFunction;
-use Illuminate\Support\Facades\App;
 use Fluxtor\Converge\Enums\Interceptor;
 use ReflectionClass;
+use ReflectionFunction;
 
 class ViewInterceptor
 {
@@ -18,15 +19,17 @@ class ViewInterceptor
         $this->viewPoints[$name->value] = $interceptor;
     }
 
-    public function render($point, callable $context = null)
+    public function render($point, ?callable $context = null)
     {
-        if (!isset($this->viewPoints[$point->value])) return null;
+        if (! isset($this->viewPoints[$point->value])) {
+            return null;
+        }
 
         $view = $this->viewPoints[$point->value];
 
         $reflector = new ReflectionFunction($view);
 
-        if (is_null($context) || $reflector->getNumberOfParameters() == 0) {
+        if (is_null($context) || $reflector->getNumberOfParameters() === 0) {
             return value($view);
         }
 
@@ -39,7 +42,7 @@ class ViewInterceptor
                 return $view($contextInstance);
             }
         }
-        
+
         return null;
     }
 }

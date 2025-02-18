@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Fluxtor\Converge\FontProviders\Contracts\FontProvider;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
