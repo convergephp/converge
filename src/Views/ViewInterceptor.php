@@ -18,7 +18,7 @@ class ViewInterceptor
         $this->viewPoints[$name->value] = $interceptor;
     }
 
-    public function render($point, mixed $context = null)
+    public function render($point, callable $context = null)
     {
         if (!isset($this->viewPoints[$point->value])) return null;
 
@@ -30,17 +30,16 @@ class ViewInterceptor
             return value($view);
         }
 
-        if ($context) {
+        $contextInstance = $context();
 
-            if ($context) {
-                $className = (new ReflectionClass($context()))->getName();
-            }
+        $className = (new ReflectionClass($contextInstance))->getName();
 
-            foreach ($reflector->getParameters() as $param) {
-                if ($param->getType()->getName() === $className) {
-                    return $view($context());
-                }
+        foreach ($reflector->getParameters() as $param) {
+            if ($param->getType()->getName() === $className) {
+                return $view($contextInstance);
             }
         }
+        
+        return null;
     }
 }

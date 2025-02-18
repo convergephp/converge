@@ -118,6 +118,11 @@ class Converge
         return resolve(ModuleRegistry::class)->get($id);
     }
 
+    public function getModuleId(): ?string
+    {
+        return $this->getActiveModule()->getId();
+    }
+
     public function getTheme()
     {
         return $this->getActiveModule()->getTheme();
