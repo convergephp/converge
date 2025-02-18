@@ -66,7 +66,7 @@ class Theme
      */
     public function getDarkModeTheme(): string
     {
-        return $this->darkModeCss ?? $this->defaultTheme(Themes::LIGHT);
+        return $this->darkModeCss ?? $this->defaultTheme(Themes::DARK);
     }
 
     /**
@@ -87,7 +87,7 @@ class Theme
         $rootCss = ':root {';
 
         foreach ($variables as $property => $value) {
-            $rootCss .= '    '.$property.': '.$value.';';
+            $rootCss .= '    ' . $property . ': ' . $value . ';';
         }
 
         $rootCss .= '}';

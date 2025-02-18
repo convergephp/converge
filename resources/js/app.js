@@ -6,6 +6,7 @@ import tabs from "./components/tabs";
 import dropdown from "./components/dropdown";
 import sidebar from "./components/sidebar";
 import clipboard from "./components/clipboard";
+import themesSwitcher from "./components/themesSwitcher";
 
 window.Alpine = Alpine;
 
@@ -16,6 +17,7 @@ document.addEventListener("alpine:init", themeSwitcher);
 Alpine.plugin(anchor);
 
 // components
+Alpine.data('themesSwitcher',themesSwitcher)
 Alpine.data("tableOfContents", tableOfContent);
 Alpine.data("codeBlockClipboard", clipboard);
 Alpine.data("tabs", tabs);

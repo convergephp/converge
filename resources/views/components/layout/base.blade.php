@@ -1,5 +1,10 @@
 @use(Fluxtor\Converge\Facades\Converge)
 
+<?php
+use function Fluxtor\Converge\converge;
+use function Fluxtor\Converge\intercept;
+?>
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -10,23 +15,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {{-- Favicon --}}
-    @if ($favicon = app('converge')->getActiveModule()->getTheme()->getFavicon())
-        <link rel="icon" href="{{ $favicon }}" />
+    @if ($favicon = converge()->getActiveModule()->getTheme()->getFavicon())
+        <link href="{{ $favicon }}" rel="icon" />
     @endif
 
     {{-- Themes --}}
-    {!! \Fluxtor\Converge\converge()->getActiveModule()->getTheme()->getFontHtml() !!}
+    {!! converge()->getActiveModule()->getTheme()->getFontHtml() !!}
 
     <title>
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
     </title>
-
     <style>
         :root {
-            --font: {{ \Fluxtor\Converge\converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
+            --font: {{ converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
         }
+        {!! converge()->getTheme()->getDarkModeTheme() !!}
 
-        {!! \Fluxtor\Converge\converge()->getTheme()->getDarkModeTheme() !!}
     </style>
 
     <style>
@@ -34,7 +38,9 @@
     </style>
 
     <script>
-        const theme = localStorage.getItem('theme')
+        const theme = localStorage.getItem('theme');
+
+        const root = document.documentElement;
 
         if (
             theme === 'dark' ||
@@ -49,12 +55,15 @@
     {!! Converge::css() !!}
     {!! Converge::js() !!}
 
-    {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 </head>
 
-{{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+{{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
-<body
+<body x-data="themesSwitcher({
+    lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+    darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+})"
     {{ $attributes->class([
         'converge-body',
         'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
