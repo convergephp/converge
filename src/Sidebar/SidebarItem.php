@@ -106,6 +106,6 @@ class SidebarItem
 
     public function getUrl(): mixed
     {
-        return $this->resolve($this->url);
+        return format_url($this->resolve($this->url));
     }
 }

@@ -8,7 +8,11 @@ enum Interceptor: string
 
     case AFTER_SCRIPTS = 'after_scripts';
 
-    case BEFORE_SIDEBAR_ITEM = 'before_sidebar_item';
+    case BEFORE_SIDEBAR_LINK = 'before_sidebar_link';
 
-    case AFTER_SIDEBAR_ITEM = 'after_sidebar_item';
+    case AFTER_SIDEBAR_LINK = 'after_sidebar_link';
+    
+    case BEFORE_SIDEBAR_LABEL = 'before_sidebar_label';
+
+    case AFTER_SIDEBAR_LABEL = 'after_sidebar_label';
 }
