@@ -32,13 +32,13 @@ class ViewInterceptor
 
         if ($context) {
 
-            if (is_object($context)) {
-                $className = (new ReflectionClass($context))->getName();
+            if ($context) {
+                $className = (new ReflectionClass($context()))->getName();
             }
 
             foreach ($reflector->getParameters() as $param) {
                 if ($param->getType()->getName() === $className) {
-                    return $view($context);
+                    return $view($context());
                 }
             }
         }
