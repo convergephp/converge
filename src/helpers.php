@@ -6,11 +6,12 @@ namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\ClusterLink;
+use Fluxtor\Converge\Enums\Interceptor;
 
 if (! function_exists('converge')) {
     function converge(): Converge
     {
-        return app('converge');
+        return resolve('converge');
     }
 }
 if (! function_exists('Fluxtor\Converge\format_url')) {
@@ -22,6 +23,13 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
         }
 
         return '/'.trim($url ?? '', '/');
+    }
+}
+if (! function_exists('Fluxtor\Converge\intercept')) {
+    // /** @return \Fluxtor\Converge\Converge */
+    function intercept(Interceptor $point, mixed $context = null)
+    {
+        return converge()->intercept($point, $context);
     }
 }
 

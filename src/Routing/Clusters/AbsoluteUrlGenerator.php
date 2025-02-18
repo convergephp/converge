@@ -42,15 +42,15 @@ class AbsoluteUrlGenerator implements ClusterUrlGenerator
         $url = '';
 
         if (self::$isRelativeToModuleUrl && ! empty($moduleUri)) {
-            $url = '/' . trim($moduleUri, '/');
+            $url = '/'.trim($moduleUri, '/');
         }
 
         if (self::$isRelativeToVersionUrl && ! empty($versionUri)) {
-            $url = '/' . trim($versionUri, '/');
+            $url = '/'.trim($versionUri, '/');
         }
 
         // Append the cluster URI, ensuring proper formatting
-        $url .= '/' . trim($clusterUri, '/');
+        $url .= '/'.trim($clusterUri, '/');
 
         return $url;
     }

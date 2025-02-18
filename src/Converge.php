@@ -6,6 +6,7 @@ namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Versions\Version;
+use Fluxtor\Converge\Views\ViewInterceptor;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -16,15 +17,15 @@ class Converge
 {
     protected ?Module $activeModule = null;
 
-    protected $css = [__DIR__ . '/../dist/css/converge.css'];
+    protected $css = [__DIR__.'/../dist/css/converge.css'];
 
-    protected $js = __DIR__ . '/../dist/js/converge.js';
+    protected $js = __DIR__.'/../dist/js/converge.js';
 
     public function setActiveModule(Module $module)
     {
         $this->activeModule = $module;
 
-        app(Repository::class)->setActiveModule($this->activeModule);
+        resolve(Repository::class)->setActiveModule($this->activeModule);
     }
 
     public function getActiveModule(): ?Module
@@ -40,6 +41,11 @@ class Converge
     public function getId(): string
     {
         return $this->getActiveModule()->getId();
+    }
+
+    public function intercept($point, $context)
+    {
+        return resolve(ViewInterceptor::class)->render($point, $context);
     }
 
     public function getSidebarItems(): Collection
@@ -112,6 +118,11 @@ class Converge
         return resolve(ModuleRegistry::class)->get($id);
     }
 
+    public function getModuleId(): ?string
+    {
+        return $this->getActiveModule()->getId();
+    }
+
     public function getTheme()
     {
         return $this->getActiveModule()->getTheme();
@@ -140,13 +151,13 @@ class Converge
 
         return collect($this->css)->reduce(function ($carry, $css) {
             if ($css instanceof Htmlable) {
-                return $carry . Str::finish($css->toHtml(), PHP_EOL);
+                return $carry.Str::finish($css->toHtml(), PHP_EOL);
             }
             if (($contents = @file_get_contents($css)) === false) {
                 throw new RuntimeException("Unable to load Converge CSS path [$css].");
             }
 
-            return $carry . "<style>{$contents}</style>" . PHP_EOL;
+            return $carry."<style>{$contents}</style>".PHP_EOL;
         }, '');
     }
 

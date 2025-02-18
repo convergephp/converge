@@ -7,8 +7,6 @@ namespace Fluxtor\Converge\Concerns;
 use Closure;
 use Fluxtor\Converge\Repository;
 
-use function Fluxtor\Converge\converge;
-
 trait HasPath
 {
     /**
@@ -48,7 +46,7 @@ trait HasPath
      */
     public function getPath(): string
     {
-        return app(Repository::class)->getActivePath();
+        return resolve(Repository::class)->getActivePath();
     }
 
     /**

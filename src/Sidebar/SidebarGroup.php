@@ -32,7 +32,7 @@ class SidebarGroup
 
     public static function make(string $label): static
     {
-        $static = app(static::class, ['label' => $label]);
+        $static = resolve(static::class, ['label' => $label]);
 
         return $static;
     }

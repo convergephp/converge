@@ -63,6 +63,7 @@ class Cluster
 
         AbsoluteUrlGenerator::setRelativeToVersionUrl(true);
         $this->setUrlGenerator(new AbsoluteUrlGenerator());
+
         return $this;
     }
 
@@ -70,6 +71,7 @@ class Cluster
     {
         AbsoluteUrlGenerator::setRelativeToModuleUrl(true);
         $this->setUrlGenerator(new AbsoluteUrlGenerator());
+
         return $this;
     }
 
@@ -90,7 +92,7 @@ class Cluster
             return format_url($converge->getRoutePath());
         }
 
-        if($version = $converge->getUsedVersion()){
+        if ($version = $converge->getUsedVersion()) {
             return $this->getUrlGenerator()->generate(
                 $converge->getRawRoutePath(),
                 $version->getRoute(),

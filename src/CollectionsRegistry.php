@@ -50,7 +50,6 @@ abstract class CollectionsRegistry
         $item->default();
 
         $this->default = $item;
-        // dd($this->default);
     }
 
     final public function getDefault()
@@ -60,12 +59,6 @@ abstract class CollectionsRegistry
 
     final public function getItems(): Collection
     {
-        // if (!$this->default) {
-        //     dd($this->default);
-        //     // dd('here');
-        //     $this->ensureDefaultSet();
-        // }
-
         return $this->sortItems($this->items);
     }
 
