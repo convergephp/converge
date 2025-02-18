@@ -20,7 +20,7 @@
                             stroke-linecap="round"></path>
                     </svg>
                 </x-slot:button>
-                <x-slot:items class="text-xs w-36">
+                <x-slot:items class="text-base w-36">
                     @foreach ($versions as $version)
                         <?php
                         $isActive = $usedVersion['isActive']($version['id']);

@@ -8,11 +8,13 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {!! app('converge')->getActiveModule()->getTheme()->getFontHtml() !!}
 
-    {{-- @if ($favicon = filament()->getFavicon())
-            <link rel="icon" href="{{ $favicon }}" /> todo
-        @endif --}}
+    @if ($favicon = app('converge')->getActiveModule()->getTheme()->getFavicon())
+        <link rel="icon" href="{{ $favicon }}" />
+    @endif
+
+    {{-- Themes --}}
+    {!! app('converge')->getActiveModule()->getTheme()->getFontHtml() !!}
 
     <title>
         {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
@@ -50,6 +52,7 @@
 </head>
 
 {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+
 <body
     {{ $attributes->class([
         'converge-body',
