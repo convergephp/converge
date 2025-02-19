@@ -25,24 +25,24 @@ class Markdown
     {
 
         $html = Str::markdown(
-            string: $markdown,
+            string: $markdown,      
             options: [
                 'html_input' => HtmlFilter::ALLOW,
                 'allow_unsafe_links' => false,
-                'max_nesting_level' => 5,
+                'max_nesting_level' => 3,
                 'heading_permalink' => [
                     'symbol' => '#',
                 ],
-                // 'table_of_contents' => [
-                //     'style' => 'bullet',
-                //     'position' => 'top',
-                //     'normalize' => 'relative',
-                // ],
+                'table_of_contents' => [
+                    'style' => 'bullet',
+                    'position' => 'top',
+                    'normalize' => 'relative',
+                ],
             ],
             extensions: [
                 new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
-                // new TableOfContentsExtension(),
+                new TableOfContentsExtension(),
                 new BladeCompilerExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
