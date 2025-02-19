@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Http\Controllers;
 
-use Fluxtor\Converge\ContentMap;
+use Illuminate\View\View;
 use Fluxtor\Converge\Documents;
+use Illuminate\Support\Facades;
+use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents\Markdown;
-use Fluxtor\Converge\TableOfContent\Generator;
 use Fluxtor\Converge\TableOfContent\TocBuilder;
+
+use function Fluxtor\Converge\converge;
 
 class FileController
 {
@@ -30,11 +33,11 @@ class FileController
         $contents = $document->body();
 
         $html = $markdown->convert($contents);
-        dd((new TocBuilder())->generate($html));
-
+        
+        
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
-        ]);
+        ]); 
     }
 }
