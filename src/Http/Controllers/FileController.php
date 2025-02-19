@@ -7,6 +7,8 @@ namespace Fluxtor\Converge\Http\Controllers;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents;
 use Fluxtor\Converge\Documents\Markdown;
+use Fluxtor\Converge\TableOfContent\Generator;
+use Fluxtor\Converge\TableOfContent\TocBuilder;
 
 class FileController
 {
@@ -28,6 +30,8 @@ class FileController
         $contents = $document->body();
 
         $html = $markdown->convert($contents);
+
+        new TocBuilder($html);
 
         return view('converge::show', [
             'contents' => $html,
