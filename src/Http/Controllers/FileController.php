@@ -30,8 +30,7 @@ class FileController
         $contents = $document->body();
 
         $html = $markdown->convert($contents);
-
-        new TocBuilder($html);
+        dd((new TocBuilder())->generate($html));
 
         return view('converge::show', [
             'contents' => $html,
