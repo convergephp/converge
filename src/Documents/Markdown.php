@@ -33,16 +33,16 @@ class Markdown
                 'heading_permalink' => [
                     'symbol' => '#',
                 ],
-                'table_of_contents' => [
-                    'style' => 'bullet',
-                    'position' => 'top',
-                    'normalize' => 'relative',
-                ],
+                // 'table_of_contents' => [
+                //     'style' => 'bullet',
+                //     'position' => 'top',
+                //     'normalize' => 'relative',
+                // ],
             ],
             extensions: [
                 new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
-                new TableOfContentsExtension(),
+                // new TableOfContentsExtension(),
                 new BladeCompilerExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
