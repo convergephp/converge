@@ -127,14 +127,9 @@ class HeadingsExtractor
                 HeadingItem::make()
                     ->level($level)
                     ->label($text)
+                    ->slug($slug)
             );
-            $headings->add([
-                'level' => $level,
-                'text' => trim($text, '#'),
-                'slug' => $slug,
-            ]);
         }
-        dd($headings);
         return $headings;
     }
 }

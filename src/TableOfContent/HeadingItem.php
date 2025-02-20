@@ -26,14 +26,14 @@ class HeadingItem
         return $this;
     }
 
-    public function  label(int $level)
+    public function  label(string $label)
     {
-        $this->$level = $level;
+        $this->$label = $label;
         return $this;
     }
 
 
-    public function  slug(int $slug)
+    public function  slug(string $slug)
     {
         $this->$slug = $slug;
         return $this;
