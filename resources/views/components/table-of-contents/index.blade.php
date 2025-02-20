@@ -12,8 +12,13 @@
     {{-- TOC SECTION --}}
 
     <div class="!text-base-content [&_*]:!text-base-content [&_*]:hover:!text-primary ml-2 mt-4 max-h-[calc(100vh-3rem)] text-sm"
-        x-html="$data.tableOfContent">
-
+    >
+    {{-- @dd($headings) --}}
+        @foreach($headings as $heading)
+        <a href="#content-{{ $heading->getSlug() }}" class="block">
+            {{ $heading->getLabel() }}    
+        </a>
+        @endforeach
     </div>
 
     {{-- UNDER TOC SECTION --}}

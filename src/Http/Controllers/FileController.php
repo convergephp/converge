@@ -36,12 +36,12 @@ class FileController
         $contents = $document->body();
 
         $html = $markdown->convert($contents);
-        
-        
+
+
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
-            'headings'=>(new HeadingsExtractor($html))->getHeadings()
-        ]); 
+            'headings' => (new HeadingsExtractor($html))->getHeadings()
+        ]);
     }
 }

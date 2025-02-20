@@ -121,12 +121,10 @@ class HeadingsExtractor
 
             $usedSlugs->add($slug);
 
-            // Add the heading to the collection
-
             $headings->add(
                 HeadingItem::make()
                     ->level($level)
-                    ->label($text)
+                    ->label(trim($text,'#'))
                     ->slug($slug)
             );
         }
