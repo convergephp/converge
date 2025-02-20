@@ -6,11 +6,11 @@ use Closure;
 
 class HeadingItem
 {
-    protected string|Closure $label;
+    protected string|Closure|null $label = null;
 
-    protected string|Closure $slug;
+    protected string|Closure|null $slug = null;
 
-    protected int $level;
+    protected ?int $level = null;
 
 
     public static function make()
@@ -28,20 +28,20 @@ class HeadingItem
 
     public function  label(string $label)
     {
-        $this->$label = $label;
+        $this->label = $label;
         return $this;
     }
 
 
     public function  slug(string $slug)
     {
-        $this->$slug = $slug;
+        $this->slug = $slug;
         return $this;
     }
 
     public function getSlug(): string
     {
-        return $this->level;
+        return $this->slug;
     }
 
 
@@ -50,7 +50,7 @@ class HeadingItem
         return $this->level;
     }
 
-    public function getLabel(): mixed
+    public function getLabel(): string
     {
         return $this->label;
     }
