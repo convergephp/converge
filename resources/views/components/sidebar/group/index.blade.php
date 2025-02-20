@@ -1,10 +1,4 @@
-@props([
-    'groupItem', // Instance de SidebarGroup
-    'active' => false,
-    'canCollapsedGroupes' => true,
-    'icon' => null,
-    'subNavigation' => false,
-])
+@props(['groupItem', 'canCollapsedGroupes' => true])
 
 @php
     $label = $groupItem->getLabel();
