@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
-class TocBuilder
+class HeadingsExtractor
 {
     protected string $html;
 
@@ -106,7 +106,6 @@ class TocBuilder
 
         $headingNodes = $xpath->query($expression);
 
-        // Loop through the matches and extract the heading level and text
         $headings = collect();
         $usedSlugs = collect();
         foreach ($headingNodes as $headingNode) {
@@ -114,24 +113,28 @@ class TocBuilder
             $text = $headingNode->textContent;
             $slug = Str::slug($text);
 
-            // Ensure the slug is unique or this table of contents
             $suffix = 1;
             while ($usedSlugs->contains($slug)) {
                 $slug = Str::slug($text) . '-' . $suffix;
                 $suffix++;
             }
 
-            // Keep track of the used slugs
             $usedSlugs->add($slug);
 
             // Add the heading to the collection
+
+            $headings->add(
+                HeadingItem::make()
+                    ->level($level)
+                    ->label($text)
+            );
             $headings->add([
                 'level' => $level,
-                'text' => $text,
+                'text' => trim($text, '#'),
                 'slug' => $slug,
             ]);
         }
-
+        dd($headings);
         return $headings;
     }
 }

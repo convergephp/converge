@@ -9,6 +9,9 @@ use Fluxtor\Converge\Documents;
 use Illuminate\Support\Facades;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents\Markdown;
+use Fluxtor\Converge\TableOfContent\Headings;
+use Fluxtor\Converge\TableOfContent\HeadingsExctractor;
+use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
 use Fluxtor\Converge\TableOfContent\TocBuilder;
 
 use function Fluxtor\Converge\converge;
@@ -38,6 +41,7 @@ class FileController
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
+            'headings'=>(new HeadingsExtractor($html))->getHeadings()
         ]); 
     }
 }
