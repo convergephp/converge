@@ -4,6 +4,9 @@
             {{-- navbare --}}
             @include('converge::components.layout.partials.index.navbar')
 
+            {{-- BACKGROUND EFFETS --}}
+            @include('converge::partials.background-effets')
+
             {{-- BODY --}}
             <div class="mx-auto max-w-[88rem] lg:flex" x-data="tableOfContents">
 
