@@ -35,8 +35,9 @@ class HeadingsExtractor
      */
     public function getHeadings(): Collection
     {
-        $minLevel = converge()->getTableOfContent()->getMinLevel();
-        $maxLevel = converge()->getTableOfContent()->getMaxLevel();
+        $tableOfContent = converge()->getTableOfContent();
+
+        [$minLevel, $maxLevel] = [$tableOfContent->getMinLevel(), $tableOfContent->getMaxLevel()];
 
         if (trim($this->html) === '') {
             return collect();
