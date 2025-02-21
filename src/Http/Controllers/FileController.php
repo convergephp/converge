@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Http\Controllers;
 
-use Illuminate\View\View;
-use Fluxtor\Converge\Documents;
-use Illuminate\Support\Facades;
 use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\Documents;
 use Fluxtor\Converge\Documents\Markdown;
-use Fluxtor\Converge\TableOfContent\Headings;
-use Fluxtor\Converge\TableOfContent\HeadingsExctractor;
 use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
-use Fluxtor\Converge\TableOfContent\TocBuilder;
-
-use function Fluxtor\Converge\converge;
 
 class FileController
 {
@@ -37,11 +30,10 @@ class FileController
 
         $html = $markdown->convert($contents);
 
-
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
-            'headings' => (new HeadingsExtractor($html))->getHeadings()
+            'headings' => HeadingsExtractor::make($html)->getHeadings(),
         ]);
     }
 }
