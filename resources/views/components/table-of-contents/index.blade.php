@@ -1,6 +1,5 @@
 @props(['headings' => []])
 <div>
-    {{-- HEADER SECTION --}}
     <div class="text-base-content flex items-center space-x-2 py-2 text-xs font-medium">
         <svg class="h-3 w-3" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
             stroke-width="2" xmlns="http://www.w3.org/2000/svg">
