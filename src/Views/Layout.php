@@ -15,7 +15,7 @@ class Layout extends Component
      */
     public function __construct(
         public string $name,
-        private Collection $headings
+        private Collection|array $headings
     ) {}
 
     /**

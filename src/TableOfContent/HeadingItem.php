@@ -3,6 +3,7 @@
 namespace Fluxtor\Converge\TableOfContent;
 
 use Closure;
+use Illuminate\Support\Collection;
 
 class HeadingItem
 {
@@ -12,6 +13,12 @@ class HeadingItem
 
     protected ?int $level = null;
 
+    public Collection $childrens;
+
+    public function __construct()
+    {
+        $this->childrens = new Collection(); // ✅ Initialize collection
+    }
 
     public static function make()
     {
@@ -22,7 +29,7 @@ class HeadingItem
 
     public function  level(int $level)
     {
-        $this->$level = $level;
+        $this->level = $level;
         return $this;
     }
 
@@ -39,6 +46,13 @@ class HeadingItem
         return $this;
     }
 
+    public function addChild(HeadingItem $item): static
+    {
+        $this->childrens->add($item);
+        return $this;
+    }
+
+
     public function getSlug(): string
     {
         return $this->slug;
@@ -53,5 +67,10 @@ class HeadingItem
     public function getLabel(): string
     {
         return $this->label;
+    }
+
+    public function getChildrens(): string
+    {
+        return $this->childrens;
     }
 }
