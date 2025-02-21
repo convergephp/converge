@@ -17,7 +17,7 @@ class HeadingItem
 
     public function __construct()
     {
-        $this->childrens = new Collection(); // ✅ Initialize collection
+        $this->childrens = new Collection();
     }
 
     public static function make()
