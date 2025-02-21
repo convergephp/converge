@@ -54,27 +54,19 @@ class HeadingsExtractor
 
         $headings = collect();
 
-        $usedSlugs = collect();
-
         $stack = [];
 
         foreach ($headingNodes as $headingNode) {
             $level = (int) ($headingNode->nodeName[1]);
+            
+            $anchorNode = $xpath->query('.//a', $headingNode)->item(0);
+            
             $text = $headingNode->textContent;
-            $slug = Str::slug($text);
-
-            $suffix = 1;
-            while ($usedSlugs->contains($slug)) {
-                $slug = Str::slug($text) . '-' . $suffix;
-                $suffix++;
-            }
-
-            $usedSlugs->add($slug);
 
             $headingItem = HeadingItem::make()
                 ->level($level)
                 ->label(trim($text, '#'))
-                ->slug($slug);
+                ->slug($anchorNode?->getAttribute('href'));
 
             while (! empty($stack) && end($stack)->getLevel() >= $level) {
                 array_pop($stack);
@@ -88,7 +80,6 @@ class HeadingsExtractor
 
             $stack[] = $headingItem;
         }
-
         return $headings;
     }
 }

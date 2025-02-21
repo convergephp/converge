@@ -32,7 +32,7 @@
             : array_slice($paginationItems, $indexOfCurrentUrl + 1, 1); // [sidebareitem]
 @endphp
 
-<x-converge::page :$headings>
+<x-converge::page>
     <div x-data="codeBlockClipboard"
         class="z-10 text-sm lg:text-base leading-8 !font-light prose max-w-none lg:max-w-screen-sm dark:prose-invert content
         [&_*]:text-base-content [&_a]:!text-accent [&_a]:py-1

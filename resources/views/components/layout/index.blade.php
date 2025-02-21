@@ -24,9 +24,7 @@
                 </div>
 
                 {{-- TABLE OF CONTENT --}}
-                @include('converge::components.layout.partials.index.table-of-content', [
-                    'headings' => $headings,
-                ])
+                @include('converge::components.layout.partials.index.table-of-content')
             </div>
         </div>
 

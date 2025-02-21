@@ -10,9 +10,11 @@ use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\ModuleRegistry;
 use Fluxtor\Converge\Repository;
+use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
 use Fluxtor\Converge\Views\Layout;
 use Fluxtor\Converge\Views\ViewInterceptor;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,8 +25,6 @@ class ConvergeServiceProvider extends ServiceProvider
         $this->app->register(provider: RouteServiceProvider::class, force: true);
 
         $this->app->scoped('converge', fn() => new Converge);
-
-        // $this->app->resolved('converge', fn() => new ViewInterceptor);
 
         $this->app->scoped(Repository::class, fn() => new Repository);
 

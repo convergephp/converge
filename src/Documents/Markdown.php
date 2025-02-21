@@ -28,7 +28,7 @@ class Markdown
             options: [
                 'html_input' => HtmlFilter::ALLOW,
                 'allow_unsafe_links' => false,
-                'max_nesting_level' => 3,
+                'max_nesting_level' => 6,
                 'heading_permalink' => [
                     'symbol' => '#',
                 ],

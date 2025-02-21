@@ -8,6 +8,7 @@ use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents;
 use Fluxtor\Converge\Documents\Markdown;
 use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
+use Fluxtor\Converge\TableOfContent\TableOfContent;
 
 class FileController
 {
@@ -30,10 +31,12 @@ class FileController
 
         $html = $markdown->convert($contents);
 
+        resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings());
+        
+        
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
-            'headings' => HeadingsExtractor::make($html)->getHeadings(),
         ]);
     }
 }
