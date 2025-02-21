@@ -123,10 +123,12 @@ class Converge
     {
         return $this->getActiveModule()->getId();
     }
+    
     public function getTableOfContent(): ?TableOfContent
     {
         return $this->getActiveModule()->getTableOfContent();
     }
+
     public function getTableOfContentHeadings(): ?Collection
     {
         return resolve(TableOfContent::class)->getHeadings();

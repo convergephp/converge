@@ -58,9 +58,9 @@ class HeadingsExtractor
 
         foreach ($headingNodes as $headingNode) {
             $level = (int) ($headingNode->nodeName[1]);
-            
+
             $anchorNode = $xpath->query('.//a', $headingNode)->item(0);
-            
+
             $text = $headingNode->textContent;
 
             $headingItem = HeadingItem::make()
