@@ -4,7 +4,6 @@ namespace Fluxtor\Converge\TableOfContent;
 
 use DOMXPath;
 use DOMDocument;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 
@@ -44,61 +43,6 @@ class HeadingsExtractor
     }
 
 
-
-
-    // public function getTocHtml(): string
-    // {
-    //     $headings = $this->getHeadings();
-
-    //     if ($headings->isEmpty()) {
-    //         return '';
-    //     }
-
-    //     $startLevel = $headings->pluck('level')->min();
-    //     $prev = $startLevel;
-
-
-    //     // ------------------------------------------------------------------
-    //     // Build the table of contents as an ordered list
-    //     // ------------------------------------------------------------------
-
-    //     $toc = "<ul>";
-
-    //     foreach ($headings as $heading) {
-    //         $level = $heading['level'];
-    //         $text = $heading['text'];
-    //         $slug = $heading['slug'];
-
-    //         // Calculate depth change
-    //         $depthChange = $level - $prev;
-
-    //         // Close the previous list(s) if the current heading is of a lower level
-    //         if ($depthChange < 0) {
-    //             $toc .= str_repeat("</ul>", abs($depthChange));
-    //         }
-
-    //         // Open a new list(s) if the current heading is of a higher level
-    //         if ($depthChange > 0) {
-    //             $toc .= str_repeat("<ul>", $depthChange);
-    //         }
-
-    //         // Add the current heading to the list
-    //         $toc .= '<li><a href="#' . $slug . '">' . $text . '</a></li>';
-
-    //         // Update the previous level
-    //         $prev = $level;
-    //     }
-
-    //     // Close all remaining open lists
-    //     while ($prev >= $startLevel) {
-    //         $toc .= "</ul>";
-    //         $prev--;
-    //     }
-
-    //     // ------------------------------------------------------------------
-
-    //     return $toc;
-    // }
 
     /**
      * Extract all headings from the HTML respecting the min and max level.

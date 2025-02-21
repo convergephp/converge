@@ -15,7 +15,7 @@ Alpine.plugin(anchor);
 
 // components
 Alpine.data("themeSwitcher", themeSwitcher);
-Alpine.data("tableOfContents", tableOfContent);
+Alpine.data("tableOfContent", tableOfContent);
 Alpine.data("codeBlockClipboard", clipboard);
 Alpine.data("tabs", tabs);
 Alpine.data("dropdown", dropdown);

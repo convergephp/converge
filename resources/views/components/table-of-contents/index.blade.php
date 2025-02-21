@@ -9,8 +9,10 @@
             <path d="M2.44434 8H7.33323" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg><span>On this page</span>
     </div>
-    <div
-        class=" ml-2 mt-4 max-h-[calc(100vh-3rem)] text-sm">
-        <x-converge::table-of-contents.ul :$headings/>
+    <div 
+        class="ml-2 mt-4 max-h-[calc(100vh-3rem)] text-sm" 
+        x-data="tableOfContent"
+    >
+        <x-converge::table-of-contents.ul :$headings />
     </div>
 </div>

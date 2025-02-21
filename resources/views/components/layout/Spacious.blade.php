@@ -29,7 +29,7 @@
         </div>
 
         {{-- CORE CONTENT --}}
-        <div class="lg:flex lg:px-12" x-data="tableOfContents">
+        <div class="lg:flex lg:px-12">
 
             {{-- SIDEBARE --}}
             <div

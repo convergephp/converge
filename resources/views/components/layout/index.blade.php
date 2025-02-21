@@ -8,7 +8,7 @@
             @include('converge::partials.background-effets')
 
             {{-- BODY --}}
-            <div class="mx-auto max-w-[88rem] lg:flex" x-data="tableOfContents">
+            <div class="mx-auto max-w-[88rem] lg:flex">
 
                 {{-- SIDEBAR --}}
                 @include('converge::components.layout.partials.index.sidebar')
