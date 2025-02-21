@@ -6,7 +6,7 @@
 @endphp
 
 
-<x-converge-layout :name="$layout" :$headings>
+<x-converge-layout :name="$layout">
     <div data-doc>
         {{ $slot }}
     </div>

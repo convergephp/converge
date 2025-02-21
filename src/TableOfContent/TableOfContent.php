@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\TableOfContent;
 
+use Illuminate\Support\Collection;
+
 class TableOfContent
 {
+    protected Collection $headings;
+
     protected int $minLevel = 1;
 
     protected int $maxLevel = 3;
+
+
+    public function __construct()
+    {
+        $this->headings = new Collection();
+    }
 
     public function maxLevel(int $maxLevel)
     {
@@ -24,6 +34,11 @@ class TableOfContent
         return $this;
     }
 
+    public function headings(Collection $headings)
+    {
+        $this->headings = $headings;
+    }
+
     public function getMaxLevel()
     {
         return $this->maxLevel;
@@ -32,5 +47,10 @@ class TableOfContent
     public function getMinLevel()
     {
         return $this->minLevel;
+    }
+
+    public function getHeadings()
+    {
+        return $this->headings;
     }
 }

@@ -18,9 +18,9 @@ class Converge
 {
     protected ?Module $activeModule = null;
 
-    protected $css = [__DIR__.'/../dist/css/converge.css'];
+    protected $css = [__DIR__ . '/../dist/css/converge.css'];
 
-    protected $js = __DIR__.'/../dist/js/converge.js';
+    protected $js = __DIR__ . '/../dist/js/converge.js';
 
     public function setActiveModule(Module $module)
     {
@@ -127,6 +127,10 @@ class Converge
     {
         return $this->getActiveModule()->getTableOfContent();
     }
+    public function getTableOfContentHeadings(): ?Collection
+    {
+        return resolve(TableOfContent::class)->getHeadings();
+    }
 
     public function getTheme()
     {
@@ -156,13 +160,13 @@ class Converge
 
         return collect($this->css)->reduce(function ($carry, $css) {
             if ($css instanceof Htmlable) {
-                return $carry.Str::finish($css->toHtml(), PHP_EOL);
+                return $carry . Str::finish($css->toHtml(), PHP_EOL);
             }
             if (($contents = @file_get_contents($css)) === false) {
                 throw new RuntimeException("Unable to load Converge CSS path [$css].");
             }
 
-            return $carry."<style>{$contents}</style>".PHP_EOL;
+            return $carry . "<style>{$contents}</style>" . PHP_EOL;
         }, '');
     }
 

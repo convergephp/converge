@@ -15,7 +15,6 @@ class Layout extends Component
      */
     public function __construct(
         public string $name,
-        private Collection|array $headings
     ) {}
 
     /**
@@ -23,6 +22,6 @@ class Layout extends Component
      */
     public function render(): View
     {
-        return view('converge::components.layout.'.$this->name)->with(['headings' => $this->headings]);
+        return view('converge::components.layout.'.$this->name);
     }
 }

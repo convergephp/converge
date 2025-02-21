@@ -43,7 +43,7 @@ class HeadingItem
         return $this;
     }
 
-    public function slug(string $slug)
+    public function slug(?string $slug)
     {
         $this->slug = $slug;
 
@@ -57,7 +57,7 @@ class HeadingItem
         return $this;
     }
 
-    public function getSlug(): string
+    public function getSlug(): ?string
     {
         return $this->slug;
     }

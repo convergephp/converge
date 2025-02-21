@@ -1,4 +1,4 @@
-@props(['headings' => []])
+
 <div>
     <div class="text-base-content flex items-center space-x-2 py-2 text-xs font-medium">
         <svg class="h-3 w-3" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor"
@@ -12,6 +12,6 @@
         class="ml-2 mt-4 max-h-[calc(100vh-3rem)] text-sm" 
         x-data="tableOfContent"
     >
-        <x-converge::table-of-contents.ul :$headings />
+        <x-converge::table-of-contents.ul :headings="\Fluxtor\Converge\converge()->getTableOfContentHeadings()" />
     </div>
 </div>
