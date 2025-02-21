@@ -69,7 +69,7 @@ class HeadingItem
         return $this->label;
     }
 
-    public function getChildrens(): string
+    public function getChildrens(): Collection
     {
         return $this->childrens;
     }
