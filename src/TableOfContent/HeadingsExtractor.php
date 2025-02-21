@@ -14,7 +14,7 @@ class HeadingsExtractor
 
     protected int $minLevel = 1;
 
-    protected int $maxLevel = 6;
+    protected int $maxLevel = 3;
 
 
 
@@ -160,6 +160,6 @@ class HeadingsExtractor
 
             $stack[] = $headingItem;
         }
-        return dd($headings);
+        return $headings;
     }
 }
