@@ -1,48 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\TableOfContent;
 
-use DOMXPath;
 use DOMDocument;
-use Illuminate\Support\Str;
+use DOMXPath;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
-class HeadingsExtractor
+class HeadingsExtractor extends TableOfContent
 {
     protected string $html;
-
-    protected int $minLevel = 1;
-
-    protected int $maxLevel = 3;
-
-
 
     public function __construct(string $html)
     {
         $this->html = $html;
     }
 
-    public function maxLevel(int $maxLevel)
+    public static function make(string $html)
     {
-        $this->maxLevel = $maxLevel;
+        $static = app(static::class, [
+            'html' => $html,
+        ]);
+
+        return $static;
     }
-
-    public function minLevel(int $minLevel)
-    {
-        $this->minLevel = $minLevel;
-    }
-
-    public function getMaxLevel()
-    {
-        return $this->maxLevel;
-    }
-
-    public function getMinLevel()
-    {
-        return $this->minLevel;
-    }
-
-
 
     /**
      * Extract all headings from the HTML respecting the min and max level.
@@ -51,6 +34,7 @@ class HeadingsExtractor
      */
     public function getHeadings(): Collection
     {
+        dd($this->minLevel);
         $minLevel = $this->minLevel;
         $maxLevel = $this->maxLevel;
 
@@ -63,7 +47,7 @@ class HeadingsExtractor
 
         $xpath = new DOMXPath($dom);
         $range = collect(range($minLevel, $maxLevel));
-        $expression = $range->map(fn($level) => "//h$level")->implode('|');
+        $expression = $range->map(fn ($level) => "//h$level")->implode('|');
 
         $headingNodes = $xpath->query($expression);
 
@@ -74,25 +58,24 @@ class HeadingsExtractor
         $stack = [];
 
         foreach ($headingNodes as $headingNode) {
-            $level = intval($headingNode->nodeName[1]);
+            $level = (int) ($headingNode->nodeName[1]);
             $text = $headingNode->textContent;
             $slug = Str::slug($text);
 
             $suffix = 1;
             while ($usedSlugs->contains($slug)) {
-                $slug = Str::slug($text) . '-' . $suffix;
+                $slug = Str::slug($text).'-'.$suffix;
                 $suffix++;
             }
 
             $usedSlugs->add($slug);
-
 
             $headingItem = HeadingItem::make()
                 ->level($level)
                 ->label(trim($text, '#'))
                 ->slug($slug);
 
-            while (!empty($stack) && end($stack)->getLevel() >= $level) {
+            while (! empty($stack) && end($stack)->getLevel() >= $level) {
                 array_pop($stack);
             }
 
@@ -104,6 +87,7 @@ class HeadingsExtractor
 
             $stack[] = $headingItem;
         }
+
         return $headings;
     }
 }
