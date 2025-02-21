@@ -32,8 +32,9 @@ class ConvergeServiceProvider extends ServiceProvider
 
         $this->app->scoped(TableOfContent::class, fn() => new TableOfContent);
 
-        $this->app->singleton(ModuleRegistry::class, fn() => new ModuleRegistry);
 
+        $this->app->singleton(ModuleRegistry::class, fn () => new ModuleRegistry);
+      
         $this->app->singleton(FilesTreeBuilder::class, fn() => new FilesTreeBuilder);
 
         $this->app->singleton(ContentMap::class, fn($app) => new ContentMap($app->make(FilesTreeBuilder::class)));

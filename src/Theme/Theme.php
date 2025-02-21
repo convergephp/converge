@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Theme;
 
+use Fluxtor\Converge\Concerns\HasCollapsedGroupes;
 use Fluxtor\Converge\Concerns\HasFavicon;
 use Fluxtor\Converge\Concerns\HasFont;
 use Fluxtor\Converge\Concerns\Resolver;
@@ -14,6 +15,7 @@ use Fluxtor\Converge\Support\Themes;
 
 class Theme
 {
+    use HasCollapsedGroupes;
     use HasFavicon;
     use HasFont;
     use Resolver;
