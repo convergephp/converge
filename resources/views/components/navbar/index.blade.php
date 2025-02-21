@@ -35,7 +35,6 @@
                 </ul>
             </nav>
 
-            {{ converge()->intercept(\Fluxtor\Converge\Interceptor::AFTER_NAVBAR) }}
 
             {{-- THE SWITCHER --}}
             <x-converge::theme-switcher class="border-l border-slate-200 dark:border-slate-800" />

@@ -1,68 +1,38 @@
-export default () => {
-    return {
-        tableOfContent: "",
-        offset: 60,
-        headingPermalinks: [],
-        activeTocLink: null,
-        init() {
-            this.$nextTick(() => {
-                this.headingPermalinks = this.$el.querySelectorAll(
-                    "[data-doc] .heading-permalink"
-                );
+import Alpine from "alpinejs";
 
-                // this.$watch("activeTocLink", () => {
-                //     this.tableOfContentLinks.forEach((item) => {
-                //         item.style.removeProperty("color");
-                //     });
+export default () => ({
+    activeHeading: null,
+    init() {
+        Alpine.nextTick(()=>{
+            const headingElements = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
-                //     if (this.activeTocLink) {
-                //         this.activeTocLink.style.setProperty(
-                //             "color",
-                //             "#9F7AEA"
-                //         );
-                //     }
-                // });
-                this.adjustTableOfContent();
-                // setTimeout(() => {
-                //     this.activateFistLinkIfIntersected();
-                // }, 100);
-            });
-        },
-        get tableOfContentLinks() {
-            return this.$el.querySelectorAll("ul.table-of-contents a");
-        },
-        handlePermalinks() {
-            let visibleLinks = Array.from(this.headingPermalinks).filter(
-                (link) => this.inViewPort(link)
-            );
-            console.log(visibleLinks);
-            this.activateLink(visibleLinks[0]);
-        },
-        activateLink(link) {
-            this.activeTocLink = Array.from(this.tableOfContentLinks).find(
-                (item) => item.href === link.href
-            );
-        },
-        activateFistLinkIfIntersected() {
-            const firstLink = Array.from(this.headingPermalinks).at(0);
-            if (this.inViewPort(firstLink)) {
-                this.activateLink(firstLink);
+            if (headingElements.length > 0) {
+                this.activeHeading = headingElements[0].querySelector("a")?.id;
             }
-        },
-        inViewPort(link) {
-            const rect = link.getBoundingClientRect();
-            return rect.top > this.offset && rect.top < window.innerHeight;
-        },
-        adjustTableOfContent() {
-            const tableOfContentElements = this.$el.querySelectorAll(
-                "ul.table-of-contents"
-            );
-            if (tableOfContentElements[0]) {
-                this.tableOfContent = tableOfContentElements[0].outerHTML;
-                tableOfContentElements.forEach((tableOfContentElement) =>
-                    tableOfContentElement.remove()
-                );
-            }
-        },
-    };
-};
+            
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    const visibleHeadings = entries.filter(
+                        (entry) => entry.isIntersecting,
+                    )
+                    if (visibleHeadings.length > 0) {
+                        // Find the visible heading with the lowest top value
+                        const topHeading = visibleHeadings.reduce(
+                            (prev, current) =>
+                                prev.boundingClientRect.top <
+                                current.boundingClientRect.top
+                                    ? prev
+                                    : current,
+                        )
+
+                        this.activeHeading = topHeading.target.querySelector('a')?.id;
+                    }
+                },
+                { rootMargin: '0px 0px -75% 0px', threshold: 1 },
+            )
+    
+            headingElements.forEach(heading => observer.observe(heading));
+        })
+
+    },
+});

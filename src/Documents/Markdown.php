@@ -9,7 +9,6 @@ use Fluxtor\Converge\Markdown\Extensions\BladeParserExtension;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
-use League\CommonMark\Extension\TableOfContents\TableOfContentsExtension;
 use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\Util\HtmlFilter;
 use Tempest\Highlight\CommonMark\HighlightExtension;
@@ -29,20 +28,14 @@ class Markdown
             options: [
                 'html_input' => HtmlFilter::ALLOW,
                 'allow_unsafe_links' => false,
-                'max_nesting_level' => 5,
+                'max_nesting_level' => 6,
                 'heading_permalink' => [
                     'symbol' => '#',
-                ],
-                'table_of_contents' => [
-                    'style' => 'bullet',
-                    'position' => 'top',
-                    'normalize' => 'relative',
                 ],
             ],
             extensions: [
                 new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
-                new TableOfContentsExtension(),
                 new BladeCompilerExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
