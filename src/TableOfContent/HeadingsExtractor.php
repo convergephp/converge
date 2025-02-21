@@ -9,7 +9,9 @@ use DOMXPath;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class HeadingsExtractor extends TableOfContent
+use function Fluxtor\Converge\converge;
+
+class HeadingsExtractor
 {
     protected string $html;
 
@@ -20,10 +22,9 @@ class HeadingsExtractor extends TableOfContent
 
     public static function make(string $html)
     {
-        $static = app(static::class, [
+        $static = resolve(static::class, [
             'html' => $html,
         ]);
-
         return $static;
     }
 
@@ -34,9 +35,8 @@ class HeadingsExtractor extends TableOfContent
      */
     public function getHeadings(): Collection
     {
-        dd($this->minLevel);
-        $minLevel = $this->minLevel;
-        $maxLevel = $this->maxLevel;
+        $minLevel = converge()->getTableOfContent()->getMinLevel();
+        $maxLevel = converge()->getTableOfContent()->getMaxLevel();
 
         if (trim($this->html) === '') {
             return collect();
@@ -47,7 +47,7 @@ class HeadingsExtractor extends TableOfContent
 
         $xpath = new DOMXPath($dom);
         $range = collect(range($minLevel, $maxLevel));
-        $expression = $range->map(fn ($level) => "//h$level")->implode('|');
+        $expression = $range->map(fn($level) => "//h$level")->implode('|');
 
         $headingNodes = $xpath->query($expression);
 
@@ -64,7 +64,7 @@ class HeadingsExtractor extends TableOfContent
 
             $suffix = 1;
             while ($usedSlugs->contains($slug)) {
-                $slug = Str::slug($text).'-'.$suffix;
+                $slug = Str::slug($text) . '-' . $suffix;
                 $suffix++;
             }
 

@@ -9,11 +9,19 @@ use Fluxtor\Converge\TableOfContent\TableOfContent;
 
 trait CanHandleTableOfContent
 {
+    public ?TableOfContent $tableOfContent = null;
+
     public function tableOfContent(Closure $callable): static
     {
-        $toc = new TableOfContent();
-        $callable($toc);
+        $toc = new TableOfContent;
 
+        $this->tableOfContent = $callable($toc);
+        
         return $this;
+    }
+
+    public function getTableOfContent()
+    {
+        return $this->tableOfContent ?? new TableOfContent;
     }
 }
