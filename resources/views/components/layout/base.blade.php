@@ -15,7 +15,7 @@ use function Fluxtor\Converge\intercept;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     {{-- Favicon --}}
-    @if ($favicon = converge()->getActiveModule()->getTheme()->getFavicon())
+    @if ($favicon = converge()->getTheme()->getFavicon())
         <link href="{{ $favicon }}" rel="icon" />
     @endif
 
@@ -24,15 +24,12 @@ use function Fluxtor\Converge\intercept;
     </title>
     <style>
         :root {
-            --font: {{ converge()->getActiveModule()->getTheme()->getFontFamily() }}, "sans-serif";
+            --font: {{ converge()->getTheme()->getFontFamily() }}, "sans-serif";
         }
-
     </style>
 
     <style>
-        [x-cloak] {
-
-        }
+        [x-cloak] {}
     </style>
     {!! Converge::css() !!}
     {!! Converge::js() !!}
