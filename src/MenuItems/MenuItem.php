@@ -3,6 +3,7 @@
 namespace Fluxtor\Converge\MenuItems;
 
 use Closure;
+use Fluxtor\Converge\Concerns\CanOpenUrlInNewTab;
 use Fluxtor\Converge\Concerns\HasUrl;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
@@ -14,17 +15,5 @@ class MenuItem
     use HasUrl;
     use HasSort;
     use Resolver;
-
-    protected $shouldOpenUrlInNewTab = false;
-
-    public function openUrlInNewTab(bool | Closure $condition = true): static
-    {
-        $this->shouldOpenUrlInNewTab = $condition;
-        return $this;
-    }
-
-    public function shouldOpenUrlInNewTab(): bool
-    {
-        return (bool) $this->resolve($this->shouldOpenUrlInNewTab);
-    }
+    use CanOpenUrlInNewTab;
 }
