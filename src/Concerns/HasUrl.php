@@ -21,9 +21,14 @@ trait HasUrl
         return $this;
     }
 
+
+    public function getUrl(): ?string
+    {
+        return $this->getRoute();
+    }
+    
     public function getRoute(): ?string
     {
-        // @php
         return $this->resolve($this->url);
     }
 }

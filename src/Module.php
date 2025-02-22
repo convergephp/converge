@@ -6,6 +6,7 @@ namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Concerns\CanHandleClusters;
 use Fluxtor\Converge\Concerns\CanHandleDefault;
+use Fluxtor\Converge\Concerns\CanHandleMenuItems;
 use Fluxtor\Converge\Concerns\CanHandleTableOfContent;
 use Fluxtor\Converge\Concerns\CanHandleVersions;
 use Fluxtor\Converge\Concerns\HasBrandLogo;
@@ -25,6 +26,7 @@ class Module
     use CanHandleDefault;
     use CanHandleTableOfContent;
     use CanHandleVersions;
+    use CanHandleMenuItems;
     use HasBrandLogo;
     use HasDepth;
     use HasId;
@@ -42,6 +44,7 @@ class Module
     {
         $this->initClusters();
         $this->initVersions();
+        $this->initMenuItems();
     }
 
     public static function make(): static
