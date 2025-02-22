@@ -37,6 +37,25 @@ use function Fluxtor\Converge\intercept;
     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 </head>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector("#sidebar"); 
+
+        if (sidebar) {
+            const savedScroll = sessionStorage.getItem("sidebarScroll");
+            if (savedScroll !== null) {
+                sidebar.scrollTop = parseInt(savedScroll, 10);
+            }
+
+            window.addEventListener("beforeunload", function () {
+                sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
+            });
+        }
+    });
+</script>
+
+
+
 {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
 <body x-data="themeSwitcher({

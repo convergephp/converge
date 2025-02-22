@@ -2,11 +2,11 @@
 
 <?php
     $items = $groupItem->getItems();
-    // dd($groupItem);
     $hasActiveChild = $items->contains(function ($item) {
         if(!($item instanceof Fluxtor\Converge\Sidebar\SidebarItem)){
             return false;
         }
+        
         return $item->isActive();
     });
 
