@@ -3,19 +3,15 @@
     'itemStyle' => null,
 ])
 @php
-    $hasParentGroup = $item->getDepth() > 0;
-    $baseClasses = Fluxtor\Converge\converge()->getTheme()->getSidebarItemStyle()['baseClasses'];
-    $activeClasses = Fluxtor\Converge\converge()->getTheme()->getSidebarItemStyle()['activeClasses'];
-    $nestedClasses = Fluxtor\Converge\converge()->getTheme()->getSidebarItemStyle()['nestedClasses'];
-    // dd($baseClasses, $activeClasses, $nestedClasses);
+    $style = Fluxtor\Converge\converge()->getTheme()->getSidebarItemStyle();
 @endphp
 
 <li class="flex text-base-content scroll-m-4 first:scroll-m-20">
     {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_LINK, fn() => $item) }}
     <a href="{{ $item->getUrl() }}" @class([
-        $baseClasses,
-        $nestedClasses => $hasParentGroup,
-        $activeClasses => $item->isActive(),
+        $style['baseClasses'],
+        $style['nestedClasses'] => $item->getDepth() > 0,
+        $style['activeClasses'] => $item->isActive(),
     ])>
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_LABEL, fn() => $item) }}
         <div class="flex justify-between w-full text-sm ">

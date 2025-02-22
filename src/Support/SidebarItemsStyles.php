@@ -16,7 +16,7 @@ class SidebarItemsStyles
     ];
 
     public const STYLE2 = [
-        'baseClasses' => 'group/mini-link  group  ml-1 w-full  flex  cursor-pointer items-center  space-x-3 py-2 px-2  text-base-content  hover:bg-primary/10 duration-200',
+        'baseClasses' => 'group/mini-link  group  ml-1 w-full mt-1  flex  cursor-pointer items-center  space-x-3 py-2 px-2  text-base-content  hover:bg-primary/10 duration-200',
         'activeClasses' => 'bg-primary/10',
         'nestedClasses' => 'border-l border-gray-400/10',
     ];
