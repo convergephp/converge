@@ -29,7 +29,8 @@
                          </div>
 
                          <div class="relative items-center justify-end hidden ml-auto lg:flex">
-
+                            
+                            <x-converge::menu-items />
                              {{-- LINKS --}}
                              <nav class="text-sm lg:text-base">
                                  <ul class="flex items-center space-x-6">
