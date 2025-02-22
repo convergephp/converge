@@ -11,6 +11,7 @@ use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Enums\Layout;
 use Fluxtor\Converge\Enums\MaxWidth;
 use Fluxtor\Converge\Enums\Spotlight;
+use Fluxtor\Converge\Support\SidebarItemsStyles;
 use Fluxtor\Converge\Support\Themes;
 
 class Theme
@@ -29,6 +30,8 @@ class Theme
     protected string $lightModeCss;
 
     protected ?Spotlight $spotlightName = null;
+
+    protected array $sidebarItemsStyle;
 
     /**
      * layout
@@ -122,5 +125,25 @@ class Theme
         $default = $this->rootCssGenerator($variables);
 
         return $default;
+    }
+
+    /**
+     * sidebarItemStyle
+     *
+     * @param  mixed  $style
+     */
+    public function sidebarItemStyle(?array $style = SidebarItemsStyles::STYLE1): static
+    {
+        $this->sidebarItemsStyle = $style;
+
+        return $this;
+    }
+
+    /**
+     * getSidebarItemStyle
+     */
+    public function getSidebarItemStyle(): array
+    {
+        return $this->sidebarItemsStyle ?? SidebarItemsStyles::STYLE1;
     }
 }
