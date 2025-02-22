@@ -2,6 +2,7 @@
 
 namespace Fluxtor\Converge\MenuItems;
 
+use Closure;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\Resolver;
@@ -17,5 +18,23 @@ class MenuItemGroup
     public function __construct()
     {
         $this->items = new Collection();
+    }
+
+    final public function add(Closure $callback): static
+    {
+        $item = new MenuItem;
+
+        $callback($item);
+
+        // $this->adjustSort($item);
+
+        $this->items->push($item);
+        // dd($this->items);
+        return $this;
+    }
+
+    final public function getItems()
+    {
+        return $this->items;
     }
 }

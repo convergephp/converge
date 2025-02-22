@@ -18,7 +18,7 @@ class MenuItems
     public function add(Closure $callable)
     {
         $item = $this->evaluate($callable);
-        
+
         $callable($item);
 
         $this->items->push($item);
@@ -26,19 +26,20 @@ class MenuItems
         return $this;
     }
 
-    public function evaluate(callable $callable)
+    public function evaluate(Closure $callable)
     {
         $reflection = new \ReflectionFunction($callable);
+        
         $parameter = $reflection->getParameters()[0] ?? null;
 
         if ($parameter && $parameter->getType()) {
-            
+
             $type = $parameter->getType()->getName();
 
             if (!is_a($type, MenuItem::class, true) && !is_a($type, MenuItemGroup::class, true)) {
                 throw new InvalidArgumentException("Invalid type provided. Must be MenuItem or MenuItemGroup.");
             }
-            
+
             return  new $type();
         }
         return new MenuItem();
