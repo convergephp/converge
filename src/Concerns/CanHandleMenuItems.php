@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 trait CanHandleMenuItems
 {
-    public Collection $menuItems;
+    public ?Collection $menuItems;
 
     public function initMenuItems(): void
     {
@@ -20,10 +20,13 @@ trait CanHandleMenuItems
 
     public function defineMenuItems(Closure $callable): static
     {
-        $menuItems = new MenuItems;
+        $menuItems = new MenuItems();
+        
+        $callable($menuItems);
+        
+        $this->menuItems = $menuItems->getItems();
 
-        $this->menuItems = $callable($menuItems);
-
+                
         return $this;
     }
 

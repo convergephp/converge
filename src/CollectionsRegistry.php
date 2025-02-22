@@ -33,7 +33,7 @@ abstract class CollectionsRegistry
     {
         $item = $this->createItem();
 
-        $callback($item);
+        $callback($item);   
 
         $this->adjustSort($item);
 
