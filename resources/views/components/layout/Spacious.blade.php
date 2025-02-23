@@ -1,63 +1,60 @@
 <x-converge::layout.base>
-
-    {{-- BACKGROUND EFFETS --}}
-    @include('converge::partials.background-effets')
-
-    <div class="relative flex min-h-screen flex-col">
-        {{-- NAVBARE --}}
-        <div class="fixed top-0 z-30 w-full lg:sticky" id="navbar">
-            <div
-                class="bg-background-light supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75 absolute z-10 h-full w-full flex-none border-b border-gray-200 border-gray-500/5 backdrop-blur transition-colors duration-500 dark:border-gray-300/[0.06] dark:border-gray-800">
-            </div>
-            <div class="relative z-10 px-2 lg:px-12">
-                <x-navbar />
-                <div class="hidden h-12 items-center justify-start lg:flex lg:space-x-3">
-
-                    {{-- link 1 --}}
-                    <a class="group relative flex h-full items-center font-semibold text-gray-800 dark:text-gray-200"
-                        href="/filament/docs/">Link 1<div
-                            class="bg-primary dark:bg-primary-light absolute bottom-0 h-[1.5px] w-full bg-purple-600">
-                        </div></a>
-
-                    {{-- link 1 --}}
-                    <a class="group relative flex h-full items-center font-semibold text-gray-800 dark:text-gray-200"
-                        href="/filament/docs/">Link 2<div
-                            class="bg-primary dark:bg-primary-light absolute bottom-0 h-[1.5px] w-full">
-                        </div></a>
+    {{-- Navbar --}}
+    <nav class="fixed top-0 z-50 w-full border-b bg-base-200 border-base-300">
+        <div class="px-2 py-3 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-x-2">
+                    {{-- open and close sidebar --}}
+                    <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar"
+                        aria-controls="logo-sidebar" type="button"
+                        class="inline-flex btn btn-ghost text-base-content lg:hidden">
+                        <span class="sr-only">Toggle sidebar</span>
+                        <x-converge::icon icon="bars-4" class="size-5" />
+                    </button>
+                    <x-converge::logo />
+                </div>
+                <div class="flex items-center text-base-content">
+                    navbar menus
                 </div>
             </div>
         </div>
+    </nav>
 
-        {{-- CORE CONTENT --}}
-        <div class="lg:flex lg:px-12">
-
-            {{-- SIDEBARE --}}
-            <div
-                class="sticky bottom-0 left-0 right-auto top-[7rem] hidden h-[calc(100vh-7.1rem)] w-[19rem] min-w-[19rem] flex-col border-r border-gray-200/70 transition-transform duration-100 lg:flex dark:border-white/[0.07]">
-                <div class="overflow-y-auto py-2">
+    {{-- Main Layout Container --}}
+    <div class="flex min-h-screen bg-base-200">
+        {{-- Sidebar --}}
+        <aside id="logo-sidebar"
+            class="fixed top-0 left-0 z-40 h-screen transition-transform -translate-x-full border-r w-72 lg:translate-x-0 bg-base-200 border-base-300">
+            <div class="flex flex-col h-full">
+                {{-- Sidebar spacing for navbar --}}
+                <div class="h-20"></div>
+                {{-- Sidebar content --}}
+                <div class="flex-1 px-4 overflow-y-auto">
                     <x-converge::sidebar />
                 </div>
             </div>
+        </aside>
+        {{-- Main Content Area --}}
+        <main class="flex-1 w-full transition-all duration-300 lg:pl-72">
+            <div class="container mx-auto">
+                {{-- Content Grid --}}
+                <div class="grid grid-cols-1 xl:grid-cols-[1fr,19rem] gap-8 px-4 lg:px-8 pt-24 pb-12">
+                    <div class="min-w-0 gap-10 mx-auto xl:flex xl:max-w-7xl">
+                        {{-- MAIN CONTENT --}}
+                        <div class="flex-grow">
+                            {{ $slot }}
+                        </div>
 
-            {{-- CONTENT --}}
-            <div class="mt-35 max-w-6xl flex-1 px-5 transition-all duration-100 lg:mt-10">
-                {{ $slot }}
-            </div>
+                        {{-- TABLE OF CONTENT --}}
+                        <div class="hidden max-w-[19rem] xl:block">
+                            <div class="sticky top-24 overflow-y-auto max-h-[calc(100vh-8rem)]">
+                                <x-converge::table-of-contents />
+                            </div>
+                        </div>
+                    </div>
 
-            {{-- TABLE OF CONTENT --}}
-            <div
-                class="sticky bottom-0 left-auto right-0 top-[7rem] hidden h-[calc(100vh-7.1rem)] w-[22rem] min-w-[22rem] overflow-y-auto pb-10 transition-transform duration-100 lg:block">
-                <x-converge::table-of-contents />
+                </div>
             </div>
-        </div>
-
-        {{-- FOOTER --}}
-        <div
-            class="bg-background-light supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75 z-10 flex-none border-t border-slate-500/10 backdrop-blur transition-colors duration-500 dark:border-gray-300/[0.06]">
-            <div class="mx-auto flex max-w-7xl flex-col items-center px-4 lg:p-0">
-                @include('converge::partials.footer')
-            </div>
-        </div>
-    </div>
+        </main>
     </div>
 </x-converge::layout.base>

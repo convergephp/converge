@@ -179,7 +179,7 @@ class Themes
      */
     public const DARK = [
         '--color-base-100' => 'oklch(20% 0 0)',
-        '--color-base-200' => 'oklch(10% 0.034 264.665)',
+        '--color-base-200' => 'oklch(0.13 0.028 261.692)',
         '--color-base-300' => 'oklch(30% 0.034 264.665)',
         '--color-base-content' => 'oklch(97% 0.001 106.424)',
         '--color-primary' => 'oklch(60% 0.195 277.366)',
