@@ -1,4 +1,8 @@
-<div x-data="{ isOpen: true }" :class="{ '-translate-x-full': !isOpen }"
+<div 
+    x-data="{ isOpen: true }"
+    x-bind:class="{
+        '-translate-x-full': !isOpen
+    }"
     class="fixed z-50 lg:z-1 w-[18rem] min-w-[18rem] lg:sticky flex flex-col overflow-y-auto
            left-0 bottom-0 right-auto border-r border-base-300
            transition-transform duration-300 ease-in-out
@@ -6,8 +10,7 @@
            top-0  lg:top-[4rem] lg:h-[calc(100vh-4rem)]
            transform lg:translate-x-0">
 
-    {{-- Toggle Button (mobile only) --}}
-    <button @click="isOpen = !isOpen"
+    <button x-on:click="isOpen = !isOpen"
         class="fixed z-50 p-2 bg-transparent rounded-md top-4 right-4 hover:cursor-pointer lg:hidden ">
         <svg x-show="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -18,7 +21,7 @@
     </button>
 
     <!-- Sidebar Content -->
-    <div class="flex-1 py-6 overflow-y-auto px-7">
+    <div class="flex-1 py-6 overflow-y-auto px-7" id="sidebar">
         <div class="relative text-sm lg:text-base">
             <x-converge::sidebar />
         </div>

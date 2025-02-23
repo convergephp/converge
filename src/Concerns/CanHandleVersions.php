@@ -10,7 +10,7 @@ use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Versions\VersionLink;
 use Fluxtor\Converge\Versions\Versions;
 use Illuminate\Support\Collection;
-use LogicException;
+    use LogicException;
 
 trait CanHandleVersions
 {

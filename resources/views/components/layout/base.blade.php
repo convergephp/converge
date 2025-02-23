@@ -37,16 +37,37 @@ use function Fluxtor\Converge\intercept;
     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 </head>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector("#sidebar"); 
+
+        if (sidebar) {
+            const savedScroll = sessionStorage.getItem("sidebarScroll");
+            if (savedScroll !== null) {
+                sidebar.scrollTop = parseInt(savedScroll, 10);
+            }
+
+            window.addEventListener("beforeunload", function () {
+                sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
+            });
+        }
+    });
+</script>
+
+
+
 {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
-<body x-data="themeSwitcher({
-    lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
-    darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
-})"
+<body 
+    x-data="themeSwitcher({
+        lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+        darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+    })"
     {{ $attributes->class([
         'converge-body',
         'font-display relative bg-base-200  lg:max-h-screen text-gray-950 antialiased  dark:text-white',
-    ]) }}>
+    ]) }}
+    >
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
 </body>

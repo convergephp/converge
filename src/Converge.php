@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\MenuItems\MenuItems;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Views\ViewInterceptor;
@@ -123,10 +124,15 @@ class Converge
     {
         return $this->getActiveModule()->getId();
     }
-    
+
     public function getTableOfContent(): ?TableOfContent
     {
         return $this->getActiveModule()->getTableOfContent();
+    }
+
+    public function getMenuItems(): Collection
+    {
+        return $this->getActiveModule()->getMenuItems();
     }
 
     public function getTableOfContentHeadings(): ?Collection

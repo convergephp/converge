@@ -29,15 +29,9 @@
                          </div>
 
                          <div class="relative items-center justify-end hidden ml-auto lg:flex">
-
-                             {{-- LINKS --}}
-                             <nav class="text-sm lg:text-base">
-                                 <ul class="flex items-center space-x-6">
-                                     <li>
-                                         <a href="/docs" class="btn btn-sm btn-primary whitespace-nowrap"
-                                             target="_blank">Sponsor converge</a>
-                                     </li>
-                                 </ul>
+                            
+                             <nav class="text-sm lg:text-base flex items-center">
+                                <x-converge::menu-items />
                              </nav>
 
                              {{-- THEM SWITCHER --}}

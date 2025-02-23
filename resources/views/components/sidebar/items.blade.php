@@ -8,8 +8,10 @@ use function Fluxtor\Converge\converge;
  * iteration so when to resolve the sidebar manager first then we
  * use the reguralr sidebarItems
  */
-$sidebarItems = $sidebarItems ?? converge()->getSidebarItems();
+
+ $sidebarItems = $sidebarItems ?? converge()->getSidebarItems();
 $canCollapsedGroupes = converge()->getTheme()->isCollapsedGroupes();
+
 ?>
 <ul>
     @foreach ($sidebarItems as $item)
