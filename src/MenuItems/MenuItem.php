@@ -16,6 +16,7 @@ class MenuItem
     use HasSort;
     use Resolver;
     use CanOpenUrlInNewTab;
+    use 
 
     protected bool|Closure $isVisible = true;
 
@@ -32,8 +33,10 @@ class MenuItem
     {
         $this->visible(!$condition);
     }
+
+
     public function isVisible(): bool
     {
-        return $this->isVisible;
+        return $this->resolve($this->isVisible);
     }
 }
