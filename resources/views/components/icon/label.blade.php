@@ -6,7 +6,6 @@
 
 @php
     use Fluxtor\Converge\Enums\IconPosition;
-    // dd($icon);
     $isIconBefore = filled($icon) && $iconPosition === IconPosition::Before->value;
     $isIconAfter = filled($icon) && $iconPosition === IconPosition::After->value;
 @endphp
@@ -16,7 +15,7 @@
         <x-converge::icon.evaluator :$icon />
     @endif
 
-    <span>{{ $label }}</span>
+    <span {{ $attributes->merge(['class'=>'leading-5']) }}>{{ $label }}</span>
 
     @if ($isIconAfter)
         <x-converge::icon.evaluator :$icon />
