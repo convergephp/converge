@@ -4,6 +4,7 @@ namespace Fluxtor\Converge\MenuItems;
 
 use Closure;
 use Fluxtor\Converge\Concerns\CanOpenUrlInNewTab;
+use Fluxtor\Converge\Concerns\HasIcon;
 use Fluxtor\Converge\Concerns\HasUrl;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\HasLabel;
@@ -16,9 +17,9 @@ class MenuItem
     use HasSort;
     use Resolver;
     use CanOpenUrlInNewTab;
-    use 
+    use HasIcon; 
 
-    protected bool|Closure $isVisible = true;
+    protected bool | Closure $isVisible = true;
 
     public function visible(bool|Closure $condition = true)
     {
@@ -26,12 +27,13 @@ class MenuItem
             // $reflector = new \ReflectionFunction($condition);
         }
 
-
         $this->isVisible = $condition;
     }
+    
     public function hidden(bool|Closure $condition = true)
     {
         $this->visible(!$condition);
+        return $this;
     }
 
 
