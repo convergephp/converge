@@ -11,6 +11,10 @@ trait HasIcon
 {
     protected string | Closure | Htmlable | null $icon = null;
 
+    protected string | Closure | Htmlable | null $openIcon = null;
+
+    protected string | Closure | Htmlable | null $closeIcon = null;
+
     protected IconPosition | string | Closure | null $iconPosition = null;
 
     protected IconSize | string | Closure | null $iconSize = null;
@@ -18,6 +22,20 @@ trait HasIcon
     public function icon(string | Closure | null $icon): static
     {
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function openIcon(string | Closure | null $icon): static
+    {
+        $this->openIcon = $icon;
+
+        return $this;
+    }
+
+    public function closeIcon(string | Closure | null $icon): static
+    {
+        $this->closeIcon = $icon;
 
         return $this;
     }
@@ -39,9 +57,27 @@ trait HasIcon
     public function getIcon()
     {
 
-        if (($icon = $this->resolve($this->icon)) instanceof Htmlable) {
+        return $this->evaluteIcon($this->icon);
+    }
+
+    public function getOpenIcon()
+    {
+
+        return $this->evaluteIcon($this->openIcon);
+    }
+
+    public function getCloseIcon()
+    {
+
+        return $this->evaluteIcon($this->closeIcon);
+    }
+
+    public function evaluteIcon(string|Closure|Htmlable|null $icon)
+    {
+        if (($icon = $this->resolve($icon)) instanceof Htmlable) {
             return $icon->toHtml();
         }
+
         return $this->resolve($this->icon);
     }
 

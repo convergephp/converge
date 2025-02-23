@@ -12,8 +12,15 @@
         </x-slot:button>
         <x-slot:items class="w-36">
             @foreach($groupItem->getItems() as $item)
-                <x-converge::dropdown.item class="flex items-center gap-1" :href="$item->getUrl()">
-                    <span>{{ $item->getLabel() }}</span>
+                <x-converge::dropdown.item 
+                    class="flex items-center gap-1" 
+                    :href="$item->getUrl()"
+                >
+                    <x-converge::icon.label 
+                        :label="$item->getLabel()"
+                        :icon="$item->getIcon()"
+                        :iconPosition="$item->getIconPosition()->value"
+                    />
                 </x-converge::dropdown.item>            
             @endforeach
         </x-slot:items>

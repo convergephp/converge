@@ -3,6 +3,7 @@
 namespace Fluxtor\Converge\MenuItems;
 
 use Closure;
+use Fluxtor\Converge\Concerns\HasIcon;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Concerns\Resolver;
@@ -13,6 +14,8 @@ class MenuItemGroup
     use HasLabel;
     use HasSort;
     use Resolver;
+    use HasIcon;
+
     protected Collection $items;
 
     public function __construct()
@@ -26,10 +29,8 @@ class MenuItemGroup
 
         $callback($item);
 
-        // $this->adjustSort($item);
-
         $this->items->push($item);
-        // dd($this->items);
+
         return $this;
     }
 
