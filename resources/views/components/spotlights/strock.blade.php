@@ -1,4 +1,4 @@
-   <span class=" fixed  inset-0 -z-1 overflow-hidden h-[64rem]"
+   <span class=" fixed top-0   inset-0 -z-1 overflow-hidden h-[64rem]"
        style="background: radial-gradient(49.63% 57.02% at 58.99% -7.2%, color-mix(in srgb, var(--color-primary) 40%, transparent), transparent 100%)">
        <svg width="1500" height="863" viewBox="0 0 400 1400" class="stroke-primary/6 fill-none"
            xmlns="http://www.w3.org/2000/svg">
