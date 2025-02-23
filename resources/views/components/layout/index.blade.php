@@ -1,5 +1,5 @@
 <x-converge::layout.base>
-    <div class="fle min-h-screen flex-col">
+    <div class="flex-col min-h-screen fle">
         <div class="flex-grow antialiased">
             {{-- navbare --}}
             @include('converge::components.layout.partials.index.navbar')
@@ -14,10 +14,10 @@
                 @include('converge::components.layout.partials.index.sidebar')
 
                 {{-- CONTENT --}}
-                <div class="flex-1 px-5 pt-36 transition-all duration-100 lg:pl-6 lg:pt-10 2xl:pl-24"
+                <div class="flex-1 px-5 transition-all duration-100 pt-36 lg:pl-6 lg:pt-10 2xl:pl-24"
                     id="content-container">
-                    <div class="mx-auto flex max-w-5xl gap-x-12">
-                        <div class="w-full content-center pb-4">
+                    <div class="flex max-w-5xl mx-auto gap-x-12">
+                        <div class="content-center w-full pb-4">
                             {{ $slot }}
                         </div>
                     </div>
