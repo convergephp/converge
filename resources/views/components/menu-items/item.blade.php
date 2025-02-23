@@ -1,11 +1,6 @@
 @props(['item'])
 
-<?php
-    $icon = $item->getIcon();
-    $iconPosition = $item->getIconPosition()->value;
-    $isIconBefore = filled($icon) && $iconPosition === \Fluxtor\Converge\Enums\IconPosition::Before->value;
-    $isIconAfter = filled($icon) && $iconPosition === \Fluxtor\Converge\Enums\IconPosition::After->value;
-?>
+
 
 <li>
     <a 
@@ -13,16 +8,20 @@
         @if($item->shouldOpenUrlInNewTab())
             target="_blank"
         @endif
-        class="w-full text-sm mx-1 flex items-center "
+        class="w-full text-sm mx-1 flex items-center"
     >
         @if($isIconBefore)
+        <span class="px-0.5">
             {!! $icon !!}
+        </span>
         @endif
         
         <span>{{ $item->getLabel() }}</span>
         
         @if($isIconAfter)
+        <span class="px-0.5">
             {!! $icon !!}
+        </span>
         @endif
     </a>
 </li>
