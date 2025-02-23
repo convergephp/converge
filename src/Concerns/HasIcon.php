@@ -36,8 +36,12 @@ trait HasIcon
         return $this;
     }
 
-    public function getIcon(): ?string
+    public function getIcon()
     {
+
+        if (($icon = $this->resolve($this->icon)) instanceof Htmlable) {
+            return $icon->toHtml();
+        }
         return $this->resolve($this->icon);
     }
 

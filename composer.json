@@ -42,9 +42,7 @@
         }
     },
     "require": {
-        "tempest/highlight": "^2.11",
-        "blade-ui-kit/blade-icons": "^1.7"
-
+        "tempest/highlight": "^2.11"
     }
     
 }
