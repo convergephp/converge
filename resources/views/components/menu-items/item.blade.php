@@ -1,7 +1,5 @@
 @props(['item'])
 
-
-
 <li>
     <a 
         href="{{ $item->getUrl() }}"
@@ -10,18 +8,10 @@
         @endif
         class="w-full text-sm mx-1 flex items-center"
     >
-        @if($isIconBefore)
-        <span class="px-0.5">
-            {!! $icon !!}
-        </span>
-        @endif
-        
-        <span>{{ $item->getLabel() }}</span>
-        
-        @if($isIconAfter)
-        <span class="px-0.5">
-            {!! $icon !!}
-        </span>
-        @endif
+        <x-converge::icon.label 
+            :label="$item->getLabel()"
+            :icon="$item->getIcon()"
+            :iconPosition="$item->getIconPosition()->value"
+        />
     </a>
 </li>
