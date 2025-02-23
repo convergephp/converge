@@ -1,7 +1,7 @@
 @props(['groupItem'])
 <li>
     <x-converge::dropdown>
-        <x-slot:button>
+        <x-slot:button class="cursor-pointer">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
@@ -20,14 +20,8 @@
                     @endif
                 </x-slot:icon>
             </x-converge::icon.label>
-            @if (blank($groupItem->getOpenIcon()) && blank($groupItem->getCloseIcon()))
-                <svg x-bind:class="{
-                    'ml-2 overflow-visible',
-                    'rotate-1' : $data.isOpen()
-                }"  aria-hidden="true" width="6" height="3">
-                    <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round"></path>
-                </svg>
+            @if (blank($groupItem->getOpenIcon()) && blank($groupItem->getCloseIcon()))             
+                <x-converge::icons.openable x-model="$data.isOpen()"/>
             @endif
         </x-slot:button>
         <x-slot:items class="w-36">
