@@ -2,13 +2,28 @@
 <li>
     <x-converge::dropdown>
         <x-slot:button>
-            <span class="text-sm">
-                {{ $groupItem->getLabel() }}
-            </span>
-            <svg class="ml-2 overflow-visible" aria-hidden="true" width="6" height="3">
+            <x-converge::icon.label 
+                :label="$groupItem->getLabel()"
+                :iconPosition="$groupItem->getIconPosition()->value"
+            >
+                <x-slot:icon class="">
+                    @if (filled($groupItem->getOpenIcon()))
+                        <span x-show="$data.isOpen()" class="px-0.5 transition-all">
+                            {!! $groupItem->getOpenIcon() !!}
+                        </span>
+                    @endif
+        
+                    @if(filled($groupItem->getCloseIcon()))
+                        <span x-show="!$data.isOpen()" class="px-0.5 transition-all">
+                            {!! $groupItem->getCloseIcon() !!}
+                        </span>
+                    @endif
+                </x-slot:icon>
+            </x-converge::icon.label>                  
+            {{-- <svg class="ml-2 overflow-visible" aria-hidden="true" width="6" height="3">
                 <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round"></path>
-            </svg>
+            </svg> --}}
         </x-slot:button>
         <x-slot:items class="w-36">
             @foreach($groupItem->getItems() as $item)
