@@ -6,7 +6,7 @@
                 :label="$groupItem->getLabel()"
                 :iconPosition="$groupItem->getIconPosition()->value"
             >
-                <x-slot:icon class="mx-4">
+                <x-slot:icon class="mx-0.5">
                     @if (filled($groupItem->getOpenIcon()))
                         <span x-show="$data.isOpen()" class="px-0.5 transition-all">
                             {!! $groupItem->getOpenIcon() !!}

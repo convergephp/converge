@@ -41,6 +41,11 @@ class MenuItemGroup
         return $this;
     }
 
+    final function hasItems(): bool
+    {
+        return $this->getItems()->isNotEmpty();
+    }
+    
     final public function getItems()
     {
         return $this->items->filter(fn(MenuItem $item) => $item->isVisible());
