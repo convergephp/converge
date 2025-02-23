@@ -1,9 +1,7 @@
-<div 
-    x-data="{ isOpen: true }"
-    x-bind:class="{
-        '-translate-x-full': !isOpen
-    }"
-    class="fixed z-50 lg:z-1 w-[18rem] min-w-[18rem] lg:sticky flex flex-col overflow-y-auto
+<div x-data="{ isOpen: false }" x-bind:class="{
+    '-translate-x-full': !isOpen
+}"
+    class="fixed z-50 lg:z-1 w-[18rem]  min-w-[18rem] lg:sticky hidden lg:flex flex-col overflow-y-auto
            left-0 bottom-0 right-auto border-r border-base-300
            transition-transform duration-300 ease-in-out
            bg-base-200 lg:bg-transparent

@@ -3,9 +3,7 @@
 <?php
 use function Fluxtor\Converge\converge;
 $items = $groupItem->getItems();
-
-$hasActiveChild = converge()->hasActiveChild($items);
-$isOpen = $hasActiveChild || false;
+$isOpen = \Fluxtor\Converge\has_active_child($items) || false;
 ?>
 
 <li

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Sidebar\SidebarGroup;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\Views\ViewInterceptor;
@@ -188,16 +187,5 @@ class Converge
         }
 
         return "<script>{$pulse}</script>";
-    }
-
-    public function hasActiveChild($items): bool
-    {
-        return $items->contains(function ($item) {
-            if ($item instanceof SidebarGroup) {
-                return self::hasActiveChild($item->getItems());
-            }
-
-            return $item->isActive();
-        });
     }
 }

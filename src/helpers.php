@@ -7,6 +7,7 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Enums\Interceptor;
+use Fluxtor\Converge\Sidebar\SidebarGroup;
 
 if (! function_exists('converge')) {
     function converge(): Converge
@@ -64,5 +65,18 @@ if (! function_exists('Fluxtor\Converge\get_used_cluster')) {
         if (converge()->getUsedCluster() === converge()->getDefaultCluster()) {
             dd('de');
         }
+    }
+}
+
+if (! function_exists('Fluxtor\Converge\has_active_child')) {
+    function has_active_child($items): bool
+    {
+        return $items->contains(function ($item) {
+            if ($item instanceof SidebarGroup) {
+                return \Fluxtor\Converge\has_active_child($item->getItems());
+            }
+
+            return $item->isActive();
+        });
     }
 }
