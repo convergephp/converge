@@ -33,8 +33,15 @@ class MenuItemGroup
         return $this;
     }
 
+    public function push(Closure $callable)
+    {
+        $this->add($callable);
+
+        return $this;
+    }
+
     final public function getItems()
     {
-        return $this->items;
+        return $this->items->filter(fn(MenuItem $item) => $item->isVisible());
     }
 }

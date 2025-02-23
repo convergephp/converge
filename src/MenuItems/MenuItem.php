@@ -21,13 +21,17 @@ class MenuItem
 
     public function visible(bool|Closure $condition = true)
     {
-        $reflector = new \ReflectionFunction($condition);
-        
-        //  dd($reflector); 
+        if ($condition instanceof Closure) {
+            // $reflector = new \ReflectionFunction($condition);
+        }
+
 
         $this->isVisible = $condition;
     }
-
+    public function hidden(bool|Closure $condition = true)
+    {
+        $this->visible(!$condition);
+    }
     public function isVisible(): bool
     {
         return $this->isVisible;

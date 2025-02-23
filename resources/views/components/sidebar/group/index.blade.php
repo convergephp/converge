@@ -41,8 +41,8 @@
     </button>
     <ul 
         x-show="isOpen"
-        class="ml-2 space-y-1 border-l p-0" 
-        style="border-color: rgba(128, 128, 128, 0.2)" 
+        class="ml-2 space-y-1  p-0" 
+        {{-- style="border-color: rgba(128, 128, 128, 0.2)"  --}}
         x-collapse.duration.400ms x-transition:enter="transition-all ease-in-out duration-300"
         x-transition:enter-start="opacity-0 max-h-0 overflow-hidden" 
         x-transition:enter-end="opacity-100 max-h-[1000px]"
