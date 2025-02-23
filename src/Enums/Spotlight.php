@@ -10,4 +10,6 @@ enum Spotlight: string
 
     case Hive = 'hive';
 
+    case Strock = 'strock';
+
 }

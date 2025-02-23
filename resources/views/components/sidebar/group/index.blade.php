@@ -49,6 +49,7 @@
         x-transition:leave="transition-all ease-in-out duration-300"
         x-transition:leave-start="opacity-100 max-h-[1000px]"
         x-transition:leave-end="opacity-0 max-h-0 overflow-hidden"
+        class="p-0 ml-2"
     >
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_ITEMS, fn() => $groupItem) }}
         

@@ -16,4 +16,20 @@ class MenuItem
     use HasSort;
     use Resolver;
     use CanOpenUrlInNewTab;
+
+    protected bool|Closure $isVisible = true;
+
+    public function visible(bool|Closure $condition = true)
+    {
+        $reflector = new \ReflectionFunction($condition);
+        
+        //  dd($reflector); 
+
+        $this->isVisible = $condition;
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->isVisible;
+    }
 }

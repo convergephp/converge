@@ -1,5 +1,5 @@
    <span class=" fixed  inset-0 -z-1 overflow-hidden h-[64rem]"
-       style="background: radial-gradient(49.63% 57.02% at 58.99% -7.2%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 100%)">
+       style="background: radial-gradient(49.63% 57.02% at 58.99% -7.2%, color-mix(in srgb, var(--color-primary) 40%, transparent), transparent 100%)">
        <svg width="918" height="560" viewBox="0 0 918 591" fill="none" xmlns="http://www.w3.org/2000/svg"
            class="absolute pl-48 -translate-x-1/2 -top-16 left-1/2">
            <mask id="mask-dark" maskUnits="userSpaceOnUse" style="mask-type:alpha" x="0" y="-80" width="936"

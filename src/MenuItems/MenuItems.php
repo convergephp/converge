@@ -20,6 +20,7 @@ class MenuItems
         $item = $this->evaluate($callable);
 
         $callable($item);
+        
 
         $this->items->push($item);
 
@@ -29,7 +30,8 @@ class MenuItems
     public function evaluate(Closure $callable)
     {
         $reflection = new \ReflectionFunction($callable);
-        
+
+    
         $parameter = $reflection->getParameters()[0] ?? null;
 
         if ($parameter && $parameter->getType()) {
