@@ -12,6 +12,7 @@ use Fluxtor\Converge\Concerns\CanHandleVersions;
 use Fluxtor\Converge\Concerns\HasBrandLogo;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
+use Fluxtor\Converge\Concerns\HasIndexPage;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasRoutePath;
@@ -37,6 +38,7 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
+    use HasIndexPage;
 
     // add hasTheme
 

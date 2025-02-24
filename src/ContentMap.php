@@ -34,4 +34,9 @@ class ContentMap
     {
         return FilesTreeBuilder::$urlToPathMap[$url] ?? null;
     }
+
+    public function getFirstFileUrl()
+    {
+        return array_key_first(FilesTreeBuilder::$urlToPathMap);
+    }
 }
