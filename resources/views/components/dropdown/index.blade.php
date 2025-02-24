@@ -19,7 +19,7 @@
             x-bind:aria-expanded="open"
             x-bind:aria-controls="$id('dropdown-button')" 
             type="button"
-            {{ $button->attributes->merge(['class' => 'flex items-center px-2 py-1 ']) }}>
+            {{ $button->attributes->merge(['class' => 'flex min-h-min items-center px-2 py-1 ']) }}>
             {{ $button }}
         </button>
         <!-- Panel -->
