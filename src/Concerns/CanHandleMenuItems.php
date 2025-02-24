@@ -6,7 +6,6 @@ namespace Fluxtor\Converge\Concerns;
 
 use Closure;
 use Fluxtor\Converge\MenuItems\MenuItems;
-use Fluxtor\Converge\TableOfContent\TableOfContent;
 use Illuminate\Support\Collection;
 
 trait CanHandleMenuItems

@@ -20,12 +20,12 @@ trait HasStyles
         return $this;
     }
 
-    public function getClasses(): string
+    public function getClasses(): ?string
     {
         return $this->classes;
     }
     
-    public function getStyles(): string
+    public function getStyles(): ?string
     {
         return $this->format_styles($this->styles);
     }
