@@ -20,13 +20,15 @@
                 <x-slot:items class="text-base w-36">
                     @foreach ($versions as $version)
                         <?php
-                        $isActive = $usedVersion['isActive']($version['id']);
+                            $isActive = $usedVersion['isActive']($version['id']);
                         ?>
                         <x-converge::dropdown.item @class([
                             'flex items-center gap-1',
                             'text-primary' => $isActive,
                             'text-base-content' => !$isActive,
-                        ]) :href="$version['url']">
+                            ]) 
+                            :href="$version['url']"
+                        >
                             <div class="flex items-center justify-between">
                                 <span>{{ $version['label'] }}</span>
                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
