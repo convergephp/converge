@@ -7,7 +7,8 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Versions\Version;
 
-class Repository /**hold active contexts for the evaluated request*/
+class Repository
+/**hold active contexts for the evaluated request*/
 {
     protected ?Version $activeVersion = null;
 
@@ -56,6 +57,16 @@ class Repository /**hold active contexts for the evaluated request*/
         return $this->activeVersion;
     }
 
+    public function getModule()
+    {
+        return $this->activeModule;
+    }
+
+    public function getModuleId()
+    {
+        return $this->activeModule->getId();
+    }
+
     public function getActivePath()
     {
         if ($this->activeVersion) {
@@ -74,5 +85,24 @@ class Repository /**hold active contexts for the evaluated request*/
     public function getActiveRoute()
     {
         return $this->activeVersion;
+    }
+
+    public function getActiveRouteName()
+    {
+        $id = $this->activeModule->getId();
+        if ($this->activeVersion) {
+            $vRoute = $this->activeVersion->getRoute();
+            if (blank($this->activeCluster)) {
+                return $id . '.' . $vRoute;
+            } else {
+                return  $id . '.' . $vRoute . '.' . $this->activeCluster->getRoute();
+            }
+        }
+
+        if ($this->activeCluster) {
+            return $id . '.' . $this->activeCluster->getRoute();
+        }
+
+        return $id;
     }
 }
