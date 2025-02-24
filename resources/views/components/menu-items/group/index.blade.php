@@ -1,10 +1,23 @@
 @props(['groupItem'])
+
+@php
+    $styles = \Fluxtor\Converge\format_styles(
+        styles: $groupItem->getStyles(),
+        classes: $groupItem->getClasses(),
+        defaultClasses: "w-full text-sm mx-1 flex items-center"
+    );
+@endphp
+
 <li>
     <x-converge::dropdown>
         <x-slot:button class="cursor-pointer">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
+                :styles="new \Fluxtor\Converge\Support\Styles(
+                               classes: $groupItem->getClasses(),
+                               style:$groupItem->getStyles()
+                        )" 
             >
                 <x-slot:icon class="mx-0.5">
                     @if (filled($groupItem->getOpenIcon()))

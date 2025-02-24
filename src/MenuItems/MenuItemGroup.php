@@ -6,6 +6,7 @@ use Closure;
 use Fluxtor\Converge\Concerns\HasIcon;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasSort;
+use Fluxtor\Converge\Concerns\HasStyles;
 use Fluxtor\Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
 
@@ -15,6 +16,7 @@ class MenuItemGroup
     use HasSort;
     use Resolver;
     use HasIcon;
+    use HasStyles;
 
     protected Collection $items;
 
@@ -45,7 +47,7 @@ class MenuItemGroup
     {
         return $this->getItems()->isNotEmpty();
     }
-    
+
     final public function getItems()
     {
         return $this->items->filter(fn(MenuItem $item) => $item->isVisible());
