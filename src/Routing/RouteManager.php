@@ -49,13 +49,12 @@ final class RouteManager
 
                             $clusterUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), clusterUri: $scopedCluster->getRoute());
 
-                            $clusterName = $moduleId.'.'.$scopedCluster->getRoute();
+                            $clusterName = $moduleId.'.'.$version->getRoute().'.'.$scopedCluster->getRoute();
 
                             $this->registerRoutes($clusterUri, $moduleId, $clusterName, versionId: $version->getRoute(), clusterId: $scopedCluster->getRoute());
                         }
                     }
 
-                    // dump($version->getUrl($rawModuleUri));
                     $urlGenerator = $version->getUrlGenerator();
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute());
