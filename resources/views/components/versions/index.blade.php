@@ -15,10 +15,7 @@
                 <x-slot:button
                     class="flex items-center space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border btn-sm btn border-base-300 bg-base-300/50 text-base-content hover:bg-base-300 ">
                     <span>{{ $usedVersion['label'] }}</span>
-                    <svg class="ml-2 overflow-visible" aria-hidden="true" width="6" height="3">
-                        <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round"></path>
-                    </svg>
+                    <x-converge::icons.openable x-model="$data.isOpen()"/>
                 </x-slot:button>
                 <x-slot:items class="text-base w-36">
                     @foreach ($versions as $version)
