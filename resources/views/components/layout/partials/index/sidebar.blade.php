@@ -1,13 +1,29 @@
-<div x-data="{ isOpen: false }" x-bind:class="{
-    '-translate-x-full': !isOpen
-}"
-    class="fixed z-50 lg:z-1 w-[18rem]  min-w-[18rem] lg:sticky hidden lg:flex flex-col overflow-y-auto
-           left-0 bottom-0 right-auto border-r border-base-300
-           transition-transform duration-300 ease-in-out
-           bg-base-200 lg:bg-transparent
-           top-0  lg:top-[4rem] lg:h-[calc(100vh-4rem)]
-           transform lg:translate-x-0">
-
+<div 
+    x-data="{ 
+        isOpen: true,
+        init(){
+            if(window.matchMedia('(max-width: 48rem)').matches){
+                this.close();
+            }
+        },
+        open(){
+            return this.isOpen = true;
+        }, 
+        close(){
+            return this.isOpen = false;
+        }, 
+    }"
+    x-on:open-sidebar.window="$data.open()"
+    x-on:close-sidebar.window="$data.close()"
+    x-show="isOpen"
+    x-transition:enter="transform transition duration-300 ease-in-out"
+    x-transition:enter-start="-translate-x-full opacity-0 scale-90"
+    x-transition:enter-end="translate-x-0 opacity-100 scale-100"
+    x-transition:leave="transform transition duration-300 ease-in-out"
+    x-transition:leave-start="translate-x-0 opacity-100 scale-100"
+    x-transition:leave-end="-translate-x-full opacity-0 scale-90"
+    class="fixed z-50 lg:z-1 w-[18rem] min-w-[18rem] lg:sticky lg:flex flex-col overflow-y-auto left-0 bottom-0 right-auto border-r border-base-300
+           bg-base-200 lg:bg-transparent top-0 lg:top-[4rem] lg:h-[calc(100vh-4rem)] transform">
     <button x-on:click="isOpen = !isOpen"
         class="fixed z-50 p-2 bg-transparent rounded-md top-4 right-4 hover:cursor-pointer lg:hidden ">
         <svg x-show="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

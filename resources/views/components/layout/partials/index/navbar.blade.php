@@ -42,20 +42,20 @@
                      </div>
                  </div>
 
-                 <div class="flex items-center gap-0 py-2 h-14 lg:hidden">
+                 <div x-data class="flex items-center gap-0 py-2 h-14 lg:hidden">
                      {{-- OPEN AND CLOSE SIDEBAR --}}
-                     <button type="button" class="btn btn-sm btn-ghost text-base-content"><span
+                     <button type="button" x-on:click="$dispatch('open-sidebar')" class="btn btn-sm btn-ghost text-base-content"><span
                              class="sr-only">Navigation</span>
                          <x-converge::icon icon="bars-4" class="size-5" />
                      </button>
 
                      {{-- BREADCRUMBS --}}
                      <div class="flex-grow">
-                         <x-converge::breadcrumbs :breadcrumbs="[
+                        <x-converge::breadcrumbs :breadcrumbs="[
                              '/dashboard' => 'Dashboard',
                              '/dashboard/users' => 'Users',
                              '/dashboard/users/create' => 'Create User',
-                         ]" />
+                         ]"/>
                      </div>
                  </div>
              </div>
