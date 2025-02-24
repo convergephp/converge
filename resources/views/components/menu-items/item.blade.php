@@ -1,13 +1,25 @@
 @props(['item'])
-<li>
+
+<li 
+    {!!
+        (new \Fluxtor\Converge\Support\Styles(
+            classes: $item->getClasses(),
+            style:$item->getStyles()
+        ))->merge([
+            'class' => 'px-0.5 hover:text-primary transition duration-300'
+        ])
+    !!}
+>
     <a 
         href="{{ $item->getUrl() }}"
-        
         @if($item->shouldOpenUrlInNewTab())
             target="_blank"
         @endif
-        
-        class="w-full btn btn-sm btn-ghost">
-        <span>{{ $item->getLabel() }}</span>
+    >
+        <x-converge::icon.label 
+            :label="$item->getLabel()"
+            :icon="$item->getIcon()"
+            :iconPosition="$item->getIconPosition()->value"
+        />
     </a>
 </li>

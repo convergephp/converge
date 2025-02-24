@@ -15,21 +15,20 @@
                 <x-slot:button
                     class="flex items-center space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border btn-sm btn border-base-300 bg-base-300/50 text-base-content hover:bg-base-300 ">
                     <span>{{ $usedVersion['label'] }}</span>
-                    <svg class="ml-2 overflow-visible" aria-hidden="true" width="6" height="3">
-                        <path d="M0 0L3 3L6 0" fill="none" stroke="currentColor" stroke-width="1.5"
-                            stroke-linecap="round"></path>
-                    </svg>
+                    <x-converge::icons.openable x-model="$data.isOpen()"/>
                 </x-slot:button>
                 <x-slot:items class="text-base w-36">
                     @foreach ($versions as $version)
                         <?php
-                        $isActive = $usedVersion['isActive']($version['id']);
+                            $isActive = $usedVersion['isActive']($version['id']);
                         ?>
                         <x-converge::dropdown.item @class([
                             'flex items-center gap-1',
                             'text-primary' => $isActive,
                             'text-base-content' => !$isActive,
-                        ]) :href="$version['url']">
+                            ]) 
+                            :href="$version['url']"
+                        >
                             <div class="flex items-center justify-between">
                                 <span>{{ $version['label'] }}</span>
                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
