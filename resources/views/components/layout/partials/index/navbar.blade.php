@@ -29,9 +29,9 @@
                          </div>
 
                          <div class="relative items-center justify-end hidden ml-auto lg:flex">
-                            
-                             <nav class="text-sm lg:text-base flex items-center">
-                                <x-converge::menu-items />
+
+                             <nav class="flex items-center text-sm lg:text-base">
+                                 <x-converge::menu-items />
                              </nav>
 
                              {{-- THEM SWITCHER --}}
