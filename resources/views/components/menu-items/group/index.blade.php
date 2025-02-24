@@ -1,13 +1,4 @@
 @props(['groupItem'])
-
-@php
-    $styles = \Fluxtor\Converge\format_styles(
-        styles: $groupItem->getStyles(),
-        classes: $groupItem->getClasses(),
-        defaultClasses: "w-full text-sm mx-1 flex items-center"
-    );
-@endphp
-
 <li>
     <x-converge::dropdown>
         <x-slot:button class="cursor-pointer">
