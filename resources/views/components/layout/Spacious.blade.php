@@ -28,7 +28,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         </div>
                     </div>
 
-                    <div class="flex justify-end flex-grow">
+                    <div class="flex items-center justify-end flex-grow">
                         {{-- SEARCH BUTTON --}}
                         <div class="text-center">
                             <x-converge::search />
@@ -53,8 +53,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
 
 
         {{-- Main Layout Container --}}
-        <div class="flex min-h-screen"
-             id="sidebar">
+        <div class="flex min-h-screen">
             {{-- Sidebar --}}
             <aside class="fixed top-0 left-0 z-40 h-screen transition-transform border-r w-72 lg:translate-x-0 bg-base-200 border-base-300"
                    x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
@@ -62,7 +61,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     {{-- Sidebar spacing for navbar --}}
                     <div class="h-20"></div>
                     {{-- Sidebar content --}}
-                    <div class="flex-1 px-4 overflow-y-auto">
+                    <div id="sidebar" class="flex-1 px-4 overflow-y-auto">
                         <x-converge::sidebar />
                     </div>
                 </div>

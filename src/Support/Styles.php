@@ -31,6 +31,16 @@ class Styles implements Stringable
         return $this;
     }
 
+    public function overideAttributes(array $atts = [])
+    {
+        if ($this->classes) {
+            $atts['class'] = $this->classes ;
+        }else{
+            $this->classes = $atts['class']  ;
+        }
+        return $this;
+    }
+
     public function __toString()
     {
         $attributes = [];
