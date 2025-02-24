@@ -57,6 +57,16 @@ class Repository
         return $this->activeVersion;
     }
 
+    public function getModule()
+    {
+        return $this->activeModule;
+    }
+
+    public function getModuleId()
+    {
+        return $this->activeModule->getId();
+    }
+
     public function getActivePath()
     {
         if ($this->activeVersion) {

@@ -22,11 +22,22 @@ class ModuleController
 
     public function __invoke()
     {
-        $routeName = resolve(Repository::class)->getActiveRouteName();
+        $repo = resolve(Repository::class);
+
+        $module = $repo->getModule();
+
+        $routeName = $repo->getActiveRouteName();
+
+        if ($module->getId() === $repo->getActiveRouteName()) {
+            if ($view = $module->getIndexView()) {
+                return $view->render();
+            }
+        }
 
         return redirect()->to(route($routeName . '.show', [
             'url' => $this->map->getFirstFileUrl()
         ]));
+
 
         return  view('converge::index');
     }
