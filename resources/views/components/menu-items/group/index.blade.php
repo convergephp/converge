@@ -1,13 +1,14 @@
 @props(['groupItem'])
 <li>
     <x-converge::dropdown>
-        <x-slot:button class="cursor-pointer bg-white">
+        <x-slot:button class="cursor-pointer bg-white/15">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
+                :iconSize="$groupItem->getIconSize()?->value"
                 :styles="new \Fluxtor\Converge\Support\Styles(
                                classes: $groupItem->getClasses(),
-                               style:$groupItem->getStyles()
+                               style: $groupItem->getStyles()
                         )" 
             >
                 <x-slot:icon class="mx-0.5">
