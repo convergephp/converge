@@ -6,7 +6,11 @@
         @if($item->shouldOpenUrlInNewTab())
             target="_blank"
         @endif
-        class="w-full text-sm mx-1 flex items-center"
+        {!! \Fluxtor\Converge\format_styles(
+            styles: $item->getStyles(),
+            classes: $item->getClasses(),
+            defaultClasses: "w-full text-sm mx-1 flex items-center"
+        ) !!}
     >
         <x-converge::icon.label 
             :label="$item->getLabel()"
