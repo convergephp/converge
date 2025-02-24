@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge;
 
-use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Enums\Interceptor;
 use Fluxtor\Converge\Sidebar\SidebarGroup;
