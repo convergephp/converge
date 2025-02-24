@@ -1,7 +1,7 @@
 @props(['groupItem'])
 <li>
-    <x-converge::dropdown>
-        <x-slot:button class="cursor-pointer bg-white/15">
+    <x-converge::dropdown >
+        <x-slot:button class="cursor-pointer !px-0">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
@@ -11,15 +11,15 @@
                                style: $groupItem->getStyles()
                         )" 
             >
-                <x-slot:icon class="mx-0.5">
+                <x-slot:icon>
                     @if (filled($groupItem->getOpenIcon()))
-                        <span class="px-0.5 transition-all" x-show="$data.isOpen()">
+                        <span class=" transition-all" x-show="$data.isOpen()">
                             {!! $groupItem->getOpenIcon() !!}
                         </span>
                     @endif
 
                     @if (filled($groupItem->getCloseIcon()))
-                        <span class="px-0.5 transition-all" x-show="!$data.isOpen()">
+                        <span class=" transition-all" x-show="!$data.isOpen()">
                             {!! $groupItem->getCloseIcon() !!}
                         </span>
                     @endif
