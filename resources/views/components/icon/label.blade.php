@@ -12,10 +12,9 @@
     $isIconAfter = filled($icon) && $iconPosition === IconPosition::After->value;
     $iconLabelClasses = 'mx-1 !flex w-full items-center';
     $styles =
-        $styles instanceof \Fluxtor\Converge\Support\Styles
+        $styles instanceof \Fluxtor\Converge\Support\Styles     
             ? $styles->merge(['class' => $iconLabelClasses])
             : (new \Fluxtor\Converge\Support\Styles())->merge(['class' => $iconLabelClasses]);
-    // dd($styles);
 @endphp
 
 <div {!! $styles !!}>
