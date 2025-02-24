@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 import anchor from "@alpinejs/anchor";
 import collapse from "@alpinejs/collapse";
-
+import focus  from "@alpinejs/focus";
 
 import tableOfContent from "./components/tableOfContent";
 import tabs from "./components/tabs";
@@ -14,6 +14,7 @@ import themeSwitcher from "./components/themeSwitcher";
 // plugins
 Alpine.plugin(anchor);
 Alpine.plugin(collapse);
+Alpine.plugin(focus)
 
 // components
 Alpine.data("themeSwitcher", themeSwitcher);
