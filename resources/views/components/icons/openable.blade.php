@@ -1,6 +1,6 @@
 <svg
      x-data="{
-        state: false
+        state: true
     }"
     x-modelable="state"
     {{ $attributes }}
