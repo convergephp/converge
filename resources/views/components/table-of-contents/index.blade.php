@@ -12,6 +12,8 @@
         class="ml-2 mt-4 max-h-[calc(100vh-3rem)] text-sm" 
         x-data="tableOfContent"
     >
-        <x-converge::table-of-contents.ul :headings="\Fluxtor\Converge\converge()->getTableOfContentHeadings()" />
+        <x-converge::table-of-contents.ul 
+            :headings="\Fluxtor\Converge\converge()->getTableOfContentHeadings()" 
+        />
     </div>
 </div>
