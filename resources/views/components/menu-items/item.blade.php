@@ -6,10 +6,8 @@
             classes: $item->getClasses(),
             style:$item->getStyles()
         ))->merge([
-            'class' => 'px-0.5'
+            'class' => 'px-0.5 hover:text-primary transition duration-300'
         ])
-
-
     !!}
 >
     <a 
