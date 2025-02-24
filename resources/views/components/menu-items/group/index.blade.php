@@ -3,12 +3,12 @@
     $styles = (new \Fluxtor\Converge\Support\Styles(
                     classes: $groupItem->getClasses(),
                     style: $groupItem->getStyles()
-            ))->merge(['class'=>' hover:text-primary transition duration-300']);
+            ))->merge(['class'=>'px-0.5']);
 @endphp
 
 <li>
     <x-converge::dropdown >
-        <x-slot:button class="cursor-pointer !px-0">
+        <x-slot:button class="cursor-pointer !px-0 hover:text-primary transition duration-300">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
