@@ -1,7 +1,7 @@
 @props(['groupItem'])
 <li>
     <x-converge::dropdown>
-        <x-slot:button class="cursor-pointer">
+        <x-slot:button class="cursor-pointer bg-white">
             <x-converge::icon.label 
                 :label="$groupItem->getLabel()" 
                 :iconPosition="$groupItem->getIconPosition()->value"
