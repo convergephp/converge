@@ -2,14 +2,17 @@
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use League\CommonMark\Input\MarkdownInput;
+use League\CommonMark\Parser\MarkdownParser as ParserMarkdownParser;
+
 class MarkdownParser
 {
-    protected string $contents;
+    private string $contents;
 
     public function __construct($contents)
     {
         $this->contents = $contents;
-    }
+    }   
 
     public static function make($contents)
     {
@@ -73,17 +76,17 @@ class MarkdownParser
         preg_match_all('/^( *)([-*+]|\d+\.)\s+(.+)$/m', $this->contents, $matches, PREG_SET_ORDER);
 
         $lists = [];
-        $stack = []; // Stack to track nested levels
+        $stack = [];
 
         foreach ($matches as $match) {
             $item = [
-                'level' =>  strlen($match[1]) / 4, // Track nesting level
+                'level' =>  strlen($match[1]) / 4, 
                 'marker' => $match[2],
                 'text' => trim($match[3]),
                 'children' => []
             ];
 
-            // Find correct parent based on indentation
+           
             while (!empty($stack) && end($stack)['level'] >= $item['level']) {
                 array_pop($stack);
             }
@@ -103,21 +106,6 @@ class MarkdownParser
         dd($lists);
     }
 
-
-    // public function extractLists()
-    // {
-    //     preg_match_all('/^( *)([-*+]|\d+\.)\s+(.+)$/m', $this->contents, $matches, PREG_SET_ORDER);
-    //     $lists = [];
-    //     foreach ($matches as $match) {
-    //         $lists[] = [
-    //             'is_nested' => strlen($match[1]) > 0,
-    //             'marker' => $match[2],
-    //             'text' => $match[3]
-    //         ];
-    //     }
-
-    //     dd($lists);
-    // }
     public function getContents()
     {
         return $this->contents;
