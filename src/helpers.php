@@ -7,7 +7,6 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Clusters\ClusterLink;
 use Fluxtor\Converge\Enums\Interceptor;
 use Fluxtor\Converge\Sidebar\SidebarGroup;
-use PHPUnit\Metadata\UsesDefaultClass;
 
 if (! function_exists('converge')) {
     function converge(): Converge
@@ -23,7 +22,7 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
             return null;
         }
 
-        return '/' . trim($url ?? '', '/');
+        return '/'.trim($url ?? '', '/');
     }
 }
 if (! function_exists('Fluxtor\Converge\intercept')) {
@@ -86,14 +85,14 @@ if (! function_exists('Fluxtor\Converge\format_styles')) {
         $attributes = [];
 
         if (filled($styles)) {
-            $attributes[] = 'style="' . e($styles) . '"';
+            $attributes[] = 'style="'.e($styles).'"';
         }
 
         if (filled($classes) || filled($defaultClasses)) {
             $mergedClasses = trim("$defaultClasses $classes");
-            $attributes[] = 'class="' . e($mergedClasses) . '"';
+            $attributes[] = 'class="'.e($mergedClasses).'"';
         }
 
-        return implode(' ', $attributes)    ;
+        return implode(' ', $attributes);
     }
 }

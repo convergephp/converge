@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 
 trait HasIndexPage
 {
@@ -12,6 +13,7 @@ trait HasIndexPage
     public function indexView(?Closure $view)
     {
         $this->indexView = $view;
+
         return $this;
     }
 

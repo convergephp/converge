@@ -1,6 +1,4 @@
 @props(['item'])
-
-<li>
     <a
     {!!
         (new \Fluxtor\Converge\Support\Styles(
@@ -20,7 +18,5 @@
         <x-converge::icon.label
             :label="$item->getLabel()"
             :icon="$item->getIcon()"
-            :iconPosition="$item->getIconPosition()->value"
-        />
+            :iconPosition="$item->getIconPosition()->value"/>
     </a>
-</li>

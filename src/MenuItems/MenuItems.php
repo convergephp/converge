@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\MenuItems;
 
 use Closure;
-use InvalidArgumentException;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
+use ReflectionFunction;
 
 class MenuItems
 {
@@ -21,7 +24,6 @@ class MenuItems
 
         $callable($item);
 
-
         $this->items->push($item);
 
         return $this;
@@ -30,14 +32,13 @@ class MenuItems
     public function push(Closure $callable)
     {
         $this->add($callable);
-        
+
         return $this;
     }
 
     public function evaluate(Closure $callable)
     {
-        $reflection = new \ReflectionFunction($callable);
-
+        $reflection = new ReflectionFunction($callable);
 
         $parameter = $reflection->getParameters()[0] ?? null;
 
@@ -45,12 +46,13 @@ class MenuItems
 
             $type = $parameter->getType()->getName();
 
-            if (!is_a($type, MenuItem::class, true) && !is_a($type, MenuItemGroup::class, true)) {
-                throw new InvalidArgumentException("Invalid type provided. Must be MenuItem or MenuItemGroup.");
+            if (! is_a($type, MenuItem::class, true) && ! is_a($type, MenuItemGroup::class, true)) {
+                throw new InvalidArgumentException('Invalid type provided. Must be MenuItem or MenuItemGroup.');
             }
 
-            return  new $type();
+            return new $type();
         }
+
         return new MenuItem();
     }
 

@@ -25,12 +25,13 @@ class Module
 {
     use CanHandleClusters;
     use CanHandleDefault;
+    use CanHandleMenuItems;
     use CanHandleTableOfContent;
     use CanHandleVersions;
-    use CanHandleMenuItems;
     use HasBrandLogo;
     use HasDepth;
     use HasId;
+    use HasIndexPage;
     use HasLabel;
     use HasPath;
     use HasRoutePath;
@@ -38,7 +39,6 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
-    use HasIndexPage;
 
     // add hasTheme
 

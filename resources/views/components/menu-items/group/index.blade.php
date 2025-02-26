@@ -3,11 +3,14 @@
     $styles = (new \Fluxtor\Converge\Support\Styles(
                     classes: $groupItem->getClasses(),
                     style: $groupItem->getStyles()
-            ))->merge(['class'=>'text-sm text-base-content hover:text-primary whitespace-nowrap']);
+            ))
+            ->merge([])
+            ->overideAttributes(['class'=>'text-sm text-base-content hover:text-primary whitespace-nowrap']);
+            // dd($styles)
 @endphp
 
 <li>
-    <x-converge::dropdown >
+    <x-converge::dropdown>
         <x-slot:button class="cursor-pointer !px-0 hover:text-primary transition duration-300">
             <x-converge::icon.label
                 :label="$groupItem->getLabel()"
@@ -33,18 +36,9 @@
                 <x-converge::icons.openable x-model="$data.isOpen()"/>
             @endif
         </x-slot:button>
-        <x-slot:items class="w-36">
-            @foreach ($groupItem->getItems() as $item)
-                <x-converge::dropdown.item
-                    class="flex items-center gap-1"
-                    :href="$item->getUrl()"
-                >
-                    <x-converge::icon.label
-                        :label="$item->getLabel()"
-                        :icon="$item->getIcon()"
-                        :iconPosition="$item->getIconPosition()->value"
-                    />
-                </x-converge::dropdown.item>
+        <x-slot:items class="flex flex-col gap-4 px-4 py-4 min-w-56 rounded-box">
+            @foreach ($groupItem->getItems()->sortBy('sort')->values() as $item)
+                <x-converge::menu-items.item :$item />
             @endforeach
         </x-slot:items>
     </x-converge::dropdown>

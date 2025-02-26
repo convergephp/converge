@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Views;
 
-use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 

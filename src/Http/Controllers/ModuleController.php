@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Repository;
-use Illuminate\Contracts\View\View;
-
-use function Fluxtor\Converge\converge;
 
 class ModuleController
 {
@@ -34,11 +30,10 @@ class ModuleController
             }
         }
 
-        return redirect()->to(route($routeName . '.show', [
-            'url' => $this->map->getFirstFileUrl()
+        return redirect()->to(route($routeName.'.show', [
+            'url' => $this->map->getFirstFileUrl(),
         ]));
 
-
-        return  view('converge::index');
+        return view('converge::index');
     }
 }

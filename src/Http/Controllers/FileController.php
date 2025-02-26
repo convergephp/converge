@@ -32,8 +32,7 @@ class FileController
         $html = $markdown->convert($contents);
 
         resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings());
-        
-        
+
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),

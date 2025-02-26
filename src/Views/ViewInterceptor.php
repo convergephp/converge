@@ -42,6 +42,7 @@ class ViewInterceptor
                 return $view($contextInstance);
             }
         }
+
         return null;
     }
 }

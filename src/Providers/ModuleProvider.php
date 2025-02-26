@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Providers;
 
-use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Module;
 use Fluxtor\Converge\ModuleRegistry;
 use Illuminate\Support\ServiceProvider;
