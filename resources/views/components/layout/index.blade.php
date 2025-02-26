@@ -13,7 +13,7 @@
                 @include('converge::components.layout.partials.index.sidebar')
 
                 {{-- CONTENT --}}
-                <div class="flex-1 max-w-xl px-4 pt-24 mx-auto transition-all duration-100 sm:px-5 sm:pt-28 md:pt-32 lg:pt-10 lg:pl-6 md:max-w-2xl lg:max-w-screen-md 2xl:pl-24"
+                <div class="flex-1 max-w-xl px-4 pt-32 mx-auto transition-all duration-100 sm:px-5 sm:pt-28 md:pt-32 lg:pt-10 lg:pl-6 md:max-w-2xl lg:max-w-screen-md 2xl:pl-24"
                     id="content-container">
                     <div class="flex max-w-5xl mx-auto gap-x-4 sm:gap-x-8 md:gap-x-12">
                         <div class="w-full pb-4">

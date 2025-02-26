@@ -72,10 +72,10 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
             <main class="flex-1 w-full transition-all duration-300 lg:pl-72">
                 <div class="container mx-auto">
                     {{-- Content Grid --}}
-                    <div class="grid grid-cols-1 mx-auto px-4 xl:grid-cols-[1fr,19rem] gap-4  pt-24 pb-12">
-                        <div class="gap-4 mx-auto 2xl:gap-10 xl:flex ">
+                    <div class="xl:grid mx-auto xl:grid-cols-[1fr,19rem] gap-4 px-4 pt-24 pb-12">
+                        <div class="gap-4 mx-auto xl:gap-6 xl:flex ">
                             {{-- MAIN CONTENT --}}
-                            <div class="grid content-center grid-cols-1 gap-10 pt-10 mx-auto isolate md:pb-24 ">
+                            <div class="mx-auto md:pb-24">
                                 <div class="mx-auto">
                                     {{ $slot }}
                                 </div>
