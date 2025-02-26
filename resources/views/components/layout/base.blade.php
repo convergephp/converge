@@ -65,7 +65,7 @@ use function Fluxtor\Converge\intercept;
     })"
     {{ $attributes->class([
         'converge-body',
-        'font-display relative bg-base-200 font-semibold  lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+        'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}
     >
     {{-- DYNAMIQUE CONTENT --}}

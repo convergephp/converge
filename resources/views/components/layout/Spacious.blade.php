@@ -72,15 +72,17 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
             <main class="flex-1 w-full transition-all duration-300 lg:pl-72">
                 <div class="container mx-auto">
                     {{-- Content Grid --}}
-                    <div class="grid grid-cols-1 mx-auto  xl:grid-cols-[1fr,19rem] gap-8 px-4  lg:px-8 pt-24 pb-12">
-                        <div class="max-w-md gap-10 mx-auto md:max-w-lg xl:flex xl:max-w-7xl">
+                    <div class="grid grid-cols-1 mx-auto px-4 xl:grid-cols-[1fr,19rem] gap-4  pt-24 pb-12">
+                        <div class="gap-4 mx-auto 2xl:gap-10 xl:flex ">
                             {{-- MAIN CONTENT --}}
-                            <div class="grid w-full max-w-2xl grid-cols-1 gap-10 pt-10 mx-auto isolate md:pb-24 xl:max-w-5xl">
-                                {{ $slot }}
+                            <div class="grid content-center grid-cols-1 gap-10 pt-10 mx-auto isolate md:pb-24 ">
+                                <div class="mx-auto">
+                                    {{ $slot }}
+                                </div>
                             </div>
 
                             {{-- TABLE OF CONTENT --}}
-                            <div class="hidden xl:block">
+                            <div class="hidden min-w-[19rem] xl:block">
                                 <div class="sticky top-24 w-[19rem] overflow-y-auto text-base-content max-h-[calc(100vh-8rem)]">
                                     <x-converge::table-of-contents />
                                 </div>
