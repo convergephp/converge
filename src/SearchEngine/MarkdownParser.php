@@ -27,18 +27,17 @@ class MarkdownParser
         // $contents = preg_replace('/[\r\n]+/', "\n", $contents);
 
         // dd($contents);
-        // get rid of intended code that has a tab or more than 4 spaces
         $lines = explode("\n", $contents);
-
+        
         $lines = array_filter($lines, function ($line) {
-            return !empty(trim($line)); // Remove empty or just-whitespace lines
+            return !empty(trim($line)); // compact the file
         });
-
-        $filteredLines = [];
-
-
+        
+        // get rid of intended code that has a tab or more than 4 spaces
+        
+        $filteredLines = [];       
         foreach ($lines as $line) {
-            // Check if the line is an indented code block
+           
             if (preg_match('/^( {4,}|\t)/', $line)) {
                 continue; // Skip this line
             }
@@ -46,7 +45,31 @@ class MarkdownParser
             // Add non-code lines to filtered output
             $filteredLines[] = $line;
         }
+        
+        $this->contents = implode("\n", $filteredLines);
+        
+        return $this;
+    }
 
-        return implode("\n", $filteredLines);
+    public function extractHeadings()
+    {
+        preg_match_all('/^(#{1,6})\s*(.+)$/m', $this->contents, $matches, PREG_SET_ORDER);
+        
+        $headings = [];
+        
+        foreach ($matches as $match) {
+            $level = strlen($match[1]);
+            $headings[] = [
+                'level' => $level,
+                'title' => trim($match[2])
+            ];
+        }
+
+        return dd($headings);
+    }
+
+    public function getContents()
+    {
+        return $this->contents;
     }
 }
