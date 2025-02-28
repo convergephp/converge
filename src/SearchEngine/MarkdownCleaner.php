@@ -2,110 +2,162 @@
 
 namespace Fluxtor\Converge\SearchEngine;
 
-use League\CommonMark\Node\Query;
-use League\CommonMark\Node\Block\Paragraph;
+use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Extension\Table\Table;
 use League\CommonMark\Parser\MarkdownParser;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Table\TableRow;
 use League\CommonMark\Extension\Table\TableCell;
 use League\CommonMark\Extension\Table\TableExtension;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
+use League\CommonMark\Extension\Table\TableSection;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
-use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-
 
 class MarkdownCleaner
 {
-
     protected string $contents;
+    protected Document $document;
 
-    public function __construct($contents)
+    public function __construct(string $contents)
     {
         $this->contents = $contents;
+        $this->initializeParser();
     }
 
-    public static function make($contents)
+    public static function make(string $contents): self
     {
-        return new static($contents);
+        return new self($contents);
     }
 
-    public function clean()
+    protected function initializeParser(): void
     {
         $environment = new Environment();
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new TableExtension());
 
         $parser = new MarkdownParser($environment);
-        $document = $parser->parse($this->contents);
+        $this->document = $parser->parse($this->contents);
+    }
 
-        $matchingNodes = (new Query())
-            ->where(Query::type(Paragraph::class))
-            ->orWhere(Query::type(BlockQuote::class))
-            ->andWhere(Query::hasChild(Query::type(Link::class)))
-            ->findAll($document);
+    public function clean(): array
+    {
+        return [
+            'headings' => $this->extractHeadings(),
+            'lists' => $this->extractLists(),
+            'tables' => $this->extractTables(),
+        ];
+    }
 
-        dd($matchingNodes);
-
-        $walker = $document->walker();
+    protected function extractHeadings(): array
+    {
+        $headings = [];
+        $walker = $this->document->walker();
         while ($event = $walker->next()) {
-            dd($event->getNode());
-            echo 'Now ' . ($event->isEntering() ? 'entering' : 'leaving') . ' a ' . get_class($event->getNode()) . ' node' . "\n";
+            $node = $event->getNode();
+            if ($event->isEntering() && $node instanceof Heading) {
+                $headings[] = [
+                    'level' => $node->getLevel(),
+                    'text' => $this->getNodeText($node),
+                ];
+            }
         }
+        return $headings;
+    }
 
-        $data = [
-            'headings' => [],
-            'lists' => [],
-            'tables' => [],
+    protected function extractLists(): array
+    {
+        $lists = [];
+        $walker = $this->document->walker();
+        while ($event = $walker->next()) {
+            $node = $event->getNode();
+            if ($event->isEntering() && $node instanceof ListBlock) {
+                $lists[] = $this->parseListBlock($node);
+            }
+        }
+        return $lists;
+    }
+
+    protected function parseListBlock(ListBlock $listBlock): array
+    {
+        $listData = [
+            'type' => $listBlock->getListData()->type,
+            'items' => [],
         ];
 
-        dd($document->iterator());
-        foreach ($document->iterator() as $node) {
-            // Extract Headings
-            if ($node instanceof Heading) {
-
-
-                $data['headings'][] = [
-                    'level' => $node->getLevel(),
-                    // 'text' => $node->firstChild()->getLiteral(),
-                ];
-
-                dd($node);
+        foreach ($listBlock->children() as $listItem) {
+            if ($listItem instanceof ListItem) {
+                $listData['items'][] = $this->parseListItem($listItem);
             }
+        }
 
-            // Extract Lists
-            if ($node instanceof ListBlock) {
-                $listItems = [];
-                foreach ($node->children() as $item) {
-                    if ($item instanceof ListItem) {
-                        dd($item);
-                        // $listItems[] = trim($item->firstChild()->getLiteral());
-                    }
-                }
-                $data['lists'][] = $listItems;
+        return $listData;
+    }
+
+    protected function parseListItem(ListItem $listItem): array
+    {
+        $item = [
+            'text' => $this->getNodeText($listItem),
+            'children' => [],
+        ];
+
+        foreach ($listItem->children() as $child) {
+            if ($child instanceof ListBlock) {
+                $item['children'][] = $this->parseListBlock($child);
             }
+        }
 
-            // Extract Tables
-            if ($node instanceof Table) {
-                $tableData = [];
-                foreach ($node->children() as $row) {
+        return $item;
+    }
+
+    protected function extractTables(): array
+    {
+        $tables = [];
+        $walker = $this->document->walker();
+        while ($event = $walker->next()) {
+            $node = $event->getNode();
+            if ($event->isEntering() && $node instanceof Table) {
+                $tables[] = $this->parseTable($node);
+            }
+        }
+        return $tables;
+    }
+
+    protected function parseTable(Table $table): array
+    {
+        $tableData = [];
+        foreach ($table->children() as $section) {
+            if ($section instanceof TableSection) {
+                $sectionType = $section->getType();
+                foreach ($section->children() as $row) {
                     if ($row instanceof TableRow) {
                         $rowData = [];
                         foreach ($row->children() as $cell) {
                             if ($cell instanceof TableCell) {
-                                $rowData[] = trim($cell->firstChild()->getLiteral());
+                                $rowData[] = $this->getNodeText($cell);
                             }
                         }
-                        $tableData[] = $rowData;
+                        if (!empty($rowData)) {
+                            $tableData[$sectionType][] = $rowData;
+                        }
                     }
                 }
-                $data['tables'][] = $tableData;
+            }
+        }       
+        return $tableData;
+    }
+
+    protected function getNodeText($node): string
+    {
+        $text = '';
+        foreach ($node->children() as $child) {
+            if ($child instanceof \League\CommonMark\Node\Inline\Text) {
+                $text .= $child->getLiteral();
+            } else {
+                $text .= $this->getNodeText($child);
             }
         }
-
-        return $data;
+        return trim($text);
     }
 }
