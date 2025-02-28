@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Support;
 
-use Stringable;
 use Illuminate\Support\Str;
+use Stringable;
 
 class Styles implements Stringable
 {
     protected ?string $style = null;
+
     protected ?string $classes = null;
 
     public function __construct(
@@ -18,6 +21,20 @@ class Styles implements Stringable
         $this->classes = $classes;
     }
 
+    public function __toString()
+    {
+        $attributes = [];
+
+        if (filled($this->style)) {
+            $attributes[] = 'style="'.e($this->style).'"';
+        }
+
+        if (filled($this->classes)) {
+            $attributes[] = 'class="'.e($this->classes).'"';
+        }
+
+        return implode(' ', $attributes);
+    }
 
     public function merge(array $atts = [])
     {
@@ -26,23 +43,20 @@ class Styles implements Stringable
         }
 
         if (isset($atts['style'])) {
-            $this->style .= ' ' . Str::finish($atts['style'], ';');
+            $this->style .= ' '.Str::finish($atts['style'], ';');
         }
+
         return $this;
     }
 
-    public function __toString()
+    public function overideAttributes(array $atts = [])
     {
-        $attributes = [];
-
-        if (filled($this->style)) {
-            $attributes[] = 'style="' . e($this->style) . '"';
+        if ($this->classes) {
+            $atts['class'] = $this->classes;
+        } else {
+            $this->classes = $atts['class'];
         }
 
-        if (filled($this->classes)) {
-            $attributes[] = 'class="' . e($this->classes) . '"';
-        }
-
-        return implode(' ', $attributes);
+        return $this;
     }
 }

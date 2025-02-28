@@ -16,7 +16,7 @@ trait CanHandleTableOfContent
         $toc = new TableOfContent;
 
         $this->tableOfContent = $callable($toc);
-        
+
         return $this;
     }
 

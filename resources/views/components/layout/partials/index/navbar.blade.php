@@ -29,9 +29,9 @@
                          </div>
 
                          <div class="relative items-center justify-end hidden ml-auto lg:flex">
-                            
-                             <nav class="text-sm lg:text-base flex items-center">
-                                <x-converge::menu-items />
+
+                             <nav class="flex items-center text-sm lg:text-base">
+                                 <x-converge::menu-items />
                              </nav>
 
                              {{-- THEM SWITCHER --}}
@@ -44,7 +44,7 @@
 
                  <div x-data class="flex items-center gap-0 py-2 h-14 lg:hidden">
                      {{-- OPEN AND CLOSE SIDEBAR --}}
-                     <button type="button" x-on:click="$dispatch('open-sidebar')" class="btn btn-sm btn-ghost text-base-content"><span
+                     <button type="button" x-on:click="$dispatch('open-sidebar')" class="inline-flex btn btn-ghost text-base-content lg:hidden"><span
                              class="sr-only">Navigation</span>
                          <x-converge::icon icon="bars-4" class="size-5" />
                      </button>

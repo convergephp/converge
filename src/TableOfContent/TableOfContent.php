@@ -14,7 +14,6 @@ class TableOfContent
 
     protected int $maxLevel = 3;
 
-
     public function __construct()
     {
         $this->headings = new Collection();

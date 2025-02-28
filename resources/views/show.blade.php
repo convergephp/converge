@@ -34,7 +34,7 @@
 
 <x-converge::page>
     <div x-data="codeBlockClipboard"
-        class="z-10 text-sm lg:text-base leading-8 !font-light prose max-w-none lg:max-w-screen-sm dark:prose-invert content
+        class="z-10 text-sm lg:text-base leading-8 prose  min-w-[320px] md:min-w-[576px] lg:w-[630px] mx-auto lg:max-w-screen-sm 2xl:max-w-screen-md dark:prose-invert content
         [&_*]:text-base-content [&_a]:!text-accent [&_a]:py-1
         [&_a]:text-base [&_a]:no-underline [&_a]:mr-1 text-wrap">
         {!! $contents !!}

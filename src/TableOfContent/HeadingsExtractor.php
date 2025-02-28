@@ -7,7 +7,6 @@ namespace Fluxtor\Converge\TableOfContent;
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 use function Fluxtor\Converge\converge;
 
@@ -25,6 +24,7 @@ class HeadingsExtractor
         $static = resolve(static::class, [
             'html' => $html,
         ]);
+
         return $static;
     }
 
@@ -48,7 +48,7 @@ class HeadingsExtractor
 
         $xpath = new DOMXPath($dom);
         $range = collect(range($minLevel, $maxLevel));
-        $expression = $range->map(fn($level) => "//h$level")->implode('|');
+        $expression = $range->map(fn ($level) => "//h$level")->implode('|');
 
         $headingNodes = $xpath->query($expression);
 
@@ -80,6 +80,7 @@ class HeadingsExtractor
 
             $stack[] = $headingItem;
         }
+
         return $headings;
     }
 }

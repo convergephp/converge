@@ -6,7 +6,7 @@
 <div class='flex items-center'>
     @if (count($versions) === 1)
         <div
-            class="flex items-center space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border btn-sm btn border-base-300 bg-base-100 text-base-content">
+            class="flex items-center space-x-2 text-xs font-semibold leading-5 transition-all duration-300 border lg:btn-sm btn border-base-300 bg-base-100 text-base-content">
             <span>{{ $usedVersion['label'] }}</span>
         </div>
     @else

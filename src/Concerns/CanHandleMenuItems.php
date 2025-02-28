@@ -20,12 +20,11 @@ trait CanHandleMenuItems
     public function defineMenuItems(Closure $callable): static
     {
         $menuItems = new MenuItems();
-        
+
         $callable($menuItems);
-        
+
         $this->menuItems = $menuItems->getItems();
 
-                
         return $this;
     }
 

@@ -86,14 +86,14 @@ if (! function_exists('Fluxtor\Converge\format_styles')) {
         $attributes = [];
 
         if (filled($styles)) {
-            $attributes[] = 'style="' . e($styles) . '"';
+            $attributes[] = 'style="'.e($styles).'"';
         }
 
         if (filled($classes) || filled($defaultClasses)) {
             $mergedClasses = trim("$defaultClasses $classes");
-            $attributes[] = 'class="' . e($mergedClasses) . '"';
+            $attributes[] = 'class="'.e($mergedClasses).'"';
         }
 
-        return implode(' ', $attributes)    ;
+        return implode(' ', $attributes);
     }
 }

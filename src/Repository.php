@@ -93,14 +93,15 @@ class Repository
         if ($this->activeVersion) {
             $vRoute = $this->activeVersion->getRoute();
             if (blank($this->activeCluster)) {
-                return $id . '.' . $vRoute;
-            } else {
-                return  $id . '.' . $vRoute . '.' . $this->activeCluster->getRoute();
+                return $id.'.'.$vRoute;
             }
+
+            return $id.'.'.$vRoute.'.'.$this->activeCluster->getRoute();
+
         }
 
         if ($this->activeCluster) {
-            return $id . '.' . $this->activeCluster->getRoute();
+            return $id.'.'.$this->activeCluster->getRoute();
         }
 
         return $id;

@@ -115,19 +115,6 @@ class Theme
     }
 
     /**
-     * defaultTheme
-     *
-     * @param  mixed  $variables
-     * @return void
-     */
-    private function defaultTheme(array $variables)
-    {
-        $default = $this->rootCssGenerator($variables);
-
-        return $default;
-    }
-
-    /**
      * sidebarItemStyle
      *
      * @param  mixed  $style
@@ -145,5 +132,18 @@ class Theme
     public function getSidebarItemStyle(): array
     {
         return $this->sidebarItemsStyle ?? SidebarItemsStyles::STYLE1;
+    }
+
+    /**
+     * defaultTheme
+     *
+     * @param  mixed  $variables
+     * @return void
+     */
+    private function defaultTheme(array $variables)
+    {
+        $default = $this->rootCssGenerator($variables);
+
+        return $default;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\MenuItems;
 
 use Closure;
@@ -12,11 +14,11 @@ use Illuminate\Support\Collection;
 
 class MenuItemGroup
 {
+    use HasIcon;
     use HasLabel;
     use HasSort;
-    use Resolver;
-    use HasIcon;
     use HasStyles;
+    use Resolver;
 
     protected Collection $items;
 
@@ -43,13 +45,13 @@ class MenuItemGroup
         return $this;
     }
 
-    final function hasItems(): bool
+    final public function hasItems(): bool
     {
         return $this->getItems()->isNotEmpty();
     }
 
     final public function getItems()
     {
-        return $this->items->filter(fn(MenuItem $item) => $item->isVisible());
+        return $this->items->filter(fn (MenuItem $item) => $item->isVisible());
     }
 }

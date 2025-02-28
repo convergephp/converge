@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 
 trait HasIndexPage
 {

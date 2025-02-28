@@ -6,7 +6,7 @@ namespace Fluxtor\Converge\Enums;
 
 enum Layout: string
 {
-    case Spacious = 'Spacious';
+    case Spacious = 'spacious';
 
     case Default = 'index';
 }

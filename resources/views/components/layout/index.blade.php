@@ -1,23 +1,22 @@
 <x-converge::layout.base>
-    <div class="fle min-h-screen flex-col">
+    <div class="flex flex-col min-h-screen">
         <div class="flex-grow antialiased">
-            {{-- navbare --}}
+            {{-- NAVBAR --}}
             @include('converge::components.layout.partials.index.navbar')
 
-            {{-- BACKGROUND EFFETS --}}
+            {{-- BACKGROUND EFFECTS --}}
             @include('converge::partials.background-effets')
 
             {{-- BODY --}}
             <div class="mx-auto max-w-[88rem] lg:flex">
-
                 {{-- SIDEBAR --}}
                 @include('converge::components.layout.partials.index.sidebar')
 
                 {{-- CONTENT --}}
-                <div class="flex-1 px-5 pt-36 transition-all duration-100 lg:pl-6 lg:pt-10 2xl:pl-24"
+                <div class="flex-1 max-w-xl px-4 pt-32 mx-auto transition-all duration-100 sm:px-5 sm:pt-28 md:pt-32 lg:pt-10 lg:pl-6 md:max-w-2xl lg:max-w-screen-md 2xl:pl-24"
                     id="content-container">
-                    <div class="mx-auto flex max-w-5xl gap-x-12">
-                        <div class="w-full content-center pb-4">
+                    <div class="flex max-w-5xl mx-auto gap-x-4 sm:gap-x-8 md:gap-x-12">
+                        <div class="w-full pb-4">
                             {{ $slot }}
                         </div>
                     </div>
@@ -29,7 +28,7 @@
         </div>
 
         {{-- FOOTER --}}
-        <div class="mt-auto max-h-10">
+        <div class="mt-auto">
             @include('converge::components.layout.partials.index.footer')
         </div>
     </div>
