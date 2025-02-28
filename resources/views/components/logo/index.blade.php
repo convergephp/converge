@@ -5,10 +5,14 @@
 
 <div>
     {{-- Light mode logo --}}
-    {!! $module->getLogoHtml(false) !!}
+    <span x-show="">
+        {!! $module->getLogoHtml(false) !!}
+    </span>
 
     {{-- Dark mode logo --}}
-    @if ($hasDarkMode)
+    <span x-show="">
+        @if ($hasDarkMode)
         {!! $module->getLogoHtml(true) !!}
-    @endif
+        @endif
+    </span>
 </div>

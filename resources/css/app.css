@@ -32,8 +32,8 @@
     --border: var(--border);
     --depth: var(--depth);
     --noise: var(--noise);
-    --font-display: var(--font);
-    --prose-bg: var(--prose-bg);
+    --font-display: var(--font) , 'sans-serif';
+    --font-weight-normal: var(--font-weight);
 }
 
 @layer components {
@@ -303,14 +303,14 @@
 
 
 .code-block-wrapper .code-block-copy-button {
-    @apply absolute text-base-300 transition-opacity outline-none opacity-75 right-2 top-2 hover:text-primary hover:opacity-100 ;
+    @apply absolute text-base-300 stroke-gray-400  transition-opacity outline-none opacity-75 right-2 top-2 hover:text-primary hover:opacity-100 ;
 }
 
 
 pre .code-block-copy-button:hover,
 pre .code-block-copy-button:focus,
 pre .code-block-copy-button:active {
-    @apply text-gray-800 outline-none dark:text-white;
+    @apply !text-primary outline-none dark:text-white;
 }
 
 /* @source "../views"; */

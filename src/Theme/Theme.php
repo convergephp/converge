@@ -89,7 +89,7 @@ class Theme
      */
     public function rootCssGenerator(array $variables): string
     {
-        return json_encode($variables, JSON_PRETTY_PRINT);
+        return json_encode(value: $variables, flags: JSON_PRETTY_PRINT);
     }
 
     /**
@@ -143,7 +143,6 @@ class Theme
     private function defaultTheme(array $variables)
     {
         $default = $this->rootCssGenerator($variables);
-
         return $default;
     }
 }

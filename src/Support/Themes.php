@@ -40,6 +40,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const ICE = [
@@ -73,6 +74,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const RBI3 = [
@@ -106,6 +108,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const SAHRA = [
@@ -139,6 +142,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const STRONG = [
@@ -172,6 +176,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     /**
@@ -209,6 +214,7 @@ class Themes
         '--noise' => '1',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const BLACK = [
@@ -242,5 +248,6 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 }
