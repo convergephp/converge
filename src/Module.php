@@ -39,6 +39,7 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
+    use HasIndexPage;
 
     // add hasTheme
 

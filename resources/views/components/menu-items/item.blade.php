@@ -1,11 +1,11 @@
 @props(['item'])
     <a
+
     {!!
         (new \Fluxtor\Converge\Support\Styles(
             classes: $item->getClasses(),
             style:$item->getStyles()
-        ))->merge([
-        ])
+        ))->merge([])
           ->overideAttributes([
             'class' => 'text-sm text-base-content hover:text-primary whitespace-nowrap'
         ])
@@ -20,3 +20,4 @@
             :icon="$item->getIcon()"
             :iconPosition="$item->getIconPosition()->value"/>
     </a>
+

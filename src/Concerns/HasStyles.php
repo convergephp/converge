@@ -29,6 +29,7 @@ trait HasStyles
         return $this->classes;
     }
 
+
     public function getStyles(): ?string
     {
         return $this->format_styles($this->styles);

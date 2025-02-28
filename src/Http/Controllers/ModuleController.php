@@ -18,6 +18,7 @@ class ModuleController
 
     public function __invoke()
     {
+
         $repo = resolve(Repository::class);
 
         $module = $repo->getModule();
