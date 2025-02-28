@@ -11,10 +11,10 @@ class Themes
      */
     public const LIGHT = [
         '--color-base-100' => 'oklch(97.788% 0.004 56.375)',
-        '--color-base-200' => 'oklch(93.982% 0.007 61.449)',
+        '--color-base-200' => 'oklch(0.985 0.001 106.423)',
         '--color-base-300' => 'oklch(91.586% 0.006 53.44)',
         '--color-base-content' => 'oklch(23.574% 0.066 313.189)',
-        '--color-primary' => '#2878ad',
+        '--color-primary' => 'oklch(0.606 0.25 292.717)',
         '--color-primary-content' => 'white',
         '--color-secondary' => 'oklch(89% 0.061 343.231)',
         '--color-secondary-content' => 'oklch(45% 0.187 3.815)',
@@ -178,6 +178,7 @@ class Themes
      * dark schema
      */
     public const DARK = [
+        '--prose-bg' => 'black',
         '--color-base-100' => 'oklch(20% 0 0)',
         '--color-base-200' => 'oklch(0.13 0.028 261.692)',
         '--color-base-300' => 'oklch(30% 0.034 264.665)',
@@ -199,8 +200,8 @@ class Themes
         '--color-error' => 'oklch(71% 0.194 13.428)',
         '--color-error-content' => 'oklch(27% 0.105 12.094)',
         '--radius-selector' => '0.5rem',
-        '--radius-field' => '3',
-        '--radius-box' => '0.5rem',
+        '--radius-field' => '3rem',
+        '--radius-box' => '1rem',
         '--size-selector' => '0.25rem',
         '--size-field' => '0.25rem',
         '--border' => '1px',

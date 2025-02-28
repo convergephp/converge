@@ -2,7 +2,7 @@
     use Fluxtor\Converge\Sidebar\SidebarGroup;
     use Fluxtor\Converge\Sidebar\SidebarItem;
     $sidebarItems = \Fluxtor\Converge\converge()->getSidebarItems();
-
+    
     function extractArray($sidebarItems)
     {
         $items = [];
@@ -34,27 +34,28 @@
 
 <x-converge::page>
     <div x-data="codeBlockClipboard"
-        class="z-10 text-sm lg:text-base leading-8 prose  min-w-[320px] md:min-w-[576px] lg:w-[630px] mx-auto lg:max-w-screen-sm 2xl:max-w-screen-md dark:prose-invert content
-        [&_*]:text-base-content [&_a]:!text-accent [&_a]:py-1
-        [&_a]:text-base [&_a]:no-underline [&_a]:mr-1 text-wrap">
+         class="prose prose-pre:bg-(--prose-bg) dark:prose-invert content [&_*]:text-base-content [&_a]:!text-accent z-10 mx-auto min-w-[320px] text-wrap text-sm leading-8 md:min-w-[576px] lg:w-[630px] lg:max-w-screen-sm lg:text-base 2xl:max-w-screen-md [&_a]:mr-1 [&_a]:py-1 [&_a]:text-base [&_a]:no-underline">
         {!! $contents !!}
     </div>
 
     {{-- pagination --}}
-    <div class="flex flex-wrap items-center justify-between py-5 bg-transparent min-h-40">
+    <div class="flex min-h-40 flex-wrap items-center justify-between bg-transparent py-5">
         <a class="btn btn-base-100 btn-sm md:btn-wide btn-outline text-base-content"
-            href="{{ env('APP_URL') . current($previousUrl)->getUrl() }}">
-            <x-converge::icon icon="arrow-long-left" class="mr-1 size-5" />
+           href="{{ env('APP_URL') . current($previousUrl)->getUrl() }}">
+            <x-converge::icon icon="arrow-long-left"
+                              class="mr-1 size-5" />
             {{ current($previousUrl)->getLabel() }}
         </a>
 
         <a class="btn btn-base-100 btn-sm md:btn-wide btn-outline text-base-content"
-            href="{{ env('APP_URL') . current($nextUrl)->getUrl() }}">
+           href="{{ env('APP_URL') . current($nextUrl)->getUrl() }}">
             {{ current($nextUrl)->getLabel() }}
-            <x-converge::icon icon="arrow-long-right" class="ml-1 size-5" />
+            <x-converge::icon icon="arrow-long-right"
+                              class="ml-1 size-5" />
 
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
             </svg>
         </a>
     </div>
