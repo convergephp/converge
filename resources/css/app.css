@@ -33,6 +33,7 @@
     --depth: var(--depth);
     --noise: var(--noise);
     --font-display: var(--font);
+    --prose-bg: var(--prose-bg);
 }
 
 @layer components {
@@ -302,8 +303,9 @@
 
 
 .code-block-wrapper .code-block-copy-button {
-    @apply absolute text-gray-400 transition-opacity outline-none opacity-75 right-2 top-2 dark:text-gray-200 hover:text-gray-500 hover:opacity-100;
+    @apply absolute text-base-300 transition-opacity outline-none opacity-75 right-2 top-2 hover:text-primary hover:opacity-100 ;
 }
+
 
 pre .code-block-copy-button:hover,
 pre .code-block-copy-button:focus,
@@ -326,51 +328,50 @@ html{
         scroll-padding-top: 120px;
     }
 }
+/* START CODE BLOCKS CLASSES */
+pre {
+    color: #d6deeb;
+    background-color: #011627;
+}
 
 .hl-keyword {
-    color: #f78c6c;
+    color: #c792ea;
 }
 
 .hl-property {
-    color: #82aaff;
+    color: #82AAFF;
 }
+
 .hl-attribute {
     font-style: italic;
 }
 
 .hl-type {
-    color: #ffcb6b;
+    color: #ffcb8b;
 }
 
 .hl-generic {
-    color: #9d3af6;
+    color: #82AAFF;
 }
 
 .hl-value {
-    color: #c3e88d;
+    color: #ecc48d;
 }
-/* .hl-value {
-    @apply text-teal-700
-} */
 
 .hl-literal {
-    color: #ff9cac;
+    color: #ff5874;
 }
 
 .hl-number {
-    color: #f78c6c;
+    color: #F78C6C;
 }
 
 .hl-variable {
-    color: #b2ccd6;
+    color: #c5e478;
 }
 
-/* .hl-variable {
-    @apply text-slate-800
-} */
-
 .hl-comment {
-    color: #676e95;
+    color: #637777;
 }
 
 .hl-blur {
@@ -386,18 +387,15 @@ html{
 }
 
 .hl-addition {
+    display: inline-block;
     min-width: 100%;
-    @apply inline-block bg-green-600/50;
+    background-color: #00FF0022;
 }
 
 .hl-deletion {
+    display: inline-block;
     min-width: 100%;
-    filter: blur(0.8px);
-    @apply inline-block bg-red-600/50;
-}
-.hl-deletion:hover {
-    filter: blur(0);
-    @apply transition duration-300 ease-in-out;
+    background-color: #FF000011;
 }
 
 .hl-gutter {
@@ -405,16 +403,20 @@ html{
     font-size: 0.9em;
     color: #555;
     padding: 0 1ch;
+    margin-right: 1ch;
     user-select: none;
 }
 
 .hl-gutter-addition {
-    @apply bg-green-600/50 text-slate-100;
+    background-color: #34A853;
+    color: #fff;
 }
 
 .hl-gutter-deletion {
-    @apply bg-red-600/50 text-slate-100;
+    background-color: #EA4334;
+    color: #fff;
 }
+/* END CODE BLOKS CLASSES */
 
 .table-of-contents a {
     text-underline-offset: 0.2em;
