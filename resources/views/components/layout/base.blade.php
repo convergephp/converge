@@ -29,7 +29,7 @@ use function Fluxtor\Converge\intercept;
         <style>
             :root {
                 --font: {{ converge()->getTheme()->getFontFamily() }};
-                {{ converge()->getTheme()->getHighlightTheme() }}
+                {{ converge()->getTheme()->getDarkmodeHighlighterCss() }}
             }
         </style>
 

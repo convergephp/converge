@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 trait Highlighter
 {
-    protected $highLightCss = null;
+
+    protected $darkmodeHighlighterCss = null;
+    protected $lightmodeHighlighterCss = null;
 
     /**
      * highlightTheme
@@ -18,11 +20,13 @@ trait Highlighter
      * @param  mixed $theme
      * @return static
      */
-    public function highlighterTheme($theme): static
+    public function highlighterTheme(?string $darkmodeHighlighter = null, ?string $lightmodeHighlighter = null): static
     {
-        $path = $theme ? $this->generatePath($theme) : $this->generatePath('night-owl');
+        $darkmodeHighlighterPath = $darkmodeHighlighter ? $this->generatePath($darkmodeHighlighter) : $this->generatePath('night-owl');
+        $lightmodeHighlighterPath = $lightmodeHighlighter ? $this->generatePath($lightmodeHighlighter) : $this->generatePath('red');
 
-        $this->highLightCss = $this->buildHighlightCss($path);
+        $this->lightmodeHighlighterCss = $this->buildHighlightCss($lightmodeHighlighterPath);
+        $this->darkmodeHighlighterCss = $this->buildHighlightCss($darkmodeHighlighterPath);
 
         return $this;
     }
@@ -35,23 +39,33 @@ trait Highlighter
      */
     public function buildHighlightCss(string $path): string
     {
-
         if (! file_exists(filename: $path)) {
             throw new PathNotFoundException('Path not found');
         }
 
-        return $this->highLightCss = file_get_contents(filename: $path);
+        return file_get_contents(filename: $path);
     }
 
 
+
     /**
-     * getHighlightTheme
+     * getDarkmodeHighlighterCss
      *
      * @return void
      */
-    public function getHighlightTheme()
+    public function getDarkmodeHighlighterCss(): string
     {
-        return $this->highLightCss ?? $this->buildHighlightCss($this->generatePath("night-owl"));
+        return $this->darkmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath("night-owl"));
+    }
+
+    /**
+     * getLightmodeHighlighterCss
+     *
+     * @return void
+     */
+    public function getLightmodeHighlighterCss(): string
+    {
+        return $this->lightmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath("red"));
     }
 
     /**
