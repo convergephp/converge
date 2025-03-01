@@ -5,6 +5,5 @@
 ### cleaning the markdown files:
 
 - remove intended && fenced code blocks [DONE].
-- extracts all headings [TODO].
-- extraxt lists [TODO].
-- extract clean paragraphs from emphasis [TODO].
+- extracts all headings [DONE].
+
