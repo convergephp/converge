@@ -41,8 +41,8 @@ class InvertedIndexer
     public function tokenize(string $token)
     {
         $token = preg_replace('/[^a-z0-9]/', '', $token);
-
-        if (empty($token) || is_numeric($token)||$this->inStopWords($token)) {
+        
+        if (empty($token) || is_numeric($token) || $this->inStopWords($token)) {
             return null;
         }
 
@@ -52,8 +52,8 @@ class InvertedIndexer
     public function inStopWords(string $token)
     {
         $stopWords = require __DIR__ . '/stop_words.php';
-        
-        return isset($stopWords[$token]);
+
+        return in_array($token, $stopWords);
     }
 
     protected function saveIndex()
