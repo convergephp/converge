@@ -49,8 +49,8 @@ class SearchManager
 
         $contentParser = new ContentsParser($body);
 
-        $headings = $contentParser->extractHeadings();
+        $this->headings = $contentParser->extractHeadings($info->getPathname());
 
-        dd($headings);
+        dd($this->headings);
     }
 }
