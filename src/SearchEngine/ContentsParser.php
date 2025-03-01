@@ -3,6 +3,7 @@
 namespace Fluxtor\Converge\SearchEngine;
 
 use League\CommonMark\Input\MarkdownInput;
+use League\CommonMark\Normalizer\SlugNormalizer;
 use League\CommonMark\Parser\MarkdownParser as ParserMarkdownParser;
 
 class ContentsParser
@@ -14,7 +15,7 @@ class ContentsParser
         $this->contents = $contents;
     }
 
-  
+
 
     public static function make($contents)
     {
@@ -62,12 +63,16 @@ class ContentsParser
 
         $headings = [];
 
+        $slugManager = new SlugNormalizer();
+
         foreach ($matches as $match) {
-            
+
             $level = strlen($match[1]);
-            $headings[] = [
+            
+            $headings[] = (object)[
                 'level' => $level,
-                'title' => trim($match[2])
+                'title' => trim($match[2]),
+                'slug' => $slugManager->normalize($match[2]),
             ];
         }
 
