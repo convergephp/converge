@@ -14,6 +14,8 @@ class ContentsParser
         $this->contents = $contents;
     }
 
+  
+
     public static function make($contents)
     {
         // dd($contents);
@@ -61,6 +63,7 @@ class ContentsParser
         $headings = [];
 
         foreach ($matches as $match) {
+            
             $level = strlen($match[1]);
             $headings[] = [
                 'level' => $level,
@@ -68,7 +71,7 @@ class ContentsParser
             ];
         }
 
-        return dd($headings);
+        return $headings;
     }
 
     public function extractLists()

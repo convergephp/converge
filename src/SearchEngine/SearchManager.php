@@ -37,17 +37,20 @@ class SearchManager
     }
 
     public function handleFile(SplFileInfo $info): void
-    {
-        dump($info->getPathname());
+    {   
 
         $contents = file_get_contents($info->getPathname());
 
         $document = Documents\Parser::make($contents);
-        
-        $matter=$document->matter();
 
-        $body=$document->body();
-        
-        dd($body);
+        $matter = $document->matter();
+
+        $body = $document->body();
+
+        $contentParser = new ContentsParser($body);
+
+        $headings = $contentParser->extractHeadings();
+
+        dd($headings);
     }
 }
