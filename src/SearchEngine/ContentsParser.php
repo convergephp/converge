@@ -5,7 +5,7 @@ namespace Fluxtor\Converge\SearchEngine;
 use League\CommonMark\Input\MarkdownInput;
 use League\CommonMark\Parser\MarkdownParser as ParserMarkdownParser;
 
-class MarkdownParser
+class ContentsParser
 {
     private string $contents;
 
