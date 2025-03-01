@@ -64,17 +64,19 @@ class ContentsParser
         $headings = [];
 
         $slugManager = new SlugNormalizer();
-
+        $id = 0;
         foreach ($matches as $match) {
 
             $level = strlen($match[1]);
 
-            $headings[] = (object)[
+            $headings[] =[
                 'file_path' => $path,
                 'level' => $level,
                 'title' => trim($match[2]),
                 'hash' => $slugManager->normalize($match[2]),
+                'id' => $id
             ];
+            $id++;
         }
 
         return $headings;
