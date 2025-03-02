@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Couchbase\PathNotFoundException;
+use Fluxtor\Converge\Enums\HighlighterName;
 use Fluxtor\Converge\Enums\HighlighterTheme;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
@@ -20,10 +21,10 @@ trait Highlighter
      * @param  mixed $theme
      * @return static
      */
-    public function highlighterTheme(?string $darkmodeHighlighter = null, ?string $lightmodeHighlighter = null): static
+    public function highlighterTheme(?HighlighterName $darkmodeHighlighter = HighlighterName::Night_owl, ?HighlighterName $lightmodeHighlighter = HighlighterName::Github_light): static
     {
-        $darkmodeHighlighterPath = $darkmodeHighlighter ? $this->generatePath($darkmodeHighlighter) : $this->generatePath('night-owl');
-        $lightmodeHighlighterPath = $lightmodeHighlighter ? $this->generatePath($lightmodeHighlighter) : $this->generatePath('red');
+        $darkmodeHighlighterPath = $this->generatePath($darkmodeHighlighter->value);
+        $lightmodeHighlighterPath = $this->generatePath($lightmodeHighlighter->value);
 
         $this->lightmodeHighlighterCss = $this->buildHighlightCss($lightmodeHighlighterPath);
         $this->darkmodeHighlighterCss = $this->buildHighlightCss($darkmodeHighlighterPath);
@@ -40,7 +41,7 @@ trait Highlighter
     public function buildHighlightCss(string $path): string
     {
         if (! file_exists(filename: $path)) {
-            throw new PathNotFoundException('Path not found');
+            return "";
         }
 
         return file_get_contents(filename: $path);
@@ -55,7 +56,7 @@ trait Highlighter
      */
     public function getDarkmodeHighlighterCss(): string
     {
-        return $this->darkmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath("night-owl"));
+        return $this->darkmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath(HighlighterName::Night_owl->value));
     }
 
     /**
@@ -65,7 +66,7 @@ trait Highlighter
      */
     public function getLightmodeHighlighterCss(): string
     {
-        return $this->lightmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath("red"));
+        return $this->lightmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath(HighlighterName::Github_light->value));
     }
 
     /**

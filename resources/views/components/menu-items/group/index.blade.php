@@ -35,7 +35,7 @@
             @endif
         </x-slot:button>
         <x-slot:items
-                class="rounded-box bg-base-200/60 flex min-w-56 flex-col gap-4 px-4 py-4">
+                class="rounded-box bg-base-200 flex min-w-56 flex-col gap-4 px-4 py-4">
             @foreach ($groupItem->getItems()->sortBy('sort')->values() as $item)
                 <x-converge::menu-items.item :$item />
             @endforeach

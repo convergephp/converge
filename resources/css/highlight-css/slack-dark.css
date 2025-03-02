@@ -2,6 +2,10 @@ pre, code {
     color: #E6E6E6;
     background-color: #222222;
 }
+code {
+    border-radius: 3px ;
+    padding: 5px;
+}
 
 .hl-keyword {
     color: #569cd6;

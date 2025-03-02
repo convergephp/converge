@@ -3,6 +3,11 @@ pre, code {
     background-color: #eff1f5;
 }
 
+code {
+    border-radius: 3px ;
+    padding: 5px;
+}
+
 .hl-keyword {
     color: #8839ef;
 }
