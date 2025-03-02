@@ -1,6 +1,6 @@
 <?php
 
-namespace Fluxtor\Converge\SearchEngine;
+namespace Fluxtor\Converge\SearchEngine\BloomFilters;
 
 class BloomFilter
 {

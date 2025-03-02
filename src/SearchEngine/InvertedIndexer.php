@@ -2,6 +2,8 @@
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Fluxtor\Converge\SearchEngine\BloomFilters\BloomFilter;
+
 class InvertedIndexer
 {
     protected $headings;
@@ -37,7 +39,7 @@ class InvertedIndexer
         $this->saveIndex();
 
         $bloomFilter = new  BloomFilter(1000, 4);
-        
+
         foreach (array_keys($this->indexes) as $term) {
             $bloomFilter->add($term);
         }
