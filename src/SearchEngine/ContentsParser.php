@@ -221,4 +221,8 @@ class ContentsParser
     {
         return $this->contents;
     }
+
+    public function getParagraphs(){
+        
+    }
 }
