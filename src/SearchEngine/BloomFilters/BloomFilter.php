@@ -58,4 +58,12 @@ class BloomFilter
             $output
         );
     }
+
+    public function loadBloomFilter(): void
+    {
+        $path = storage_path('converge/bloom_filter.php');
+        if (file_exists($path)) {
+            $this->bitArray = require $path;
+        }
+    }
 }
