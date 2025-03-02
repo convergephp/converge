@@ -45,8 +45,6 @@ class InvertedIndexer
         }
 
         $bloomFilter->saveBloomFilter();
-
-        dd($bloomFilter->contains('variable'));
     }
 
 
