@@ -7,19 +7,20 @@ class BloomFilter
     private array $bitArray;
     private int $size;
     private int $hashCount;
+
     public function __construct($size, $hashCount)
     {
         $this->size = $size;
         $this->hashCount = $hashCount;
-        $this->bitArray = array_fill(0, $hashCount, 0);
+        $this->bitArray = array_fill(0, $size, 0);
     }
 
-    private function hash($item, $seed)
+    private function hash(string $item, int $seed)
     {
         return (crc32($item . $seed) % $this->size);
     }
 
-    public function add($item)
+    public function add(string $item)
     {
         for ($i = 0; $i < $this->hashCount; $i++) {
             $pos = $this->hash($item, $i);
@@ -27,7 +28,7 @@ class BloomFilter
         }
     }
 
-    public function contains($item)
+    public function contains(string $item): bool
     {
         for ($i = 0; $i < $this->hashCount; $i++) {
             $pos = $this->hash($item, $i);
@@ -36,5 +37,25 @@ class BloomFilter
             }
         }
         return true;
+    }
+
+    public function getBits()
+    {
+        return $this->bitArray;
+    }
+
+    public function saveBloomFilter()
+    {
+        $output = '<?php return [';
+
+
+        $output .= "\n" . implode(', ', $this->bitArray);
+
+        $output .= "\n];";
+
+        file_put_contents(
+            storage_path('converge/bloom_filter.php'),
+            $output
+        );
     }
 }

@@ -35,13 +35,21 @@ class InvertedIndexer
             }
         }
         $this->saveIndex();
+
+        $bloomFilter = new  BloomFilter(1000, 4);
+        
+        foreach (array_keys($this->indexes) as $term) {
+            $bloomFilter->add($term);
+        }
+
+        $bloomFilter->saveBloomFilter();
     }
 
 
     public function tokenize(string $token)
     {
         $token = preg_replace('/[^a-z0-9]/', '', $token);
-        
+
         if (empty($token) || is_numeric($token) || $this->inStopWords($token)) {
             return null;
         }
