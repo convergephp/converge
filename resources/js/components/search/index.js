@@ -1,6 +1,6 @@
-export default () => ({
-    query:'',
-    init(){
+export default (route) => ({
+    query: "",
+    init() {
         this.$watch("query", async (query) => {
             if (query.trim() === "") {
                 this.results = [];
@@ -19,6 +19,21 @@ export default () => ({
                     this.results = [];
                 }
             }
-        });F
-    }
+        });
+    },
+    async performSearch(query) {
+        try {
+            const response = await fetch(`${route}?query=${query}`);
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Error performing search:", error);
+
+            return [];
+        }
+    },
 });
