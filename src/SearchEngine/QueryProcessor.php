@@ -24,7 +24,7 @@ class QueryProcessor
                 continue;
             }
 
-
+            
             $tokens[] = $token;
         }
         return $tokens;

@@ -70,6 +70,7 @@ use function Fluxtor\Converge\intercept;
     >
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
+    <x-converge::search.modal/>
 </body>
 
 </html>

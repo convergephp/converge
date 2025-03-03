@@ -23,6 +23,7 @@ class InvertedIndexer
             foreach ($tokens as $token) {
                 $token = $this->tokenize($token);
 
+                
                 if ($token === null) {
                     continue;
                 }

@@ -13,17 +13,28 @@ class Engine
             return [];
         }
 
+        // hdhehdehdhede
+
+        // bloom filters
+
+
+
         $indexes = require storage_path('converge/inverted_index.php');
+
         $headings = require storage_path('converge/headings.php');
 
         $results = [];
         $headingsIds = [];
 
         foreach ($tokens as $token) {
+            
             if (isset($indexes[$token])) {
+            
                 foreach ($indexes[$token] as $id) {
+            
                     if (!isset($headingsIds[$id])) {
                         $headingsIds[$id] = 0;
+            
                     }
                     $headingsIds[$id]++;
                 }
