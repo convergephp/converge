@@ -25,22 +25,16 @@
                         ?>
                         <x-converge::dropdown.item @class([
                             'flex items-center gap-1',
-                            'text-primary' => $isActive,
+                            'bg-primary/10 text-primary' => $isActive,
                             'text-base-content' => !$isActive,
                         ])
                                                    :href="$version['url']">
                             <div class="flex items-center justify-between">
                                 <span>{{ $version['label'] }}</span>
-                                <svg class="size-4"
-                                     xmlns="http://www.w3.org/2000/svg"
-                                     fill="none"
-                                     viewBox="0 0 24 24"
-                                     stroke-width="1.5"
-                                     stroke="currentColor">
-                                    <path stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          d="m4.5 12.75 6 6 9-13.5" />
-                                </svg>
+                                <?php if ($isActive): ?>
+                                <x-converge::icon icon="check"
+                                                  class="size-3" />
+                                <?php endif;?>
                             </div>
                         </x-converge::dropdown.item>
                     @endforeach

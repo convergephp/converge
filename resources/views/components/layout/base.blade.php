@@ -29,8 +29,9 @@ use function Fluxtor\Converge\intercept;
         <style>
             :root {
                 --font: {{ converge()->getTheme()->getFontFamily() }};
-                {{ converge()->getTheme()->getDarkmodeHighlighterCss() }}
             }
+
+            {{ converge()->getTheme()->getDarkmodeHighlighterCss() }}
         </style>
 
         <style>
