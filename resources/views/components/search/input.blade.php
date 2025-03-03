@@ -9,7 +9,7 @@
     autocomplete="off" 
     autocorrect="off" 
     x-data="{}"
-    wire:model.live.debounce.200ms="search" 
+    x-model.debounce.200ms="query"
     x-on:keydown.down.prevent.stop="$dispatch('focus-first-element')"
     x-on:keydown.enter.prevent autocapitalize="none" 
     enterkeyhint="go" 
