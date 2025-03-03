@@ -1,6 +1,7 @@
 @props([
     'header' => null,
     'footer' => null,
+    'trigger'=>null,
     'height'=> 75,
     'scrollable'=>true,
     'closeEvent' => null,
@@ -63,19 +64,26 @@
     @if(filled($openEvent))
         x-on:{{ $openEvent }}.window="open()" 
     @endif
-    {{ $attributes->merge(['class'=>'flex justify-center']) }}>
-    @php
-        $tag = $trigger->attributes->has('isButton') ? 'button' : 'div' ;
-        $atts = $trigger->attributes->has('isButton') ? 'type="button"' : '';
-    @endphp
 
-    <{{ $tag }} 
-        x-on:click="open()"
-        {{ $atts }}
-         {{ $trigger->attributes->except('isButton') }}
-        >
-            {{ $trigger }}
-    </{{ $tag }}>
+    {{ $attributes->merge(['class'=>'flex justify-center']) }}>
+    
+
+
+
+    @if (filled($trigger))
+        @php
+            $tag = $trigger->attributes->has('isButton') ? 'button' : 'div' ;
+            $atts = $trigger->attributes->has('isButton') ? 'type="button"' : '';
+        @endphp
+        <{{ $tag }} 
+            x-on:click="open()"
+            {{ $atts }}
+            {{ $trigger->attributes->except('isButton') }}
+            >
+                {{ $trigger }}
+        </{{ $tag }}>
+    @endif
+
 
     <!-- The Modal -->
 
@@ -93,7 +101,7 @@
         <div 
             x-show="isOpen"
             x-transition.opacity
-            class="fixed inset-0 dark:bg-black/80 bg-white bg-opacity-60 backdrop-blur-lg"
+            class="fixed inset-0 dark:bg-base-200/80 bg-white bg-opacity-60 backdrop-blur-lg"
         ></div>
 
         <!-- Panel -->
@@ -113,19 +121,20 @@
                 <div
                     x-on:click.stop
                     x-trap.noscroll.inert="isOpen"
+
                     @class([
-                    "relative max-w-2xl mx-auto border dark:border-white/5 border-gray-800/15 overflow-y-auto rounded-xl dark:bg-zinc-950 bg-white text-gray-800 dark:text-gray-300 px-4 ",
-                    'pb-4'=>blank($footer),
-                    'pb-2'=>filled($footer),
-                    'pt-4'=>blank($header),
-                    'pt-2'=>filled($header)
+                        "relative max-w-2xl mx-auto border dark:border-white/5 border-gray-800/15 overflow-y-auto rounded-box bg-base-200 text-gray-800 dark:text-gray-300 px-4 ",
+                        'pb-4' => blank($footer),
+                        'pb-2' => filled($footer),
+                        'pt-4' => blank($header),
+                        'pt-2' => filled($header)
                     ])
                 >
                 {{-- close button --}}
-                    <div class="absolute top-2 right-2 dark:bg-white/5 dark:hover:bg-white/10 bg-gray-800/5 hover:bg-gray-800/10 transition-all duration-300  rounded-lg ">
+                    <div class="absolute top-2  right-2 dark:bg-white/5 dark:hover:bg-white/10 bg-gray-800/5 hover:bg-gray-800/10 transition-all duration-300  rounded-field">
                         <button
                             type="button"
-                            class="p-1"
+                            class="p-1 cursor-pointer"
                             x-on:click.stop="close()"
                         >
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -152,10 +161,9 @@
                     @if(filled($header))
                     <div
                         {{ $header->attributes->merge(['class' => 'modal-header']) }} 
-                        {{-- behave as sticky --}}
                         x-bind:id="$id('modal-header')"
                     >
-                            {{ $header }}
+                        {{ $header }}
                     </div>
                     @endif
                     <div class="h-full overflow-y-auto w-full " style="max-height: {{ $scrollable ? $maxHeight . 'vh' : 'none' }}">

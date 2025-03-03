@@ -1,9 +1,7 @@
 <x-converge::modal openEvent="open-search" class="relative"
     >
-        <x-slot:trigger>
-        </x-slot>
-        <x-slot:header class="dark:border-gray-800 border-b border-gray-300 px-2">
-            <form class="relative flex w-full items-center px-1 py-0.5">
+        <x-slot:header class="dark:border-gray-800 border-b border-gray-300">
+            <form class="relative flex w-full items-center  py-0.5">
                 <label 
                     class="dark:text-gray-600 flex items-center justify-center text-gray-400" 
                     id="search-label"
@@ -12,6 +10,7 @@
                     <x-converge::icon
                         icon="search"
                         size="5" 
+                        class="mr-3"
                         stroke="3"
                     />
                     <div 
@@ -23,6 +22,6 @@
                 <x-converge::search.input />
             </form>
         </x-slot:header>
-        slot
+        
         
     </x-converge::modal>
