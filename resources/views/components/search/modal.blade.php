@@ -22,6 +22,12 @@
                 <x-converge::search.input />
             </form>
         </x-slot:header>
-        
-        
+        @unless (empty($search))
+            <x-converge::search.results 
+                :results="$results" 
+                :suggestions="$suggestions"
+            />
+        @else
+            <x-converge::search.no-results />
+        @endif
     </x-converge::modal>

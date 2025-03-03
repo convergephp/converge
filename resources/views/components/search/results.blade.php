@@ -12,7 +12,7 @@
     }"
 >
     @if ($results->isEmpty())
-            <x-components::search.no-results/>
+            <x-converge::search.no-results/>
     @else
         <ul 
             id="search-list"
@@ -23,7 +23,7 @@
         >
 
             @foreach ($results as $result )
-                <x-components::search.copper.search-item
+                <x-converge::search.result-item
                     :title="$result->title"
                     :rawTitle="$result->rawTitle"
                     :url="$result->url"
