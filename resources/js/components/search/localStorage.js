@@ -1,4 +1,6 @@
 export default ({ maxItemsAllowed = 10 }) => ({
+    query: "",
+    results: [],
     search_history: [],
     favorite_items: [],
     maxItemsAllowed,
@@ -13,8 +15,48 @@ export default ({ maxItemsAllowed = 10 }) => ({
         this.$watch("favorite_items", (val) =>
             this.setLocalStorage("favorite_items", val)
         );
-    },
 
+        this.$watch("query", async (query) => {
+            if (query.trim() === "") {
+                this.results = [];
+            } else {
+                try {
+                    let results = await performSearch(query);
+                    this.results = results.map((item) => ({
+                        ...item,
+                        highlightedTitle: this.highlightMatchingLetters(
+                            item.title,
+                            query
+                        ),
+                    }));
+                } catch (error) {
+                    console.error("Error performing search:", error);
+                    this.results = [];
+                }
+            }
+        });
+    },
+    highlightMatchingLetters: function (title, query) {
+        let highlightedTitle = "";
+        let lowerCaseTitle = title.toLowerCase();
+        let lowerCaseQuery = query.toLowerCase();
+        let index = lowerCaseTitle.indexOf(lowerCaseQuery);
+
+        while (index !== -1) {
+            highlightedTitle += title.substring(0, index);
+            highlightedTitle += `<span style="color: yellow; font-weight: semi-bold;">${title.substring(
+                index,
+                index + query.length
+            )}</span>`;
+            title = title.substring(index + query.length);
+            lowerCaseTitle = title.toLowerCase();
+            index = lowerCaseTitle.indexOf(lowerCaseQuery);
+        }
+
+        highlightedTitle += title;
+        return highlightedTitle;
+    },
+    
     getLocalStorage(key) {
         return JSON.parse(localStorage.getItem(key)) || [];
     },

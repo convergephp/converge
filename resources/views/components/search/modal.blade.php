@@ -1,5 +1,7 @@
-<x-converge::modal openEvent="open-search" class="relative"
-    >
+<x-converge::modal 
+    openEvent="open-search" 
+    class="relative"
+>
         <x-slot:header class="dark:border-gray-800 border-b border-gray-300">
             <form class="relative flex w-full items-center  py-0.5">
                 <label 
@@ -22,12 +24,13 @@
                 <x-converge::search.input />
             </form>
         </x-slot:header>
-        @unless (empty($search))
+        <template x-if="query.length >0">
             <x-converge::search.results 
                 :results="$results" 
                 :suggestions="$suggestions"
             />
-        @else
-            <x-converge::search.no-results />
-        @endif
+        </template>
+        <template x-if="query.length == 0 && (search_history.length > 0 || favorite_items.length > 0)">
+            <x-converge::search.empty-query />
+        </template>
     </x-converge::modal>
