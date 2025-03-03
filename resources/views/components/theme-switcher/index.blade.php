@@ -55,7 +55,7 @@
                 </div>
             </x-slot:button>
             <x-slot:items
-                    class="">
+                    class="w-36">
                 <x-converge::dropdown.item class="flex items-center gap-1"
                                            x-on:click="setTheme('light')">
                     <svg class="mr-1 h-5 w-5"

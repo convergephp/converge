@@ -6,16 +6,17 @@
 <div class='flex items-center'>
     @if (count($versions) === 1)
         <div
-             class="lg:btn-sm btn border-base-300 bg-base-100 text-base-content flex items-center space-x-2 border text-xs font-semibold leading-5 transition-all duration-300">
+             class="btn-sm btn border-base-300 bg-base-200 text-base-content hover:border-primary/80 flex items-center border">
             <span>{{ $usedVersion['label'] }}</span>
         </div>
     @else
         <div>
             <x-converge::dropdown>
                 <x-slot:button
-                        class="btn-sm btn border-base-300 bg-base-300/50 text-base-content hover:bg-base-300 flex items-center space-x-2 border text-xs font-semibold leading-5 transition-all duration-300">
+                        class="btn-sm btn border-base-300 bg-base-200 text-base-content hover:border-primary/80 flex items-center border">
                     <span>{{ $usedVersion['label'] }}</span>
-                    <x-converge::icons.openable x-model="$data.isOpen()" />
+                    <x-converge::icons.openable class="stroke-base-content size-3"
+                                                x-model="$data.isOpen()" />
                 </x-slot:button>
                 <x-slot:items
                         class="w-36 text-base">
