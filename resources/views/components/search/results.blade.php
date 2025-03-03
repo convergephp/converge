@@ -1,3 +1,6 @@
+@props([
+    'results' => collect()
+])
 <div
     {{
         $attributes->class([

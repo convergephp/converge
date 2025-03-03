@@ -6,6 +6,8 @@ export default ({ maxItemsAllowed = 10 }) => ({
     maxItemsAllowed,
 
     init() {
+
+        console.log('fuck alhayat')
         this.search_history = this.getLocalStorage("search_history");
         this.favorite_items = this.getLocalStorage("favorite_items");
 
@@ -56,11 +58,26 @@ export default ({ maxItemsAllowed = 10 }) => ({
         highlightedTitle += title;
         return highlightedTitle;
     },
-    
+
     getLocalStorage(key) {
         return JSON.parse(localStorage.getItem(key)) || [];
     },
 
+    async performSearch(query) {
+        try {
+            const response = await fetch(`${route}?query=${query}`);
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Error performing search:", error);
+
+            return [];
+        }
+    },
     setLocalStorage(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     },

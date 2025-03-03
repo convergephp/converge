@@ -9,7 +9,7 @@
     autocomplete="off" 
     autocorrect="off" 
     x-data="{}"
-    x-model.debounce.200ms="query"
+    x-model.debounce.200ms="$data.query"
     x-on:keydown.down.prevent.stop="$dispatch('focus-first-element')"
     x-on:keydown.enter.prevent autocapitalize="none" 
     enterkeyhint="go" 
