@@ -12,7 +12,7 @@
     }"
 >
     @if ($results->isEmpty())
-            <x-converge::search.no-results/>
+        <x-converge::search.no-results/>
     @else
         <ul 
             id="search-list"

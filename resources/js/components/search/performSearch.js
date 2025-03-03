@@ -1,4 +1,3 @@
-// this file is just responsible for testing search components it sperate to dedicated file cz it will reausable across multiple components 
 const performSearch = async (query) => {
     try {
         const response = await fetch(
