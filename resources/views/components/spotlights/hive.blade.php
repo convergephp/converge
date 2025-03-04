@@ -1,6 +1,6 @@
 <svg viewBox="0 0 1216 726"
      fill="none"
-     class="-z-1 -top-30 fill-primary/40 fixed h-[700px] w-full stroke-none"
+     class="-z-1 fill-primary/80 fixed -top-60 h-[700px] w-full stroke-none"
      xmlns="http://www.w3.org/2000/svg"
      aria-hidden="true">
     <mask id="mask0_91_8"

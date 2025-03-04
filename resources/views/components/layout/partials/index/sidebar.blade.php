@@ -1,15 +1,23 @@
 <div x-data="{
     isOpen: true,
     init() {
-        if (window.matchMedia('(max-width: 48rem)').matches) {
-            this.close();
-        }
+        const mediaQuery = window.matchMedia('(max-width: 48rem)');
+
+        const updateSidebarState = () => {
+            if (mediaQuery.matches) {
+                this.close();
+            } else {
+                this.open();
+            }
+        };
+        updateSidebarState();
+        mediaQuery.addEventListener('change', updateSidebarState);
     },
     open() {
-        return this.isOpen = true;
+        this.isOpen = true;
     },
     close() {
-        return this.isOpen = false;
+        this.isOpen = false;
     },
 }"
      x-on:open-sidebar.window="$data.open()"
