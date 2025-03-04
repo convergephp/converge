@@ -30,8 +30,10 @@ use function Fluxtor\Converge\intercept;
             :root {
                 --font: {{ converge()->getTheme()->getFontFamily() }};
             }
+        </style>
 
-            {{ converge()->getTheme()->getDarkmodeHighlighterCss() }}
+        <style id="highlighter-theme">
+            {!! converge()->getTheme()->getLightmodeHighlighterCss() !!}
         </style>
 
         <style>
@@ -72,6 +74,48 @@ use function Fluxtor\Converge\intercept;
           ]) }}>
         {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
+
+        <script>
+            const ThemeHighlighter = (() => {
+                const themes = {
+                    dark: @json(converge()->getTheme()->getDarkmodeHighlighterCss()),
+                    light: @json(converge()->getTheme()->getLightmodeHighlighterCss())
+                };
+
+                const getSystemTheme = () =>
+                    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+                const resolveTheme = (theme) =>
+                    theme === 'system' ? getSystemTheme() : theme;
+
+                const updateHighlighterTheme = (theme) => {
+                    const highlighterStyle = document.getElementById('highlighter-theme');
+                    highlighterStyle.textContent = themes[resolveTheme(theme)];
+                };
+
+                const init = () => {
+                    const savedTheme = localStorage.getItem('theme') || 'system';
+                    updateHighlighterTheme(savedTheme);
+
+                    document.addEventListener('theme-changed', (event) =>
+                        updateHighlighterTheme(event.detail)
+                    );
+
+                    window.matchMedia('(prefers-color-scheme: dark)').addListener(() => {
+                        if (localStorage.getItem('theme') === 'system') {
+                            updateHighlighterTheme('system');
+                        }
+                    });
+                };
+
+                return {
+                    init,
+                    updateHighlighterTheme
+                };
+            })();
+
+            document.addEventListener('DOMContentLoaded', ThemeHighlighter.init);
+        </script>
     </body>
 
 </html>
