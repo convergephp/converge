@@ -5,7 +5,7 @@
  <div id="navbar"
       class="fixed top-0 z-30 w-full lg:sticky">
      <div id="navbar-transition"
-          class="bg-base-200 border-base-300 supports-backdrop-blur:bg-base-200/60 absolute h-full w-full flex-none border-b transition-colors duration-500">
+          class="bg-base-200 border-base-300 supports-backdrop-blur:bg-base-200/60 absolute h-full w-full flex-none border-b">
      </div>
 
      <div class="relative mx-auto max-w-[88rem] px-1">
@@ -38,7 +38,7 @@
                              {{-- THEM SWITCHER --}}
                          </div>
                          <div class="max-w-min items-center">
-                             <x-converge::theme-switcher class="" />
+                             <x-converge::theme-switcher.inline class="" />
                          </div>
                      </div>
                  </div>

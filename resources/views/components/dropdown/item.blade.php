@@ -2,24 +2,29 @@
     'closeOnClick' => true,
     'href' => null,
 ])
-<div role="menuitem" tabindex="-1"
-    {{ $attributes->merge([
-        'class' => 'dropdown-item cursor-pointer hover:rounded px-2 py-0.5 dark:focus-within:bg-base-300 hover:bg-base-300',
-    ]) }}
-    x-data="{
-        show: false,
-        init() {
-            $el.addEventListener('click', () => this.isClosedAfterClick())
-        },
-        isClosedAfterClick() {
-            if (@js($closeOnClick)) {
-                close();
-            }
-        }
-    }" x-ref="item" x-on:mouseenter="show = true" x-on:mouseleave="show = false"
-    x-on:keydown.enter.prevent="$el.click()">
+<div role="menuitem"
+     tabindex="-1"
+     {{ $attributes->merge([
+         'class' => 'btn btn-ghost hover:bg-primary/10 btn-sm',
+     ]) }}
+     x-data="{
+         show: false,
+         init() {
+             $el.addEventListener('click', () => this.isClosedAfterClick())
+         },
+         isClosedAfterClick() {
+             if (@js($closeOnClick)) {
+                 close();
+             }
+         }
+     }"
+     x-ref="item"
+     x-on:mouseenter="show = true"
+     x-on:mouseleave="show = false"
+     x-on:keydown.enter.prevent="$el.click()">
     @if (filled($href))
-        <a href="{{ $href }}" class="w-full">
+        <a href="{{ $href }}"
+           class="w-full">
             {{ $slot }}
         </a>
     @else

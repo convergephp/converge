@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Theme;
 
+
+namespace Fluxtor\Converge\Theme;
 use Fluxtor\Converge\Concerns\HasCollapsedGroupes;
 use Fluxtor\Converge\Concerns\HasFavicon;
 use Fluxtor\Converge\Concerns\HasFont;
+use Fluxtor\Converge\Concerns\Highlighter;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Enums\Layout;
 use Fluxtor\Converge\Enums\MaxWidth;
@@ -20,6 +22,7 @@ class Theme
     use HasFavicon;
     use HasFont;
     use Resolver;
+    use Highlighter;
 
     protected ?Layout $layout = null;
 
@@ -89,7 +92,7 @@ class Theme
      */
     public function rootCssGenerator(array $variables): string
     {
-        return json_encode($variables, JSON_PRETTY_PRINT);
+        return json_encode(value: $variables, flags: JSON_PRETTY_PRINT);
     }
 
     /**
@@ -143,7 +146,6 @@ class Theme
     private function defaultTheme(array $variables)
     {
         $default = $this->rootCssGenerator($variables);
-
         return $default;
     }
 }
