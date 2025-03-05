@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-
-
 namespace Fluxtor\Converge\Theme;
+
 use Fluxtor\Converge\Concerns\HasCollapsedGroupes;
 use Fluxtor\Converge\Concerns\HasFavicon;
 use Fluxtor\Converge\Concerns\HasFont;
@@ -21,8 +20,8 @@ class Theme
     use HasCollapsedGroupes;
     use HasFavicon;
     use HasFont;
-    use Resolver;
     use Highlighter;
+    use Resolver;
 
     protected ?Layout $layout = null;
 
@@ -146,6 +145,7 @@ class Theme
     private function defaultTheme(array $variables)
     {
         $default = $this->rootCssGenerator($variables);
+
         return $default;
     }
 }

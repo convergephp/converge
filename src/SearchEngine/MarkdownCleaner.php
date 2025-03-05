@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\SearchEngine;
 
-use League\CommonMark\Node\Block\Document;
-use League\CommonMark\Extension\Table\Table;
-use League\CommonMark\Parser\MarkdownParser;
 use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\Table\TableRow;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
+use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
+use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
+use League\CommonMark\Extension\Table\Table;
 use League\CommonMark\Extension\Table\TableCell;
 use League\CommonMark\Extension\Table\TableExtension;
+use League\CommonMark\Extension\Table\TableRow;
 use League\CommonMark\Extension\Table\TableSection;
-use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
-use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
-use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Node\Block\Document;
+use League\CommonMark\Parser\MarkdownParser;
 
 class MarkdownCleaner
 {
     protected string $contents;
+
     protected Document $document;
 
     public function __construct(string $contents)
@@ -31,6 +34,15 @@ class MarkdownCleaner
         return new self($contents);
     }
 
+    public function clean(): array
+    {
+        return [
+            'headings' => $this->extractHeadings(),
+            'lists' => $this->extractLists(),
+            'tables' => $this->extractTables(),
+        ];
+    }
+
     protected function initializeParser(): void
     {
         $environment = new Environment();
@@ -39,15 +51,6 @@ class MarkdownCleaner
 
         $parser = new MarkdownParser($environment);
         $this->document = $parser->parse($this->contents);
-    }
-
-    public function clean(): array
-    {
-        return [
-            'headings' => $this->extractHeadings(),
-            'lists' => $this->extractLists(),
-            'tables' => $this->extractTables(),
-        ];
     }
 
     protected function extractHeadings(): array
@@ -63,6 +66,7 @@ class MarkdownCleaner
                 ];
             }
         }
+
         return $headings;
     }
 
@@ -76,6 +80,7 @@ class MarkdownCleaner
                 $lists[] = $this->parseListBlock($node);
             }
         }
+
         return $lists;
     }
 
@@ -121,6 +126,7 @@ class MarkdownCleaner
                 $tables[] = $this->parseTable($node);
             }
         }
+
         return $tables;
     }
 
@@ -138,13 +144,14 @@ class MarkdownCleaner
                                 $rowData[] = $this->getNodeText($cell);
                             }
                         }
-                        if (!empty($rowData)) {
+                        if (! empty($rowData)) {
                             $tableData[$sectionType][] = $rowData;
                         }
                     }
                 }
             }
-        }       
+        }
+
         return $tableData;
     }
 
@@ -158,6 +165,7 @@ class MarkdownCleaner
                 $text .= $this->getNodeText($child);
             }
         }
+
         return trim($text);
     }
 }

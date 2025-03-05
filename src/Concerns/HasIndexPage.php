@@ -13,6 +13,7 @@ trait HasIndexPage
     public function indexView(?Closure $view)
     {
         $this->indexView = $view;
+
         return $this;
     }
 

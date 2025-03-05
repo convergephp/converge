@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Concerns;
 
-use Couchbase\PathNotFoundException;
 use Fluxtor\Converge\Enums\HighlighterName;
-use Fluxtor\Converge\Enums\HighlighterTheme;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 trait Highlighter
 {
-
     protected $darkmodeHighlighterCss = null;
+
     protected $lightmodeHighlighterCss = null;
 
     /**
      * highlightTheme
      *
-     * @param  mixed $theme
-     * @return static
+     * @param  mixed  $theme
      */
     public function highlighterTheme(?HighlighterName $darkmodeHighlighter = HighlighterName::Night_owl, ?HighlighterName $lightmodeHighlighter = HighlighterName::Github_light): static
     {
@@ -34,20 +30,15 @@ trait Highlighter
 
     /**
      * buildHighlightCss
-     *
-     * @param  string $path
-     * @return string
      */
     public function buildHighlightCss(string $path): string
     {
         if (! file_exists(filename: $path)) {
-            return "";
+            return '';
         }
 
         return file_get_contents(filename: $path);
     }
-
-
 
     /**
      * getDarkmodeHighlighterCss
@@ -72,12 +63,10 @@ trait Highlighter
     /**
      * generatePath
      *
-     * @param  mixed $theme
-     * @return string
+     * @param  mixed  $theme
      */
     private function generatePath(string $theme): string
     {
         return $path = dirname(__DIR__, 2).DIRECTORY_SEPARATOR.'resources'.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'highlight-css'.DIRECTORY_SEPARATOR."{$theme}.css";
     }
-
 }

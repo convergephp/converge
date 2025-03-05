@@ -32,6 +32,7 @@ class Module
     use HasDepth;
     use HasId;
     use HasIndexPage;
+    use HasIndexPage;
     use HasLabel;
     use HasPath;
     use HasRoutePath;
@@ -39,7 +40,6 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
-    use HasIndexPage;
 
     // add hasTheme
 

@@ -13,7 +13,6 @@ trait Resolver
         if ($value instanceof Closure) {
             return $value();
         }
-        
 
         return $value;
     }

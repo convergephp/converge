@@ -23,7 +23,7 @@ class MenuItem
     use HasUrl;
     use Resolver;
 
-    protected bool | Closure $isVisible = true;
+    protected bool|Closure $isVisible = true;
 
     public function visible(bool|Closure $condition = true)
     {
