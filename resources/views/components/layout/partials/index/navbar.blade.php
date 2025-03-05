@@ -38,7 +38,7 @@
                              {{-- THEM SWITCHER --}}
                          </div>
                          <div class="max-w-min items-center">
-                             <x-converge::theme-switcher class="" />
+                             <x-converge::theme-switcher.inline class="" />
                          </div>
                      </div>
                  </div>

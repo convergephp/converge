@@ -18,9 +18,9 @@ $canCollapsedGroupes = converge()->getTheme()->isCollapsedGroupes();
         @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item :$item />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
-            <x-converge::sidebar.group 
+            <x-converge::sidebar.group
                 :groupItem="$item"
-                :$canCollapsedGroupes 
+                :$canCollapsedGroupes
             />
         @endif
     @endforeach
