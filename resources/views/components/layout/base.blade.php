@@ -63,21 +63,19 @@ use function Fluxtor\Converge\intercept;
 
     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
-    <body 
-        x-data="themeSwitcher({
-            lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
-            darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
-            highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
-            highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
-        })"
-    {{ $attributes->class([
-        'converge-body',
-        'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
-    ]) }}
-    >
-    {{-- DYNAMIQUE CONTENT --}}
-    {{ $slot }}
-    {{-- <x-converge::search.modal/> --}}
+    <body x-data="themeSwitcher({
+        lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+        darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+        highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
+        highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
+    })"
+          {{ $attributes->class([
+              'converge-body',
+              'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+          ]) }}>
+        {{-- DYNAMIQUE CONTENT --}}
+        {{ $slot }}
+        {{-- <x-converge::search.modal/> --}}
     </body>
 
 </html>

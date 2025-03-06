@@ -198,4 +198,9 @@ class Converge
     {
         return $this->getActiveModule()->hasCustomFooter();
     }
+
+    public function customFooter()
+    {
+        return $this->getActiveModule()->getCustomFooter();
+    }
 }

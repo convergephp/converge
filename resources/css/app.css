@@ -319,7 +319,6 @@ pre .code-block-copy-button:active {
 }
 
 html{
-    scroll-behavior: smooth;
     scroll-padding-top: 80px;
 }
 

@@ -35,7 +35,7 @@ use function Fluxtor\Converge\intercept;
         {{-- FOOTER --}}
         @if (has_custom_footer())
             <div class="border-t border-base-300 bg-base-200">
-                {{ intercept(\Fluxtor\Converge\Enums\Interceptor::REPLACE_FOOTER) }}
+                {!! converge()->customFooter() !!}
             </div>
         @else
             @include('converge::components.layout.partials.index.footer')
