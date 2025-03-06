@@ -188,4 +188,14 @@ class Converge
 
         return "<script>{$pulse}</script>";
     }
+
+    /**
+     * Checking custom footer
+     *
+     * @return void
+     */
+    public function hasCustomeFooter(): bool
+    {
+        return $this->getActiveModule()->hasCustomFooter();
+    }
 }

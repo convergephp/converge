@@ -10,6 +10,7 @@ use Fluxtor\Converge\Concerns\CanHandleMenuItems;
 use Fluxtor\Converge\Concerns\CanHandleTableOfContent;
 use Fluxtor\Converge\Concerns\CanHandleVersions;
 use Fluxtor\Converge\Concerns\HasBrandLogo;
+use Fluxtor\Converge\Concerns\HasCustomFooter;
 use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasIndexPage;
@@ -40,6 +41,7 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
+    use HasCustomFooter;
 
     // add hasTheme
 

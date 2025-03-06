@@ -1,3 +1,8 @@
+<?php
+use function Fluxtor\Converge\converge;
+use function Fluxtor\Converge\has_custom_footer;
+use function Fluxtor\Converge\intercept;
+?>
 <x-converge::layout.base>
     <div class="flex min-h-screen flex-col">
         <div class="flex-grow antialiased">
@@ -28,8 +33,12 @@
         </div>
 
         {{-- FOOTER --}}
-        <div class="mt-auto">
+        @if (has_custom_footer())
+            <div class="border-t border-base-300 bg-base-200">
+                {{ intercept(\Fluxtor\Converge\Enums\Interceptor::REPLACE_FOOTER) }}
+            </div>
+        @else
             @include('converge::components.layout.partials.index.footer')
-        </div>
+        @endif
     </div>
 </x-converge::layout.base>

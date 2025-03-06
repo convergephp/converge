@@ -15,6 +15,8 @@ use function Fluxtor\Converge\intercept;
               content="{{ csrf_token() }}" />
         <meta name="viewport"
               content="width=device-width, initial-scale=1" />
+        {{-- Font family link --}}
+        {{ converge()->getTheme()->getFontHtml() }}
 
         {{-- Favicon --}}
         @if ($favicon = converge()->getTheme()->getFavicon())
@@ -39,7 +41,6 @@ use function Fluxtor\Converge\intercept;
         </style>
         {!! Converge::css() !!}
         {!! Converge::js() !!}
-
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     </head>
 
