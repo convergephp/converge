@@ -140,7 +140,7 @@ class Theme
      * defaultTheme
      *
      * @param  mixed  $variables
-     * @return void
+     * @return string
      */
     private function defaultTheme(array $variables)
     {

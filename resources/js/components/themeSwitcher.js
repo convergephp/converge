@@ -1,31 +1,54 @@
-export default ({ lightMode = null, darkMode = null }) => ({
+export default ({
+    lightMode = null,
+    darkMode = null,
+    highlightingLightMode = null,
+    highlightingDarkMode = null,
+}) => ({
+    activeTheme: null,
     lightMode,
     darkMode,
+
+    updateHighlighterTheme() {
+        let codeTheme =
+            this.activeTheme === "dark"
+                ? highlightingDarkMode
+                : highlightingLightMode;
+
+        const style = document.createElement("style");
+
+        style.innerHTML = codeTheme;
+
+        document.head.appendChild(style);
+    },
     init() {
-        const theme = localStorage.getItem("theme") ?? "system";
+        this.activeTheme = localStorage.getItem("theme") ?? "system";
+        this.updateHighlighterTheme();
+        console.log("dde");
+
         const root = document.documentElement;
         window.Alpine.store(
             "theme",
-            theme === "dark" ||
-                (theme === "system" &&
+            this.activeTheme === "dark" ||
+                (this.activeTheme === "system" &&
                     window.matchMedia("(prefers-color-scheme: dark)").matches)
                 ? "dark"
                 : "light"
         );
 
         window.addEventListener("theme-changed", (event) => {
-            let theme = event.detail;
+            this.activeTheme = event.detail;
 
-            localStorage.setItem("theme", theme);
+            localStorage.setItem("theme", this.activeTheme);
 
-            if (theme === "system") {
-                theme = window.matchMedia("(prefers-color-scheme: dark)")
-                    .matches
+            if (this.activeTheme === "system") {
+                this.activeTheme = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches
                     ? "dark"
                     : "light";
             }
 
-            window.Alpine.store("theme", theme);
+            window.Alpine.store("theme", this.activeTheme);
         });
 
         window
@@ -40,11 +63,14 @@ export default ({ lightMode = null, darkMode = null }) => ({
             });
 
         window.Alpine.effect(() => {
-            const theme = window.Alpine.store("theme");
-            theme === "dark"
+            this.activeTheme = window.Alpine.store("theme");
+
+            this.activeTheme === "dark"
                 ? this.applyStyles(root, darkMode)
                 : this.applyStyles(root, lightMode);
+            this.updateHighlighterTheme();
         });
+        this.updateHighlighterTheme();
     },
     applyStyles(element, theme) {
         Object.entries(JSON.parse(theme)).forEach(([key, value]) => {

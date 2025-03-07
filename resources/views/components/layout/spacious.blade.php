@@ -56,7 +56,7 @@
         {{-- Main Layout Container --}}
         <div class="flex min-h-screen">
             {{-- Sidebar --}}
-            <aside class="bg-base-200 border-base-300 fixed left-0 top-0 z-40 h-screen w-72 border-r transition-transform lg:translate-x-0"
+            <aside class="bg-base-200 lg:bg-transparent border-base-300 fixed left-0 top-0 z-40 h-screen w-72 border-r transition-transform lg:translate-x-0"
                    x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
                 <div class="flex h-full flex-col">
                     {{-- Sidebar spacing for navbar --}}

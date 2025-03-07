@@ -71,6 +71,7 @@ enum HighlighterName: string
     case Nord = 'nord';
 
     case One_dark_pro = 'one-dark-pro';
+    
     case Poimandres = 'poimandres';
 
     case Red = 'red';

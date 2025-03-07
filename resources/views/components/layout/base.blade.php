@@ -32,12 +32,10 @@ use function Fluxtor\Converge\intercept;
             }
         </style>
 
-        <style id="highlighter-theme">
-            {!! converge()->getTheme()->getLightmodeHighlighterCss() !!}
-        </style>
-
         <style>
-            [x-cloak] {}
+            [x-cloak] {
+                display: none;
+            }
         </style>
         {!! Converge::css() !!}
         {!! Converge::js() !!}
@@ -64,11 +62,13 @@ use function Fluxtor\Converge\intercept;
 
     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 
-    <body x-data="themeSwitcher({
-        lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
-        darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
-    })"
-<<<<<<< HEAD
+    <body 
+        x-data="themeSwitcher({
+            lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+            darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+            highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
+            highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
+        })"
     {{ $attributes->class([
         'converge-body',
         'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
@@ -76,58 +76,7 @@ use function Fluxtor\Converge\intercept;
     >
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
-    <x-converge::search.modal/>
-</body>
-=======
-          {{ $attributes->class([
-              'converge-body',
-              'font-display relative bg-base-200  font-normal lg:max-h-screen text-gray-950 antialiased  dark:text-white',
-          ]) }}>
-        {{-- DYNAMIQUE CONTENT --}}
-        {{ $slot }}
-
-        <script>
-            const ThemeHighlighter = (() => {
-                const themes = {
-                    dark: @json(converge()->getTheme()->getDarkmodeHighlighterCss()),
-                    light: @json(converge()->getTheme()->getLightmodeHighlighterCss())
-                };
-
-                const getSystemTheme = () =>
-                    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-
-                const resolveTheme = (theme) =>
-                    theme === 'system' ? getSystemTheme() : theme;
-
-                const updateHighlighterTheme = (theme) => {
-                    const highlighterStyle = document.getElementById('highlighter-theme');
-                    highlighterStyle.textContent = themes[resolveTheme(theme)];
-                };
-
-                const init = () => {
-                    const savedTheme = localStorage.getItem('theme') || 'system';
-                    updateHighlighterTheme(savedTheme);
-
-                    document.addEventListener('theme-changed', (event) =>
-                        updateHighlighterTheme(event.detail)
-                    );
-
-                    window.matchMedia('(prefers-color-scheme: dark)').addListener(() => {
-                        if (localStorage.getItem('theme') === 'system') {
-                            updateHighlighterTheme('system');
-                        }
-                    });
-                };
-
-                return {
-                    init,
-                    updateHighlighterTheme
-                };
-            })();
-
-            document.addEventListener('DOMContentLoaded', ThemeHighlighter.init);
-        </script>
+    {{-- <x-converge::search.modal/> --}}
     </body>
->>>>>>> 0678d8954a70d1fa79a05e5dcad5a4a7e20045a6
 
 </html>
