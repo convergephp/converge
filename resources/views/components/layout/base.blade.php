@@ -68,6 +68,17 @@ use function Fluxtor\Converge\intercept;
         lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
         darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
     })"
+<<<<<<< HEAD
+    {{ $attributes->class([
+        'converge-body',
+        'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+    ]) }}
+    >
+    {{-- DYNAMIQUE CONTENT --}}
+    {{ $slot }}
+    <x-converge::search.modal/>
+</body>
+=======
           {{ $attributes->class([
               'converge-body',
               'font-display relative bg-base-200  font-normal lg:max-h-screen text-gray-950 antialiased  dark:text-white',
@@ -117,5 +128,6 @@ use function Fluxtor\Converge\intercept;
             document.addEventListener('DOMContentLoaded', ThemeHighlighter.init);
         </script>
     </body>
+>>>>>>> 0678d8954a70d1fa79a05e5dcad5a4a7e20045a6
 
 </html>

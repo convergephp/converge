@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
+
 namespace Fluxtor\Converge\SearchEngine;
 
-class MarkdownParser
+use League\CommonMark\Normalizer\SlugNormalizer;
+
+class ContentsParser
 {
     private string $contents;
 
@@ -12,6 +15,8 @@ class MarkdownParser
     {
         $this->contents = $contents;
     }
+
+
 
     public static function make($contents)
     {
@@ -52,21 +57,29 @@ class MarkdownParser
         return $this;
     }
 
-    public function extractHeadings()
+    public function extractHeadings(string $path)
     {
         preg_match_all('/^(#{1,6})\s*(.+)$/m', $this->contents, $matches, PREG_SET_ORDER);
 
         $headings = [];
 
+        $slugManager = new SlugNormalizer();
+        $id = 0;
         foreach ($matches as $match) {
-            $level = mb_strlen($match[1]);
-            $headings[] = [
+
+            $level = strlen($match[1]);
+
+            $headings[] =[
+                'file_path' => $path,
                 'level' => $level,
                 'title' => trim($match[2]),
+                'hash' => $slugManager->normalize($match[2]),
+                'id' => $id
             ];
+            $id++;
         }
 
-        return dd($headings);
+        return $headings;
     }
 
     public function extractLists()
@@ -199,5 +212,11 @@ class MarkdownParser
         return array_map(function ($cell) {
             return str_replace('TEMP_PIPE', '|', $cell);
         }, $cells);
+    }
+
+
+
+    public function getParagraphs(){
+        
     }
 }
