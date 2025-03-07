@@ -20,7 +20,8 @@
     }
 }">
     <button
-        class="btn btn-sm btn-outline bg-base-300 bt-base-300 text-base-content border-none transition-all duration-200"
+        class=" text-base-content border-none cursor-pointer transition-all duration-200"
+        type="button"
         x-on:click="toggleTheme()">
 
         {{-- LIGHT MODE ICON --}}

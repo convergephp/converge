@@ -2,7 +2,7 @@
     {{-- discktop search button --}}
     <button 
             x-on:click="$dispatch('open-search')" 
-            class="btn btn-sm bg-base-300 text-base-content hover:bg-base-300 shadow-xs border-base-300 mx-auto hidden w-full items-center border py-1.5 pl-2 pr-3 text-xs font-light leading-6 transition-all duration-300 lg:flex lg:max-w-xs"
+            class="btn btn-sm bg-base-200 text-base-content hover:bg-base-300 shadow-xs border-base-300 mx-auto hidden w-full items-center border py-1.5 pl-2 pr-3 text-xs font-light leading-6 transition-all duration-300 lg:flex lg:max-w-xs"
             type="button"
         >
         <x-converge::icon 
