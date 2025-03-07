@@ -95,11 +95,4 @@ if (! function_exists('Fluxtor\Converge\format_styles')) {
 
         return implode(' ', $attributes);
     }
-
-    if (! function_exists('Fluxtor\Converge\has_custom_footer')) {
-        function has_custom_footer(): bool
-        {
-            return converge()->hasCustomeFooter();
-        }
-    }
 }

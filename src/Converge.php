@@ -190,17 +190,10 @@ class Converge
     }
 
     /**
-     * Checking custom footer
-     *
-     * @return void
+     * return the custom footer
      */
-    public function hasCustomeFooter(): bool
+    public function getFooter()
     {
-        return $this->getActiveModule()->hasCustomFooter();
-    }
-
-    public function customFooter()
-    {
-        return $this->getActiveModule()->getCustomFooter();
+        return $this->getActiveModule()->getFooter();
     }
 }

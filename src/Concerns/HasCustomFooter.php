@@ -7,26 +7,35 @@ namespace Fluxtor\Converge\Concerns;
 use Closure;
 use Fluxtor\Converge\Enums\Interceptor;
 use Fluxtor\Converge\Views\ViewInterceptor;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 use function Fluxtor\Converge\converge;
 
 trait HasCustomFooter
 {
-    public function footer(Closure $view): static
+
+    protected string|Closure|Htmlable|null $footer = null;
+
+
+    public function footer(string|Closure|null $footer): static
     {
-        resolve(ViewInterceptor::class)->registerViewInterceptor(Interceptor::REPLACE_FOOTER, $view);
+        $this->footer = $footer;
 
         return $this;
     }
 
-    public function hasCustomFooter(): bool
+    public function getFooter(): ?string
     {
-        return (bool) converge()->intercept(point: Interceptor::REPLACE_FOOTER, context: null);
+        return $this->evaluteFooter($this->footer);
     }
 
-    public function getCustomFooter()
+    public function evaluteFooter(string|Closure|Htmlable|null $footer): mixed
     {
-        return resolve(ViewInterceptor::class)->render(point: Interceptor::REPLACE_FOOTER, context: null);
+        if (($footer = $this->resolve($footer)) instanceof Htmlable) {
+            return $footer->toHtml();
+        }
+
+        return $this->resolve($this->footer);
     }
 
 }

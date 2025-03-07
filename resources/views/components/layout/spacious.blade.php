@@ -97,9 +97,9 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 </div>
 
                 {{-- FOOTER --}}
-                @if (has_custom_footer())
+                @if (filled(converge()->getFooter()))
                     <div class="border-base-300 bg-base-200 border-t">
-                        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::REPLACE_FOOTER) }}
+                        {!! converge()->getFooter() !!}
                     </div>
                 @else
                     @include('converge::components.layout.partials.index.footer')
