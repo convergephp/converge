@@ -15,8 +15,10 @@
                 <x-slot:button
                         class="btn-sm btn border-base-300 bg-base-200 text-base-content hover:border-primary/80 flex items-center border">
                     <span>{{ $usedVersion['label'] }}</span>
-                    <x-converge::icons.openable class="stroke-base-content size-3"
-                                                x-model="$data.isOpen()" />
+                    <x-converge::icons.openable 
+                                class="stroke-base-content size-3"
+                                x-model="$data.isOpen()"
+                    />
                 </x-slot:button>
                 <x-slot:items
                         class="w-36 text-base">
