@@ -11,6 +11,7 @@
             />
         Quick search...
         <span class="ml-auto flex-none pl-3 text-xs">Ctrl K</span>
+
     </button>
 
     {{-- MOBILE SEARCH BUTTON --}}
@@ -18,6 +19,6 @@
             x-on:click="$dispatch('open-search')"
             class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 border transition-all duration-300 lg:hidden">
         <x-converge::icon icon="search"
-                          class="size-5" />
+                          class="size-3" />
     </button>
 </div>

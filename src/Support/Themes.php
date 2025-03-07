@@ -40,6 +40,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const ICE = [
@@ -73,6 +74,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const RBI3 = [
@@ -106,6 +108,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const SAHRA = [
@@ -139,6 +142,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const STRONG = [
@@ -172,6 +176,7 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     /**
@@ -181,7 +186,7 @@ class Themes
         '--prose-bg' => 'black',
         '--color-base-100' => 'oklch(20% 0 0)',
         '--color-base-200' => 'oklch(0.13 0.028 261.692)',
-        '--color-base-300' => 'oklch(30% 0.034 264.665)',
+        '--color-base-300' => '#3838382e',
         '--color-base-content' => 'oklch(0.872 0.01 258.338)',
         '--color-primary' => 'oklch(60% 0.195 277.366)',
         '--color-primary-content' => 'oklch(97% 0.021 166.113)',
@@ -209,6 +214,7 @@ class Themes
         '--noise' => '1',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 
     public const BLACK = [
@@ -242,5 +248,6 @@ class Themes
         '--noise' => '0',
         '--text-sm' => '0.85rem',
         '--text-base' => '1rem',
+        '--font-weight' => '500',
     ];
 }

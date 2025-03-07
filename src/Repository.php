@@ -7,8 +7,7 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Versions\Version;
 
-class Repository
-/**hold active contexts for the evaluated request*/
+class Repository /**hold active contexts for the evaluated request*/
 {
     protected ?Version $activeVersion = null;
 

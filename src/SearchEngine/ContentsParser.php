@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace Fluxtor\Converge\SearchEngine;
 
-use League\CommonMark\Input\MarkdownInput;
 use League\CommonMark\Normalizer\SlugNormalizer;
-use League\CommonMark\Parser\MarkdownParser as ParserMarkdownParser;
 
 class ContentsParser
 {
@@ -23,7 +24,6 @@ class ContentsParser
         return new static($contents);
     }
 
-
     public function removeCodeBlocks()
     {
         // get rid of fenced code blocks
@@ -36,7 +36,7 @@ class ContentsParser
         $lines = explode("\n", $contents);
 
         $lines = array_filter($lines, function ($line) {
-            return !empty(trim($line)); // compact the file
+            return ! empty(trim($line)); // compact the file
         });
 
         // get rid of intended code that has a tab or more than 4 spaces
@@ -91,14 +91,13 @@ class ContentsParser
 
         foreach ($matches as $match) {
             $item = [
-                'level' =>  strlen($match[1]) / 4,
+                'level' => mb_strlen($match[1]) / 4,
                 'marker' => $match[2],
                 'text' => trim($match[3]),
-                'children' => []
+                'children' => [],
             ];
 
-
-            while (!empty($stack) && end($stack)['level'] >= $item['level']) {
+            while (! empty($stack) && end($stack)['level'] >= $item['level']) {
                 array_pop($stack);
             }
 
@@ -117,20 +116,11 @@ class ContentsParser
         dd($lists);
     }
 
-
-
     public function extractTable()
     {
-        "| Fruit     | Color    | Taste  | Seasonal Availability |
-            |-----------|----------|--------|-----------------------|
-            | Apple     | Red      | Sweet  | Fall                  |
-            | Banana    | Yellow   | Sweet  | All Year              |
-            | Orange    | Orange   | Citrus | Winter                |
-            | Strawberry| Red      | Sweet  | Spring                |
-            | Grape     | Purple   | Sweet/Tart | Fall              |
-            ";
+
         /**
-         * we need to extract the heading and storing each item in assoc array like : 
+         * we need to extract the heading and storing each item in assoc array like :
          * so :
          */
         $tableRows = [
@@ -142,10 +132,9 @@ class ContentsParser
             ],
         ];
 
-        // first we need to extract headers: 
+        // first we need to extract headers:
         preg_match_all('//', $this->contents, $matches);
     }
-
 
     public function extractTables(): array
     {
@@ -166,6 +155,7 @@ class ContentsParser
                 ];
                 $expectedColumns = count($currentTable['header']);
                 $i++; // Skip separator line
+
                 continue;
             }
 
@@ -174,7 +164,7 @@ class ContentsParser
                 if ($this->isTableDataLine($line, $expectedColumns)) {
                     $currentTable['rows'][] = $this->parseTableRow($line);
                 } else {
-                    if (!empty($currentTable['rows'])) {
+                    if (! empty($currentTable['rows'])) {
                         $tables[] = $currentTable;
                     }
                     $currentTable = null;
@@ -183,11 +173,16 @@ class ContentsParser
         }
 
         // Add any remaining table
-        if ($currentTable !== null && !empty($currentTable['rows'])) {
+        if ($currentTable !== null && ! empty($currentTable['rows'])) {
             $tables[] = $currentTable;
         }
 
         return $tables;
+    }
+
+    public function getContents()
+    {
+        return $this->contents;
     }
 
     private function isTableHeaderLine(string $line, string $nextLine): bool
@@ -200,9 +195,12 @@ class ContentsParser
 
     private function isTableDataLine(string $line, int $expectedColumns): bool
     {
-        if (!str_contains($line, '|')) return false;
+        if (! str_contains($line, '|')) {
+            return false;
+        }
 
         $columns = count($this->parseTableRow($line));
+
         return $columns === $expectedColumns;
     }
 
@@ -217,10 +215,6 @@ class ContentsParser
     }
 
 
-    public function getContents()
-    {
-        return $this->contents;
-    }
 
     public function getParagraphs(){
         
