@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\SearchEngine\BloomFilters;
 
 class BloomFilter
 {
     private array $bitArray;
+
     private int $size;
+
     private int $hashCount;
 
     public function __construct($size, $hashCount)
@@ -13,11 +17,6 @@ class BloomFilter
         $this->size = $size;
         $this->hashCount = $hashCount;
         $this->bitArray = array_fill(0, $size, 0);
-    }
-
-    private function hash(string $item, int $seed)
-    {
-        return (crc32($item . $seed) % $this->size);
     }
 
     public function add(string $item)
@@ -36,6 +35,7 @@ class BloomFilter
                 return false;
             }
         }
+
         return true;
     }
 
@@ -48,8 +48,7 @@ class BloomFilter
     {
         $output = '<?php return [';
 
-
-        $output .= "\n" . implode(', ', $this->bitArray);
+        $output .= "\n".implode(', ', $this->bitArray);
 
         $output .= "\n];";
 
@@ -65,5 +64,10 @@ class BloomFilter
         if (file_exists($path)) {
             $this->bitArray = require $path;
         }
+    }
+
+    private function hash(string $item, int $seed)
+    {
+        return crc32($item.$seed) % $this->size;
     }
 }

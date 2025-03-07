@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\SearchEngine;
 
 use Fluxtor\Converge\SearchEngine\BloomFilters\BloomFilter;
@@ -7,6 +9,7 @@ use Fluxtor\Converge\SearchEngine\BloomFilters\BloomFilter;
 class InvertedIndexer
 {
     protected $headings;
+
     protected $indexes;
 
     public function __construct()
@@ -18,28 +21,27 @@ class InvertedIndexer
     public function index()
     {
         foreach ($this->headings as $heading) {
-            $tokens = explode(' ', strtolower($heading['title']));
+            $tokens = explode(' ', mb_strtolower($heading['title']));
 
             foreach ($tokens as $token) {
                 $token = $this->tokenize($token);
 
-                
                 if ($token === null) {
                     continue;
                 }
 
-                if (!isset($this->indexes[$token])) {
+                if (! isset($this->indexes[$token])) {
                     $this->indexes[$token] = [];
                 }
 
-                if (!in_array($heading['id'], $this->indexes[$token])) {
+                if (! in_array($heading['id'], $this->indexes[$token])) {
                     $this->indexes[$token][] = $heading['id']; // Add unique heading ID
                 }
             }
         }
         $this->saveIndex();
 
-        $bloomFilter = new  BloomFilter(1000, 4);
+        $bloomFilter = new BloomFilter(1000, 4);
 
         foreach (array_keys($this->indexes) as $term) {
             $bloomFilter->add($term);
@@ -47,7 +49,6 @@ class InvertedIndexer
 
         $bloomFilter->saveBloomFilter();
     }
-
 
     public function tokenize(string $token)
     {
@@ -57,12 +58,12 @@ class InvertedIndexer
             return null;
         }
 
-
         return $token;
     }
+
     public function inStopWords(string $token)
     {
-        $stopWords = require __DIR__ . '/stop_words.php';
+        $stopWords = require __DIR__.'/stop_words.php';
 
         return in_array($token, $stopWords);
     }
@@ -73,7 +74,7 @@ class InvertedIndexer
 
         foreach ($this->indexes as $token => $headings) {
 
-            $output .= "\n    '$token' => [" . implode(', ', $headings) . "],";
+            $output .= "\n    '$token' => [".implode(', ', $headings).'],';
         }
 
         $output .= "\n];";

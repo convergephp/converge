@@ -50,7 +50,7 @@ class MarkdownCleaner
         $environment->addExtension(new TableExtension());
 
         $parser = new MarkdownParser($environment);
-        
+
         $this->document = $parser->parse($this->contents);
     }
 

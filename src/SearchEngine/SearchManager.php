@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\SearchEngine;
 
-use SplFileInfo;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use Fluxtor\Converge\Documents;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 class SearchManager
 {
@@ -15,10 +17,11 @@ class SearchManager
     public static function make()
     {
         $static = new static();
+
         return $static;
     }
 
-    public function getAllMdFiles(string | null $path = null): void
+    public function getAllMdFiles(?string $path = null): void
     {
 
         $iterator = new RecursiveIteratorIterator(
@@ -35,7 +38,7 @@ class SearchManager
 
     public function handleFile(SplFileInfo $info): self
     {
-        
+
         $contents = file_get_contents($info->getPathname());
 
         $document = Documents\Parser::make($contents);
@@ -57,12 +60,12 @@ class SearchManager
     {
         $storagePath = storage_path('converge/headings.php');
 
-        if (!is_dir(dirname($storagePath))) {
+        if (! is_dir(dirname($storagePath))) {
             mkdir(dirname($storagePath), 0777, true);
         }
 
         // Convert the array to PHP code
-        $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
+        $data = "<?php\n\nreturn ".var_export($this->headings, true).";\n";
 
         file_put_contents($storagePath, $data);
     }

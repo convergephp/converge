@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace Fluxtor\Converge\SearchEngine;
 
 use League\CommonMark\Normalizer\SlugNormalizer;
@@ -15,8 +14,6 @@ class ContentsParser
     {
         $this->contents = $contents;
     }
-
-
 
     public static function make($contents)
     {
@@ -67,14 +64,14 @@ class ContentsParser
         $id = 0;
         foreach ($matches as $match) {
 
-            $level = strlen($match[1]);
+            $level = mb_strlen($match[1]);
 
-            $headings[] =[
+            $headings[] = [
                 'file_path' => $path,
                 'level' => $level,
                 'title' => trim($match[2]),
                 'hash' => $slugManager->normalize($match[2]),
-                'id' => $id
+                'id' => $id,
             ];
             $id++;
         }
@@ -185,6 +182,8 @@ class ContentsParser
         return $this->contents;
     }
 
+    public function getParagraphs() {}
+
     private function isTableHeaderLine(string $line, string $nextLine): bool
     {
         $hasPipes = str_contains($line, '|');
@@ -212,11 +211,5 @@ class ContentsParser
         return array_map(function ($cell) {
             return str_replace('TEMP_PIPE', '|', $cell);
         }, $cells);
-    }
-
-
-
-    public function getParagraphs(){
-        
     }
 }

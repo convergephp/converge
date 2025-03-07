@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\SearchEngine;
 
 class Engine
@@ -17,8 +19,6 @@ class Engine
 
         // bloom filters
 
-
-
         $indexes = require storage_path('converge/inverted_index.php');
 
         $headings = require storage_path('converge/headings.php');
@@ -27,14 +27,14 @@ class Engine
         $headingsIds = [];
 
         foreach ($tokens as $token) {
-            
+
             if (isset($indexes[$token])) {
-            
+
                 foreach ($indexes[$token] as $id) {
-            
-                    if (!isset($headingsIds[$id])) {
+
+                    if (! isset($headingsIds[$id])) {
                         $headingsIds[$id] = 0;
-            
+
                     }
                     $headingsIds[$id]++;
                 }
