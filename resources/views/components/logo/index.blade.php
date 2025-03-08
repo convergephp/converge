@@ -3,15 +3,24 @@
     $hasDarkMode = $module->hasDarkModeLogo();
 @endphp
 <div>
-    {{-- Light mode logo --}}
-    <span x-show="true">
-        {!! $module->getLogoHtml(false) !!}
-    </span>
+    @if ($hasDarkMode)
+        {{-- Light mode logo --}}
+        <a href="/"
+           x-show="$store.theme !== 'dark'"
+           style="display: none;">
+            {!! $module->getLogoHtml(false) !!}
+        </a>
 
-    {{-- Dark mode logo --}}
-    <span x-show="false">
-        @if ($hasDarkMode)
+        {{-- Dark mode logo --}}
+        <a href="/"
+           x-show="$store.theme === 'dark'"
+           style="display: none;">
             {!! $module->getLogoHtml(true) !!}
-        @endif
-    </span>
+        </a>
+    @else
+        <a href="/"
+           style="display: none;">
+            {!! $module->getLogoHtml(false) !!}
+        </a>
+    @endif
 </div>
