@@ -24,7 +24,7 @@ export default ({route}) => ({
             } else {
                 this.isLoading = true;
                 this.results = await this.performSearch(query);
-                this.isLoading = false
+                this.isLoading = false;
                 console.log(this.results)   
             }
         });
@@ -38,18 +38,6 @@ export default ({route}) => ({
         
         return  await response.json();
         
-        // try {
-
-        //     if (!response.ok) {
-        //         throw new Error("Network response was not ok");
-        //     }
-
-        //     return await response.json();
-        // } catch (error) {
-        //     console.error("Error performing search:", error);
-
-        //     return [];
-        // }
     },
     highlightMatchingLetters: function (title, query) {
         let highlightedTitle = "";
