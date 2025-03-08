@@ -188,7 +188,7 @@ class Themes
         '--color-base-200' => 'oklch(0.13 0.028 261.692)',
         '--color-base-300' => '#3838382e',
         '--color-base-content' => 'oklch(0.872 0.01 258.338)',
-        '--color-primary' => 'oklch(60% 0.195 277.366)',
+        '--color-primary' => '#480ca8',
         '--color-primary-content' => 'oklch(97% 0.021 166.113)',
         '--color-secondary' => 'oklch(65% 0.241 354.308)',
         '--color-secondary-content' => 'oklch(94% 0.028 342.258)',

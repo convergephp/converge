@@ -26,10 +26,10 @@ trait HasCustomFooter
 
     public function getFooter(): ?string
     {
-        return $this->evaluteFooter($this->footer);
+        return $this->evaluateFooter($this->footer);
     }
 
-    public function evaluteFooter(string|Closure|Htmlable|null $footer): mixed
+    public function evaluateFooter(string|Closure|Htmlable|null $footer): mixed
     {
         if (($footer = $this->resolve($footer)) instanceof Htmlable) {
             return $footer->toHtml();

@@ -18,8 +18,7 @@
             {!! $module->getLogoHtml(true) !!}
         </a>
     @else
-        <a href="/"
-           style="display: none;">
+        <a href="/">
             {!! $module->getLogoHtml(false) !!}
         </a>
     @endif
