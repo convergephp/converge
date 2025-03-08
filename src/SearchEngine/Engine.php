@@ -15,10 +15,6 @@ class Engine
             return [];
         }
 
-        // hdhehdehdhede
-
-        // bloom filters
-
         $indexes = require storage_path('converge/inverted_index.php');
 
         $headings = require storage_path('converge/headings.php');

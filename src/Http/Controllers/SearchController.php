@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class SearchController
 {
-    public const CLASSES = 'text-purple-600 dark:text-purple-400 font-semibold';
+    public const CLASSES = 'text-primary';
 
     protected $map;
 
