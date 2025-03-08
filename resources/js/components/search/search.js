@@ -1,13 +1,14 @@
-export default ({ maxItemsAllowed = 10 }) => ({
+export default ({route}) => ({
     query: "",
     results: [],
     search_history: [],
     favorite_items: [],
-    maxItemsAllowed,
+    maxItemsAllowed: 10,
+    route,
 
     init() {
 
-        console.log('fuck alhayat')
+        console.log(route);
         this.search_history = this.getLocalStorage("search_history");
         this.favorite_items = this.getLocalStorage("favorite_items");
 
@@ -22,21 +23,46 @@ export default ({ maxItemsAllowed = 10 }) => ({
             if (query.trim() === "") {
                 this.results = [];
             } else {
-                try {
-                    let results = await performSearch(query);
-                    this.results = results.map((item) => ({
-                        ...item,
-                        highlightedTitle: this.highlightMatchingLetters(
-                            item.title,
-                            query
-                        ),
-                    }));
-                } catch (error) {
-                    console.error("Error performing search:", error);
-                    this.results = [];
-                }
+                let results = await this.performSearch(query);
+                // console.log(query)
+                // try {
+                //     this.results = results.map((item) => ({
+                //         ...item,
+                //         highlightedTitle: this.highlightMatchingLetters(
+                //             item.title,
+                //             query
+                //         ),
+                //     }));
+                // } catch (error) {
+                //     console.error("Error performing search:", error);
+                //     this.results = [];
+                // }
             }
         });
+    },
+    async performSearch(query) {
+        const response = await fetch(`${this.route}?query=${query}`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+
+        console.log(data);
+        
+        // try {
+
+        //     if (!response.ok) {
+        //         throw new Error("Network response was not ok");
+        //     }
+
+        //     return await response.json();
+        // } catch (error) {
+        //     console.error("Error performing search:", error);
+
+        //     return [];
+        // }
     },
     highlightMatchingLetters: function (title, query) {
         let highlightedTitle = "";
@@ -63,21 +89,7 @@ export default ({ maxItemsAllowed = 10 }) => ({
         return JSON.parse(localStorage.getItem(key)) || [];
     },
 
-    async performSearch(query) {
-        try {
-            const response = await fetch(`${route}?query=${query}`);
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error("Error performing search:", error);
-
-            return [];
-        }
-    },
     setLocalStorage(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     },

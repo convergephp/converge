@@ -38,11 +38,10 @@ use function Fluxtor\Converge\intercept;
             }
         </style>
         {!! Converge::css() !!}
-        {!! Converge::js() !!}
-
+        
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     </head>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector("#sidebar");
@@ -69,14 +68,15 @@ use function Fluxtor\Converge\intercept;
             highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
             highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
         })"
-    {{ $attributes->class([
-        'converge-body',
-        'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+        {{ $attributes->class([
+            'converge-body',
+            'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
     ]) }}
     >
     {{-- DYNAMIQUE CONTENT --}}
     {{ $slot }}
-    {{-- <x-converge::search.modal/> --}}
+    <x-converge::search.modal/>
+    {!! Converge::js() !!}
     </body>
 
 </html>
