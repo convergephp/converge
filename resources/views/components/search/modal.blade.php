@@ -11,29 +11,28 @@
                     id="search-label"
                     for="search-input"
                 >
-                    <x-converge::icon
-                        icon="search"
-                        size="5"
-                        class="mr-3"
-                        stroke="3"
-                    />
-                    <div
-                        class="hidden"
-                        wire:loading.class.remove="hidden"
-                    >
-                    </div>
+                    <span class="mr-3">
+                        <x-converge::icon
+                            icon="search"
+                            size="5"
+                            stroke="3"
+                            x-show="!isLoading"
+                        />
+                        <x-converge::icon
+                            icon="loading-indicator"
+                            x-show="!isLoading"
+                        />
+                    </span>
                 </label>
-                <x-converge::search.input x-model="$data.query"/>
+                <x-converge::search.input x-model.debounce.100ms="query"/>
             </form>
         </x-slot:header>
 
         <div >
-            <template x-if="$data.query.length >0">
-                <x-converge::search.results
-                    {{-- :results="[]"  --}}
-                />
+            <template x-if="query.length > 0">
+                <x-converge::search.results/>
             </template>
-            <template x-if="$data.query.length == 0 && ($data.search_history.length > 0 || $data.favorite_items.length > 0)">
+            <template x-if="query.length == 0 && !(search_history.length > 0 || favorite_items.length > 0)">
                 <x-converge::search.empty-query />
             </template>
         </div>

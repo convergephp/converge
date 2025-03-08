@@ -8,6 +8,7 @@ use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Http\Controllers\FileController;
 use Fluxtor\Converge\Http\Controllers\ModuleController;
+use Fluxtor\Converge\Http\Controllers\SearchController;
 use Fluxtor\Converge\Http\Middleware\UseCluster;
 use Fluxtor\Converge\Http\Middleware\UseModule;
 use Fluxtor\Converge\Http\Middleware\UseVersion;
@@ -19,7 +20,7 @@ final class RouteManager
     public function generateRoutes(): void
     {
 
-        Route::get('converge/search', fn($text = "makekekde") => [$text])->name('converge::search');
+        Route::get('converge/search', SearchController::class)->name('converge::search');
 
         // routes related to modules
         foreach (Converge::getModules() as $module) {

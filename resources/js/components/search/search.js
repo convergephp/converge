@@ -1,14 +1,13 @@
 export default ({route}) => ({
     query: "",
     results: [],
+    isLoading: false,   
     search_history: [],
     favorite_items: [],
     maxItemsAllowed: 10,
     route,
 
     init() {
-
-        console.log(route);
         this.search_history = this.getLocalStorage("search_history");
         this.favorite_items = this.getLocalStorage("favorite_items");
 
@@ -23,33 +22,21 @@ export default ({route}) => ({
             if (query.trim() === "") {
                 this.results = [];
             } else {
-                let results = await this.performSearch(query);
-                // console.log(query)
-                // try {
-                //     this.results = results.map((item) => ({
-                //         ...item,
-                //         highlightedTitle: this.highlightMatchingLetters(
-                //             item.title,
-                //             query
-                //         ),
-                //     }));
-                // } catch (error) {
-                //     console.error("Error performing search:", error);
-                //     this.results = [];
-                // }
+                this.isLoading = true;
+                this.results = await this.performSearch(query);
+                this.isLoading = false
+                console.log(this.results)   
             }
         });
     },
     async performSearch(query) {
-        const response = await fetch(`${this.route}?query=${query}`);
+        const response = await fetch(`${this.route}?q=${query}`);
         
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         
-        const data = await response.json();
-
-        console.log(data);
+        return  await response.json();
         
         // try {
 

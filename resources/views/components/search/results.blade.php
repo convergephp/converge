@@ -1,6 +1,3 @@
-@props([
-    'results' => collect()
-])
 <div
     {{
         $attributes->class([
@@ -14,24 +11,23 @@
         },
     }"
 >
-    @if ($results->isEmpty())
-        <x-converge::search.no-results/>
-    @else
+    <div x-show="!isLoading && results.length === 0">
+        <x-converge::search.no-results />
+    </div>
+
+    <template x-if="$data.results.length > 0">
         <ul 
             id="search-list"
             x-on:focus-first-element.window="$focus.first()"
             x-on:keydown.up.stop.prevent="handleKeyUp()"
             x-on:keydown.down.stop.prevent="$focus.wrap().next()"
             x-animate
-        >
+    >
 
-            @foreach ($results as $result )
-                <x-converge::search.result-item
-                    :title="$result->title"
-                    :rawTitle="$result->rawTitle"
-                    :url="$result->url"
-                />
-            @endforeach
-        </ul>
-    @endif
+        <template x-for="(result,index)  in results" x-bind:key="index">
+            <x-converge::search.result-item />
+        </template>
+    </ul>
+    </template>
+
 </div>
