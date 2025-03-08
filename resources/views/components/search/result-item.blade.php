@@ -1,12 +1,6 @@
-@props([
-    'title',
-    'rawTitle',
-    'url',
-])
-
 <li 
     role="option"
-    {{-- x-on:click="addToSearchHistory(@js($rawTitle),@js($url))" --}}
+    x-on:click="addToSearchHistory(result.title,result.url)"
 >
     <a 
         x-bind:href="result.url"

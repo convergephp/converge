@@ -1,4 +1,4 @@
-<svg class="size-[18px] overflow-visible " viewBox="0 0 38 38" stroke="currentColor" stroke-opacity=".8">
+<svg {{ $attributes->merge(['class' => "size-[18px] overflow-visible"]) }}  viewBox="0 0 38 38" stroke="currentColor" stroke-opacity=".8">
     <g fill="none" fill-rule="evenodd">
         <g transform="translate(1 1)" stroke-width="3">
             <circle stroke-opacity=".6" cx="18" cy="18" r="18"></circle>

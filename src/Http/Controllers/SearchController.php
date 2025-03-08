@@ -25,14 +25,14 @@ class SearchController
         }
 
         $results = [
-            // [
-            //     'url' => 'make',
-            //     'title' => 'performence'
-            // ],
-            // [
-            //     'url' => 'make',
-            //     'title' => 'raw performence'
-            // ]
+            [
+                'url' => 'make',
+                'title' => 'performence'
+            ],
+            [
+                'url' => 'make',
+                'title' => 'raw performence'
+            ]
         ];
 
         return response()->json($results);
