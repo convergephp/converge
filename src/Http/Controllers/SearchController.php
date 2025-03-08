@@ -3,13 +3,24 @@
 namespace Fluxtor\Converge\Http\Controllers;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\Repository;
+use Illuminate\Http\JsonResponse;
+use Fluxtor\Converge\SearchEngine\Engine;
 use Illuminate\Support\Facades\Validator;
 
 class SearchController
 {
-    public function __invoke(Request $request): JsonResponse
+
+    protected $map;
+    
+    public function __construct(ContentMap $map)
+    {
+        $this->map = $map;
+    }
+
+    public function __invoke(Request $request, Repository $repo,): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'q' => 'required|string|max:255',
@@ -24,16 +35,23 @@ class SearchController
             throw new Exception('Query must be a string');
         }
 
-        $results = [
-            [
-                'url' => 'make',
-                'title' => 'performence'
-            ],
-            [
-                'url' => 'make',
-                'title' => 'raw performence'
-            ]
-        ];
+        $engine = new Engine();
+
+        $results = $engine->search($query);
+
+        $results = collect($results)->map(function ($result) use ($repo) {
+
+            $url =  $this->map->getUrlByFilePath($result['file_path']);
+
+            $routeName = $repo->getActiveRouteName();
+
+            return [
+                'title' => $result['title'],
+                'url' => route($routeName . '.show', [
+                    'url' => $url,
+                ])
+            ];
+        });
 
         return response()->json($results);
     }
