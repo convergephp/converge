@@ -6,7 +6,7 @@ namespace Fluxtor\Converge\SearchEngine;
 
 class Engine
 {
-    public function search(string $query, bool $enableFuzzy = true): array
+    public function search(string $query,  bool $enableFuzzy = true): array
     {
         $processor = new QueryProcessor($query);
         $tokens = $processor->tokenize();
@@ -30,15 +30,6 @@ class Engine
                     str_starts_with((string) $indexToken, $token) ||
                     str_ends_with((string) $indexToken, $token)
                 ) {
-                    foreach ($headingIds as $tokenHeadingId) {
-
-                        if (!isset($headingsIds[$tokenHeadingId])) {
-                            $headingsIds[$tokenHeadingId] = 0;
-                        }
-
-                        $headingsIds[$tokenHeadingId]++;
-                    }
-                } elseif ($enableFuzzy && $this->isFuzzyMatch($indexToken, $token, $maxDistance)) {
                     foreach ($headingIds as $tokenHeadingId) {
 
                         if (!isset($headingsIds[$tokenHeadingId])) {
