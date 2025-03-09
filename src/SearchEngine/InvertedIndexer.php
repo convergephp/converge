@@ -24,20 +24,22 @@ class InvertedIndexer
         foreach ($this->headings as $heading) {
 
             $tokens = (new Tokenizer())->tokenize($heading['title'], $this->getStopWords());
+            $title = $heading['title'];
+            $headingId = $heading['id'];
+
             foreach ($tokens as $token) {
-                if($token == 'file'){
-                    if ( isset($this->indexes[$token])) {
-                        dump($this->indexes[$token]);
-                    }
-                    dump($heading['title']);        
-                }
-                // check if the token does not exists so init one with empty array
+
+                // the token is file for example
                 if (! isset($this->indexes[$token])) {
                     $this->indexes[$token] = [];
                 }
 
-                //  
                 if (! in_array($heading['id'], $this->indexes[$token])) {
+                    if ($token === 'file') {
+
+                        dump($heading['title'], $heading['id']);    
+                    }
+
                     $this->indexes[$token][] = $heading['id']; // Add unique heading ID
                 }
             }
@@ -45,7 +47,7 @@ class InvertedIndexer
         $this->saveIndex();
 
         $bloomFilter = new BloomFilter(1000, 4);
-        
+
 
         foreach (array_keys($this->indexes) as $term) {
             $bloomFilter->add($term);

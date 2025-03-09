@@ -54,18 +54,16 @@ class ContentsParser
         return $this;
     }
 
-    public function extractHeadings(string $path)
+    public function extractHeadings(string $path, int $id)
     {
         preg_match_all('/^(#{1,6})\s*(.+)$/m', $this->contents, $matches, PREG_SET_ORDER);
 
         $headings = [];
 
         $slugManager = new SlugNormalizer();
-        $id = 0;
         foreach ($matches as $match) {
-
+            $id++;
             $level = mb_strlen($match[1]);
-
             $headings[] = [
                 'file_path' => $path,
                 'level' => $level,
@@ -73,10 +71,9 @@ class ContentsParser
                 'hash' => '#content-' . $slugManager->normalize($match[2]),
                 'id' => $id,
             ];
-            $id++;
         }
 
-        return $headings;
+        return [$headings, $id];
     }
 
     public function extractLists()

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Fluxtor\Converge\SearchEngine\Tokenizers\Tokenizer;
+
 class QueryProcessor
 {
     protected ?string $query = null;
@@ -19,25 +21,14 @@ class QueryProcessor
 
     public function tokenize()
     {
-        $tokens = [];
-        foreach ((explode(' ', $this->query)) as $query) {
-
-            $token = preg_replace('/[^a-z0-9]/', '', $query);
-
-            if (empty($token) || is_numeric($token) || $this->inStopWords($token)) {
-                continue;
-            }
-
-            $tokens[] = $token;
-        }
+        $tokens = (new Tokenizer())->tokenize($this->query, $this->getStopWords());
 
         return $tokens;
     }
 
-    public function inStopWords(string $token)
-    {
-        $stopWords = require __DIR__.'/stop_words.php';
 
-        return in_array($token, $stopWords);
+    public function getStopWords()
+    {
+        return require __DIR__ . '/stop_words.php';
     }
 }
