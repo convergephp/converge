@@ -62,18 +62,18 @@ class ContentsParser
 
         $slugManager = new SlugNormalizer();
         foreach ($matches as $match) {
-            $id++;
             $level = mb_strlen($match[1]);
             $headings[] = [
                 'file_path' => $path,
                 'level' => $level,
                 'title' => trim($match[2]),
                 'hash' => '#content-' . $slugManager->normalize($match[2]),
-                'id' => $id,
+                'id' => $id,    
             ];
+            $id++;
         }
 
-        return [$headings, $id];
+        return $headings;
     }
 
     public function extractLists()

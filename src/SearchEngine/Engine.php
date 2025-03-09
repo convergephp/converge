@@ -22,17 +22,19 @@ class Engine
         $results = [];
         $headingsIds = [];
 
+        
         foreach ($tokens as $token) {
+            
+            // we have tokens (splitted query) for each token in the query we need to look at it in the headings
 
             if (isset($indexes[$token])) {
 
-                foreach ($indexes[$token] as $id) {
-
-                    if (! isset($headingsIds[$id])) {
-                        $headingsIds[$id] = 0;
+                foreach ($indexes[$token] as $tokenHeadingId) {
+                    if (! isset($headingsIds[$tokenHeadingId])) {
+                        $headingsIds[$tokenHeadingId] = 0;
 
                     }
-                    $headingsIds[$id]++;
+                    $headingsIds[$tokenHeadingId]++;
                 }
             }
         }

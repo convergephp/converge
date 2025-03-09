@@ -3,10 +3,12 @@
 namespace Fluxtor\Converge\Http\Controllers;
 
 use Exception;
+use Illuminate\Log\Logger;
 use Illuminate\Http\Request;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Repository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Fluxtor\Converge\SearchEngine\Engine;
 use Fluxtor\Converge\Support\Highlighter;
 use Illuminate\Support\Facades\Validator;
@@ -38,7 +40,7 @@ class SearchController
         }
 
         $engine = new Engine();
-
+        $start = microtime(true);
         $results = $engine->search($query);
 
         $results = collect($results)->map(function ($result) use ($repo, $query) {
@@ -61,7 +63,8 @@ class SearchController
                 ]) . "{$result['hash']}"
             ];
         });
-
+        $time = (microtime(true) - $start) * 1000;
+        Log::info("search for {$query} took {$time}");
         return response()->json($results);
     }
 }
