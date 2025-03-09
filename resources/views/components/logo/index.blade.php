@@ -2,17 +2,24 @@
     $module = \Fluxtor\Converge\converge()->getActiveModule();
     $hasDarkMode = $module->hasDarkModeLogo();
 @endphp
-
 <div>
-    {{-- Light mode logo --}}
-    <span x-show="true">
-        {!! $module->getLogoHtml(false) !!}
-    </span>
+    @if ($hasDarkMode)
+        {{-- Light mode logo --}}
+        <a href="/"
+           x-show="$store.theme !== 'dark'"
+           style="display: none;">
+            {!! $module->getLogoHtml(false) !!}
+        </a>
 
-    {{-- Dark mode logo --}}
-    <span x-show="false">
-        @if ($hasDarkMode)
-        {!! $module->getLogoHtml(true) !!}
-        @endif
-    </span>
+        {{-- Dark mode logo --}}
+        <a href="/"
+           x-show="$store.theme === 'dark'"
+           style="display: none;">
+            {!! $module->getLogoHtml(true) !!}
+        </a>
+    @else
+        <a href="/">
+            {!! $module->getLogoHtml(false) !!}
+        </a>
+    @endif
 </div>

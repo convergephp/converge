@@ -28,8 +28,8 @@ class SidebarItemsStyles
     ];
 
     public const STYLE4 = [
-        'baseClasses' => 'group/mini-link  group  w-full mt-1 rounded-full  flex  cursor-pointer items-center  space-x-3 py-2 px-2  text-base-content  hover:bg-success/10 duration-200',
-        'activeClasses' => 'bg-success/10 text-success border-l border-transparent',
-        'nestedClasses' => '!rounded-l-none !border-l-success',
+        'baseClasses' => 'group/mini-link  group  w-full mt-1 rounded-field  flex  cursor-pointer items-center  space-x-3 py-2 px-2  text-base-content  hover:bg-primary/10 duration-200',
+        'activeClasses' => 'bg-primary/10 text-primary border-l border-transparent',
+        'nestedClasses' => '!rounded-l-none !border-l-primary',
     ];
 }

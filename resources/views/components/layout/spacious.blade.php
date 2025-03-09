@@ -1,12 +1,15 @@
-@php
-    $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
-@endphp
+<?php
+use function Fluxtor\Converge\converge;
+use function Fluxtor\Converge\has_custom_footer;
+use function Fluxtor\Converge\intercept;
+$hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
+?>
 
 <x-converge::layout.base>
     <div x-data="{ sidebarOpen: false }">
         {{-- Navbar --}}
         <nav
-             class="border-base-300 supports-backdrop-blur:bg-base-200/60 fixed top-0 z-50 w-full border-b backdrop-blur transition-colors duration-500">
+             class="border-base-300 supports-backdrop-blur:bg-base-200/60 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-50 w-full border-b backdrop-blur transition-colors duration-500">
             <div class="z-50 px-2 py-3 lg:px-8">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-x-2">
@@ -94,7 +97,16 @@
                 </div>
 
                 {{-- FOOTER --}}
-                @include('converge::components.layout.partials.index.footer')
+                <div class="">
+                    @if (filled(converge()->getFooter()))
+                        <div class="border-base-300 bg-base-200 border-t">
+                            {!! converge()->getFooter() !!}
+                        </div>
+                    @else
+                        @include('converge::components.layout.partials.index.footer')
+                    @endif
+                    <x-converge::brand-footer />
+                </div>
             </main>
         </div>
     </div>

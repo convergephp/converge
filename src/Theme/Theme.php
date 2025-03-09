@@ -7,6 +7,7 @@ namespace Fluxtor\Converge\Theme;
 use Fluxtor\Converge\Concerns\HasCollapsedGroupes;
 use Fluxtor\Converge\Concerns\HasFavicon;
 use Fluxtor\Converge\Concerns\HasFont;
+use Fluxtor\Converge\Concerns\HasFooter;
 use Fluxtor\Converge\Concerns\Highlighter;
 use Fluxtor\Converge\Concerns\Resolver;
 use Fluxtor\Converge\Enums\Layout;
