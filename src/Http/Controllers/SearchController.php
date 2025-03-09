@@ -46,7 +46,7 @@ class SearchController
             $url =  $this->map->getUrlByFilePath($result['file_path']);
 
             $routeName = $repo->getActiveRouteName();
-            
+
             $title = Highlighter::make(
                 text: $result['title'],
                 pattern: $query,
@@ -58,7 +58,7 @@ class SearchController
                 'rawTitle' => $result['title'],
                 'url' => route($routeName . '.show', [
                     'url' => $url,
-                ])
+                ]) . "{$result['hash']}"
             ];
         });
 

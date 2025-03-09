@@ -1,6 +1,6 @@
 <li 
     role="option"
-    x-on:click="addToSearchHistory(result.title,result.url)"
+    x-on:click="addToSearchHistory(result.rawTitle, result.url);$data.close()"
 >
     <a 
         x-bind:href="result.url"
