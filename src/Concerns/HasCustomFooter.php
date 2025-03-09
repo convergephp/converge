@@ -5,17 +5,11 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Enums\Interceptor;
-use Fluxtor\Converge\Views\ViewInterceptor;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\View\View;
-use function Fluxtor\Converge\converge;
 
 trait HasCustomFooter
 {
-
     protected string|Closure|Htmlable|null $footer = null;
-
 
     public function footer(string|Closure|null $footer): static
     {
@@ -37,5 +31,4 @@ trait HasCustomFooter
 
         return $this->resolve($this->footer);
     }
-
 }

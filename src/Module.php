@@ -30,6 +30,7 @@ class Module
     use CanHandleTableOfContent;
     use CanHandleVersions;
     use HasBrandLogo;
+    use HasCustomFooter;
     use HasDepth;
     use HasId;
     use HasIndexPage;
@@ -41,7 +42,6 @@ class Module
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
-    use HasCustomFooter;
 
     // add hasTheme
 
