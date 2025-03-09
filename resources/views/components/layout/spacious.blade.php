@@ -97,13 +97,16 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 </div>
 
                 {{-- FOOTER --}}
-                @if (filled(converge()->getFooter()))
-                    <div class="border-base-300 bg-base-200 border-t">
-                        {!! converge()->getFooter() !!}
-                    </div>
-                @else
-                    @include('converge::components.layout.partials.index.footer')
-                @endif
+                <div class="">
+                    @if (filled(converge()->getFooter()))
+                        <div class="border-base-300 bg-base-200 border-t">
+                            {!! converge()->getFooter() !!}
+                        </div>
+                    @else
+                        @include('converge::components.layout.partials.index.footer')
+                    @endif
+                    <x-converge::brand-footer />
+                </div>
             </main>
         </div>
     </div>

@@ -2,6 +2,7 @@
 module.exports = {
     // darkMode: "selector",
     // content: ["./resources/views/**/*.blade.php", "./src/**/*.php"],
+    // content:[''],
     theme: {
         extend: {
             colors: {

@@ -32,7 +32,9 @@ use function Fluxtor\Converge\intercept;
             </div>
         </div>
 
-        {{-- FOOTER --}}
+    </div>
+    {{-- FOOTER --}}
+    <div class="mx-auto max-w-[88rem]">
         @if (filled(converge()->getFooter()))
             <div class="border-base-300 bg-base-200 border-t">
                 {!! converge()->getFooter() !!}
@@ -40,5 +42,8 @@ use function Fluxtor\Converge\intercept;
         @else
             @include('converge::components.layout.partials.index.footer')
         @endif
+
+        <x-converge::brand-footer />
+    </div>
     </div>
 </x-converge::layout.base>
