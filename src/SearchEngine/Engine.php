@@ -6,7 +6,7 @@ namespace Fluxtor\Converge\SearchEngine;
 
 class Engine
 {
-    public function search($query, bool $autoComplete = false): array
+    public function search(string $query, bool $enableFuzzy = true): array
     {
         $processor = new QueryProcessor($query);
         $tokens = $processor->tokenize();
@@ -22,19 +22,31 @@ class Engine
         $results = [];
         $headingsIds = [];
 
-        
+
         foreach ($tokens as $token) {
-            
-            // we have tokens (splitted query) for each token in the query we need to look at it in the headings
+            foreach ($indexes as $indexToken => $headingIds) {
 
-            if (isset($indexes[$token])) {
+                if (
+                    str_starts_with((string) $indexToken, $token) ||
+                    str_ends_with((string) $indexToken, $token)
+                ) {
+                    foreach ($headingIds as $tokenHeadingId) {
 
-                foreach ($indexes[$token] as $tokenHeadingId) {
-                    if (! isset($headingsIds[$tokenHeadingId])) {
-                        $headingsIds[$tokenHeadingId] = 0;
+                        if (!isset($headingsIds[$tokenHeadingId])) {
+                            $headingsIds[$tokenHeadingId] = 0;
+                        }
 
+                        $headingsIds[$tokenHeadingId]++;
                     }
-                    $headingsIds[$tokenHeadingId]++;
+                } elseif ($enableFuzzy && $this->isFuzzyMatch($indexToken, $token, $maxDistance)) {
+                    foreach ($headingIds as $tokenHeadingId) {
+
+                        if (!isset($headingsIds[$tokenHeadingId])) {
+                            $headingsIds[$tokenHeadingId] = 0;
+                        }
+
+                        $headingsIds[$tokenHeadingId]++;
+                    }
                 }
             }
         }
@@ -52,5 +64,25 @@ class Engine
         }
 
         return $results;
+    }
+
+    private function isFuzzyMatch(string $indexToken, string $queryToken, int $maxDistance): bool
+    {
+        // Only check tokens of similar length to reduce computations
+        $lengthDifference = abs(strlen($indexToken) - strlen($queryToken));
+        if ($lengthDifference > $maxDistance) {
+            return false;
+        }
+
+        // Calculate Levenshtein distance (number of edits needed)
+        $distance = levenshtein($indexToken, $queryToken);
+        return $distance <= $maxDistance;
+    }
+
+    private function addHeadingMatches(array $headingIds, array &$headingsIds): void
+    {
+        foreach ($headingIds as $tokenHeadingId) {
+            $headingsIds[$tokenHeadingId] = ($headingsIds[$tokenHeadingId] ?? 0) + 1;
+        }
     }
 }

@@ -38,11 +38,11 @@ class SearchController
         if (! is_string($query)) {
             throw new Exception('Query must be a string');
         }
-
+        $initialMemory = memory_get_usage();
         $engine = new Engine();
         $start = microtime(true);
         $results = $engine->search($query);
-
+        $finalMemory = memory_get_usage();
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 
             $url =  $this->map->getUrlByFilePath($result['file_path']);
@@ -63,8 +63,14 @@ class SearchController
                 ]) . "{$result['hash']}"
             ];
         });
+        
         $time = (microtime(true) - $start) * 1000;
-        Log::info("search for {$query} took {$time}");
+
+        $memoryUsage = ($finalMemory - $initialMemory) / 1024; // Memory used during search in bytes
+        
+        Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found " . count($results) . " results.");
+
         return response()->json($results);
     }
+
 }
