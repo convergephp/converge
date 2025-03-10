@@ -6,6 +6,7 @@ namespace Fluxtor\Converge\Enums;
 
 enum Interceptor: string
 {
+    case REPLACE_FOOTER = 'replace_footer';
     case AFTER_NAVBAR = 'after_navbar';
 
     case AFTER_SCRIPTS = 'after_scripts';

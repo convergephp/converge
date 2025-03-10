@@ -9,21 +9,23 @@ class Engine
     public function search(string $query,  bool $enableFuzzy = true): array
     {
         $processor = new QueryProcessor($query);
-        $tokens = $processor->tokenize();
+        $tokens = $processor->tokenize();  
 
         if (empty($tokens)) {
             return [];
         }
 
-        $indexes = require storage_path('converge/inverted_index.php');
+        $indexes = require storage_path('converge/inverted_index.php'); // not scalable
 
         $headings = require storage_path('converge/headings.php');
 
         $results = [];
         $headingsIds = [];
 
-
+        // filament style
         foreach ($tokens as $token) {
+            // indexes chuck /10 
+            // X 1000
             foreach ($indexes as $indexToken => $headingIds) {
 
                 if (

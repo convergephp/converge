@@ -1,11 +1,16 @@
+<?php
+use function Fluxtor\Converge\converge;
+use function Fluxtor\Converge\has_custom_footer;
+use function Fluxtor\Converge\intercept;
+?>
 <x-converge::layout.base>
+    {{-- BACKGROUND EFFECTS --}}
+    @include('converge::partials.background-effets')
+
     <div class="flex min-h-screen flex-col">
         <div class="flex-grow antialiased">
             {{-- NAVBAR --}}
             @include('converge::components.layout.partials.index.navbar')
-
-            {{-- BACKGROUND EFFECTS --}}
-            @include('converge::partials.background-effets')
 
             {{-- BODY --}}
             <div class="mx-auto max-w-[88rem] lg:flex">
@@ -27,9 +32,18 @@
             </div>
         </div>
 
-        {{-- FOOTER --}}
-        <div class="mt-auto">
+    </div>
+    {{-- FOOTER --}}
+    <div class="mx-auto max-w-[88rem]">
+        @if (filled(converge()->getFooter()))
+            <div class="border-base-300 bg-base-200 border-t">
+                {!! converge()->getFooter() !!}
+            </div>
+        @else
             @include('converge::components.layout.partials.index.footer')
-        </div>
+        @endif
+
+        <x-converge::brand-footer />
+    </div>
     </div>
 </x-converge::layout.base>

@@ -121,7 +121,7 @@ trait HasBrandLogo
 
         // Classes selon le mode
         $modeClasses = $this->hasDarkModeLogo()
-            ? ($darkMode ? 'hidden dark:block' : 'block dark:hidden')
+            ? ($darkMode ? '' : '')
             : 'block';
 
         $classes = $baseClasses.' '.$modeClasses;
@@ -221,8 +221,8 @@ trait HasBrandLogo
     protected function isPlainText(string $value): bool
     {
         return ! Str::contains($value, ['/', '\\', '.']) &&
-               mb_strlen($value) <= 50 &&
-               ! preg_match('/[\x00-\x1F\x7F]/', $value);
+            mb_strlen($value) <= 50 &&
+            ! preg_match('/[\x00-\x1F\x7F]/', $value);
     }
 
     /**

@@ -35,12 +35,8 @@ class InvertedIndexer
                 }
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
-                    // if ($token === 'file') {
 
-                    //     dump($heading['title'], $heading['id']);    
-                    // }
-
-                    $this->indexes[$token][] = $heading['id']; // Add unique heading ID
+                    $this->indexes[$token][] = $heading['id']; 
                 }
             }
         }

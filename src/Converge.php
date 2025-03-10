@@ -188,4 +188,12 @@ class Converge
 
         return "<script>{$pulse}</script>";
     }
+
+    /**
+     * return the custom footer
+     */
+    public function getFooter()
+    {
+        return $this->getActiveModule()->getFooter();
+    }
 }

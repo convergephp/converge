@@ -19,19 +19,30 @@
 
     }
 }">
-    <button
-        class=" text-base-content border-none cursor-pointer transition-all duration-200"
-        type="button"
-        x-on:click="toggleTheme()">
+    <button class="text-base-content ml-2 flex cursor-pointer items-center border-none transition-all duration-200"
+            type="button"
+            x-on:click="toggleTheme()">
 
         {{-- LIGHT MODE ICON --}}
-        <div x-show="themeIs('light')" x-cloak>
-            <x-converge::icon class="size-4" icon="light" />
+        <div x-show="themeIs('light')"
+             x-cloak>
+            <x-converge::icon class="size-5"
+                              icon="light" />
         </div>
 
         {{-- DARK MODE ICON --}}
-        <div class="text-base-content" x-show="themeIs('dark')" x-cloak>
-            <x-converge::icon class="size-4" icon="dark" />
+        <div class="text-base-content"
+             x-show="themeIs('dark')"
+             x-cloak>
+            <x-converge::icon class="size-5"
+                              icon="dark" />
+        </div>
+
+        <div class="text-base-content"
+             x-show="themeIs('system')"
+             x-cloak>
+            <x-converge::icon class="size-6"
+                              icon="system" />
         </div>
     </button>
 </div>
