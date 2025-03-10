@@ -90,6 +90,10 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                                 <div
                                      class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto">
                                     <x-converge::table-of-contents />
+                                    {{-- Carbon ADS --}}
+                                    <div class="rounded-box overflow-hidden bg-transparent p-4">
+                                        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_TOC_CARBON_ADS) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
