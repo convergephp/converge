@@ -7,7 +7,7 @@
             <x-converge::table-of-contents />
             {{-- Carbon ADS --}}
             @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_TOC_CARBON_ADS)))
-                <div class="rounded-box overflow-hidden bg-transparent p-4">
+                <div class="rounded-box mt-auto overflow-hidden bg-transparent p-4">
                     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_TOC_CARBON_ADS) }}
                 </div>
             @endif
