@@ -3,7 +3,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@source "../../resources/views/**/*.blade.php";
 @source "../../../../resources/views/**/*.blade.php";
 @source "../../../../../resources/views/**/*.blade.php";
 

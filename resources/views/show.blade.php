@@ -41,7 +41,7 @@
     {{-- pagination --}}
     <div class="border-base-300 mt-12 flex border-t pt-6">
         <div>
-            <dt class="text-base-300 text-sm font-bold text-stone-500">
+            <dt class="text-base-content/80 font-base text-sm">
                 Previous
             </dt>
             <dd class="mt-1">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="ml-auto text-right">
-            <dt class="font-display text-base-300 text-sm font-bold text-stone-500">
+            <dt class="font-display text-base-content/80 font-base text-sm">
                 Next
             </dt>
             <dd class="mt-1">
