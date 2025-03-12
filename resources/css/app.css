@@ -5,6 +5,7 @@
 
 @source "../../../../resources/views/**/*.blade.php";
 @source "../../../../../resources/views/**/*.blade.php";
+@source "../../../../docs/**/*.md";
 
 @theme {
     --color-base-100: var(--color-base-100);

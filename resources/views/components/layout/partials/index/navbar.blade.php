@@ -29,16 +29,16 @@
                              <x-converge::search />
                          </div>
 
-                         <div class="relative ml-auto hidden items-center justify-end lg:flex">
+                         <div class="relative ml-auto items-center justify-end lg:flex">
 
-                             <nav class="flex items-center text-sm lg:text-base">
+                             <nav class="hidden items-center text-sm lg:flex lg:text-base">
                                  <x-converge::menu-items />
                              </nav>
 
                              {{-- THEM SWITCHER --}}
-                         </div>
-                         <div class="max-w-min items-center">
-                             <x-converge::theme-switcher.inline class="" />
+                             <div class="max-w-min items-center">
+                                 <x-converge::theme-switcher.inline class="" />
+                             </div>
                          </div>
                      </div>
                  </div>
