@@ -143,5 +143,8 @@
                 </div>
             </template>
         </div>
+        <x-slot:footer>
+            <x-converge::search.footer />
+        </x-slot:footer>
     </x-converge::modal>
 </div>
