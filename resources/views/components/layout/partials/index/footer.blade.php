@@ -1,9 +1,10 @@
-  <footer id="footer" class="flex flex-col items-center w-full mx-auto border-t border-base-300 bg-base-200 ">
-      <div class="flex w-full flex-col gap-12 justify-between px-8 py-16 md:py-20 lg:py-28 max-w-[984px] z-0">
-          <div class="flex flex-col md:flex-row gap-8 justify-between min-h-[76px]">
+  <footer id="footer"
+          class="border-base-300 mx-auto flex w-full flex-col items-center border-t">
+      <div class="z-0 flex w-full max-w-5xl flex-col justify-between gap-12 px-4 py-4">
+          <div class="flex min-h-[20px] flex-col justify-between gap-8 md:flex-row">
               {{-- BRAND --}}
-              <div class="flex items-center justify-between md:flex-col md:items-start min-w-16 md:min-w-20 lg:min-w-48">
-                  <x-converge::logo /> 2025 all right reserved
+              <div class="flex min-w-16 items-center justify-between md:min-w-20 md:flex-col md:items-start lg:min-w-48">
+                  <x-converge::logo />
               </div>
           </div>
       </div>

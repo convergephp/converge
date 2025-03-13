@@ -10,9 +10,9 @@ class SidebarItemsStyles
      * items like buttons
      */
     public const STYLE1 = [
-        'baseClasses' => 'group/mini-link  group  w-full flex border-transparent  cursor-pointer items-center  space-x-3 p-2  text-base-content  hover:text-primary duration-200',
+        'baseClasses' => 'group/mini-link  group  w-full flex border-transparent  cursor-pointer items-center space-x-3 px-2 py-1  text-base-content  hover:text-primary duration-200',
         'activeClasses' => '!border-l text-primary',
-        'nestedClasses' => '!border-primary ',
+        'nestedClasses' => '!border-primary hover:border-l',
     ];
 
     public const STYLE2 = [

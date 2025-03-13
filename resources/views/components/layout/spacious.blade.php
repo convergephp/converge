@@ -9,8 +9,8 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
     <div x-data="{ sidebarOpen: false }">
         {{-- Navbar --}}
         <nav
-             class="border-base-300 supports-backdrop-blur:bg-base-200/60 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-50 w-full border-b backdrop-blur transition-colors duration-500">
-            <div class="z-50 px-2 py-3 lg:px-8">
+             class="border-base-300 bg-base-200 supports-backdrop-blur:bg-base-200 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-50 w-full border-b lg:bg-transparent backdrop-blur transition-colors duration-500">
+            <div class="z-50 px-2 py-3 lg:px-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-x-2">
                         {{-- open and close sidebar --}}
@@ -59,14 +59,14 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
         {{-- Main Layout Container --}}
         <div class="flex min-h-screen">
             {{-- Sidebar --}}
-            <aside class="bg-base-200 lg:bg-transparent border-base-300 fixed left-0 top-0 z-40 h-screen w-72 border-r transition-transform lg:translate-x-0"
+            <aside class="bg-base-200 no-scrollbar border-base-300 fixed left-0 top-0 z-40 h-screen w-72 overflow-y-auto border-r transition-transform lg:translate-x-0 lg:bg-transparent"
                    x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-                <div class="flex h-full flex-col">
+                <div class="grid-row-2 grid">
                     {{-- Sidebar spacing for navbar --}}
                     <div class="h-20"></div>
                     {{-- Sidebar content --}}
                     <div id="sidebar"
-                         class="flex-1 overflow-y-auto px-4">
+                         class="overflow-y-auto px-4">
                         <x-converge::sidebar />
                     </div>
                 </div>

@@ -8,10 +8,10 @@
           class="border-base-300 supports-backdrop-blur:bg-background-light/60 absolute h-full w-full flex-none border-b backdrop-blur transition-colors">
      </div>
 
-     <div class="relative mx-auto max-w-[88rem] px-1">
+     <div class="relative mx-auto max-w-[88rem]">
          <div class="">
              <div class="relative">
-                 <div class="flex h-16 min-w-0 items-center px-4 lg:px-6">
+                 <div class="flex h-16 min-w-0 items-center px-4">
                      <div class="relative flex h-full min-w-0 flex-1 items-center gap-x-2 lg:gap-x-4">
                          {{-- BRAND --}}
                          <div

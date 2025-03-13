@@ -9,19 +9,17 @@ use function Fluxtor\Converge\converge;
  * use the reguralr sidebarItems
  */
 
- $sidebarItems = $sidebarItems ?? converge()->getSidebarItems();
+$sidebarItems = $sidebarItems ?? converge()->getSidebarItems();
 $canCollapsedGroupes = converge()->getTheme()->isCollapsedGroupes();
 
 ?>
-<ul>
+<ul class="flex flex-col gap-2">
     @foreach ($sidebarItems as $item)
         @if ($item instanceof SidebarItem)
             <x-converge::sidebar.item :$item />
         @elseif($item instanceof SidebarGroup && count($item->getItems()) >= 1)
-            <x-converge::sidebar.group
-                :groupItem="$item"
-                :$canCollapsedGroupes
-            />
+            <x-converge::sidebar.group :groupItem="$item"
+                                       :$canCollapsedGroupes />
         @endif
     @endforeach
 </ul>
