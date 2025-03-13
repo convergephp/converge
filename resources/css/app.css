@@ -5,6 +5,7 @@
 
 @source "../../../../resources/views/**/*.blade.php";
 @source "../../../../../resources/views/**/*.blade.php";
+@source "../../../../docs/**/*.md";
 
 @theme {
     --color-base-100: var(--color-base-100);
@@ -40,6 +41,14 @@
 }
 
 @layer components {
+    .no-scrollbar {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
     .btn {
         @apply inline-flex shrink-0 cursor-pointer flex-nowrap items-center justify-center gap-1.5 text-center align-middle no-underline outline-offset-2 select-none;
         padding-inline: var(--btn-p);
