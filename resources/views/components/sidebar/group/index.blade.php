@@ -18,7 +18,7 @@ $isOpen = \Fluxtor\Converge\has_active_child($items) || false;
             x-on:click="toggle()"
             x-bind:aria-expanded="isOpen">
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
-        <span class="flex-1 text-left text-sm font-extralight tracking-widest">
+        <span class="flex-1 text-left text-sm font-bold tracking-widest">
             {{ $groupItem->getLabel() }}
         </span>
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
