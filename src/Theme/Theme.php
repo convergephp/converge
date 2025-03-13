@@ -14,7 +14,6 @@ use Fluxtor\Converge\Enums\MaxWidth;
 use Fluxtor\Converge\Enums\Spotlight;
 use Fluxtor\Converge\Support\SidebarItemsStyles;
 use Fluxtor\Converge\Support\Themes;
-use phpDocumentor\Reflection\Type;
 
 class Theme
 {
