@@ -27,9 +27,9 @@ class Theme
 
     protected ?MaxWidth $maxWith = null;
 
-    protected string $darkModeCss;
+    protected ?string $darkModeCss;
 
-    protected string $lightModeCss;
+    protected ?string $lightModeCss;
 
     protected ?Spotlight $spotlightName = null;
 
@@ -60,7 +60,7 @@ class Theme
      *
      * @param  mixed  $variables
      */
-    public function theme(array $darkModeTheme = [], array $lightModeTheme = []): static
+    public function theme(array $darkModeTheme = Themes::DARK, array $lightModeTheme = Themes::LIGHT): static
     {
         $this->darkModeCss = $this->rootCssGenerator($darkModeTheme);
         $this->lightModeCss = $this->rootCssGenerator($lightModeTheme);

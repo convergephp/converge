@@ -17,9 +17,9 @@ class Engine
 
     public function __construct()
     {
-        $this->indexes = require storage_path('converge/inverted_index.php'); // not scalable
+        $this->indexes = $this->loadFile(storage_path('converge/inverted_index.php')); // not scalable
 
-        $this->headings = require storage_path('converge/headings.php'); // not scalable;
+        $this->headings = $this->loadFile(storage_path('converge/headings.php')); // not scalable;
     }
 
     public function search(string $query,  bool $enableFuzzy = true): array
@@ -50,18 +50,7 @@ class Engine
 
 
                 if ($matchScore) {
-
                     $this->addHeadingMatches($headingIds, $matchScore);
-                    
-                    // foreach ($headingIds as $tokenHeadingId) {
-
-                    //     if (!isset($headingsIds[$tokenHeadingId])) {
-
-                    //         $headingsIds[$tokenHeadingId] = 0;
-                    //     }
-
-                    //     $headingsIds[$tokenHeadingId] += $matchScore;
-                    // }
                 }
             }
         }
@@ -93,5 +82,19 @@ class Engine
 
             $this->headingIds[$tokenHeadingId] += $matchScore; // Accumulate match scores
         }
+    }
+
+    public function loadFile(string $path)
+    {
+        if (!file_exists($path) || !is_readable($path)) {
+            // Optionally, log an error or handle as needed
+            Log::error("File not found or not readable: {$path}");
+            // throw new \Exception("File not found  or not readable: {$path}");
+            // a hack before origanizing the module sections part
+            return [];
+        }
+
+        // Load and return the file content
+        return require $path;
     }
 }

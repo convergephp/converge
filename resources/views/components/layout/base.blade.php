@@ -27,7 +27,7 @@ use function Fluxtor\Converge\intercept;
         <title>
             {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
         </title>
-
+        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
         <style>
             :root {
                 --font: {{ converge()->getTheme()->getFontFamily() }};
@@ -47,21 +47,21 @@ use function Fluxtor\Converge\intercept;
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector("#sidebar");
+                if (sidebar) {
+                    const savedScroll = sessionStorage.getItem("sidebarScroll");
+                    if (savedScroll !== null) {
+                        sidebar.scrollTop = parseInt(savedScroll, 10);
+                    }
 
-            if (sidebar) {
-                const savedScroll = sessionStorage.getItem("sidebarScroll");
-                if (savedScroll !== null) {
-                    sidebar.scrollTop = parseInt(savedScroll, 10);
+                    window.addEventListener("beforeunload", function() {
+                        sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
+                    });
                 }
+            });
+        </script>
 
-                window.addEventListener("beforeunload", function() {
-                    sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
-                });
-            }
-        });
-    </script>
-
-    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+    </head>
 
     <body 
         x-data="themeSwitcher({
@@ -79,6 +79,14 @@ use function Fluxtor\Converge\intercept;
         {{ $slot }}
         <x-converge::search.modal/>
         {!! Converge::js() !!}
+
+        {{-- Carbon ADS --}}
+        @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
+            <div
+                 class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-red-500 bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]">
+                {{ intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
+            </div>
+        @endif
     </body>
 
 </html>

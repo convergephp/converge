@@ -3,7 +3,7 @@ use function Fluxtor\Converge\converge;
 $clusters = converge()->getAllClusters();
 ?>
 
-<nav class="converge-nav">
+<nav>
     {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::SIDEBAR_START, fn () => $groupItem) }}
 
     @if (filled($clusters))
