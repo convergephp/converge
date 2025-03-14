@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Illuminate\Support\Facades\Log;
+
 class Engine
 {
     public function search(string $query,  bool $enableFuzzy = true): array
     {
         $processor = new QueryProcessor($query);
-        $tokens = $processor->tokenize();  
+        $tokens = $processor->tokenize();
 
         if (empty($tokens)) {
             return [];
@@ -22,19 +24,17 @@ class Engine
         $results = [];
         $headingsIds = [];
 
-        // filament style
         foreach ($tokens as $token) {
-            // indexes chuck /10 
-            // X 1000
             foreach ($indexes as $indexToken => $headingIds) {
-
                 if (
                     str_starts_with((string) $indexToken, $token) ||
-                    str_ends_with((string) $indexToken, $token)
-                ) {
+                    str_ends_with((string) $indexToken, $token) ||
+                    $dis = levenshtein((string)$indexToken, (string)$token)
+                ) { 
                     foreach ($headingIds as $tokenHeadingId) {
 
                         if (!isset($headingsIds[$tokenHeadingId])) {
+                        
                             $headingsIds[$tokenHeadingId] = 0;
                         }
 
@@ -48,7 +48,7 @@ class Engine
             return [];
         }
 
-        arsort($headingsIds);
+        // arsort($headingsIds);
 
         foreach (array_keys($headingsIds) as $id) {
             if (isset($headings[$id])) {
@@ -59,17 +59,10 @@ class Engine
         return $results;
     }
 
-    private function isFuzzyMatch(string $indexToken, string $queryToken, int $maxDistance): bool
+    public function areClose(string $string1, string $string2, int $maxDistance): array
     {
-        // Only check tokens of similar length to reduce computations
-        $lengthDifference = abs(strlen($indexToken) - strlen($queryToken));
-        if ($lengthDifference > $maxDistance) {
-            return false;
-        }
-
-        // Calculate Levenshtein distance (number of edits needed)
-        $distance = levenshtein($indexToken, $queryToken);
-        return $distance <= $maxDistance;
+        $distance = levenshtein($string1, $string2);
+        return [$distance <= $maxDistance, $distance];
     }
 
     private function addHeadingMatches(array $headingIds, array &$headingsIds): void
