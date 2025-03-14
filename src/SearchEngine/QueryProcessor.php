@@ -26,9 +26,8 @@ class QueryProcessor
         return $tokens;
     }
 
-
     public function getStopWords()
     {
-        return require __DIR__ . '/stop_words.php';
+        return require __DIR__.'/stop_words.php';
     }
 }

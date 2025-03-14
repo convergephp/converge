@@ -36,14 +36,13 @@ class InvertedIndexer
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
 
-                    $this->indexes[$token][] = $heading['id']; 
+                    $this->indexes[$token][] = $heading['id'];
                 }
             }
         }
         $this->saveIndex();
 
         $bloomFilter = new BloomFilter(1000, 4);
-
 
         foreach (array_keys($this->indexes) as $term) {
             $bloomFilter->add($term);
@@ -65,14 +64,14 @@ class InvertedIndexer
 
     public function inStopWords(string $token)
     {
-        $stopWords = require __DIR__ . '/stop_words.php';
+        $stopWords = require __DIR__.'/stop_words.php';
 
         return in_array($token, $stopWords);
     }
 
     public function getStopWords()
     {
-        return require __DIR__ . '/stop_words.php';
+        return require __DIR__.'/stop_words.php';
     }
 
     protected function saveIndex()
@@ -81,7 +80,7 @@ class InvertedIndexer
 
         foreach ($this->indexes as $token => $headings) {
 
-            $output .= "\n    '$token' => [" . implode(', ', $headings) . '],';
+            $output .= "\n    '$token' => [".implode(', ', $headings).'],';
         }
 
         $output .= "\n];";

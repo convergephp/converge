@@ -49,11 +49,11 @@ class SearchManager
 
         $body = $document->body();
 
-        $contentParser = new ContentsParser($body,);
+        $contentParser = new ContentsParser($body);
         dump(count($this->headings));
         $headings = $contentParser->extractHeadings($info->getPathname(), count($this->headings));
 
-        $this->headings = array_merge($this->headings,$headings);
+        $this->headings = array_merge($this->headings, $headings);
 
         return $this;
     }
@@ -67,7 +67,7 @@ class SearchManager
         }
 
         // Convert the array to PHP code
-        $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
+        $data = "<?php\n\nreturn ".var_export($this->headings, true).";\n";
 
         file_put_contents($storagePath, $data);
     }
