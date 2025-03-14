@@ -1,0 +1,1 @@
+<p class="dark:text-gray-200 w-full p-4 text-center text-gray-700">No Results Found</p>

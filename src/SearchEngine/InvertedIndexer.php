@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\SearchEngine;
 
 use Fluxtor\Converge\SearchEngine\BloomFilters\BloomFilter;
+use Fluxtor\Converge\SearchEngine\Tokenizers\Tokenizer;
 
 class InvertedIndexer
 {
@@ -21,27 +22,28 @@ class InvertedIndexer
     public function index()
     {
         foreach ($this->headings as $heading) {
-            $tokens = explode(' ', mb_strtolower($heading['title']));
+
+            $tokens = (new Tokenizer())->tokenize($heading['title'], $this->getStopWords());
+            $title = $heading['title'];
+            $headingId = $heading['id'];
 
             foreach ($tokens as $token) {
-                $token = $this->tokenize($token);
 
-                if ($token === null) {
-                    continue;
-                }
-
+                // the token is file for example
                 if (! isset($this->indexes[$token])) {
                     $this->indexes[$token] = [];
                 }
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
-                    $this->indexes[$token][] = $heading['id']; // Add unique heading ID
+
+                    $this->indexes[$token][] = $heading['id']; 
                 }
             }
         }
         $this->saveIndex();
 
         $bloomFilter = new BloomFilter(1000, 4);
+
 
         foreach (array_keys($this->indexes) as $term) {
             $bloomFilter->add($term);
@@ -63,9 +65,14 @@ class InvertedIndexer
 
     public function inStopWords(string $token)
     {
-        $stopWords = require __DIR__.'/stop_words.php';
+        $stopWords = require __DIR__ . '/stop_words.php';
 
         return in_array($token, $stopWords);
+    }
+
+    public function getStopWords()
+    {
+        return require __DIR__ . '/stop_words.php';
     }
 
     protected function saveIndex()
@@ -74,7 +81,7 @@ class InvertedIndexer
 
         foreach ($this->indexes as $token => $headings) {
 
-            $output .= "\n    '$token' => [".implode(', ', $headings).'],';
+            $output .= "\n    '$token' => [" . implode(', ', $headings) . '],';
         }
 
         $output .= "\n];";

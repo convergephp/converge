@@ -27,8 +27,6 @@ use function Fluxtor\Converge\intercept;
         <title>
             {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
         </title>
-        {!! Converge::css() !!}
-        {!! Converge::js() !!}
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
         <style>
             :root {
@@ -41,11 +39,14 @@ use function Fluxtor\Converge\intercept;
                 display: none;
             }
         </style>
+        {!! Converge::css() !!}
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const sidebar = document.querySelector("#sidebar");
-
+        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+    </head>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector("#sidebar");
                 if (sidebar) {
                     const savedScroll = sessionStorage.getItem("sidebarScroll");
                     if (savedScroll !== null) {
@@ -62,19 +63,22 @@ use function Fluxtor\Converge\intercept;
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
     </head>
 
-    <body x-data="themeSwitcher({
-        lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
-        darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
-        highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
-        highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
-    })"
-          {{ $attributes->class([
-              'converge-body',
-              'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
-          ]) }}>
-        {{-- DYNAMIQUE CONTENT --}}
+    <body 
+        x-data="themeSwitcher({
+            lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+            darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+            highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
+            highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
+        })"
+        {{ $attributes->class([
+            'converge-body',
+            'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  dark:text-white',
+    ]) }}
+    >
+    {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
-        <x-converge::search.modal />
+        <x-converge::search.modal/>
+        {!! Converge::js() !!}
 
         {{-- Carbon ADS --}}
         @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))

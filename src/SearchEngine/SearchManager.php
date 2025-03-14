@@ -13,6 +13,8 @@ class SearchManager
 {
     protected array $headings = [];
 
+    protected int $id = 0;
+
     // we need to grag the headers  from the generated html to avoid an consist hashes during the renderng step
     public static function make()
     {
@@ -47,11 +49,11 @@ class SearchManager
 
         $body = $document->body();
 
-        $contentParser = new ContentsParser($body);
+        $contentParser = new ContentsParser($body,);
+        dump(count($this->headings));
+        $headings = $contentParser->extractHeadings($info->getPathname(), count($this->headings));
 
-        $headings = $contentParser->extractHeadings($info->getPathname());
-
-        $this->headings = array_merge($headings, $this->headings);
+        $this->headings = array_merge($this->headings,$headings);
 
         return $this;
     }
@@ -65,7 +67,7 @@ class SearchManager
         }
 
         // Convert the array to PHP code
-        $data = "<?php\n\nreturn ".var_export($this->headings, true).";\n";
+        $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
 
         file_put_contents($storagePath, $data);
     }

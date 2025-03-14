@@ -19,7 +19,7 @@ class BloomFilter
         $this->bitArray = array_fill(0, $size, 0);
     }
 
-    public function add(string $item)
+    public function add(string| int $item)
     {
         for ($i = 0; $i < $this->hashCount; $i++) {
             $pos = $this->hash($item, $i);
@@ -27,7 +27,7 @@ class BloomFilter
         }
     }
 
-    public function contains(string $item): bool
+    public function contains(string| int $item): bool
     {
         for ($i = 0; $i < $this->hashCount; $i++) {
             $pos = $this->hash($item, $i);
@@ -48,7 +48,7 @@ class BloomFilter
     {
         $output = '<?php return [';
 
-        $output .= "\n".implode(', ', $this->bitArray);
+        $output .= "\n" . implode(', ', $this->bitArray);
 
         $output .= "\n];";
 
@@ -66,8 +66,8 @@ class BloomFilter
         }
     }
 
-    private function hash(string $item, int $seed)
+    private function hash(string| int $item, int $seed)
     {
-        return crc32($item.$seed) % $this->size;
+        return crc32($item . $seed) % $this->size;
     }
 }

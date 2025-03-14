@@ -23,7 +23,6 @@ export default ({
     init() {
         this.activeTheme = localStorage.getItem("theme") ?? "system";
         this.updateHighlighterTheme();
-        console.log("dde");
 
         const root = document.documentElement;
         window.Alpine.store(

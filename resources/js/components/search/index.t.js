@@ -22,18 +22,20 @@ export default (route) => ({
         });
     },
     async performSearch(query) {
-        try {
-            const response = await fetch(`${route}?query=${query}`);
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
+        console.log(query)
+        // try {
+        //     const response = await fetch(`${route}?query=${query}`);
 
-            return await response.json();
-        } catch (error) {
-            console.error("Error performing search:", error);
+        //     if (!response.ok) {
+        //         throw new Error("Network response was not ok");
+        //     }
 
-            return [];
-        }
+        //     return await response.json();
+        // } catch (error) {
+        //     console.error("Error performing search:", error);
+
+        //     return [];
+        // }
     },
 });

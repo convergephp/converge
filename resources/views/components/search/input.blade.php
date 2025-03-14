@@ -1,5 +1,5 @@
 <input
-    class= "dark:text-white block w-full border-none bg-transparent py-1.5 text-base font-semibold text-gray-950 transition duration-75 placeholder:font-normal placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 sm:text-sm sm:leading-6"
+    {{ $attributes->merge(['class'=>"dark:text-white block w-full border-none bg-transparent py-1.5 text-base font-semibold text-gray-950 transition duration-75 placeholder:font-normal placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 sm:text-sm sm:leading-6"]) }}
     id="search-input"
     type="search" 
     aria-autocomplete="both" 
@@ -8,8 +8,6 @@
     style="border:none; outline:none" 
     autocomplete="off" 
     autocorrect="off" 
-    x-data="{}"
-    x-model.debounce.200ms="$data.query"
     x-on:keydown.down.prevent.stop="$dispatch('focus-first-element')"
     x-on:keydown.enter.prevent autocapitalize="none" 
     enterkeyhint="go" 
