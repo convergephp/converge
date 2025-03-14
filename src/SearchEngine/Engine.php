@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Log;
 class Engine
 {
     // load indexes
-    private $indexes;
-    private $headings;
+    protected $indexes;
+    protected $headings;
+    protected $headingIds = [];
 
 
     public function __construct()
@@ -38,32 +39,43 @@ class Engine
 
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
-                if (
-                    str_starts_with((string) $indexToken, $token) OR
-                    str_ends_with((string) $indexToken, $token) OR
-                    ($dis = (new JaroWinklerDistance)->getDistance((string)$indexToken, (string)$token)) <= 2
-                ) {
+                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, (string)$token);
+                $matchScore = 0;
 
-                    foreach ($headingIds as $tokenHeadingId) {
+                $matchScore = match (true) {
+                    str_starts_with((string) $indexToken, $token) || str_ends_with((string) $indexToken, $token) => 2,
+                    $distance <= 2 => 1,
+                    default => 0
+                };
 
-                        if (!isset($headingsIds[$tokenHeadingId])) {
 
-                            $headingsIds[$tokenHeadingId] = 0;
-                        }
+                if ($matchScore) {
 
-                        $headingsIds[$tokenHeadingId]++;
-                    }
+                    $this->addHeadingMatches($headingIds, $matchScore);
+                    
+                    // foreach ($headingIds as $tokenHeadingId) {
+
+                    //     if (!isset($headingsIds[$tokenHeadingId])) {
+
+                    //         $headingsIds[$tokenHeadingId] = 0;
+                    //     }
+
+                    //     $headingsIds[$tokenHeadingId] += $matchScore;
+                    // }
                 }
             }
         }
 
-        if (empty($headingsIds)) {
+        if (empty($this->headingIds)) {
             return [];
         }
 
-        // arsort($headingsIds);
 
-        foreach (array_keys($headingsIds) as $id) {
+        arsort($this->headingIds);
+        // dd($this->headingIds);
+        foreach (array_keys($this->headingIds) as $id) {
+
+            dump($id);
             if (isset($this->headings[$id])) {
                 $results[] = $this->headings[$id];
             }
@@ -72,10 +84,14 @@ class Engine
         return $results;
     }
 
-    private function addHeadingMatches(array $headingIds, array &$headingsIds): void
+    private function addHeadingMatches(array $headingIds, int $matchScore): void
     {
         foreach ($headingIds as $tokenHeadingId) {
-            $headingsIds[$tokenHeadingId] = ($headingsIds[$tokenHeadingId] ?? 0) + 1;
+            if (!isset($this->headingIds[$tokenHeadingId])) {
+                $this->headingIds[$tokenHeadingId] = 0;
+            }
+
+            $this->headingIds[$tokenHeadingId] += $matchScore; // Accumulate match scores
         }
     }
 }
