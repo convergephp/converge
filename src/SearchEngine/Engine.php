@@ -35,7 +35,6 @@ class Engine
 
 
         $results = [];
-        $headingsIds = [];
 
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
@@ -43,8 +42,8 @@ class Engine
                 $matchScore = 0;
 
                 $matchScore = match (true) {
-                    str_starts_with((string) $indexToken, $token) || str_ends_with((string) $indexToken, $token) => 2,
-                    $distance <= 2 => 0,
+                    str_contains((string) $indexToken, $token) => 2,
+                    $distance >= 0.9 => 1,
                     default => 0
                 };
 
