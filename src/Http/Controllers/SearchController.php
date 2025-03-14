@@ -19,10 +19,13 @@ class SearchController
 
     protected $map;
 
+    private Engine $engine;
+
     public function __construct(ContentMap $map)
     {
         $this->map = $map;
-    }
+        $this->engine = new Engine();
+    }   
 
     public function __invoke(Request $request, Repository $repo,): JsonResponse
     {
@@ -39,9 +42,9 @@ class SearchController
             throw new Exception('Query must be a string');
         }
         $initialMemory = memory_get_usage();
-        $engine = new Engine();
+        
         $start = microtime(true);
-        $results = $engine->search($query);
+        $results = $this->engine->search($query);
         $finalMemory = memory_get_usage();
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 

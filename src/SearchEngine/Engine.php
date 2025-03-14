@@ -4,37 +4,50 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
 use Illuminate\Support\Facades\Log;
 
 class Engine
 {
+    // load indexes
+    private $indexes;
+    private $headings;
+
+
+    public function __construct()
+    {
+        $this->indexes = require storage_path('converge/inverted_index.php'); // not scalable
+
+        $this->headings = require storage_path('converge/headings.php'); // not scalable;
+    }
+
     public function search(string $query,  bool $enableFuzzy = true): array
     {
         $processor = new QueryProcessor($query);
+
         $tokens = $processor->tokenize();
 
         if (empty($tokens)) {
             return [];
         }
 
-        $indexes = require storage_path('converge/inverted_index.php'); // not scalable
 
-        $headings = require storage_path('converge/headings.php');
 
         $results = [];
         $headingsIds = [];
 
         foreach ($tokens as $token) {
-            foreach ($indexes as $indexToken => $headingIds) {
+            foreach ($this->indexes as $indexToken => $headingIds) {
                 if (
-                    str_starts_with((string) $indexToken, $token) ||
-                    str_ends_with((string) $indexToken, $token) ||
-                    $dis = levenshtein((string)$indexToken, (string)$token)
-                ) { 
+                    str_starts_with((string) $indexToken, $token) OR
+                    str_ends_with((string) $indexToken, $token) OR
+                    ($dis = (new JaroWinklerDistance)->getDistance((string)$indexToken, (string)$token)) <= 2
+                ) {
+
                     foreach ($headingIds as $tokenHeadingId) {
 
                         if (!isset($headingsIds[$tokenHeadingId])) {
-                        
+
                             $headingsIds[$tokenHeadingId] = 0;
                         }
 
@@ -51,18 +64,12 @@ class Engine
         // arsort($headingsIds);
 
         foreach (array_keys($headingsIds) as $id) {
-            if (isset($headings[$id])) {
-                $results[] = $headings[$id];
+            if (isset($this->headings[$id])) {
+                $results[] = $this->headings[$id];
             }
         }
 
         return $results;
-    }
-
-    public function areClose(string $string1, string $string2, int $maxDistance): array
-    {
-        $distance = levenshtein($string1, $string2);
-        return [$distance <= $maxDistance, $distance];
     }
 
     private function addHeadingMatches(array $headingIds, array &$headingsIds): void
