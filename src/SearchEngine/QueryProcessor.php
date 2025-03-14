@@ -23,8 +23,6 @@ class QueryProcessor
     {
         //@TODO: handle the order of the query 
         $tokens = (new Tokenizer())->tokenize($this->query, $this->getStopWords());
-
-
         return $tokens;
     }
 
