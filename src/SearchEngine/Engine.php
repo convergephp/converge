@@ -44,7 +44,7 @@ class Engine
 
                 $matchScore = match (true) {
                     str_starts_with((string) $indexToken, $token) || str_ends_with((string) $indexToken, $token) => 2,
-                    $distance <= 2 => 1,
+                    $distance <= 2 => 0,
                     default => 0
                 };
 
@@ -64,12 +64,10 @@ class Engine
         // dd($this->headingIds);
         foreach (array_keys($this->headingIds) as $id) {
 
-            dump($id);
             if (isset($this->headings[$id])) {
                 $results[] = $this->headings[$id];
             }
         }
-
         return $results;
     }
 

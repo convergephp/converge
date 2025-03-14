@@ -44,8 +44,11 @@ class SearchController
         $initialMemory = memory_get_usage();
         
         $start = microtime(true);
+        
         $results = $this->engine->search($query);
+
         $finalMemory = memory_get_usage();
+        
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 
             $url =  $this->map->getUrlByFilePath($result['file_path']);
