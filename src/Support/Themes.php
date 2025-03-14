@@ -38,9 +38,9 @@ class Themes
         '--border' => '2px',
         '--depth' => '1',
         '--noise' => '0',
-        '--text-sm' => '0.85rem',
-        '--text-base' => '1rem',
-        '--font-weight' => '500',
+        '--text-sm' => '0.80rem',
+        '--text-base' => '0.96rem',
+        '--font-weight' => '400',
     ];
 
     public const ICE = [
