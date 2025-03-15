@@ -4,6 +4,7 @@ namespace Fluxtor\Converge\Commands;
 
 use Illuminate\Console\Command;
 use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Enums\PathType;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Versions\Version;
 
@@ -31,7 +32,16 @@ class SearchIndexerCommand extends Command
 
     public function handle()
     {
+        foreach ($this->collectPaths() as $path) {
+            dump($path);
+            //  foreach module we need to create
+        }
+    }
 
+
+
+    public function collectPaths()
+    {
         $paths = [];
         // for each cluster && version so w can use them into the contexts
         foreach (Converge::getModules() as $module) {
@@ -43,14 +53,16 @@ class SearchIndexerCommand extends Command
                     if (! $version instanceof Version) {
                         continue;
                     }
+                    // dump($module->getRoutePath(),$version->getRoute());
 
-                    if ($module->getQuietedVersionUrl() === $version->getRoute()) {
-                        continue;
-                    }
+                    // if ($module->getRoutePath() === $version->getRoute()) {
+                    //     continue;
+                    // }
 
-                    $this->pushToPaths(
+                    $paths[] = $this->pushToPaths(
+                        moduleId: $module->getId(),
                         path: $version->getPath(),
-                        type: 'version',
+                        type: PathType::Version,
                         version: $version->getRoute()
                     );
 
@@ -65,15 +77,12 @@ class SearchIndexerCommand extends Command
                                 continue;
                             }
 
-                            $paths[] = [
-                                'version' => $version->getRoute(),
-                                'type' => 'cluster',
-                                'path' => $scopedCluster->getPath()
-                            ];
-                            $this->pushToPaths(
-                                path: $version->getPath(),
-                                type: 'cluster',
-                                version: $version->getRoute()
+                            $paths[] = $this->pushToPaths(
+                                moduleId: $module->getId(),
+                                path: $scopedCluster->getPath(),
+                                type: PathType::ScopedCluster,
+                                version: $version->getRoute(),
+                                cluster: $scopedCluster->getRoute()
                             );
                         }
                     }
@@ -87,30 +96,37 @@ class SearchIndexerCommand extends Command
                         continue;
                     }
 
-                    // if ($cluster->isDefault()) {
-                       
-                    // }
+                    if ($cluster->isDefault()) {
+                        continue;
+                    }
 
 
-                    $this->pushToPaths(
-                        path: $version->getPath(),
-                        type: 'cluster',
-                        version: null
+                    $paths[] = $this->pushToPaths(
+                        moduleId: $module->getId(),
+                        path: $cluster->getPath(),
+                        type: PathType::Cluster,
+                        version: null,
+                        cluster: $cluster->getRoute()
                     );
-                    // push new paths with queited kind
                 }
             }
+            $paths[] = $this->pushToPaths(
+                moduleId: $module->getId(),
+                path: $module->getPath(),
+                type: PathType::Module,
+            );
         }
-
-        dump($this->paths);
+        return $paths;
     }
 
-    public function pushToPaths(string $path, string $type, ?string $version = null)
+    public function pushToPaths(string $moduleId, string $path, PathType $type, ?string $version = null, ?string $cluster = null)
     {
-        $this->paths[] = [
+        return  [
+            'module' => $moduleId,
             'path' => $path,
-            'version' => $version,
             'type' => $type,
+            'version' => $version,
+            'cluster' => $cluster,
         ];
     }
 }

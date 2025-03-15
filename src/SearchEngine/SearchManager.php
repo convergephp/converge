@@ -50,7 +50,7 @@ class SearchManager
         $body = $document->body();
 
         $contentParser = new ContentsParser($body,);
-        dump(count($this->headings));
+        
         $headings = $contentParser->extractHeadings($info->getPathname(), count($this->headings));
 
         $this->headings = array_merge($this->headings,$headings);
