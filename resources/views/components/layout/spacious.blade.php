@@ -9,8 +9,8 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
     <div x-data="{ sidebarOpen: false }">
         {{-- Navbar --}}
         <nav
-             class="border-base-300 bg-base-200 supports-backdrop-blur:bg-base-200 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-50 w-full border-b lg:bg-transparent backdrop-blur transition-colors duration-500">
-            <div class="z-50 px-2 py-3 lg:px-6">
+             class="border-base-300 bg-base-200 supports-backdrop-blur:bg-base-200 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-40 w-full border-b lg:bg-transparent backdrop-blur transition-colors duration-500">
+            <div class="z-40 px-2 py-3 lg:px-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-x-2">
                         {{-- open and close sidebar --}}
