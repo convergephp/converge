@@ -16,9 +16,9 @@
         {{-- code content --}}
         <div
              class="scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-white/20 dark:scrollbar-thumb-white/20 hover:scrollbar-thumb-white/25 dark:hover:scrollbar-thumb-white/25 active:scrollbar-thumb-white/25 dark:active:scrollbar-thumb-white/25 h-full overflow-hidden overflow-y-hidden p-5 pb-14 [&_pre]:overflow-auto">
-            <x-code.code-snepet class="[&_pre]:!bg-transparent">
+            <x-converge::docs-components.code.code-snepet class="[&_pre]:!bg-transparent">
                 {{ $slot }}
-            </x-code.code-snepet>
+            </x-converge::docs-components.code.code-snepet>
         </div>
 
         @if ($expandable)
