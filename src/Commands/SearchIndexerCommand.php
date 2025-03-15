@@ -87,23 +87,25 @@ class SearchIndexerCommand extends Command
                         continue;
                     }
 
-                    if ($cluster->isDefault()) {
-                        //  let's grab the default path!
-                    }
+                    // if ($cluster->isDefault()) {
+                       
+                    // }
 
-                    $paths[] = [
-                        'version' => $version->getRoute(),
-                        'type' => 'top-cluster',
-                        'path' => $scopedCluster->getPath()
-                    ];
+
+                    $this->pushToPaths(
+                        path: $version->getPath(),
+                        type: 'cluster',
+                        version: null
+                    );
                     // push new paths with queited kind
                 }
             }
-            dump($module->getPath());
         }
+
+        dump($this->paths);
     }
 
-    public function pushToPaths(string $path, string $type, string $version)
+    public function pushToPaths(string $path, string $type, ?string $version = null)
     {
         $this->paths[] = [
             'path' => $path,
