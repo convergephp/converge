@@ -42,10 +42,19 @@ class SearchIndexerCommand extends Command
 
                     if ($version->hasClusters()) {
                         foreach ($version->getClusters() as $scopedCluster) {
-
+                            
                             if (! $scopedCluster instanceof Cluster) {
                                 continue;
                             }
+
+                            if ($scopedCluster->isDefault()) {
+                                continue;
+                            }
+
+                            $paths[] = [
+                                'type' => 'cluster',
+                                'path' => $scopedCluster->getPath()
+                            ];
                         }
                     }
                 }
