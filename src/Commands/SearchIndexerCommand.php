@@ -36,13 +36,16 @@ class SearchIndexerCommand extends Command
 
             if ($module->hasVersions()) {
                 foreach ($module->getVersions() as $version) {
+
                     if (! $version instanceof Version) {
                         continue;
                     }
+                    
+                    if($version->isQue)
 
                     if ($version->hasClusters()) {
                         foreach ($version->getClusters() as $scopedCluster) {
-                            
+
                             if (! $scopedCluster instanceof Cluster) {
                                 continue;
                             }
@@ -52,6 +55,7 @@ class SearchIndexerCommand extends Command
                             }
 
                             $paths[] = [
+                                'version' => $version->getRoute(),
                                 'type' => 'cluster',
                                 'path' => $scopedCluster->getPath()
                             ];

@@ -31,11 +31,9 @@ class Engine
         if (empty($tokens)) {
             return [];
         }
-
-
-
+        
         $results = [];
-
+        
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
                 $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, (string)$token);
@@ -60,7 +58,8 @@ class Engine
 
 
         arsort($this->headingIds);
-        // dd($this->headingIds);
+        
+
         foreach (array_keys($this->headingIds) as $id) {
 
             if (isset($this->headings[$id])) {
