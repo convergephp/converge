@@ -36,7 +36,7 @@ class Engine
         
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
-                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, (string)$token);
+                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken,$token);
                 $matchScore = 0;
 
                 $matchScore = match (true) {

@@ -9,6 +9,9 @@ use Fluxtor\Converge\Versions\Version;
 
 class SearchIndexerCommand extends Command
 {
+
+
+    protected array $paths = [];
     /**
      * The name and signature of the console command.
      *
@@ -40,8 +43,16 @@ class SearchIndexerCommand extends Command
                     if (! $version instanceof Version) {
                         continue;
                     }
-                    
-                    if($version->isQue)
+
+                    if ($module->getQuietedVersionUrl() === $version->getRoute()) {
+                        continue;
+                    }
+
+                    $this->pushToPaths(
+                        path: $version->getPath(),
+                        type: 'version',
+                        version: $version->getRoute()
+                    );
 
                     if ($version->hasClusters()) {
                         foreach ($version->getClusters() as $scopedCluster) {
@@ -59,6 +70,11 @@ class SearchIndexerCommand extends Command
                                 'type' => 'cluster',
                                 'path' => $scopedCluster->getPath()
                             ];
+                            $this->pushToPaths(
+                                path: $version->getPath(),
+                                type: 'cluster',
+                                version: $version->getRoute()
+                            );
                         }
                     }
                 }
@@ -74,10 +90,25 @@ class SearchIndexerCommand extends Command
                     if ($cluster->isDefault()) {
                         //  let's grab the default path!
                     }
+
+                    $paths[] = [
+                        'version' => $version->getRoute(),
+                        'type' => 'top-cluster',
+                        'path' => $scopedCluster->getPath()
+                    ];
                     // push new paths with queited kind
                 }
             }
             dump($module->getPath());
         }
+    }
+
+    public function pushToPaths(string $path, string $type, string $version)
+    {
+        $this->paths[] = [
+            'path' => $path,
+            'version' => $version,
+            'type' => $type,
+        ];
     }
 }
