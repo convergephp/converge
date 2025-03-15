@@ -59,7 +59,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
         {{-- Main Layout Container --}}
         <div class="flex min-h-screen">
             {{-- Sidebar --}}
-            <aside class="bg-base-200 no-scrollbar border-base-300 fixed left-0 top-0 z-40 h-screen w-72 overflow-y-auto border-r transition-transform lg:translate-x-0 lg:bg-transparent"
+            <aside class="bg-base-200 no-scrollbar border-base-300 fixed left-0 top-0 z-30 h-screen w-72 overflow-y-auto border-r transition-transform lg:translate-x-0 lg:bg-transparent"
                    x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
                 <div class="grid-row-2 grid">
                     {{-- Sidebar spacing for navbar --}}

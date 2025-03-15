@@ -35,7 +35,7 @@
 
     {{-- Normal container --}}
     <div x-show="!zoomed"
-         class="bg-base-300/80 overflow-hidden rounded-2xl border border-gray-400/10 p-2 shadow-sm transition-all hover:shadow-md">
+         class="bg-base-300/20 overflow-hidden rounded-2xl border border-gray-400/10 p-2 shadow-sm transition-all hover:shadow-md">
         <div class="relative flex h-[22rem] flex-col justify-start overflow-hidden rounded-2xl">
             <img x-on:click="toggleZoom"
                  src="{{ $image }}"
