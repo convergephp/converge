@@ -13,10 +13,16 @@ class InvertedIndexer
 
     protected $indexes;
 
-    public function __construct(string $headingPath)
+    protected $bloomFilter;
+
+    protected $distination;
+
+    public function __construct(string $headingPath, string $distination)
     {
         $this->headings = require $headingPath;
         $this->indexes = [];
+        $this->bloomFilter = new BloomFilter(1000, 4);
+        $this->distination = $distination;
     }
 
     public function index()
@@ -24,8 +30,6 @@ class InvertedIndexer
         foreach ($this->headings as $heading) {
 
             $tokens = (new Tokenizer())->tokenize($heading['title'], $this->getStopWords());
-            $title = $heading['title'];
-            $headingId = $heading['id'];
 
             foreach ($tokens as $token) {
 
@@ -40,18 +44,17 @@ class InvertedIndexer
                 }
             }
         }
-
-
-        $bloomFilter = new BloomFilter(1000, 4);
-
-
-        foreach (array_keys($this->indexes) as $term) {
-            $bloomFilter->add($term);
-        }
-
-        $bloomFilter->saveBloomFilter();
     }
 
+    public function bloomFilterize()
+    {
+        foreach (array_keys($this->indexes) as $term) {
+            $this->bloomFilter->add($term);
+        }
+
+        $this->bloomFilter->saveBloomFilter($this->distination);
+    }
+    
     public function tokenize(string $token)
     {
         $token = preg_replace('/[^a-z0-9]/', '', $token);
@@ -75,7 +78,7 @@ class InvertedIndexer
         return require __DIR__ . '/stop_words.php';
     }
 
-    public function storeInvertedIndexes(string $distination)
+    public function storeInvertedIndexes()
     {
         $output = '<?php return [';
 
@@ -86,7 +89,7 @@ class InvertedIndexer
 
         $output .= "\n];";
 
-        $path = $distination . DIRECTORY_SEPARATOR . "inverted_indexes.php";
+        $path = $this->distination . DIRECTORY_SEPARATOR . "inverted_indexes.php";
         file_put_contents(
             $path,
             $output

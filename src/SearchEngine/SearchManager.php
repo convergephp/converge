@@ -79,10 +79,12 @@ class SearchManager
 
         $headingsPath = $this->storeHeadings($distination);
 
-        $indexer = new InvertedIndexer($headingsPath);
+        $indexer = new InvertedIndexer($headingsPath, $distination);
 
         $indexer->index();
 
-        $indexer->storeInvertedIndexes($distination);
+        $indexer->bloomFilterize();
+
+        $indexer->storeInvertedIndexes();
     }
 }

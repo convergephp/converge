@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Fluxtor\Converge\Repository;
 use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
 use Illuminate\Support\Facades\Log;
+
+use function Fluxtor\Converge\converge;
 
 class Engine
 {
@@ -17,6 +20,9 @@ class Engine
 
     public function __construct()
     {
+        // let's load indexes and headings for the right resource.
+        // dd(converge()->getActiveModule()->)
+        info(app(Repository::class)->getUsedPath());
         $this->indexes = $this->loadFile(storage_path('converge/inverted_index.php')); // not scalable
 
         $this->headings = $this->loadFile(storage_path('converge/headings.php')); // not scalable;
@@ -31,12 +37,12 @@ class Engine
         if (empty($tokens)) {
             return [];
         }
-        
+
         $results = [];
-        
+
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
-                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken,$token);
+                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, $token);
                 $matchScore = 0;
 
                 $matchScore = match (true) {
@@ -58,7 +64,7 @@ class Engine
 
 
         arsort($this->headingIds);
-        
+
 
         foreach (array_keys($this->headingIds) as $id) {
 
@@ -84,9 +90,8 @@ class Engine
     {
         if (!file_exists($path) || !is_readable($path)) {
             // Optionally, log an error or handle as needed
-            Log::error("File not found or not readable: {$path}");
+            Log::error("File not found or not readable: {$path} did you index your search resources ?");
             // throw new \Exception("File not found  or not readable: {$path}");
-            // a hack before origanizing the module sections part
             return [];
         }
 

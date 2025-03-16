@@ -38,7 +38,6 @@ class SearchIndexerCommand extends Command
     {
         $start = microtime(true);
         foreach ($this->collectPaths() as $id => $modulePaths) {
-
             $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
 
             // ensure each module exists
@@ -68,7 +67,6 @@ class SearchIndexerCommand extends Command
 
                     $source = $cluster['path'];
 
-
                     $searchManager = new SearchManager();
 
                     $searchManager->index($source, $distination);
@@ -80,7 +78,8 @@ class SearchIndexerCommand extends Command
             // dump($modulePaths);
             // 
         }
-        $time=(microtime(true) - $start)*1000;
+        $time = (microtime(true) - $start) * 1000;
+
         $this->info("time in ms: $time");
     }
 

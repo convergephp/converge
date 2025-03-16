@@ -44,7 +44,7 @@ class BloomFilter
         return $this->bitArray;
     }
 
-    public function saveBloomFilter()
+    public function saveBloomFilter(string $distination)
     {
         $output = '<?php return [';
 
@@ -52,8 +52,10 @@ class BloomFilter
 
         $output .= "\n];";
 
+        $path = $distination . DIRECTORY_SEPARATOR . 'bloom_filter.php';
+
         file_put_contents(
-            storage_path('converge/bloom_filter.php'),
+            $path,
             $output
         );
     }
