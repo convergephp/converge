@@ -3,10 +3,12 @@
 namespace Fluxtor\Converge\Commands;
 
 use Illuminate\Console\Command;
-use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Enums\PathType;
+use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Versions\Version;
+use function Laravel\Prompts\progress;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class SearchIndexerCommand extends Command
 {
@@ -32,13 +34,19 @@ class SearchIndexerCommand extends Command
 
     public function handle()
     {
-        foreach ($this->collectPaths() as $path) {
-            dump($path);
-            //  foreach module we need to create
+        sleep(1);
+        foreach ($this->collectPaths() as $id => $modulePaths) {
+            // create hashed folder 
+            $folderName = md5($id);
+
+            dump($folderName);
+            //  foreach module we need to create it's resource on it's own folder using hash
+            // hash default key word an using it for top level path
+            // 
         }
     }
 
-
+    public function index() {}
 
     public function collectPaths()
     {
@@ -53,11 +61,6 @@ class SearchIndexerCommand extends Command
                     if (! $version instanceof Version) {
                         continue;
                     }
-                    // dump($module->getRoutePath(),$version->getRoute());
-
-                    // if ($module->getRoutePath() === $version->getRoute()) {
-                    //     continue;
-                    // }
 
                     $paths[] = $this->pushToPaths(
                         moduleId: $module->getId(),
@@ -116,7 +119,8 @@ class SearchIndexerCommand extends Command
                 type: PathType::Module,
             );
         }
-        return $paths;
+
+        return collect($paths)->groupBy('module')->toArray();
     }
 
     public function pushToPaths(string $moduleId, string $path, PathType $type, ?string $version = null, ?string $cluster = null)
