@@ -37,7 +37,7 @@ class SearchIndexerCommand extends Command
 
         foreach ($this->collectPaths() as $id => $modulePaths) {
 
-            $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . md5($id);
+            $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
 
             // ensure each module exists
             if (!file_exists($folderName)) {
@@ -46,16 +46,34 @@ class SearchIndexerCommand extends Command
 
             // @todo: delete removed or renamed module's id.
 
-            // for paths  
             $versions = collect($modulePaths)->groupBy('version')->toArray();
 
+            foreach ($versions as $id => $versionClusters) {
+
+                $versionFolder = $folderName . DIRECTORY_SEPARATOR . $this->id($id);
+
+                if (!file_exists($versionFolder)) {
+                    mkdir($versionFolder);
+                }
+
+                foreach ($versionClusters as $cluster) {
+
+                    $clusterFolder = $versionFolder . DIRECTORY_SEPARATOR . $this->id($cluster['cluster']);
+
+                    if (!file_exists($clusterFolder)) {
+                        mkdir($clusterFolder);
+                    }
+                    // now we have the full path where we can put the search resources
+                    dump($clusterFolder);
+                }
+            }
             // $clusters =  
-            dump($modulePaths);
-            //  foreach module we need to create it's resource on it's own folder using hash
-            // hash default key word an using it for top level path
+            // dump($modulePaths);
             // 
         }
     }
+
+
 
     public function collectPaths()
     {
@@ -75,7 +93,8 @@ class SearchIndexerCommand extends Command
                         moduleId: $module->getId(),
                         path: $version->getPath(),
                         type: PathType::Version,
-                        version: $version->getRoute()
+                        version: $version->getRoute(),
+                        cluster: 'default'
                     );
 
                     if ($version->hasClusters()) {
@@ -144,5 +163,10 @@ class SearchIndexerCommand extends Command
             'version' => $version,
             'cluster' => $cluster,
         ];
+    }
+
+    public function id(string $id)
+    {
+        return base_convert(crc32($id), 10,  36) . '-' . $id;
     }
 }

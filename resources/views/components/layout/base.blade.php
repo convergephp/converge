@@ -63,6 +63,32 @@ use function Fluxtor\Converge\intercept;
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
     </head>
 
+    <script>
+        // hack to prevent light flicker at load time in slow connections (chrome)
+        (function() {
+            let theme = localStorage.getItem('theme') ?? 'system';
+            if (theme === 'system') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+                    ? 'dark'
+                    : 'light';
+            }
+    
+            const root = document.documentElement;
+            const themes = {
+                light: {!! converge()->getTheme()->getLightModeTheme() !!},
+                dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
+            };
+    
+            const selectedTheme = themes[theme];
+            if (selectedTheme) {
+                Object.entries(selectedTheme).forEach(([key, value]) => {
+                    root.style.setProperty(key, value);
+                });
+            }
+        })();
+    </script>
+    
+
     <body 
         x-data="themeSwitcher({
             lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
