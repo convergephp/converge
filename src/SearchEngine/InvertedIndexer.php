@@ -13,9 +13,9 @@ class InvertedIndexer
 
     protected $indexes;
 
-    public function __construct()
+    public function __construct(string $headingPath)
     {
-        $this->headings = require storage_path('converge/headings.php');
+        $this->headings = require $headingPath;
         $this->indexes = [];
     }
 
@@ -36,11 +36,11 @@ class InvertedIndexer
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
 
-                    $this->indexes[$token][] = $heading['id']; 
+                    $this->indexes[$token][] = $heading['id'];
                 }
             }
         }
-        $this->saveIndex();
+
 
         $bloomFilter = new BloomFilter(1000, 4);
 
@@ -75,7 +75,7 @@ class InvertedIndexer
         return require __DIR__ . '/stop_words.php';
     }
 
-    protected function saveIndex()
+    public function storeInvertedIndexes(string $distination)
     {
         $output = '<?php return [';
 
@@ -86,8 +86,9 @@ class InvertedIndexer
 
         $output .= "\n];";
 
+        $path = $distination . DIRECTORY_SEPARATOR . "inverted_indexes.php";
         file_put_contents(
-            storage_path('converge/inverted_index.php'),
+            $path,
             $output
         );
     }

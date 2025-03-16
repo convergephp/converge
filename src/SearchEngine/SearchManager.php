@@ -58,7 +58,7 @@ class SearchManager
         return $this;
     }
 
-    public function storeHeadings(string $distination): void
+    public function storeHeadings(string $distination): string
     {
         $storagePath = $distination . DIRECTORY_SEPARATOR . "headings.php";
 
@@ -70,17 +70,19 @@ class SearchManager
         $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
 
         file_put_contents($storagePath, $data);
+        return $storagePath;
     }
 
     public function index(string $source, string $distination)
     {
         $this->extractAllHeadingUnderThisMarkdownFiles($source);
 
-        $this->storeHeadings($distination);
+        $headingsPath = $this->storeHeadings($distination);
 
-        $inverted_indexes = new InvertedIndexer();
+        $indexer = new InvertedIndexer($headingsPath);
 
+        $indexer->index();
 
-        $inverted_indexes->index();
+        $indexer->storeInvertedIndexes($distination);
     }
 }
