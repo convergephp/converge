@@ -22,7 +22,7 @@ class Engine
     {
         // let's load indexes and headings for the right resource.
         // dd(converge()->getActiveModule()->)
-        info(app(Repository::class)->getUsedPath());
+        dd(app(Repository::class));
         $this->indexes = $this->loadFile(storage_path('converge/inverted_index.php')); // not scalable
 
         $this->headings = $this->loadFile(storage_path('converge/headings.php')); // not scalable;

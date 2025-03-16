@@ -117,23 +117,24 @@ class Repository
     public function getUsedPath()
     {
         $path = '';
-
-        if ($module = $this->getModule()) {
+        
+        if ($module = $this->activeModule) {
             $path .= file_name_id($module->getId());
         }
 
-        if ($version = $this->getActiveVersion()) {
+        if ($version = $this->activeVersion) {
+
             $path .= DIRECTORY_SEPARATOR . file_name_id($version->getRoute());
         } else {
             $path .= DIRECTORY_SEPARATOR . file_name_id('quieted');
         }
 
-        if ($cluster = $this->getActiveCluster()) {
+        if ($cluster = $this->activeCluster) {
             $path .= DIRECTORY_SEPARATOR . file_name_id($cluster->getRoute());
         } else {
             $path .= DIRECTORY_SEPARATOR . file_name_id('default');
         }
-        
+
         return $path;
     }
 }
