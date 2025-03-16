@@ -8,7 +8,9 @@ use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Versions\Version;
 use function Laravel\Prompts\progress;
+use Fluxtor\Converge\SearchEngine\SearchManager;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Fluxtor\Converge\SearchEngine\InvertedIndexer;
 
 class SearchIndexerCommand extends Command
 {
@@ -58,13 +60,20 @@ class SearchIndexerCommand extends Command
 
                 foreach ($versionClusters as $cluster) {
 
-                    $clusterFolder = $versionFolder . DIRECTORY_SEPARATOR . $this->id($cluster['cluster']);
+                    $distination = $clusterFolder = $versionFolder . DIRECTORY_SEPARATOR . $this->id($cluster['cluster']);
 
                     if (!file_exists($clusterFolder)) {
                         mkdir($clusterFolder);
                     }
-                    // now we have the full path where we can put the search resources
-                    dump($clusterFolder);
+
+                    $source = $cluster['path'];
+
+
+                    $searchManager = new SearchManager();
+
+                    $searchManager->index($source,$distination);
+
+                    dump($distination, $clusterFolder);
                 }
             }
             // $clusters =  

@@ -23,7 +23,7 @@ class SearchManager
         return $static;
     }
 
-    public function getAllMdFiles(?string $path = null): void
+    public function extractAllHeadingUnderThisMarkdownFiles(?string $path = null): void
     {
 
         $iterator = new RecursiveIteratorIterator(
@@ -50,17 +50,17 @@ class SearchManager
         $body = $document->body();
 
         $contentParser = new ContentsParser($body,);
-        
+
         $headings = $contentParser->extractHeadings($info->getPathname(), count($this->headings));
 
-        $this->headings = array_merge($this->headings,$headings);
+        $this->headings = array_merge($this->headings, $headings);
 
         return $this;
     }
 
-    public function storeHeadings(): void
+    public function storeHeadings(string $distination): void
     {
-        $storagePath = storage_path('converge/headings.php');
+        $storagePath = $distination . DIRECTORY_SEPARATOR . "headings.php";
 
         if (! is_dir(dirname($storagePath))) {
             mkdir(dirname($storagePath), 0777, true);
@@ -70,5 +70,17 @@ class SearchManager
         $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
 
         file_put_contents($storagePath, $data);
+    }
+
+    public function index(string $source, string $distination)
+    {
+        $this->extractAllHeadingUnderThisMarkdownFiles($source);
+
+        $this->storeHeadings($distination);
+
+        $inverted_indexes = new InvertedIndexer();
+
+
+        $inverted_indexes->index();
     }
 }
