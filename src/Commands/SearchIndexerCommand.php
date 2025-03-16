@@ -34,19 +34,28 @@ class SearchIndexerCommand extends Command
 
     public function handle()
     {
-        sleep(1);
-        foreach ($this->collectPaths() as $id => $modulePaths) {
-            // create hashed folder 
-            $folderName = md5($id);
 
-            dump($folderName);
+        foreach ($this->collectPaths() as $id => $modulePaths) {
+
+            $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . md5($id);
+
+            // ensure each module exists
+            if (!file_exists($folderName)) {
+                mkdir($folderName);
+            }
+
+            // @todo: delete removed or renamed module's id.
+
+            // for paths  
+            $versions = collect($modulePaths)->groupBy('version')->toArray();
+
+            // $clusters =  
+            dump($modulePaths);
             //  foreach module we need to create it's resource on it's own folder using hash
             // hash default key word an using it for top level path
             // 
         }
     }
-
-    public function index() {}
 
     public function collectPaths()
     {
@@ -103,13 +112,14 @@ class SearchIndexerCommand extends Command
                         continue;
                     }
 
-
+                    // I assigned an explicit quieted version while not always the case to identify 
+                    //  the clusters directly assigned to the module
                     $paths[] = $this->pushToPaths(
                         moduleId: $module->getId(),
                         path: $cluster->getPath(),
                         type: PathType::Cluster,
-                        version: null,
-                        cluster: $cluster->getRoute()
+                        cluster: $cluster->getRoute(),
+                        version: 'quieted',
                     );
                 }
             }
@@ -117,6 +127,8 @@ class SearchIndexerCommand extends Command
                 moduleId: $module->getId(),
                 path: $module->getPath(),
                 type: PathType::Module,
+                version: 'quieted',
+                cluster: 'default'
             );
         }
 
