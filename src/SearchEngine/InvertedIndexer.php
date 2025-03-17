@@ -46,6 +46,7 @@ class InvertedIndexer
 
     public function bloomFilterize()
     {
+
         foreach (array_keys($this->indexes) as $term) {
             $this->bloomFilter->add($term);
         }
@@ -79,6 +80,7 @@ class InvertedIndexer
             return true;
         }
         $stopWords = require __DIR__ . '/stop_words.php';
+
 
         return in_array($token, $stopWords);
     }

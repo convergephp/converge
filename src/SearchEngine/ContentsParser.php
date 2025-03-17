@@ -67,8 +67,8 @@ class ContentsParser
                 'file_path' => $path,
                 'level' => $level,
                 'title' => trim($match[2]),
-                'hash' => '#content-' . $slugManager->normalize($match[2]),
-                'id' => $id,    
+                'hash' => '#content-'.$slugManager->normalize($match[2]),
+                'id' => $id,
             ];
             $id++;
         }

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace Fluxtor\Converge\Support;
-    
+
 final class Highlighter
 {
     public static function make(?string $text, ?string $pattern, ?string $styles = '', ?string $classes = '')

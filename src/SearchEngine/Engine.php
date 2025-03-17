@@ -19,6 +19,9 @@ class Engine
     protected bool $fuzzySearchEnabled;
     protected int $resultsMaxCount;
 
+    protected $headings;
+
+    protected $headingIds = [];
 
     public function __construct(ConfigRepository $config)
     {
@@ -34,6 +37,7 @@ class Engine
     }
 
     public function search(string $query): array
+
     {
         $processor = new QueryProcessor($query);
 
@@ -48,6 +52,7 @@ class Engine
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
                 $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, $token);
+
                 $matchScore = 0;
 
                 $matchScore = match (true) {
@@ -55,7 +60,6 @@ class Engine
                     $distance >= 0.9 && $this->fuzzySearchEnabled => 1,
                     default => 0
                 };
-
 
                 if ($matchScore) {
                     $this->addHeadingMatches($headingIds, $matchScore);
@@ -66,7 +70,6 @@ class Engine
         if (empty($this->headingIds)) {
             return [];
         }
-
 
         arsort($this->headingIds);
 
@@ -91,11 +94,13 @@ class Engine
         }
     }
 
+
     public function loadFile(string $path)
     {
-        if (!file_exists($path) || !is_readable($path)) {
+        if (! file_exists($path) || ! is_readable($path)) {
             // Optionally, log an error or handle as needed
             Log::error("File not found or not readable: {$path} did you index your search resources ?");
+
             // throw new \Exception("File not found  or not readable: {$path}");
             return [];
         }
@@ -103,4 +108,5 @@ class Engine
         // Load and return the file content
         return require $path;
     }
+
 }

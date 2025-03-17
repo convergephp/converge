@@ -1,18 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Http\Controllers;
 
 use Exception;
-use Illuminate\Log\Logger;
-use Illuminate\Http\Request;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Repository;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
 use Fluxtor\Converge\SearchEngine\Engine;
 use Fluxtor\Converge\Support\Highlighter;
 use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class SearchController
@@ -27,6 +28,7 @@ class SearchController
     {
         $this->map = $map;
         $this->engine = new Engine($config);
+
     }
 
     public function __invoke(Request $request, Repository $repo): JsonResponse
@@ -55,7 +57,7 @@ class SearchController
 
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 
-            $url =  $this->map->getUrlByFilePath($result['file_path']);
+            $url = $this->map->getUrlByFilePath($result['file_path']);
 
             $routeName = $repo->getActiveRouteName();
 
@@ -71,7 +73,7 @@ class SearchController
                 'file_name' =>  FilesTreeBuilder::formatLabel(pathinfo($result['file_path'], PATHINFO_FILENAME)),
                 'url' => route($routeName . '.show', [
                     'url' => $url,
-                ]) . "{$result['hash']}"
+                ])."{$result['hash']}",
             ];
         });
 
