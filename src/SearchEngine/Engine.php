@@ -9,14 +9,17 @@ use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
 
-
 class Engine
 {
     // load indexes
     protected $indexes;
+
     protected $headings;
+
     protected $headingIds = [];
+
     protected bool $fuzzySearchEnabled;
+
     protected int $resultsMaxCount;
 
     protected $headings;
@@ -31,13 +34,12 @@ class Engine
 
         $this->resultsMaxCount = $config->get('converge.search_engine.results_max_count');
 
-        $this->indexes = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'inverted_indexes.php'); // not scalable
+        $this->indexes = $this->loadFile($basePath.DIRECTORY_SEPARATOR.'inverted_indexes.php'); // not scalable
 
-        $this->headings = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'headings.php'); // not scalable;
+        $this->headings = $this->loadFile($basePath.DIRECTORY_SEPARATOR.'headings.php'); // not scalable;
     }
 
     public function search(string $query): array
-
     {
         $processor = new QueryProcessor($query);
 
@@ -51,7 +53,7 @@ class Engine
 
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
-                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, $token);
+                $distance = (new JaroWinklerDistance)->getDistance((string) $indexToken, $token);
 
                 $matchScore = 0;
 
@@ -73,27 +75,15 @@ class Engine
 
         arsort($this->headingIds);
 
-
         foreach (array_keys($this->headingIds) as $id) {
 
             if (isset($this->headings[$id])) {
                 $results[] = $this->headings[$id];
             }
         }
+
         return array_slice($results, 0, $this->resultsMaxCount);
     }
-
-    private function addHeadingMatches(array $headingIds, int $matchScore): void
-    {
-        foreach ($headingIds as $tokenHeadingId) {
-            if (!isset($this->headingIds[$tokenHeadingId])) {
-                $this->headingIds[$tokenHeadingId] = 0;
-            }
-
-            $this->headingIds[$tokenHeadingId] += $matchScore; 
-        }
-    }
-
 
     public function loadFile(string $path)
     {
@@ -109,4 +99,14 @@ class Engine
         return require $path;
     }
 
+    private function addHeadingMatches(array $headingIds, int $matchScore): void
+    {
+        foreach ($headingIds as $tokenHeadingId) {
+            if (! isset($this->headingIds[$tokenHeadingId])) {
+                $this->headingIds[$tokenHeadingId] = 0;
+            }
+
+            $this->headingIds[$tokenHeadingId] += $matchScore;
+        }
+    }
 }

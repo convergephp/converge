@@ -22,7 +22,7 @@ if (! function_exists('Fluxtor\Converge\format_url')) {
             return null;
         }
 
-        return '/' . trim($url ?? '', '/');
+        return '/'.trim($url ?? '', '/');
     }
 }
 
@@ -30,7 +30,7 @@ if (! function_exists('Fluxtor\Converge\file_name_id')) {
     // /** @return \Fluxtor\Converge\Converge */
     function file_name_id(?string $id): ?string
     {
-        return base_convert((string) crc32($id), 10,  36) . '-' . $id;
+        return base_convert((string) crc32($id), 10, 36).'-'.$id;
     }
 }
 
@@ -94,12 +94,12 @@ if (! function_exists('Fluxtor\Converge\format_styles')) {
         $attributes = [];
 
         if (filled($styles)) {
-            $attributes[] = 'style="' . e($styles) . '"';
+            $attributes[] = 'style="'.e($styles).'"';
         }
 
         if (filled($classes) || filled($defaultClasses)) {
             $mergedClasses = trim("$defaultClasses $classes");
-            $attributes[] = 'class="' . e($mergedClasses) . '"';
+            $attributes[] = 'class="'.e($mergedClasses).'"';
         }
 
         return implode(' ', $attributes);

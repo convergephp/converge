@@ -58,7 +58,7 @@ class ConvergeServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ModuleMakeCommand::class,
-                SearchIndexerCommand::class
+                SearchIndexerCommand::class,
             ]);
         }
         require_once __DIR__.'/../helpers.php';

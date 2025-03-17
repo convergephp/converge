@@ -79,15 +79,14 @@ class InvertedIndexer
         if (config('converge.search_engine.keep_stop_words')) {
             return true;
         }
-        $stopWords = require __DIR__ . '/stop_words.php';
-
+        $stopWords = require __DIR__.'/stop_words.php';
 
         return in_array($token, $stopWords);
     }
 
     public function getStopWords()
     {
-        return require __DIR__ . '/stop_words.php';
+        return require __DIR__.'/stop_words.php';
     }
 
     public function storeInvertedIndexes()
@@ -96,12 +95,12 @@ class InvertedIndexer
 
         foreach ($this->indexes as $token => $headings) {
 
-            $output .= "\n    '$token' => [" . implode(', ', $headings) . '],';
+            $output .= "\n    '$token' => [".implode(', ', $headings).'],';
         }
 
         $output .= "\n];";
 
-        $path = $this->distination . DIRECTORY_SEPARATOR . "inverted_indexes.php";
+        $path = $this->distination.DIRECTORY_SEPARATOR.'inverted_indexes.php';
         file_put_contents(
             $path,
             $output
