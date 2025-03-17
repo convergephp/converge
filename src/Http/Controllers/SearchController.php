@@ -11,9 +11,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Fluxtor\Converge\SearchEngine\Engine;
 use Fluxtor\Converge\Support\Highlighter;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Validator;
-
-use function Fluxtor\Converge\converge;
 
 class SearchController
 {
@@ -23,11 +22,11 @@ class SearchController
 
     private Engine $engine;
 
-    public function __construct(ContentMap $map)
+    public function __construct(ContentMap $map, ConfigRepository $config)
     {
         $this->map = $map;
-        $this->engine = new Engine();
-    }   
+        $this->engine = new Engine($config);
+    }
 
     public function __invoke(Request $request, Repository $repo): JsonResponse
     {
@@ -46,13 +45,13 @@ class SearchController
             throw new Exception('Query must be a string');
         }
         $initialMemory = memory_get_usage();
-        
+
         $start = microtime(true);
-        
+
         $results = $this->engine->search($query);
 
         $finalMemory = memory_get_usage();
-        
+
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 
             $url =  $this->map->getUrlByFilePath($result['file_path']);
@@ -73,14 +72,13 @@ class SearchController
                 ]) . "{$result['hash']}"
             ];
         });
-        
+
         $time = (microtime(true) - $start) * 1000;
 
         $memoryUsage = ($finalMemory - $initialMemory) / 1024; // Memory used during search in bytes
-        
+
         Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found " . count($results) . " results.");
 
         return response()->json($results);
     }
-
 }

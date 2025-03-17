@@ -6,9 +6,9 @@ namespace Fluxtor\Converge\SearchEngine;
 
 use Fluxtor\Converge\Repository;
 use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
 
-use function Fluxtor\Converge\converge;
 
 class Engine
 {
@@ -16,21 +16,24 @@ class Engine
     protected $indexes;
     protected $headings;
     protected $headingIds = [];
+    protected bool $fuzzySearchEnabled;
+    protected int $resultsMaxCount;
 
 
-    public function __construct()
+    public function __construct(ConfigRepository $config)
     {
-        // let's load indexes and headings for the right resource.
-        // dd(converge()->getActiveModule()->) 
-
         $basePath = app(Repository::class)->getUsedPath();
 
+        $this->fuzzySearchEnabled = $config->get('converge.search_engine.fuzzy_search');
+
+        $this->resultsMaxCount = $config->get('converge.search_engine.results_max_count');
+
         $this->indexes = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'inverted_indexes.php'); // not scalable
-        
+
         $this->headings = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'headings.php'); // not scalable;
     }
 
-    public function search(string $query,  bool $enableFuzzy = true): array
+    public function search(string $query): array
     {
         $processor = new QueryProcessor($query);
 
@@ -49,7 +52,7 @@ class Engine
 
                 $matchScore = match (true) {
                     str_contains((string) $indexToken, $token) => 2,
-                    $distance >= 0.9 => 1,
+                    $distance >= 0.9 && $this->fuzzySearchEnabled => 1,
                     default => 0
                 };
 
@@ -74,7 +77,7 @@ class Engine
                 $results[] = $this->headings[$id];
             }
         }
-        return $results;
+        return array_slice($results, 0, $this->resultsMaxCount);
     }
 
     private function addHeadingMatches(array $headingIds, int $matchScore): void
@@ -84,7 +87,7 @@ class Engine
                 $this->headingIds[$tokenHeadingId] = 0;
             }
 
-            $this->headingIds[$tokenHeadingId] += $matchScore; // Accumulate match scores
+            $this->headingIds[$tokenHeadingId] += $matchScore; 
         }
     }
 
