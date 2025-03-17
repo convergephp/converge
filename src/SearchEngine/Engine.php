@@ -4,26 +4,40 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine;
 
+use Fluxtor\Converge\Repository;
 use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
+
 
 class Engine
 {
     // load indexes
     protected $indexes;
+    protected $headings;
+    protected $headingIds = [];
+    protected bool $fuzzySearchEnabled;
+    protected int $resultsMaxCount;
 
     protected $headings;
 
     protected $headingIds = [];
 
-    public function __construct()
+    public function __construct(ConfigRepository $config)
     {
-        $this->indexes = $this->loadFile(storage_path('converge/inverted_index.php')); // not scalable
+        $basePath = app(Repository::class)->getUsedPath();
 
-        $this->headings = $this->loadFile(storage_path('converge/headings.php')); // not scalable;
+        $this->fuzzySearchEnabled = $config->get('converge.search_engine.fuzzy_search');
+
+        $this->resultsMaxCount = $config->get('converge.search_engine.results_max_count');
+
+        $this->indexes = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'inverted_indexes.php'); // not scalable
+
+        $this->headings = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'headings.php'); // not scalable;
     }
 
-    public function search(string $query, bool $enableFuzzy = true): array
+    public function search(string $query): array
+
     {
         $processor = new QueryProcessor($query);
 
@@ -34,16 +48,16 @@ class Engine
         }
 
         $results = [];
-        $headingsIds = [];
 
         foreach ($tokens as $token) {
             foreach ($this->indexes as $indexToken => $headingIds) {
-                $distance = (new JaroWinklerDistance)->getDistance((string) $indexToken, (string) $token);
+                $distance = (new JaroWinklerDistance)->getDistance((string)$indexToken, $token);
+
                 $matchScore = 0;
 
                 $matchScore = match (true) {
-                    str_starts_with((string) $indexToken, $token) || str_ends_with((string) $indexToken, $token) => 2,
-                    $distance <= 2 => 1,
+                    str_contains((string) $indexToken, $token) => 2,
+                    $distance >= 0.9 && $this->fuzzySearchEnabled => 1,
                     default => 0
                 };
 
@@ -58,26 +72,36 @@ class Engine
         }
 
         arsort($this->headingIds);
-        // dd($this->headingIds);
+
+
         foreach (array_keys($this->headingIds) as $id) {
 
-            dump($id);
             if (isset($this->headings[$id])) {
                 $results[] = $this->headings[$id];
             }
         }
-
-        return $results;
+        return array_slice($results, 0, $this->resultsMaxCount);
     }
+
+    private function addHeadingMatches(array $headingIds, int $matchScore): void
+    {
+        foreach ($headingIds as $tokenHeadingId) {
+            if (!isset($this->headingIds[$tokenHeadingId])) {
+                $this->headingIds[$tokenHeadingId] = 0;
+            }
+
+            $this->headingIds[$tokenHeadingId] += $matchScore; 
+        }
+    }
+
 
     public function loadFile(string $path)
     {
         if (! file_exists($path) || ! is_readable($path)) {
             // Optionally, log an error or handle as needed
-            Log::error("File not found or not readable: {$path}");
+            Log::error("File not found or not readable: {$path} did you index your search resources ?");
 
             // throw new \Exception("File not found  or not readable: {$path}");
-            // a hack before origanizing the module sections part
             return [];
         }
 
@@ -85,14 +109,4 @@ class Engine
         return require $path;
     }
 
-    private function addHeadingMatches(array $headingIds, int $matchScore): void
-    {
-        foreach ($headingIds as $tokenHeadingId) {
-            if (! isset($this->headingIds[$tokenHeadingId])) {
-                $this->headingIds[$tokenHeadingId] = 0;
-            }
-
-            $this->headingIds[$tokenHeadingId] += $matchScore; // Accumulate match scores
-        }
-    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Providers;
 
 use Fluxtor\Converge\Commands\ModuleMakeCommand;
+use Fluxtor\Converge\Commands\SearchIndexerCommand;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Converge;
 use Fluxtor\Converge\FilesTreeBuilder;
@@ -57,6 +58,7 @@ class ConvergeServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ModuleMakeCommand::class,
+                SearchIndexerCommand::class
             ]);
         }
         require_once __DIR__.'/../helpers.php';

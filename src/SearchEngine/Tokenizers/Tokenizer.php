@@ -10,9 +10,14 @@ class Tokenizer
 
     public function tokenize($text, $stopwords = []): array
     {
-        $text = mb_strtolower($text);
-        $split = preg_split($this->pattern, $text, flags: PREG_SPLIT_NO_EMPTY);
+        $text  = mb_strtolower($text);
 
-        return array_diff($split, $stopwords);
+        $tokens = preg_split($this->pattern, $text, flags: PREG_SPLIT_NO_EMPTY);
+
+        if (config('converge.search_engine.keep_stop_words')) {
+            return $tokens;
+        }
+
+        return array_diff($tokens, $stopwords);
     }
 }

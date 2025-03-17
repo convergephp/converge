@@ -6,9 +6,11 @@ namespace Fluxtor\Converge\Http\Controllers;
 
 use Exception;
 use Fluxtor\Converge\ContentMap;
+use Fluxtor\Converge\FilesTreeBuilder;
 use Fluxtor\Converge\Repository;
 use Fluxtor\Converge\SearchEngine\Engine;
 use Fluxtor\Converge\Support\Highlighter;
+use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,14 +24,17 @@ class SearchController
 
     private Engine $engine;
 
-    public function __construct(ContentMap $map)
+    public function __construct(ContentMap $map, ConfigRepository $config)
     {
         $this->map = $map;
-        $this->engine = new Engine();
+        $this->engine = new Engine($config);
+
     }
 
     public function __invoke(Request $request, Repository $repo): JsonResponse
     {
+
+
         $validator = Validator::make($request->all(), [
             'q' => 'required|string|max:255',
         ]);
@@ -45,8 +50,11 @@ class SearchController
         $initialMemory = memory_get_usage();
 
         $start = microtime(true);
+
         $results = $this->engine->search($query);
+
         $finalMemory = memory_get_usage();
+
         $results = collect($results)->map(function ($result) use ($repo, $query) {
 
             $url = $this->map->getUrlByFilePath($result['file_path']);
@@ -62,7 +70,8 @@ class SearchController
             return [
                 'title' => $title,
                 'rawTitle' => $result['title'],
-                'url' => route($routeName.'.show', [
+                'file_name' =>  FilesTreeBuilder::formatLabel(pathinfo($result['file_path'], PATHINFO_FILENAME)),
+                'url' => route($routeName . '.show', [
                     'url' => $url,
                 ])."{$result['hash']}",
             ];
@@ -72,7 +81,7 @@ class SearchController
 
         $memoryUsage = ($finalMemory - $initialMemory) / 1024; // Memory used during search in bytes
 
-        Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found ".count($results).' results.');
+        Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found " . count($results) . " results.");
 
         return response()->json($results);
     }

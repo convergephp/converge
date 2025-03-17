@@ -1,5 +1,9 @@
+@php     
+    $routeName = resolve(\Fluxtor\Converge\Repository::class)->getActiveRouteName();
+@endphp
+
 <div x-data="search({
-    route: {{ Illuminate\Support\Js::from(route('converge::search')) }}
+    route: {{ Illuminate\Support\Js::from(route("$routeName.search")) }}
 })">
     <x-converge::modal
         openEvent="open-search"

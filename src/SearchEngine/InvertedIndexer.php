@@ -13,10 +13,16 @@ class InvertedIndexer
 
     protected $indexes;
 
-    public function __construct()
+    protected $bloomFilter;
+
+    protected $distination;
+
+    public function __construct(string $headingPath, string $distination)
     {
-        $this->headings = require storage_path('converge/headings.php');
+        $this->headings = require $headingPath;
         $this->indexes = [];
+        $this->bloomFilter = new BloomFilter(1000, 4);
+        $this->distination = $distination;
     }
 
     public function index()
@@ -24,38 +30,42 @@ class InvertedIndexer
         foreach ($this->headings as $heading) {
 
             $tokens = (new Tokenizer())->tokenize($heading['title'], $this->getStopWords());
-            $title = $heading['title'];
-            $headingId = $heading['id'];
 
             foreach ($tokens as $token) {
 
-                // the token is file for example
                 if (! isset($this->indexes[$token])) {
                     $this->indexes[$token] = [];
                 }
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
-
                     $this->indexes[$token][] = $heading['id'];
                 }
             }
         }
-        $this->saveIndex();
+    }
 
-        $bloomFilter = new BloomFilter(1000, 4);
+    public function bloomFilterize()
+    {
 
         foreach (array_keys($this->indexes) as $term) {
-            $bloomFilter->add($term);
+            $this->bloomFilter->add($term);
         }
 
-        $bloomFilter->saveBloomFilter();
+        $this->bloomFilter->saveBloomFilter($this->distination);
     }
 
     public function tokenize(string $token)
     {
         $token = preg_replace('/[^a-z0-9]/', '', $token);
 
-        if (empty($token) || is_numeric($token) || $this->inStopWords($token)) {
+        if (
+            empty($token) ||
+            is_numeric($token)
+        ) {
+            return null;
+        }
+
+        if ($this->inStopWords($token)) {
             return null;
         }
 
@@ -64,29 +74,36 @@ class InvertedIndexer
 
     public function inStopWords(string $token)
     {
-        $stopWords = require __DIR__.'/stop_words.php';
+        dd(config('converge.search_engine.keep_stop_words'));
+
+        if (config('converge.search_engine.keep_stop_words')) {
+            return true;
+        }
+        $stopWords = require __DIR__ . '/stop_words.php';
+
 
         return in_array($token, $stopWords);
     }
 
     public function getStopWords()
     {
-        return require __DIR__.'/stop_words.php';
+        return require __DIR__ . '/stop_words.php';
     }
 
-    protected function saveIndex()
+    public function storeInvertedIndexes()
     {
         $output = '<?php return [';
 
         foreach ($this->indexes as $token => $headings) {
 
-            $output .= "\n    '$token' => [".implode(', ', $headings).'],';
+            $output .= "\n    '$token' => [" . implode(', ', $headings) . '],';
         }
 
         $output .= "\n];";
 
+        $path = $this->distination . DIRECTORY_SEPARATOR . "inverted_indexes.php";
         file_put_contents(
-            storage_path('converge/inverted_index.php'),
+            $path,
             $output
         );
     }

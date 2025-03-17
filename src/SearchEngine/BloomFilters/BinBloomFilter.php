@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\SearchEngine\BloomFilters;
 
+// @todo try using binary one instead
 class BinBloomFilter
 {
     private string $bitArray;
@@ -17,7 +18,6 @@ class BinBloomFilter
         $this->size = $size;
         $this->hashCount = $hashCount;
         $this->bitArray = str_repeat("\0", intdiv($size + 7, 8));
-        // dd($this->bitArray);
     }
 
     public function add(string $item): void
@@ -55,11 +55,6 @@ class BinBloomFilter
         $path = storage_path('converge/bloom_filter.bin');
         if (file_exists($path)) {
             $this->bitArray = file_get_contents($path);
-
-            echo 'Bloom Filter loaded, size: '.mb_strlen($this->bitArray).' bytes'.PHP_EOL;
-            // Optionally print out the content in hex or base64 for easier inspection
-            echo 'Hex: '.bin2hex($this->bitArray).PHP_EOL;
-
         }
     }
 

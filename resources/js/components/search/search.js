@@ -39,27 +39,6 @@ export default ({route}) => ({
         return  await response.json();
         
     },
-    highlightMatchingLetters: function (title, query) {
-        let highlightedTitle = "";
-        let lowerCaseTitle = title.toLowerCase();
-        let lowerCaseQuery = query.toLowerCase();
-        let index = lowerCaseTitle.indexOf(lowerCaseQuery);
-
-        while (index !== -1) {
-            highlightedTitle += title.substring(0, index);
-            highlightedTitle += `<span style="color: yellow; font-weight: semi-bold;">${title.substring(
-                index,
-                index + query.length
-            )}</span>`;
-            title = title.substring(index + query.length);
-            lowerCaseTitle = title.toLowerCase();
-            index = lowerCaseTitle.indexOf(lowerCaseQuery);
-        }
-
-        highlightedTitle += title;
-        return highlightedTitle;
-    },
-
     getLocalStorage(key) {
         return JSON.parse(localStorage.getItem(key)) || [];
     },
