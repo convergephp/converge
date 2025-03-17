@@ -7,10 +7,7 @@ use Fluxtor\Converge\Enums\PathType;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Versions\Version;
-use function Laravel\Prompts\progress;
 use Fluxtor\Converge\SearchEngine\SearchManager;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Fluxtor\Converge\SearchEngine\InvertedIndexer;
 
 class SearchIndexerCommand extends Command
 {
@@ -39,8 +36,7 @@ class SearchIndexerCommand extends Command
         $start = microtime(true);
         foreach ($this->collectPaths() as $id => $modulePaths) {
             $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
-
-            // ensure each module exists
+            
             if (!file_exists($folderName)) {
                 mkdir($folderName, recursive: true);
             }
@@ -70,14 +66,10 @@ class SearchIndexerCommand extends Command
                     $searchManager = new SearchManager();
 
                     $searchManager->index($source, $distination);
-
-                    // dump($distination, $clusterFolder);
                 }
             }
-            // $clusters =  
-            // dump($modulePaths);
-            // 
         }
+
         $time = (microtime(true) - $start) * 1000;
 
         $this->info("time in ms: $time");

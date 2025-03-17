@@ -61,9 +61,12 @@ class InvertedIndexer
 
         if (
             empty($token) ||
-            is_numeric($token) ||
-            (!config('converge.search_engine.keep_stop_words') && $this->inStopWords($token))
+            is_numeric($token)
         ) {
+            return null;
+        }
+
+        if ($this->inStopWords($token)) {
             return null;
         }
 
@@ -72,6 +75,11 @@ class InvertedIndexer
 
     public function inStopWords(string $token)
     {
+        dd(config('converge.search_engine.keep_stop_words'));
+
+        if (config('converge.search_engine.keep_stop_words')) {
+            return true;
+        }
         $stopWords = require __DIR__ . '/stop_words.php';
 
         return in_array($token, $stopWords);
