@@ -33,13 +33,11 @@ class InvertedIndexer
 
             foreach ($tokens as $token) {
 
-                // the token is file for example
                 if (! isset($this->indexes[$token])) {
                     $this->indexes[$token] = [];
                 }
 
                 if (! in_array($heading['id'], $this->indexes[$token])) {
-
                     $this->indexes[$token][] = $heading['id'];
                 }
             }
