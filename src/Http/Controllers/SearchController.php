@@ -13,6 +13,8 @@ use Fluxtor\Converge\SearchEngine\Engine;
 use Fluxtor\Converge\Support\Highlighter;
 use Illuminate\Support\Facades\Validator;
 
+use function Fluxtor\Converge\converge;
+
 class SearchController
 {
     public const CLASSES = 'text-primary';
@@ -27,8 +29,10 @@ class SearchController
         $this->engine = new Engine();
     }   
 
-    public function __invoke(Request $request, Repository $repo,): JsonResponse
+    public function __invoke(Request $request, Repository $repo): JsonResponse
     {
+
+
         $validator = Validator::make($request->all(), [
             'q' => 'required|string|max:255',
         ]);

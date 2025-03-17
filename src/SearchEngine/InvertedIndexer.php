@@ -54,12 +54,16 @@ class InvertedIndexer
 
         $this->bloomFilter->saveBloomFilter($this->distination);
     }
-    
+
     public function tokenize(string $token)
     {
         $token = preg_replace('/[^a-z0-9]/', '', $token);
 
-        if (empty($token) || is_numeric($token) || $this->inStopWords($token)) {
+        if (
+            empty($token) ||
+            is_numeric($token) ||
+            (!config('converge.search_engine.keep_stop_words') && $this->inStopWords($token))
+        ) {
             return null;
         }
 

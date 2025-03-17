@@ -21,11 +21,13 @@ class Engine
     public function __construct()
     {
         // let's load indexes and headings for the right resource.
-        // dd(converge()->getActiveModule()->)
-        dd(app(Repository::class));
-        $this->indexes = $this->loadFile(storage_path('converge/inverted_index.php')); // not scalable
+        // dd(converge()->getActiveModule()->) 
 
-        $this->headings = $this->loadFile(storage_path('converge/headings.php')); // not scalable;
+        $basePath = app(Repository::class)->getUsedPath();
+
+        $this->indexes = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'inverted_indexes.php'); // not scalable
+        
+        $this->headings = $this->loadFile($basePath . DIRECTORY_SEPARATOR . 'headings.php'); // not scalable;
     }
 
     public function search(string $query,  bool $enableFuzzy = true): array

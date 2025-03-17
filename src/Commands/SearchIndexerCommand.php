@@ -42,7 +42,7 @@ class SearchIndexerCommand extends Command
 
             // ensure each module exists
             if (!file_exists($folderName)) {
-                mkdir($folderName);
+                mkdir($folderName, recursive: true);
             }
 
             // @todo: delete removed or renamed module's id.

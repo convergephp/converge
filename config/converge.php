@@ -2,4 +2,10 @@
 
 declare(strict_types=1);
 
-return [];
+return [
+    'search_engine' => [
+        'keep_stop_words' => false,
+        'fuzzy_search' => true,
+        'fuzzy_search_using' => 'jaro_winkler' // there is also levenshtien
+    ]
+];

@@ -117,7 +117,7 @@ class Repository
     public function getUsedPath()
     {
         $path = '';
-        
+
         if ($module = $this->activeModule) {
             $path .= file_name_id($module->getId());
         }
@@ -135,6 +135,6 @@ class Repository
             $path .= DIRECTORY_SEPARATOR . file_name_id('default');
         }
 
-        return $path;
+        return storage_path('converge' . DIRECTORY_SEPARATOR . $path);
     }
 }
