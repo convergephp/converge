@@ -23,6 +23,7 @@
             x-on:keydown.down.stop.prevent="$focus.wrap().next()"
             x-animate
     >
+
         <template x-for="(result,index)  in results" x-bind:key="index">
             <x-converge::search.result-item />
         </template>
