@@ -44,12 +44,19 @@ class SearchIndexerCommand extends Command
         $progress->start();
 
         foreach ($paths as $id => $modulePaths) {
-            $folderName = storage_path('converge').DIRECTORY_SEPARATOR.$this->id($id);
+
+            if (!file_exists($path = storage_path('converge') . DIRECTORY_SEPARATOR . '.gitignore')) {
+                file_put_contents($path, "*\n");
+            }
+
+            $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
 
             if (! file_exists($folderName)) {
 
                 mkdir($folderName, recursive: true);
             }
+
+            
 
             // @todo: delete removed or renamed module's id.
 
@@ -57,7 +64,7 @@ class SearchIndexerCommand extends Command
 
             foreach ($versions as $id => $versionClusters) {
 
-                $versionFolder = $folderName.DIRECTORY_SEPARATOR.$this->id($id);
+                $versionFolder = $folderName . DIRECTORY_SEPARATOR . $this->id($id);
 
                 if (! file_exists($versionFolder)) {
                     mkdir($versionFolder);
@@ -65,7 +72,7 @@ class SearchIndexerCommand extends Command
 
                 foreach ($versionClusters as $cluster) {
 
-                    $distination = $clusterFolder = $versionFolder.DIRECTORY_SEPARATOR.$this->id($cluster['cluster']);
+                    $distination = $clusterFolder = $versionFolder . DIRECTORY_SEPARATOR . $this->id($cluster['cluster']);
 
                     if (! file_exists($clusterFolder)) {
                         mkdir($clusterFolder);
@@ -189,24 +196,24 @@ class SearchIndexerCommand extends Command
 
     public function id(string $id)
     {
-        return base_convert((string) crc32($id), 10, 36).'-'.$id;
+        return base_convert((string) crc32($id), 10, 36) . '-' . $id;
     }
 
     public function displayElapsedTime(float $milliseconds)
     {
         if ($milliseconds < 1000) {
-            return number_format($milliseconds, 2).' ms';
+            return number_format($milliseconds, 2) . ' ms';
         }
 
         $seconds = $milliseconds / 1000;
 
         if ($seconds < 60) {
-            return number_format($seconds, 2).' seconds';
+            return number_format($seconds, 2) . ' seconds';
         }
 
         $minutes = floor($seconds / 60);
         $remainingSeconds = $seconds % 60;
 
-        return "{$minutes} minute(s), ".number_format($remainingSeconds, 2).' seconds';
+        return "{$minutes} minute(s), " . number_format($remainingSeconds, 2) . ' seconds';
     }
 }
