@@ -52,7 +52,7 @@ class BloomFilter
 
         $output .= "\n];";
 
-        $path = $distination . DIRECTORY_SEPARATOR . 'bloom_filter.php';
+        $path = $distination.DIRECTORY_SEPARATOR.'bloom_filter.php';
 
         file_put_contents(
             $path,

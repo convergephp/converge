@@ -6,12 +6,12 @@ namespace Fluxtor\Converge\Enums;
 
 enum PathType: string
 {
-    case Cluster = 'module-cluster'; // module level clusters 
- 
-    case Module = 'module'; // module level clusters 
+    case Cluster = 'module-cluster'; // module level clusters
 
-    case Version = 'version'; // module version 
+    case Module = 'module'; // module level clusters
+
+    case Version = 'version'; // module version
 
     case ScopedCluster = 'scoped-cluster'; // version cluster
-    
+
 }

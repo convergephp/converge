@@ -20,8 +20,6 @@ final class RouteManager
     public function generateRoutes(): void
     {
 
-
-
         // routes related to modules
         foreach (Converge::getModules() as $module) {
 
@@ -128,7 +126,7 @@ final class RouteManager
             ->group(function () use ($uri, $name, $pattern) {
 
                 Route::get("{$uri}/converge/search/enpoint", SearchController::class)->name("{$name}.search");
-                
+
                 Route::get($uri, ModuleController::class)->name($name);
 
                 Route::get("{$uri}/{url}", FileController::class)

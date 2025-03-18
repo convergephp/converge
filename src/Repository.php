@@ -7,8 +7,7 @@ namespace Fluxtor\Converge;
 use Fluxtor\Converge\Clusters\Cluster;
 use Fluxtor\Converge\Versions\Version;
 
-class Repository
-/**hold active contexts for the evaluated request*/
+class Repository /**hold active contexts for the evaluated request*/
 {
     protected ?Version $activeVersion = null;
 
@@ -93,14 +92,14 @@ class Repository
         if ($this->activeVersion) {
             $vRoute = $this->activeVersion->getRoute();
             if (blank($this->activeCluster)) {
-                return $id . '.' . $vRoute;
+                return $id.'.'.$vRoute;
             }
 
-            return $id . '.' . $vRoute . '.' . $this->activeCluster->getRoute();
+            return $id.'.'.$vRoute.'.'.$this->activeCluster->getRoute();
         }
 
         if ($this->activeCluster) {
-            return $id . '.' . $this->activeCluster->getRoute();
+            return $id.'.'.$this->activeCluster->getRoute();
         }
 
         return $id;
@@ -110,9 +109,9 @@ class Repository
      * used in search engine, theoriquelly there is always a cluster and actve version
      * for the modules does not have a version actually it has at least one version
      * wich's is the used one in the top module even the cluster
-     *  is always a one at least the default one  
+     *  is always a one at least the default one
      *
-     * @return string 
+     * @return string
      */
     public function getUsedPath()
     {
@@ -124,17 +123,17 @@ class Repository
 
         if ($version = $this->activeVersion) {
 
-            $path .= DIRECTORY_SEPARATOR . file_name_id($version->getRoute());
+            $path .= DIRECTORY_SEPARATOR.file_name_id($version->getRoute());
         } else {
-            $path .= DIRECTORY_SEPARATOR . file_name_id('quieted');
+            $path .= DIRECTORY_SEPARATOR.file_name_id('quieted');
         }
 
         if ($cluster = $this->activeCluster) {
-            $path .= DIRECTORY_SEPARATOR . file_name_id($cluster->getRoute());
+            $path .= DIRECTORY_SEPARATOR.file_name_id($cluster->getRoute());
         } else {
-            $path .= DIRECTORY_SEPARATOR . file_name_id('default');
+            $path .= DIRECTORY_SEPARATOR.file_name_id('default');
         }
 
-        return storage_path('converge' . DIRECTORY_SEPARATOR . $path);
+        return storage_path('converge'.DIRECTORY_SEPARATOR.$path);
     }
 }

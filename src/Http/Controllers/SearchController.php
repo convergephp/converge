@@ -34,7 +34,6 @@ class SearchController
     public function __invoke(Request $request, Repository $repo): JsonResponse
     {
 
-
         $validator = Validator::make($request->all(), [
             'q' => 'required|string|max:255',
         ]);
@@ -70,8 +69,8 @@ class SearchController
             return [
                 'title' => $title,
                 'rawTitle' => $result['title'],
-                'file_name' =>  FilesTreeBuilder::formatLabel(pathinfo($result['file_path'], PATHINFO_FILENAME)),
-                'url' => route($routeName . '.show', [
+                'file_name' => FilesTreeBuilder::formatLabel(pathinfo($result['file_path'], PATHINFO_FILENAME)),
+                'url' => route($routeName.'.show', [
                     'url' => $url,
                 ])."{$result['hash']}",
             ];
@@ -81,7 +80,7 @@ class SearchController
 
         $memoryUsage = ($finalMemory - $initialMemory) / 1024; // Memory used during search in bytes
 
-        Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found " . count($results) . " results.");
+        Log::info("Search for '{$query}' took {$time} ms, using {$memoryUsage} kilo bytes of memory. Found ".count($results).' results.');
 
         return response()->json($results);
     }

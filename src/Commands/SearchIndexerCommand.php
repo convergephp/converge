@@ -1,30 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Commands;
 
-use Illuminate\Console\Command;
-use Fluxtor\Converge\Enums\PathType;
 use Fluxtor\Converge\Clusters\Cluster;
+use Fluxtor\Converge\Enums\PathType;
 use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\SearchEngine\SearchManager;
+use Fluxtor\Converge\Versions\Version;
+use Illuminate\Console\Command;
 
 use function Laravel\Prompts\progress;
 
 class SearchIndexerCommand extends Command
 {
-
-
     protected array $paths = [];
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-
     protected $signature = 'converge:index-search';
-
-
 
     /**
      * The console command description.
@@ -50,6 +48,7 @@ class SearchIndexerCommand extends Command
             $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
 
             if (!file_exists($folderName)) {
+
                 mkdir($folderName, recursive: true);
             }
 
@@ -61,7 +60,7 @@ class SearchIndexerCommand extends Command
 
                 $versionFolder = $folderName . DIRECTORY_SEPARATOR . $this->id($id);
 
-                if (!file_exists($versionFolder)) {
+                if (! file_exists($versionFolder)) {
                     mkdir($versionFolder);
                 }
 
@@ -69,7 +68,7 @@ class SearchIndexerCommand extends Command
 
                     $distination = $clusterFolder = $versionFolder . DIRECTORY_SEPARATOR . $this->id($cluster['cluster']);
 
-                    if (!file_exists($clusterFolder)) {
+                    if (! file_exists($clusterFolder)) {
                         mkdir($clusterFolder);
                     }
 
@@ -94,8 +93,6 @@ class SearchIndexerCommand extends Command
 
         $progress->finish();
     }
-
-
 
     public function collectPaths()
     {
@@ -155,7 +152,7 @@ class SearchIndexerCommand extends Command
                         continue;
                     }
 
-                    // I assigned an explicit quieted version while not always the case to identify 
+                    // I assigned an explicit quieted version while not always the case to identify
                     //  the clusters directly assigned to the module
                     $this->pushToPaths(
                         paths: $paths,
@@ -193,7 +190,7 @@ class SearchIndexerCommand extends Command
 
     public function id(string $id)
     {
-        return base_convert(crc32($id), 10,  36) . '-' . $id;
+        return base_convert((string) crc32($id), 10, 36) . '-' . $id;
     }
 
     public function displayElapsedTime(float $milliseconds)

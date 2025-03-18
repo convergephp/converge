@@ -10,7 +10,7 @@ class Tokenizer
 
     public function tokenize($text, $stopwords = []): array
     {
-        $text  = mb_strtolower($text);
+        $text = mb_strtolower($text);
 
         $tokens = preg_split($this->pattern, $text, flags: PREG_SPLIT_NO_EMPTY);
 
