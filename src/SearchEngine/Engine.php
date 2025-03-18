@@ -19,10 +19,6 @@ class Engine
     protected bool $fuzzySearchEnabled;
     protected int $resultsMaxCount;
 
-    protected $headings;
-
-    protected $headingIds = [];
-
     public function __construct(ConfigRepository $config)
     {
         $basePath = app(Repository::class)->getUsedPath();

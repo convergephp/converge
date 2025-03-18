@@ -9,6 +9,8 @@ use Fluxtor\Converge\Facades\Converge;
 use Fluxtor\Converge\Versions\Version;
 use Fluxtor\Converge\SearchEngine\SearchManager;
 
+use function Laravel\Prompts\progress;
+
 class SearchIndexerCommand extends Command
 {
 
@@ -34,9 +36,19 @@ class SearchIndexerCommand extends Command
     public function handle()
     {
         $start = microtime(true);
-        foreach ($this->collectPaths() as $id => $modulePaths) {
+
+        $paths = $this->collectPaths();
+
+        $totalSteps = collect($paths)->flatten(1)->count();
+
+        $progress = progress(label: 'Indexing Search Resources', steps: $totalSteps);
+
+        $progress->start();
+
+
+        foreach ($paths as $id => $modulePaths) {
             $folderName = storage_path('converge') . DIRECTORY_SEPARATOR . $this->id($id);
-            
+
             if (!file_exists($folderName)) {
                 mkdir($folderName, recursive: true);
             }
@@ -65,10 +77,20 @@ class SearchIndexerCommand extends Command
 
                     $searchManager = new SearchManager();
 
+                    $progress->label($cluster['module']);
+
+                    $per = round($progress->percentage() * 100);
+                    
+                    $progress->hint("version: {$cluster['version']} cluster:{$cluster['cluster']} $per%");
+
                     $searchManager->index($source, $distination);
+
+                    $progress->advance();
                 }
             }
         }
+
+        $progress->finish();
 
         $time = (microtime(true) - $start) * 1000;
 
