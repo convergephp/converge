@@ -43,7 +43,7 @@ use function Fluxtor\Converge\intercept;
 
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     </head>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sidebar = document.querySelector("#sidebar");
@@ -72,13 +72,13 @@ use function Fluxtor\Converge\intercept;
                     ? 'dark'
                     : 'light';
             }
-    
+
             const root = document.documentElement;
             const themes = {
                 light: {!! converge()->getTheme()->getLightModeTheme() !!},
                 dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
             };
-    
+
             const selectedTheme = themes[theme];
             if (selectedTheme) {
                 Object.entries(selectedTheme).forEach(([key, value]) => {
@@ -87,9 +87,9 @@ use function Fluxtor\Converge\intercept;
             }
         })();
     </script>
-    
 
-    <body 
+
+    <body
         x-data="themeSwitcher({
             lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
             darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},

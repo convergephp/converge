@@ -1,4 +1,5 @@
 import Alpine from "alpinejs";
+import Mousetrap from '@danharrin/alpine-mousetrap'
 import anchor from "@alpinejs/anchor";
 import collapse from "@alpinejs/collapse";
 import focus from "@alpinejs/focus";
@@ -15,6 +16,7 @@ import search from "./components/search/search";
 Alpine.plugin(anchor);
 Alpine.plugin(collapse);
 Alpine.plugin(focus);
+Alpine.plugin(Mousetrap)
 
 // components
 Alpine.data("themeSwitcher", themeSwitcher);

@@ -26,7 +26,7 @@
 
             <div {{ $attributes->merge(['class' => "h-[1px] flex-grow bg-gradient-to-r {$color}"]) }}></div>
 
-            <h6 class="text-base-content mx-4 whitespace-nowrap text-sm font-semibold">{{ $title }}</h6>
+            <span class="text-base-content mx-4 whitespace-nowrap text-sm font-semibold">{{ $title }}</span>
 
             <div {{ $attributes->merge(['class' => "h-[1px] flex-grow bg-gradient-to-l {$color}"]) }}></div>
         </div>
