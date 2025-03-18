@@ -77,11 +77,9 @@ class SearchIndexerCommand extends Command
 
                     $searchManager = new SearchManager();
 
-                    $progress->label($cluster['module']);
+                    $progress->label("Indexing module: {$cluster['module']}");
 
-                    $per = round($progress->percentage() * 100);
-                    
-                    $progress->hint("version: {$cluster['version']} cluster:{$cluster['cluster']} $per%");
+                    $progress->hint("version: {$cluster['version']} cluster: {$cluster['cluster']}");
 
                     $searchManager->index($source, $distination);
 
@@ -90,11 +88,11 @@ class SearchIndexerCommand extends Command
             }
         }
 
-        $progress->finish();
-
         $time = (microtime(true) - $start) * 1000;
 
-        $this->info("time in ms: $time");
+        $progress->label("all modules resources indexed successfully in: {$this->displayElapsedTime($time)}");
+
+        $progress->finish();
     }
 
 
@@ -113,7 +111,8 @@ class SearchIndexerCommand extends Command
                         continue;
                     }
 
-                    $paths[] = $this->pushToPaths(
+                    $this->pushToPaths(
+                        paths: $paths,
                         moduleId: $module->getId(),
                         path: $version->getPath(),
                         type: PathType::Version,
@@ -132,7 +131,8 @@ class SearchIndexerCommand extends Command
                                 continue;
                             }
 
-                            $paths[] = $this->pushToPaths(
+                            $this->pushToPaths(
+                                paths: $paths,
                                 moduleId: $module->getId(),
                                 path: $scopedCluster->getPath(),
                                 type: PathType::ScopedCluster,
@@ -157,7 +157,8 @@ class SearchIndexerCommand extends Command
 
                     // I assigned an explicit quieted version while not always the case to identify 
                     //  the clusters directly assigned to the module
-                    $paths[] = $this->pushToPaths(
+                    $this->pushToPaths(
+                        paths: $paths,
                         moduleId: $module->getId(),
                         path: $cluster->getPath(),
                         type: PathType::Cluster,
@@ -166,7 +167,8 @@ class SearchIndexerCommand extends Command
                     );
                 }
             }
-            $paths[] = $this->pushToPaths(
+            $this->pushToPaths(
+                paths: $paths,
                 moduleId: $module->getId(),
                 path: $module->getPath(),
                 type: PathType::Module,
@@ -178,12 +180,12 @@ class SearchIndexerCommand extends Command
         return collect($paths)->groupBy('module')->toArray();
     }
 
-    public function pushToPaths(string $moduleId, string $path, PathType $type, ?string $version = null, ?string $cluster = null)
+    public function pushToPaths(array &$paths, string $moduleId, string $path, PathType $type, ?string $version = null, ?string $cluster = null)
     {
-        return  [
-            'module' => $moduleId,
-            'path' => $path,
-            'type' => $type,
+        $paths[] = [
+            'module'  => $moduleId,
+            'path'    => $path,
+            'type'    => $type,
             'version' => $version,
             'cluster' => $cluster,
         ];
@@ -192,5 +194,23 @@ class SearchIndexerCommand extends Command
     public function id(string $id)
     {
         return base_convert(crc32($id), 10,  36) . '-' . $id;
+    }
+
+    public function displayElapsedTime(float $milliseconds)
+    {
+        if ($milliseconds < 1000) {
+            return number_format($milliseconds, 2) . ' ms';
+        }
+
+        $seconds = $milliseconds / 1000;
+
+        if ($seconds < 60) {
+            return number_format($seconds, 2) . ' seconds';
+        }
+
+        $minutes = floor($seconds / 60);
+        $remainingSeconds = $seconds % 60;
+
+        return "{$minutes} minute(s), " . number_format($remainingSeconds, 2) . " seconds";
     }
 }
