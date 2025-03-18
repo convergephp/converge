@@ -6,14 +6,14 @@
 
 @php
     $classes =
-        [
-            'warning' => 'bg-warning/5',
-            'primary' => 'bg-primary/5',
-            'error' => 'bg-error/5',
-            'success' => 'bg-success/5',
-            'info' => 'bg-info/5',
-            'ghost' => 'bg-base-200',
-        ][$type] ?? 'bg-base-200';
+            [
+                'warning' => 'bg-warning/5',
+                'primary' => 'bg-primary/5',
+                'error' => 'bg-error/5',
+                'success' => 'bg-success/5',
+                'info' => 'bg-info/5',
+                'ghost' => 'bg-base-200',
+            ][$type] ?? 'bg-base-200';
 
     $icons =
         [
