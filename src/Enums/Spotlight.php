@@ -12,4 +12,6 @@ enum Spotlight: string
 
     case Strock = 'strock';
 
+    case Hj = 'hj';
+
 }

@@ -36,6 +36,7 @@
     "tailwindcss": "^4.0.3"
   },
   "devDependencies": {
+    "@danharrin/alpine-mousetrap": "^0.1.6",
     "@tailwindcss/typography": "^0.5.16"
   }
 }
