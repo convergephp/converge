@@ -16,7 +16,7 @@
     }
 }"
      x-init="initialize()"
-     class="not-prose bg-base-200 group relative mb-8 mt-5 rounded-2xl ring-1 ring-gray-400/20">
+     class="not-prose bg-base-200 border-1 group relative mb-8 mt-5 rounded-2xl border-gray-400/20">
 
     {{-- Tab headings --}}
     <div x-ref="tabHeadings"

@@ -1,7 +1,7 @@
 @props(['filename', 'language' => 'php', 'expandable' => true, 'initialHeight' => '100px'])
 
 <div x-data="{ expanded: false }"
-     class="not-prose bg-base-200 group relative mb-8 mt-5 rounded-2xl ring-1 ring-gray-400/20">
+     class="not-prose bg-base-200 group relative mb-8 mt-5 overflow-auto rounded-2xl border border-gray-400/20">
 
     {{-- file name --}}
     <div class="bg-base-300/20 flex rounded-t-2xl border-b border-gray-400/20 text-xs font-semibold leading-6">
