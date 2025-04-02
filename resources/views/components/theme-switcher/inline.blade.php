@@ -19,7 +19,7 @@
 
     }
 }">
-    <button class="text-base-content ml-2 flex cursor-pointer items-center border-none transition-all duration-200"
+    <button class="text-base-content flex cursor-pointer items-center border-none transition-all duration-200"
             type="button"
             x-on:click="toggleTheme()">
 
