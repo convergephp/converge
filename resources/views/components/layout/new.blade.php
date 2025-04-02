@@ -50,14 +50,32 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                             {{-- Hamburger menu button --}}
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
-                                    class="btn btn-square btn-sm text-base-content mt-0 bg-transparent p-0"
+                                    class="btn btn-square btn-sm"
                                     aria-label="Toggle navigation">
-                                <svg viewBox="0 0 10 9"
+                                {{-- Icon when menu is closed --}}
+                                <svg x-show="!sideBarOpen"
+                                     stroke="currentColor"
+                                     fill="currentColor"
+                                     class="text-base-content h-5 w-5"
+                                     stroke-width="0"
+                                     viewBox="0 0 24 24"
+                                     color="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
+                                </svg>
+
+                                {{-- Icon when menu is open --}}
+                                <svg x-show="sideBarOpen"
+                                     class="h-5 w-5"
+                                     xmlns="http://www.w3.org/2000/svg"
                                      fill="none"
-                                     stroke-linecap="round"
-                                     aria-hidden="true"
-                                     class="stroke-base-content w-2.5">
-                                    <path d="M.5 1h9M.5 8h9M.5 4.5h9"></path>
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor"
+                                     style="display: none;">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
 

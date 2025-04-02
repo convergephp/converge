@@ -9,17 +9,40 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
     <div x-data="{ sidebarOpen: false }">
         {{-- Navbar --}}
         <nav
-             class="border-base-300 bg-base-200 supports-backdrop-blur:bg-base-200 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-40 w-full border-b lg:bg-transparent backdrop-blur transition-colors duration-500">
+             class="border-base-300 bg-base-200 supports-backdrop-blur:bg-base-200 supports-backdrop-blur:bg-background-light/60 fixed top-0 z-40 w-full border-b lg:bg-transparent backdrop-blur ">
             <div class="z-40 px-2 py-3 lg:px-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-x-2">
                         {{-- open and close sidebar --}}
                         <button x-on:click="sidebarOpen = !sidebarOpen"
                                 type="button"
-                                class="btn btn-ghost text-base-content inline-flex lg:hidden">
-                            <span class="sr-only">Toggle sidebar</span>
-                            <x-converge::icon icon="bars-4"
-                                              class="size-5" />
+                                class="btn lg:hidden btn-square btn-sm"
+                                aria-label="Toggle navigation">
+
+                            {{-- Icon when menu is closed --}}
+                            <svg x-show="!sidebarOpen"
+                                 stroke="currentColor"
+                                 fill="currentColor"
+                                 class="text-base-content h-5 w-5"
+                                 stroke-width="0"
+                                 viewBox="0 0 24 24"
+                                 color="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4H21V6H3V4ZM9 11H21V13H9V11ZM3 18H21V20H3V18Z"></path>
+                            </svg>
+
+                            {{-- Icon when menu is open --}}
+                            <svg x-show="sidebarOpen"
+                                 class="h-5 w-5"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M6 18L18 6M6 6l12 12" />
+                            </svg>
                         </button>
 
                         {{-- BRAND AND VERSION --}}
@@ -33,7 +56,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         </div>
                     </div>
 
-                    <div class="flex flex-grow items-center justify-end">
+                    <div class="flex flex-grow items-center justify-end gap-4">
                         {{-- SEARCH BUTTON --}}
                         <div class="text-center">
                             <x-converge::search />
@@ -58,8 +81,9 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
 
         {{-- Main Layout Container --}}
         <div class="flex min-h-screen">
+
             {{-- Sidebar --}}
-            <aside class="bg-base-200 no-scrollbar border-base-300 fixed left-0 top-0 z-30 h-screen w-72 overflow-y-auto border-r transition-transform lg:translate-x-0 lg:bg-transparent"
+            <aside class="bg-base-200 no-scrollbar border-base-300 fixed left-0 top-0 z-30 h-screen w-72 overflow-y-auto border-r lg:translate-x-0 lg:bg-transparent"
                    x-bind:class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
                 <div class="grid-row-2 grid">
                     {{-- Sidebar spacing for navbar --}}
@@ -72,8 +96,15 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 </div>
             </aside>
 
+            {{-- Mobile overlay --}}
+            <div class="fixed inset-0 bg-base-200/80 z-20  lg:hidden"
+                 x-show="sidebarOpen"
+                 x-cloak
+                 @click="sidebarOpen = false">
+            </div>
+
             {{-- Main Content Area --}}
-            <main class="w-full flex-1 transition-all duration-300 lg:pl-72">
+            <main class="w-full flex-1 lg:pl-72">
                 <div class="container mx-auto">
                     {{-- Content Grid --}}
                     <div class="mx-auto gap-4 px-4 pb-12 pt-24 xl:grid xl:grid-cols-[1fr,19rem]">
