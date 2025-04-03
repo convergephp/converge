@@ -2,7 +2,7 @@
     $module = \Fluxtor\Converge\converge()->getActiveModule();
     $hasDarkMode = $module->hasDarkModeLogo();
 @endphp
-<div>
+<div {{ $attributes }}>
     @if ($hasDarkMode)
         {{-- Light mode logo --}}
         <a href="/"

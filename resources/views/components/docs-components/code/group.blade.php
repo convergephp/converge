@@ -7,10 +7,9 @@
             this.activeTab = this.$nextTick(() => {
                 // get default active tab
                 this.activeTab = this.$refs.tabHeadings.querySelector('[data-active=true]')?.dataset.name;
-
                 // If no default active tab is set, w'll use the first one
                 if (!this.activeTab && this.$refs.tabHeadings.querySelector('[data-name]')) {
-                    this.activeTab = this.$refs.tabHeadings.querySelector('[data-name]').dataset.name;
+                    this.activeTab = this.$refs.tabHeadings.querySelector('[data-name]').dataset.name;  
                 }
             });
         }

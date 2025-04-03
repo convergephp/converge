@@ -9,4 +9,6 @@ enum Layout: string
     case Spacious = 'spacious';
 
     case Default = 'index';
+
+    case New = 'new';
 }
