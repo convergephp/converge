@@ -13,13 +13,14 @@ use League\CommonMark\Parser\Block\BlockStart;
 use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
+use Psy\CodeCleaner\EmptyArrayDimFetchPass;
 
 class BladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
 
     public function __construct(
-        private string $componentName
+        public string $componentName
     ) {
         $this->block = new BladeComponentBlock();
     }
@@ -34,11 +35,14 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
                 $line = $cursor->getLine();
-
-                $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
+                // dump($line);
+                $pattern = "/<\s*x[-:]([\w\-:.]+)>/"; 
 
                 if (preg_match($pattern, $line, $matches)) {
-                    return BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
+                    // dump("openning tag: $matches[1]");
+                    $block = BlockStart::of($obj= new BladeComponentBlockParser($matches[1]))->at($cursor);
+                //    dd($block);
+                    return $block;
                 }
 
                 return BlockStart::none();
@@ -63,14 +67,14 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
+        // dd($this->componentName);
         $line = $cursor->getLine();
 
         $closingTag = "</x-{$this->componentName}>";
 
         if (str_contains($line, $closingTag)) {
-
             $this->block->addLine($line);
-
+            // dump("close tag: $closingTag");
             return BlockContinue::finished();
         }
 
