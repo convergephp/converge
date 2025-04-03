@@ -94,7 +94,7 @@
                 // Create the icon element with proper positioning
                 const iconSpan = document.createElement('span');
                 iconSpan.className =
-                    'heading-icon flex items-center justify-center absolute hidden lg:inline-block  -left-8 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer';
+                    'heading-icon flex items-center justify-center md:absolute lg:inline-block  -left-8 md:opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer';
                 iconSpan.innerHTML = headingIcon;
                 iconSpan.style.marginRight = '0.5rem';
 
