@@ -39,7 +39,7 @@
     </div>
 
     {{-- pagination --}}
-    <div class="border-base-300 mt-12 flex border-t pt-6">
+    <div class="border-base-300 mt-12 flex border-t py-6">
         <div>
             <dt class="text-base-content/80 font-base text-sm">
                 Previous
