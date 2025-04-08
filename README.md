@@ -1,4 +1,9 @@
-  # Converge Documentation Framework
+  # Converge Documentation Framework (still in develpment we'll tag alpha version very soon)
+> **⚠️ WARNING: This project is under active development!**
+>
+> Converge is not production-ready yet. Expect breaking changes, incomplete features, and missing documentation as we rapidly iterate toward our **alpha release**.
+
+---
 
   Converge, is a modular Laravel documentation system designed to dynamically generate, organize, and present documentation, API references, and related content based on a structured hierarchy of versions, clusters, groups, and files. It offers developers a streamlined way to build customizable documentation websites that reflect their project's structure directly from the filesystem.
 
@@ -47,7 +52,6 @@
   - **Social Media**:
     - Twitter cards and sharing components.
 
-  ---
 
   ## 🎯 Extensibility
 
@@ -56,15 +60,19 @@
     - Prebuilt templates for blogs or advanced layouts.
   - **Custom Sidebar for URLs**:
     - Organize content beyond the file tree with metadata overrides.
+   
+    - 
+
+## 🧪 Alpha Status
+
+We're hard at work shipping a public alpha version. Early testers are welcome — and very much appreciated! 🙏
+
+Want to get involved or preview? Stay tuned for:
+
+- Tagged alpha releases
+- GitHub discussions
+- Feedback channels
+  
 
   ---
 
-  ## 🔧 Development Setup
-
-  ### Prerequisites
-  - PHP 8.1+
-  - Laravel 10.x
-  - Node.js 16.x+ (for frontend tasks)
-  - Composer
-
-  ### Installation
