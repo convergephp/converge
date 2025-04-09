@@ -1,5 +1,0 @@
-@props([])
-
-<div>
-    {{ $slot }}
-</div>

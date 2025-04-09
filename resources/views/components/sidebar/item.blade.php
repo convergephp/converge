@@ -15,7 +15,7 @@
            $style['activeClasses'] => $item->isActive(),
        ])>
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_LABEL, fn() => $item) }}
-        <div class="flex w-full justify-between text-base">
+        <div class="flex w-full justify-between text-sm">
             {{ $item->getLabel() }}
         </div>
         {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SIDEBAR_LABEL, fn() => $item) }}

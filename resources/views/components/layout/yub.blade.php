@@ -13,16 +13,16 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
 
         <!-- Header -->
         <header id="site-header"
-                class="flex flex-col h-[64px] fixed top-0 z-20 w-full flex-none shadow-[0px_1px_0px] shadow-base-300 backdrop-blur-lg">
+                class="shadow-base-300 fixed top-0 z-20 flex h-[64px] w-full flex-none flex-col shadow-[0px_1px_0px] backdrop-blur-lg">
             <div class="w-full">
                 <div class="scroll-nojump px-2 lg:px-4">
                     <div
-                         class="flex items-center gap-x-4 justify-between w-full py-3 min-h-16 sm:h-16 max-w-screen-2xl mx-auto">
-                        <div class="flex max-w-full items-center md:min-w-sm justify-start gap-4">
+                         class="mx-auto flex min-h-16 w-full max-w-screen-2xl items-center justify-between gap-x-4 py-3 sm:h-16">
+                        <div class="md:min-w-sm flex max-w-full items-center justify-start gap-4">
                             <!-- Sidebar toggle button - Mobile only -->
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
-                                    class="btn lg:hidden btn-square btn-sm"
+                                    class="btn btn-square btn-sm lg:hidden"
                                     aria-label="Toggle navigation">
                                 <!-- Icon when menu is closed -->
                                 <svg x-show="!sideBarOpen"
@@ -58,7 +58,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                             </div>
                         </div>
 
-                        <div class="flex grow-0 md:basis-full justify-end items-center gap-4">
+                        <div class="flex grow-0 items-center justify-end gap-4 md:basis-full">
                             <!-- Navigation items - desktop only -->
                             <nav class="hidden md:block">
                                 <x-converge::menu-items />
@@ -81,7 +81,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
         </div>
 
         <div class="scroll-nojump">
-            <div class="flex relative pt-16 flex-col lg:flex-row max-w-screen-2xl mx-auto min-h-[calc(100vh-64px)]">
+            <div class="relative mx-auto flex min-h-[calc(100vh-64px)] max-w-screen-2xl flex-col pt-16 lg:flex-row">
                 <!-- Mobile sidebar overlay -->
                 <div x-show="sideBarOpen"
                      x-transition:enter="transition ease-out duration-200"
@@ -90,23 +90,19 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                      x-transition:leave="transition ease-in duration-150"
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
-                     class="fixed inset-0 z-10 bg-base-200/80 lg:hidden"
+                     class="bg-base-200/80 fixed inset-0 z-10 lg:hidden"
                      @click="sideBarOpen = false">
                 </div>
 
                 <!-- Sidebar -->
                 <aside x-cloak
-                       :class="{'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen}"
-                       class="group grow-0 px-2 lg:px-4 basis-full overflow-y-auto lg:translate-x-0 lg:basis-70
-                          fixed lg:relative z-[15] lg:z-[1] lg:sticky top-[64px] lg:max-h-[calc(100vh-64px)]
-                          w-4/5 sm:w-64 lg:w-auto bg-base-200 lg:bg-transparent h-[calc(100vh-64px)]
-                          pt-6 pb-4 flex flex-col gap-4 shadow-lg lg:shadow-none
-                          transition-transform duration-300 ease-in-out">
+                       :class="{ 'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen }"
+                       class="lg:basis-70 bg-base-200 border-r border-r-base-300 group fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto px-2 pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
 
                     <!-- Version selector (conditionally shown) -->
                     @if ($hasVersions)
                         <div x-bind:class="{ 'border-b border-gray-400/20': sideBarOpen }"
-                             class="pb-4 lg:border-b  lg:border-gray-400/20">
+                             class="pb-4 lg:border-b lg:border-gray-400/20">
                             <x-converge::versions class="z-30" />
                         </div>
                     @endif
@@ -119,15 +115,15 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     <div class="flex grow flex-row-reverse justify-end">
                         <!-- Table of contents (right sidebar) -->
                         <aside
-                               class="group/aside hidden xl:flex flex-col basis-70 grow-0 shrink-0 sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-                            <div class="overflow-y-auto overflow-x-visible flex flex-col shrink pb-12 sticky lg:top:0">
+                               class="group/aside basis-70 sticky top-24 hidden max-h-[calc(100vh-8rem)] shrink-0 grow-0 flex-col overflow-y-auto xl:flex">
+                            <div class="lg:top:0 sticky flex shrink flex-col overflow-y-auto overflow-x-visible pb-12">
                                 <x-converge::table-of-contents />
                             </div>
                         </aside>
 
                         <!-- Main content -->
-                        <main class="relative min-w-0 flex-1 px-2 lg:px-4 py-8 break-anywhere page-api-block:xl:max-2xl:pr-0 page-api-block:mx-auto
-                                page-api-block:max-w-screen-2xl page-default-width page-has-toc">
+                        <main
+                              class="break-anywhere page-api-block:xl:max-2xl:pr-0 page-api-block:mx-auto page-api-block:max-w-screen-2xl page-default-width page-has-toc relative min-w-0 flex-1 px-2 py-8 lg:px-4">
                             <div>
                                 {{ $slot }}
                             </div>
