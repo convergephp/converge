@@ -13,7 +13,6 @@ use League\CommonMark\Parser\Block\BlockStart;
 use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
-use Psy\CodeCleaner\EmptyArrayDimFetchPass;
 
 class BladeComponentBlockParser extends AbstractBlockContinueParser
 {
@@ -36,12 +35,13 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
             {
                 $line = $cursor->getLine();
                 // dump($line);
-                $pattern = "/<\s*x[-:]([\w\-:.]+)>/"; 
+                $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
 
                 if (preg_match($pattern, $line, $matches)) {
                     // dump("openning tag: $matches[1]");
-                    $block = BlockStart::of($obj= new BladeComponentBlockParser($matches[1]))->at($cursor);
-                //    dd($block);
+                    $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
+
+                    //    dd($block);
                     return $block;
                 }
 
@@ -74,6 +74,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
         if (str_contains($line, $closingTag)) {
             $this->block->addLine($line);
+
             // dump("close tag: $closingTag");
             return BlockContinue::finished();
         }

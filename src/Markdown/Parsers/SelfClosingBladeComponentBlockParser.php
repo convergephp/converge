@@ -39,7 +39,7 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
                 // Check for self-closing Blade component on the same line.
                 $pattern = "/^<\s*x[-:]([\w\-:.]+)(.*?)\/\s*>$/";
 
-                if (preg_match($pattern, $line,$matches)) {
+                if (preg_match($pattern, $line, $matches)) {
                     return BlockStart::of((new SelfClosingBladeComponentBlockParser())->closedImmediately())->at($cursor);
                 }
 
