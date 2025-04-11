@@ -2,10 +2,10 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Support\ServiceProvider;
 use Fluxtor\Converge\Module;
+use Fluxtor\Converge\Providers\ModuleProvider;
 
-class {{ class }} extends ServiceProvider
+class {{ class }} extends ModuleProvider
 {
     /**
      * Register New Module Service Provider.
