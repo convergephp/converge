@@ -1,22 +1,20 @@
 @props(['name', 'expandable' => true, 'initialHeight' => '100px'])
 
 <div x-data="{
-    expanded: false,
-    activeTab: null,
-    initialize() {
-        this.activeTab = this.$nextTick(() => {
-            // get default active tab
-            this.activeTab = this.$refs.tabHeadings.querySelector('[data-active=true]')?.dataset.name;
-
-            // If no default active tab is set, w'll use the first one
-            if (!this.activeTab && this.$refs.tabHeadings.querySelector('[data-name]')) {
-                this.activeTab = this.$refs.tabHeadings.querySelector('[data-name]').dataset.name;
-            }
-        });
-    }
-}"
-     x-init="initialize()"
-     class="not-prose bg-base-200 border-1 group relative mb-8 mt-5 rounded-2xl border-gray-400/20">
+        expanded: false,
+        activeTab: null,
+        init() {
+            this.activeTab = this.$nextTick(() => {
+                // get default active tab
+                this.activeTab = this.$refs.tabHeadings.querySelector('[data-active=true]')?.dataset.name;
+                // If no default active tab is set, w'll use the first one
+                if (!this.activeTab && this.$refs.tabHeadings.querySelector('[data-name]')) {
+                    this.activeTab = this.$refs.tabHeadings.querySelector('[data-name]').dataset.name;  
+                }
+            });
+        }
+    }"
+     class="not-prose bg-base-200 group relative mb-8 mt-5 rounded-2xl ring-1 ring-gray-400/20">
 
     {{-- Tab headings --}}
     <div x-ref="tabHeadings"
@@ -26,7 +24,7 @@
 
     {{-- Tab content container --}}
     <div class="relative min-w-full text-sm leading-6"
-         :style="expanded || !{{ json_encode($expandable) }} ? {} : { height: '{{ $initialHeight }}' }">
+         x-bind:style="expanded || !{{ json_encode($expandable) }} ? {} : { height: '{{ $initialHeight }}' }">
 
         {{-- Tab bodies --}}
         <div
