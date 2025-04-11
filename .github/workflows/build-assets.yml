@@ -23,7 +23,16 @@ jobs:
         run: npm ci
 
       - name: Build assets
-        run: npm run build
+        run: |
+          echo "Building assets..."
+          npm run build
+          
+      - name: List files in the dist directory
+        run: |
+          echo "Listing files in dist folder"
+          ls -R ./dist
+
+
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
