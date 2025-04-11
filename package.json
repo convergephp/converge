@@ -7,7 +7,10 @@
   },
   "scripts": {
     "dev": "npx @tailwindcss/cli  -i resources/css/app.css -o dist/css/converge.css --watch",
-    "dev:js": "node bin/build.js --dev"
+    "dev:js": "node bin/build.js --dev",
+    "build:css": "npx @tailwindcss/cli  -i resources/css/app.css -o dist/css/converge.css --minify",
+    "build:js": "node bin/build.js",
+    "build": "npm run build:css && npm run build:js"
   },
   "type": "module",
   "repository": {
