@@ -15,9 +15,9 @@
              return this.theme === mode;
          }
      }">
-    <span class="btn btn-ghost hover:border-primary/50 flex items-center transition-all duration-200 hover:border">
+    <span class=" flex items-center transition-all duration-200 hover:border-none">
         {{-- System Theme Button --}}
-        <span @click="setTheme('system')"
+        <span x-on:click="setTheme('system')"
               :class="{
                   'bg-white ring inset-ring ring-gray-950/10 inset-ring-white/10 dark:bg-gray-700  dark:ring-transparent': themeIs(
                       'system')
@@ -37,7 +37,7 @@
         </span>
 
         {{-- Light Theme Button --}}
-        <span @click="setTheme('light')"
+        <span x-on:click="setTheme('light')"
               :class="{
                   'bg-white ring inset-ring ring-gray-950/10 inset-ring-white/10 dark:bg-gray-700 dark:text-white dark:ring-transparent': themeIs(
                       'light')
@@ -78,7 +78,7 @@
         </span>
 
         {{-- Dark Theme Button --}}
-        <span @click="setTheme('dark')"
+        <span x-on:click="setTheme('dark')"
               :class="{
                   'bg-white ring inset-ring ring-gray-950/10 inset-ring-white/10 dark:bg-gray-700 dark:text-white dark:ring-transparent': themeIs(
                       'dark')
