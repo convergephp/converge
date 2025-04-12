@@ -38,9 +38,9 @@
                              <x-converge::search />
                          </div>
 
-                         <div class="relative ml-auto items-center justify-end lg:flex">
+                         <div class="relative ml-auto items-center justify-end gap-2 lg:flex">
 
-                             <nav class="hidden items-center text-sm lg:flex lg:text-base">
+                             <nav class="hidden items-center gap-2 text-sm lg:flex lg:text-base">
                                  <x-converge::menu-items />
                              </nav>
 
