@@ -63,13 +63,13 @@
    
     - 
 
-## 🧪 Alpha Status
+## 🧪 Beta Status
 
 We're hard at work shipping a public alpha version. Early testers are welcome — and very much appreciated! 🙏
 
 Want to get involved or preview? Stay tuned for:
 
-- Tagged alpha releases
+- Tagged beta releases
 - GitHub discussions
 - Feedback channels
   
