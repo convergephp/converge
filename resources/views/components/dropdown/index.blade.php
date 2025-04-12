@@ -38,7 +38,7 @@
              x-on:click.away="close($refs.button)"
              x-bind:id="$id('dropdown-button')"
              style="display: none;"
-             {{ $items->attributes->merge(['class' => 'rounded-box bg-base-200 flex flex-col gap-y-1 font-base px-1 py-2 border border-base-300']) }}>
+             {{ $items->attributes->merge(['class' => 'rounded-box bg-base-200 flex flex-col gap-y-1 font-base px-1 py-1 border border-base-300']) }}>
             {{ $items }}
         </div>
 
