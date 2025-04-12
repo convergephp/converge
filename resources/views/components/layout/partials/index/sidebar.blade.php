@@ -50,9 +50,9 @@
         </div>
 
         <!-- Sidebar Content -->
-        <div class="no-scrollbar flex-1 overflow-y-auto px-2 py-6"
+        <div class="scrollbar-hidden flex-1 overflow-y-auto py-6"
              id="sidebar">
-            <div class="no-scrollbar overflow-y-auto text-sm lg:text-base">
+            <div class="scrollbar-hidden overflow-y-auto text-sm lg:text-base">
                 <x-converge::sidebar x-on:click="close()" />
             </div>
         </div>

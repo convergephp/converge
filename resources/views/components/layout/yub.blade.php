@@ -15,7 +15,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
         <header id="site-header"
                 class="shadow-base-300 fixed top-0 z-20 flex h-[64px] w-full flex-none flex-col shadow-[0px_1px_0px] backdrop-blur-lg">
             <div class="w-full">
-                <div class="scroll-nojump px-2 lg:px-4">
+                <div class="scroll-nojump px-2">
                     <div
                          class="mx-auto flex min-h-16 w-full max-w-screen-2xl items-center justify-between gap-x-4 py-3 sm:h-16">
                         <div class="md:min-w-sm flex max-w-full items-center justify-start gap-4">
@@ -97,7 +97,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 <!-- Sidebar -->
                 <aside x-cloak
                        :class="{ 'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen }"
-                       class="lg:basis-70 bg-base-200 border-r border-r-base-300 group fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto px-2 pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
+                       class="lg:basis-70 bg-base-200 border-r border-r-base-300 group fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto scrollbar-hidden px-2 pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
 
                     <!-- Version selector (conditionally shown) -->
                     @if ($hasVersions)
