@@ -12,5 +12,5 @@ enum Layout: string
 
     case New = 'new';
 
-    case Yub = "yub";
+    case Yub = 'yub';
 }
