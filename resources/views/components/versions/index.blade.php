@@ -3,7 +3,7 @@
     $usedVersion = \Fluxtor\Converge\converge()->getUiUsedVersion();
 @endphp
 
-<div class='flex items-center'>
+<div {{ $attributes->merge(['class' => 'flex items-center']) }}>
     @if (count($versions) === 1)
         <div
              class="btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
