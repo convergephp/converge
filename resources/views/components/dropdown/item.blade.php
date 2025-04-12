@@ -5,7 +5,7 @@
 <div role="menuitem"
      tabindex="-1"
      {{ $attributes->merge([
-         'class' => 'btn btn-ghost hover:bg-primary/10 btn-sm',
+         'class' => 'px-2 py-1 hover:bg-primary/10 rounded-field hover:text-primary transition-colors duration-200 ',
      ]) }}
      x-data="{
          show: false,

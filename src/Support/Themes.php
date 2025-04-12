@@ -14,7 +14,7 @@ class Themes
         '--color-base-200' => 'oklch(0.985 0.001 106.423)',
         '--color-base-300' => 'oklch(91.586% 0.006 53.44)',
         '--color-base-content' => 'oklch(23.574% 0.066 313.189)',
-        '--color-primary' => 'oklch(0.606 0.25 292.717)',
+        '--color-primary' => '#03acbf',
         '--color-primary-content' => 'white',
         '--color-secondary' => 'oklch(89% 0.061 343.231)',
         '--color-secondary-content' => 'oklch(45% 0.187 3.815)',
