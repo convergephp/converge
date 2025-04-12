@@ -101,7 +101,7 @@ class Theme
      * @param  mixed  $name  e.g : grid (default) , 'hive'
      * @return void
      */
-    public function spotlight(?Spotlight $name = Spotlight::Grid): static
+    public function spotlight(?Spotlight $name = Spotlight::Strock): static
     {
         $this->spotlightName = $name;
 
