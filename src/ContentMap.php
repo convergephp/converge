@@ -7,6 +7,7 @@ namespace Fluxtor\Converge;
 class ContentMap
 {
     protected ?string $activeShowRouteName = null;
+
     public function __construct(
         protected FilesTreeBuilder $filesTreeBuilder,
         protected ?string $url = null
@@ -62,12 +63,11 @@ class ContentMap
     public function getNextPage()
     {
 
-
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
 
         $currentIndex = array_search($this->url, $keys, true);
 
-        if ($currentIndex === false || !isset($keys[$currentIndex + 1])) {
+        if ($currentIndex === false || ! isset($keys[$currentIndex + 1])) {
             return null;
         }
 
@@ -82,12 +82,13 @@ class ContentMap
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
 
         $currentIndex = array_search($this->url, $keys, true);
-        
-        if ($currentIndex === false || !isset($keys[$currentIndex - 1])) {
+
+        if ($currentIndex === false || ! isset($keys[$currentIndex - 1])) {
             return null;
         }
 
         $url = $keys[$currentIndex - 1];
+
         return $this->generateUrlAndLabel($url);
     }
 
@@ -95,9 +96,9 @@ class ContentMap
     {
         return (object) [
             'label' => FilesTreeBuilder::formatLabel($url),
-            'url' => route($this->activeShowRouteName . '.show', [
-                'url' => $url
-            ])
+            'url' => route($this->activeShowRouteName.'.show', [
+                'url' => $url,
+            ]),
         ];
     }
 
