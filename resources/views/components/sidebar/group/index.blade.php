@@ -12,7 +12,9 @@ $isOpen = \Fluxtor\Converge\has_active_child($items) || false;
             toggle() {
                 this.isOpen = !this.isOpen;
             }
-        }" @endif>
+        }"
+        @else
+        x-data="{isOpen: true}" @endif>
     <button class="text-base-content flex w-full items-center p-2 text-base transition duration-75"
             type="button"
             x-on:click="toggle()"

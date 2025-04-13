@@ -38,9 +38,9 @@ class Themes
         '--border' => '.5px',
         '--depth' => '0.25rem',
         '--noise' => '0.5',
-        '--text-sm' => '0.94rem',
+        '--text-sm' => '0.88rem',
         '--text-base' => '0.94rem',
-        '--font-weight' => '500',
+        '--font-weight' => '400',
     ];
 
     /**
@@ -76,8 +76,8 @@ class Themes
         '--border' => '.5px',
         '--depth' => '0.25rem',
         '--noise' => '0.5',
-        '--text-sm' => '0.94rem',
+        '--text-sm' => '0.88rem',
         '--text-base' => '0.94rem',
-        '--font-weight' => '500',
+        '--font-weight' => '400',
     ];
 }

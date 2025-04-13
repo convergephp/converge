@@ -66,11 +66,21 @@ use function Fluxtor\Converge\intercept;
     <script>
         // hack to prevent light flicker at load time in slow connections (chrome)
         (function() {
-            let theme = localStorage.getItem('theme') ?? 'system';
+            // Définir le thème par défaut comme "dark" si aucun thème n'est défini
+            let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
+
+            // Si le thème est "system", vérifier les préférences du système
             if (theme === 'system') {
                 theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
                     'dark' :
                     'light';
+            }
+
+            // Ajouter la classe 'dark' à l'élément HTML pour Tailwind CSS
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
             }
 
             const root = document.documentElement;
@@ -85,6 +95,10 @@ use function Fluxtor\Converge\intercept;
                     root.style.setProperty(key, value);
                 });
             }
+
+            if (!localStorage.getItem('theme')) {
+                localStorage.setItem('theme', 'dark');
+            }
         })();
     </script>
 
@@ -96,7 +110,7 @@ use function Fluxtor\Converge\intercept;
     })"
           {{ $attributes->class([
               'converge-body',
-              'font-display relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  font-normal dark:text-white',
+              'font-display scrollbar-hidden relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  font-normal dark:text-white',
           ]) }}>
         {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
