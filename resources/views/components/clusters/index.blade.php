@@ -18,15 +18,15 @@
                href="{{ $cluster->getUrl() }}">
                 @if (filled($cluster->getIcon()))
                     <span @class([
-                        'group-hover:bg-primary/50 rounded-field btn btn-square btn-xs lg:!btn-sm mr-3 border border-gray-400/20 bg-transparent',
-                        '!bg-primary/50' => $cluster->getId() === $id,
+                        'group-hover:bg-primary/20 rounded-selector btn btn-square btn-xs lg:!btn-sm mr-3 border border-gray-400/20 bg-transparent',
+                        '!bg-primary/20' => $cluster->getId() === $id,
                     ])>
                         {!! $cluster->getIcon() !!}
                     </span>
                 @else
                     <span @class([
-                        'group-hover:bg-primary/50 rounded-field btn btn-square btn-xs lg:!btn-sm mr-3 border border-gray-400/20 bg-transparent',
-                        '!bg-primary/50' => $cluster->getId() === $id,
+                        'group-hover:bg-primary/20 rounded-selector btn btn-square btn-xs lg:!btn-sm mr-3 border border-gray-400/20 bg-transparent',
+                        '!bg-primary/20' => $cluster->getId() === $id,
                     ])>
                         <x-converge::icon icon="ghost"
                                           class="size-4 fill-gray-400" />
