@@ -11,6 +11,5 @@ enum Layout: string
     case Default = 'index';
 
     case New = 'new';
-
-    case Yub = 'yub';
+    case Lumen = "lumen";
 }
