@@ -11,6 +11,7 @@ import sidebar from "./components/sidebar";
 import clipboard from "./components/clipboard";
 import themeSwitcher from "./components/themeSwitcher";
 import search from "./components/search/search";
+import showContents from "./components/showContents";
 
 // plugins
 Alpine.plugin(anchor);
@@ -20,6 +21,7 @@ Alpine.plugin(Mousetrap)
 
 // components
 Alpine.data("themeSwitcher", themeSwitcher);
+Alpine.data("showContentsTweacks",showContents)
 Alpine.data("tableOfContent", tableOfContent);
 Alpine.data("codeBlockClipboard", clipboard);
 Alpine.data("tabs", tabs);
