@@ -81,9 +81,7 @@ class SidebarManager
      */
     public function getItems(): Collection
     {
-
         $tree = FilesTreeBuilder::build($this->path, $this->depth);
-        dd($tree);
         $items = SidebarBuilder::build($tree[0], baseUrl: $this->baseUrl);
         return $items;
     }

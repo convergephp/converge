@@ -57,7 +57,7 @@ final class FilesTreeBuilder
         $tree = [];
         $iterator = RecursiveDirectoryIterator::make($path);
 
-        $iterator = new FilesFilterIterator($iterator);
+        // $iterator = new FilesFilterIterator($iterator);
         // Collect and sort directory entries for consistent order across filesystems
 
         $entries = iterator_to_array($iterator);
