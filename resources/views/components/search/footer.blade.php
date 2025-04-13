@@ -1,5 +1,5 @@
-<ul class="text-base-content/60 m-0 mr-auto flex list-none gap-2 p-0 text-xs">
-    <li class="flex items-center gap-1 ltr:mr-1 rtl:pl-2">
+<ul class="text-base-content/60 border-base-300 m-0 mr-auto flex w-full list-none gap-2 px-4 py-4 text-xs">
+    <li class="flex items-center gap-2 ltr:mr-1 rtl:pl-2">
         <span class="ring-primary/20 flex rounded shadow-sm ring-1 transition duration-75">
             <kbd class="text-base-content flex items-center justify-center p-1">
                 <svg class="text-base-content/60"

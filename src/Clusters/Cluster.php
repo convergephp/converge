@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Clusters;
 
+use Closure;
 use Fluxtor\Converge\Concerns\HasLabel;
 use Fluxtor\Converge\Concerns\HasRawPath;
 use Fluxtor\Converge\Concerns\HasSort;
@@ -11,6 +12,7 @@ use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
 
+use Illuminate\Contracts\Support\Htmlable;
 use function Fluxtor\Converge\converge;
 use function Fluxtor\Converge\format_url;
 
@@ -21,6 +23,8 @@ class Cluster
     use HasSort;
 
     public ?string $route = null;
+    protected string|Closure|Htmlable|null $icon = null;
+
 
     protected ?ClusterUrlGenerator $urlGenerator = null;
 
@@ -121,4 +125,27 @@ class Cluster
 
         return $this;
     }
+
+    public function icon(string|Closure|null $icon): static
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getIcon()
+    {
+
+        return $this->evaluteIcon($this->icon);
+    }
+
+    public function evaluteIcon(string|Closure|Htmlable|null $icon)
+    {
+        if (($icon = $this->resolve($icon)) instanceof Htmlable) {
+            return $icon->toHtml();
+        }
+
+        return $this->resolve($this->icon);
+    }
+
 }

@@ -16,14 +16,14 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         {{-- open and close sidebar --}}
                         <button x-on:click="sidebarOpen = !sidebarOpen"
                                 type="button"
-                                class="btn lg:hidden btn-square btn-sm"
+                                class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 border transition-all duration-300 lg:hidden"
                                 aria-label="Toggle navigation">
 
                             {{-- Icon when menu is closed --}}
                             <svg x-show="!sidebarOpen"
                                  stroke="currentColor"
                                  fill="currentColor"
-                                 class="text-base-content h-5 w-5"
+                                 class="text-base-content h-4 w-4"
                                  stroke-width="0"
                                  viewBox="0 0 24 24"
                                  color="currentColor"
@@ -49,26 +49,28 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         <div
                              class="flex flex-grow items-center justify-between gap-x-4 lg:flex-grow-0 lg:justify-start">
                             <x-converge::logo />
-
-                            @if ($hasVersions)
-                                <x-converge::versions />
-                            @endif
                         </div>
                     </div>
 
                     <div class="flex flex-grow items-center justify-end gap-4">
                         {{-- SEARCH BUTTON --}}
-                        <div class="text-center">
-                            <x-converge::search />
+                        <div class="text-center lg:flex-grow order-2 lg:order-1">
+                            <x-converge::search class="lg:!max-w-2xl" />
+                        </div>
+
+                        <div class="order-1 lg:order-2">
+                            @if ($hasVersions)
+                                <x-converge::versions class="h-full" />
+                            @endif
                         </div>
 
                         {{-- NAVBARE ITEMS --}}
-                        <nav class="hidden items-center text-sm lg:flex lg:text-base">
+                        <nav class="items-center text-sm lg:flex order-3 lg:text-base">
                             <x-converge::menu-items />
                         </nav>
 
                         {{-- THEME SWITCHER --}}
-                        <div class="max-w-min items-center">
+                        <div class="max-w-min items-center order-4">
                             <x-converge::theme-switcher.inline class="" />
                         </div>
                     </div>
@@ -100,7 +102,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
             <div class="fixed inset-0 bg-base-200/80 z-20  lg:hidden"
                  x-show="sidebarOpen"
                  x-cloak
-                 @click="sidebarOpen = false">
+                 x-on:click="sidebarOpen = false">
             </div>
 
             {{-- Main Content Area --}}
@@ -119,7 +121,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                             {{-- TABLE OF CONTENT --}}
                             <div class="hidden min-w-[19rem] xl:block">
                                 <div
-                                     class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto">
+                                     class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto scrollbar-hidden">
                                     <x-converge::table-of-contents />
                                     {{-- Carbon ADS --}}
                                     <div class="rounded-box overflow-hidden bg-transparent p-4">

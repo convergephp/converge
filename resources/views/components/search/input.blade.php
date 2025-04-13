@@ -1,4 +1,4 @@
-<input {{ $attributes->merge(['class' => 'block w-full border-none bg-transparent text-base-content py-1.5 text-sm font-base transition duration-75 placeholder:font-normal placeholder:text-base-content/60 h-12 focus:ring-0 disabled:text-base-content/40 sm:text-sm sm:leading-6']) }}
+<input {{ $attributes->merge(['class' => 'block w-full border-none bg-transparent text-base-content  text-sm font-base transition duration-75 placeholder:font-normal placeholder:text-base-content/60 h-12 focus:ring-0 disabled:text-base-content/40 sm:text-sm sm:leading-6']) }}
        id="search-input"
        type="search"
        aria-autocomplete="both"
