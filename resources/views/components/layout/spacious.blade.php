@@ -16,14 +16,14 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         {{-- open and close sidebar --}}
                         <button x-on:click="sidebarOpen = !sidebarOpen"
                                 type="button"
-                                class="btn lg:hidden btn-square btn-sm"
+                                class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 border transition-all duration-300 lg:hidden"
                                 aria-label="Toggle navigation">
 
                             {{-- Icon when menu is closed --}}
                             <svg x-show="!sidebarOpen"
                                  stroke="currentColor"
                                  fill="currentColor"
-                                 class="text-base-content h-5 w-5"
+                                 class="text-base-content h-4 w-4"
                                  stroke-width="0"
                                  viewBox="0 0 24 24"
                                  color="currentColor"

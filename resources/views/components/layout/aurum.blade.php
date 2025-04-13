@@ -17,16 +17,16 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
         {{-- Add overlay for mobile sidebar --}}
         <div x-show="sideBarOpen"
              class="bg-base-200/80 fixed inset-0 z-30 lg:hidden"
-             @click="sideBarOpen = false"></div>
+             x-on:click="sideBarOpen = false"></div>
 
         <div class="h-full lg:ml-72">
             {{-- HEADER SECTION --}}
             <header class="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
                 {{-- DESKTOP SIDEBAR CONTAINER --}}
                 <div
-                     class="contents border-r scrollbar-hidden border-gray-400/20 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:px-6 lg:pb-8 lg:pt-4">
+                     class="contents border-r scrollbar-hidden border-gray-400/20 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:pb-8 lg:pt-4">
                     {{-- DESKTOP LOGO AND VERSION SELECTOR --}}
-                    <div class="hidden justify-between lg:flex">
+                    <div class="hidden justify-between lg:flex px-0 lg:px-4">
                         {{-- Logo component --}}
                         <x-converge::logo />
 
@@ -39,24 +39,24 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     </div>
 
                     {{-- TOP NAVIGATION BAR --}}
-                    <div class="backdrop-blur-xs bg-base-200 fixed inset-x-0 top-0 z-50 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-72 dark:bg-zinc-900/[var(--bg-opacity-dark)] dark:backdrop-blur-sm"
+                    <div class="backdrop-blur-xs bg-base-200 fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-72 dark:bg-zinc-900/[var(--bg-opacity-dark)] dark:backdrop-blur-sm"
                          style="--bg-opacity-light: 0.5; --bg-opacity-dark: 0.2;">
 
                         {{-- Bottom border for navbar --}}
                         <div class="absolute inset-x-0 top-full h-px bg-gray-400/20 transition"></div>
 
                         {{-- MOBILE LOGO AND SIDEBAR TOGGLE --}}
-                        <div class="flex items-center gap-2 lg:hidden">
+                        <div class="flex items-center gap-2 lg:hidden w-full">
                             {{-- Hamburger menu button --}}
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
-                                    class="btn btn-square btn-sm"
+                                    class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 border transition-all duration-300 lg:hidden"
                                     aria-label="Toggle navigation">
                                 {{-- Icon when menu is closed --}}
                                 <svg x-show="!sideBarOpen"
                                      stroke="currentColor"
                                      fill="currentColor"
-                                     class="text-base-content h-5 w-5"
+                                     class="text-base-content h-4 w-4"
                                      stroke-width="0"
                                      viewBox="0 0 24 24"
                                      color="currentColor"
@@ -66,7 +66,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
 
                                 {{-- Icon when menu is open --}}
                                 <svg x-show="sideBarOpen"
-                                     class="h-5 w-5"
+                                     class="h-4 w-4"
                                      xmlns="http://www.w3.org/2000/svg"
                                      fill="none"
                                      viewBox="0 0 24 24"
@@ -110,9 +110,9 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                          @click.away="sideBarOpen = false"
                          id="sidebar"
                          :class="isDesktop ? 'lg:mt-10 scrollbar-hidden lg:block bg-transparent' :
-    'fixed bottom-0 left-0 overflow-y-auto  top-14 z-40 w-full bg-base-200 px-4 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:px-6 sm:pb-10'">
+    'fixed bottom-0 left-0 overflow-y-auto scrollbar-hidden top-14 z-40 w-full bg-base-200 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:pb-10'">
                         {{-- Sidebar navigation items --}}
-                        <x-converge::sidebar.items />
+                        <x-converge::sidebar />
                     </nav>
                 </div>
             </header>

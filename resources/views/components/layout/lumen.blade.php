@@ -22,7 +22,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                             <!-- Sidebar toggle button - Mobile only -->
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
-                                    class="btn btn-square btn-sm lg:hidden"
+                                    class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 border transition-all duration-300 lg:hidden"
                                     aria-label="Toggle navigation">
                                 <!-- Icon when menu is closed -->
                                 <svg x-show="!sideBarOpen"
@@ -97,7 +97,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 <!-- Sidebar -->
                 <aside x-cloak
                        :class="{ 'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen }"
-                       class="lg:basis-70 bg-base-200 border-r-base-300 scrollbar-hidden group fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto border-r pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
+                       class="lg:basis-70 bg-base-200 border-r-base-300 scrollbar-hidden fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto border-r pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
 
                     <!-- Version selector (conditionally shown) -->
                     @if ($hasVersions)
@@ -108,7 +108,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     @endif
 
                     <!-- Sidebar navigation items -->
-                    <x-converge::sidebar.items />
+                    <x-converge::sidebar />
                 </aside>
 
                 <div class="flex min-w-0 flex-1 flex-col">
