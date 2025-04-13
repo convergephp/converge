@@ -19,23 +19,30 @@
     closeEventCallback: {{ Js::from($closeEventCallback) }},
     currentY: 0,
     moving: false,
+
     init() {
         this.$nextTick(() => {
             Alpine.effect(() => {
-                this.$refs.panel.style.transform = `translateY(${this.distance}px)`;
+                if (this.$refs.panel) {
+                    this.$refs.panel.style.transform = `translateY(${this.distance}px)`;
+                }
             });
         })
     },
+
+    open() {
+        this.isOpen = true;
+    },
+
     close() {
         this.isOpen = false;
         this.resetPosition();
     },
-    open() {
-        this.isOpen = true;
-    },
+
     get distance() {
         return this.moving ? Math.max(0, this.currentY - this.startY) : 0;
     },
+
     resetPosition() {
         this.startY = 0;
         this.currentY = 0;
@@ -43,13 +50,16 @@
             this.$refs.panel.style.transform = `translateY(0)`;
         }
     },
+
     handleMovingStart(event) {
         this.moving = true;
         this.startY = this.currentY = event.touches[0].clientY;
     },
+
     handleWhileMoving(event) {
         this.currentY = event.touches[0].clientY;
     },
+
     handleMovingEnd() {
         if (this.distance > 100) {
             this.close();
@@ -63,9 +73,9 @@
     @if (filled($openEvent))
         x-on:{{ $openEvent }}.window="open()"
     @endif
-
-    {{ $attributes->merge(['class' => 'flex justify-center']) }}>
-
+    {{ $attributes->merge(['class' => 'flex justify-center']) }}
+    >
+    <!-- Trigger Button/Element -->
     @if (filled($trigger))
         @php
             $tag = $trigger->attributes->has('isButton') ? 'button' : 'div';
@@ -78,8 +88,7 @@
             </{{ $tag }}>
     @endif
 
-    <!-- The Modal -->
-
+    <!-- Modal Container -->
     <div x-show="isOpen"
          style="display: none"
          x-on:keydown.escape.prevent.stop="close()"
@@ -88,7 +97,7 @@
          x-id="['modal-header']"
          :aria-labelledby="$id('modal-header')"
          class="fixed inset-x-0 inset-y-0 z-40 overflow-y-auto">
-        <!-- Overlay -->
+        <!-- Backdrop Overlay -->
         <div x-show="isOpen"
              x-transition:enter="transition ease-out duration-300"
              x-transition:enter-start="opacity-0"
@@ -96,49 +105,50 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="bg-base-200/70 fixed inset-0 shadow-inner backdrop-blur-md backdrop-saturate-150">
-        </div>
+             class="bg-base-200/70 fixed inset-0 shadow-inner backdrop-blur-md backdrop-saturate-150"></div>
 
-        <!-- Panel -->
+        <!-- Modal Panel -->
         <div x-show="isOpen"
              x-transition
-             x-repanel"
+             x-ref="panel"
              x-on:click="close()"
              @class([
-                 'relative flex min-h-screen items-center justify-center p-2 z-30',
+                 'relative z-30 flex min-h-screen items-center justify-center',
                  'overflow-hidden' => $scrollable,
                  'overflow-auto' => !$scrollable,
              ])>
             <div style="height: {{ $height }}vh"
                  class="w-full">
+                <!-- Close Button -->
+                {{-- <div class="relative mx-auto max-w-2xl py-1 text-end">
+                    <button type="button"
+                            class="btn btn-circle absolute -top-6 z-50 border-none"
+                            x-on:click.stop="close()">
+                        <svg class="text-base-content h-5 w-5"
+                             viewBox="0 0 20 20">
+                            <path d="M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z"
+                                  stroke="currentColor"
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div> --}}
+
+                <!-- Modal Content -->
                 <div x-on:click.stop
                      x-trap.noscroll.inert="isOpen"
                      @class([
-                         'relative max-w-2xl  mx-auto border border-base-300 overflow-y-auto rounded-box bg-base-200 text-base-content px-4 ',
+                         'relative mx-auto max-w-2xl overflow-auto rounded-box border border-base-300 bg-base-200 text-base-content',
                          'pb-4' => blank($footer),
                          'pb-2' => filled($footer),
                          'pt-4' => blank($header),
                          'pt-2' => filled($header),
                      ])>
-                    {{-- HEADER --}}
-                    <div class="relative flex flex-row-reverse items-center justify-start">
-                        {{-- close button --}}
-                        <button type="button"
-                                class="btn btn-square btn-xs absolute right-2 z-40 border-none"
-                                x-on:click.stop="close()">
-                            <svg class="text-base-content h-4 w-4"
-                                 viewBox="0 0 20 20">
-                                <path d="M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z"
-                                      stroke="currentColor"
-                                      fill="none"
-                                      fill-rule="evenodd"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round">
-                                </path>
-                            </svg>
-                        </button>
-
-                        {{-- swapabble --}}
+                    <!-- Header Section -->
+                    <div class="flex flex-row-reverse items-center justify-start">
+                        <!-- Mobile Swipe Handle -->
                         <div x-on:touchstart="handleMovingStart($event)"
                              x-on:touchmove="handleWhileMoving($event)"
                              x-on:touchend="handleMovingEnd()"
@@ -148,26 +158,25 @@
                             </div>
                         </div>
 
-                        {{-- contents container --}}
+                        <!-- Header Content -->
                         @if (filled($header))
-                            <div {{ $header->attributes->merge(['class' => 'modal-header bg-base-300 flex-grow px-2']) }}
+                            <div {{ $header->attributes->merge(['class' => 'modal-header flex-grow border-b border-base-300 px-2']) }}
                                  x-bind:id="$id('modal-header')">
                                 {{ $header }}
                             </div>
                         @endif
                     </div>
 
-                    {{-- SEARCH RESULT --}}
-                    <div class="h-full w-full overflow-y-auto"
+                    <!-- Main Content Area -->
+                    <div class="h-full w-full overflow-y-auto px-4"
                          style="max-height: {{ $scrollable ? $maxHeight . 'vh' : 'none' }}">
                         {{ $slot }}
                     </div>
 
-                    {{-- FOOTER --}}
+                    <!-- Footer Section -->
                     @if (filled($footer))
                         <footer @class([
-                            'z-30 hidden  sm:flex w-full select-none items-center mt-4 py-2 text-center',
-                            'relative',
+                            'relative z-30 mt-4 hidden w-full select-none items-center text-center sm:flex',
                         ])>
                             {{ $footer }}
                         </footer>
@@ -176,3 +185,4 @@
             </div>
         </div>
     </div>
+</div>

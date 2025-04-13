@@ -601,6 +601,21 @@
   .inset-y-\[-50\%\] {
     inset-block: -50%;
   }
+  .-top-2 {
+    top: calc(var(--spacing) * -2);
+  }
+  .-top-4 {
+    top: calc(var(--spacing) * -4);
+  }
+  .-top-6 {
+    top: calc(var(--spacing) * -6);
+  }
+  .-top-8 {
+    top: calc(var(--spacing) * -8);
+  }
+  .-top-10 {
+    top: calc(var(--spacing) * -10);
+  }
   .-top-20 {
     top: calc(var(--spacing) * -20);
   }
@@ -631,6 +646,9 @@
   .top-full {
     top: 100%;
   }
+  .-right-2 {
+    right: calc(var(--spacing) * -2);
+  }
   .right-0 {
     right: calc(var(--spacing) * 0);
   }
@@ -648,6 +666,9 @@
   }
   .right-auto {
     right: auto;
+  }
+  .-bottom-1 {
+    bottom: calc(var(--spacing) * -1);
   }
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
@@ -2192,6 +2213,9 @@
   .bg-black {
     background-color: var(--color-black);
   }
+  .bg-emerald-500 {
+    background-color: var(--color-emerald-500);
+  }
   .bg-error {
     background-color: var(--color-error);
   }
@@ -2218,6 +2242,9 @@
   }
   .bg-gray-950 {
     background-color: var(--color-gray-950);
+  }
+  .bg-green-300 {
+    background-color: var(--color-green-300);
   }
   .bg-indigo-600 {
     background-color: var(--color-indigo-600);
@@ -3495,6 +3522,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+      }
+    }
+  }
+  .hover\:bg-red-500 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-red-500);
       }
     }
   }

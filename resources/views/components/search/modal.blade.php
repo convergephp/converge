@@ -7,20 +7,21 @@
 })">
     <x-converge::modal openEvent="open-search">
         <x-slot:header
-                class="">
-            <form class="relative flex w-full items-center py-0.5">
+                class="rounded-box">
+            <form class="relative flex w-full items-center">
                 <label class="text-base-content flex items-center justify-center"
                        id="search-label"
                        for="search-input">
                     <span class="mr-3">
-                        <span>
+                        <span x-show="!isLoading">
                             <x-converge::icon icon="search"
-                                              class="size-4" />
+                                              class="size-5" />
                         </span>
-                        {{-- <span x-show="isLoading">
+
+                        <span x-show="isLoading">
                             <x-converge::icon icon="loading-indicator"
-                                              class="size-3" />
-                        </span> --}}
+                                              class="size-5" />
+                        </span>
                     </span>
                 </label>
                 <x-converge::search.input x-model.debounce.100ms="query" />

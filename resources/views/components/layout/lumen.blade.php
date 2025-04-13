@@ -53,7 +53,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                             <x-converge::logo />
 
                             <!-- Search Button -->
-                            <div class="text-center flex-grow">
+                            <div class="text-center lg:flex-grow">
                                 <x-converge::search />
                             </div>
                         </div>
