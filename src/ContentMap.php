@@ -6,6 +6,7 @@ namespace Fluxtor\Converge;
 
 class ContentMap
 {
+    protected ?string $activeShowRouteName = null;
     public function __construct(
         protected FilesTreeBuilder $filesTreeBuilder,
         protected ?string $url = null
@@ -18,6 +19,8 @@ class ContentMap
         if (empty(FilesTreeBuilder::$urlToPathMap)) {
             FilesTreeBuilder::build($path, $depth);
         }
+
+        $this->activeShowRouteName = resolve(Repository::class)->getActiveRouteName();
     }
 
     public function setUrl($url)
@@ -56,27 +59,41 @@ class ContentMap
         return FilesTreeBuilder::$urlToPathMap;
     }
 
-    public function getNextPage(){
+    public function getNextPage()
+    {
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
-    
+
         $currentIndex = array_search($this->url, $keys, true);
-    
+
         if ($currentIndex === false || !isset($keys[$currentIndex + 1])) {
-            return null; 
+            return null;
         }
-    
-        return $keys[$currentIndex + 1];
+
+        $url = $keys[$currentIndex + 1];
+        return (object)[
+            'label' => FilesTreeBuilder::formatLabel($url),
+            'url' => route($this->activeShowRouteName . '.show', [
+                'url' => $url
+            ])
+        ];
     }
 
-    public function getPrevPage(){
+    public function getPrevPage()
+    {
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
-    
+
         $currentIndex = array_search($this->url, $keys, true);
-    
+
         if ($currentIndex === false || !isset($keys[$currentIndex - 1])) {
-            return null; 
+            return null;
         }
-    
-        return $keys[$currentIndex - 1];
+
+        $url = $keys[$currentIndex - 1];
+        return (object) [
+            'label' => FilesTreeBuilder::formatLabel($url),
+            'url' => route($this->activeShowRouteName . '.show', [
+                'url' => $url
+            ])
+        ];
     }
 }

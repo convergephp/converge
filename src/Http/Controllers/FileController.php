@@ -23,7 +23,8 @@ class FileController
     {
         $this->map->setUrl($url);
 
-        dd($this->map->getPrevPage());
+        dump($this->map->getPrevPage());
+
         $path = $this->map->getFilePathByUrl($url);
 
         abort_if(is_null($path), 404);
