@@ -1,5 +1,5 @@
 <x-converge::page>
-    <div x-data="showContents">
+    <div x-data="showContentsTweacks">
         <div x-data="codeBlockClipboard"
             class="prose-pre:rounded-xl prose-pre:shadow-sm prose content [&_*]:text-base-content [&_a]:!text-accent prose-blockquote:not-italic z-10 mx-auto min-w-[320px] text-wrap text-sm leading-8 md:min-w-[576px] lg:w-[630px] lg:text-base 2xl:w-[750px] 2xl:max-w-screen-md [&_a]:mr-1 [&_a]:py-1 [&_a]:text-sm [&_a]:no-underline lg:[&_a]:text-base [&_p]:before:hidden [&_p]:after:hidden">
             {!! $contents !!}
