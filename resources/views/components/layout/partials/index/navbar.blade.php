@@ -27,7 +27,7 @@
                          {{-- sidebare toggle --}}
                          <button type="button"
                                  x-on:click="$dispatch('open-sidebar')"
-                                 class="btn btn-ghost btn-sm text-base-content inline-flex lg:hidden"><span
+                                 class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 inline-flex border transition-all duration-300 lg:hidden"><span
                                    class="sr-only">Navigation</span>
                              <x-converge::icon icon="bars-4"
                                                class="size-5" />
@@ -38,9 +38,9 @@
                              <x-converge::search />
                          </div>
 
-                         <div class="relative ml-auto items-center justify-end gap-2 lg:flex">
+                         <div class="relative ml-auto flex h-full items-center justify-end gap-2 lg:gap-4">
 
-                             <nav class="hidden items-center gap-2 text-sm lg:flex lg:text-base">
+                             <nav class="items-center gap-2 text-sm lg:text-base">
                                  <x-converge::menu-items />
                              </nav>
 

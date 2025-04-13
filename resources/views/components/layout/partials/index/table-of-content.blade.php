@@ -2,7 +2,7 @@
     use function Fluxtor\Converge\intercept;
 @endphp
 <div class="hidden min-w-[19rem] xl:block">
-    <div class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto">
+    <div class="text-base-content scrollbar-hidden sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto">
         <div class="flex flex-col">
             <x-converge::table-of-contents />
             {{-- Carbon ADS --}}

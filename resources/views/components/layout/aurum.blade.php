@@ -16,7 +16,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
          class="w-full">
         {{-- Add overlay for mobile sidebar --}}
         <div x-show="sideBarOpen"
-             class="fixed inset-0 z-30 bg-base-200/80 lg:hidden"
+             class="bg-base-200/80 fixed inset-0 z-30 lg:hidden"
              @click="sideBarOpen = false"></div>
 
         <div class="h-full lg:ml-72">
@@ -24,7 +24,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
             <header class="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
                 {{-- DESKTOP SIDEBAR CONTAINER --}}
                 <div
-                     class="contents bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto border-r border-gray-400/20 lg:px-6 lg:pb-8 lg:pt-4">
+                     class="contents border-r scrollbar-hidden border-gray-400/20 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:px-6 lg:pb-8 lg:pt-4">
                     {{-- DESKTOP LOGO AND VERSION SELECTOR --}}
                     <div class="hidden justify-between lg:flex">
                         {{-- Logo component --}}
@@ -108,8 +108,9 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                          x-init="window.addEventListener('resize', () => isDesktop = window.innerWidth >= 1024)"
                          x-show="isDesktop || sideBarOpen"
                          @click.away="sideBarOpen = false"
-                         :class="isDesktop ? 'lg:mt-10 lg:block bg-transparent' :
-    'fixed bottom-0 left-0 overflow-y-auto top-14 z-40 w-full bg-base-200 px-4 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:px-6 sm:pb-10'">
+                         id="sidebar"
+                         :class="isDesktop ? 'lg:mt-10 scrollbar-hidden lg:block bg-transparent' :
+    'fixed bottom-0 left-0 overflow-y-auto  top-14 z-40 w-full bg-base-200 px-4 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:px-6 sm:pb-10'">
                         {{-- Sidebar navigation items --}}
                         <x-converge::sidebar.items />
                     </nav>
@@ -121,13 +122,14 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                 {{-- Content section --}}
                 <main class="flex flex-auto gap-2">
                     {{-- Main content slot --}}
-                    <div class="mx-auto flex h-full flex-col overflow-hidden md:overflow-visible pb-10 pt-16">
+                    <div class="mx-auto flex h-full flex-col overflow-hidden pb-10 pt-16 md:overflow-visible">
                         {{ $slot }}
                     </div>
 
                     {{-- TABLE OF CONTENTS - Desktop only --}}
                     <div class="hidden min-w-[19rem] xl:block">
-                        <div class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto">
+                        <div
+                             class="text-base-content sticky top-24 max-h-[calc(100vh-8rem)] w-[19rem] overflow-y-auto scrollbar-hidden">
                             <x-converge::table-of-contents />
 
                             {{-- Carbon ads section --}}
