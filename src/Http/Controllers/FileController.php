@@ -23,7 +23,6 @@ class FileController
     {
         $this->map->setUrl($url);
 
-        dump($this->map->getPrevPage());
 
         $path = $this->map->getFilePathByUrl($url);
 
@@ -40,8 +39,8 @@ class FileController
         return view('converge::show', [
             'contents' => $html,
             'metadata' => $document->matter(),
-            'prev'=>$this->map->getPrevPage(),
-            'next'=>$this->map->getNextPage(),
+            'prev'=> $this->map->getPrevPage(),
+            'next'=> $this->map->getNextPage(),
         ]);
     }
 }

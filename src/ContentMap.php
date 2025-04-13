@@ -61,6 +61,8 @@ class ContentMap
 
     public function getNextPage()
     {
+
+
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
 
         $currentIndex = array_search($this->url, $keys, true);
@@ -70,7 +72,28 @@ class ContentMap
         }
 
         $url = $keys[$currentIndex + 1];
-        return (object)[
+
+        return $this->generateUrlAndLabel($url);
+    }
+
+    public function getPrevPage()
+    {
+
+        $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
+
+        $currentIndex = array_search($this->url, $keys, true);
+        
+        if ($currentIndex === false || !isset($keys[$currentIndex - 1])) {
+            return null;
+        }
+
+        $url = $keys[$currentIndex - 1];
+        return $this->generateUrlAndLabel($url);
+    }
+
+    public function generateUrlAndLabel($url)
+    {
+        return (object) [
             'label' => FilesTreeBuilder::formatLabel($url),
             'url' => route($this->activeShowRouteName . '.show', [
                 'url' => $url
@@ -78,22 +101,10 @@ class ContentMap
         ];
     }
 
-    public function getPrevPage()
+    public function getCurrentIndex()
     {
         $keys = array_keys(FilesTreeBuilder::$urlToPathMap);
 
-        $currentIndex = array_search($this->url, $keys, true);
-
-        if ($currentIndex === false || !isset($keys[$currentIndex - 1])) {
-            return null;
-        }
-
-        $url = $keys[$currentIndex - 1];
-        return (object) [
-            'label' => FilesTreeBuilder::formatLabel($url),
-            'url' => route($this->activeShowRouteName . '.show', [
-                'url' => $url
-            ])
-        ];
+        return array_search($this->url, $keys, true);
     }
 }
