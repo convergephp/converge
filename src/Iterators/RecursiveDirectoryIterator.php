@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Fluxtor\Converge\Iterators;
 
+use Fluxtor\Converge\Iterators\Filters\FilesFilterIterator;
 use RecursiveDirectoryIterator as BaseRecursiveDirectoryIterator;
+use RecursiveIterator;
 
 class RecursiveDirectoryIterator extends BaseRecursiveDirectoryIterator
 {
@@ -14,11 +16,11 @@ class RecursiveDirectoryIterator extends BaseRecursiveDirectoryIterator
         parent::__construct($path, $flags);
     }
 
-    public static function make(string $path, int $flags = 0): static
+    public static function make(string $path, int $flags = 0): RecursiveIterator
     {
-        return resolve(static::class, [
+        return new FilesFilterIterator(resolve(static::class, [
             'path' => $path,
             'flags' => $flags,
-        ]);
+        ]));
     }
 }
