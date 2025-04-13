@@ -7,27 +7,27 @@
 })">
     <x-converge::modal openEvent="open-search">
         <x-slot:header
-                class="border-base-300 border-b dark:border-gray-800">
+                class="">
             <form class="relative flex w-full items-center py-0.5">
-                <label class="flex items-center justify-center text-gray-400 dark:text-gray-600"
+                <label class="text-base-content flex items-center justify-center"
                        id="search-label"
                        for="search-input">
                     <span class="mr-3">
-                        <span x-show="!isLoading">
+                        <span>
                             <x-converge::icon icon="search"
-                                              size="5"
-                                              stroke="3" />
+                                              class="size-4" />
                         </span>
-                        <span x-show="isLoading">
-                            <x-converge::icon icon="loading-indicator" />
-                        </span>
+                        {{-- <span x-show="isLoading">
+                            <x-converge::icon icon="loading-indicator"
+                                              class="size-3" />
+                        </span> --}}
                     </span>
                 </label>
                 <x-converge::search.input x-model.debounce.100ms="query" />
             </form>
         </x-slot:header>
 
-        <div>
+        <div class="">
             <template x-if="query.length > 0">
                 <x-converge::search.results />
             </template>
@@ -68,16 +68,15 @@
                      x-on:keydown.up.stop.prevent="handleKeyUp()"
                      x-on:keydown.down.stop.prevent="handleKeyDown()">
                     <template x-if="search_history.length <=0 && favorite_items.length <=0 ">
-                        <p class="w-full p-4 text-center text-gray-700 dark:text-gray-200">Please enter a search term to
-                            get
-                            started.
+                        <p class="text-base-content/60 w-full p-4 text-center">
+                            Please enter a search term to get started.
                         </p>
                     </template>
                     <template x-if="search_history.length > 0">
                         <div>
                             <div class="top-0 z-10">
                                 <h3
-                                    class="relative flex flex-1 flex-col justify-center overflow-x-hidden text-ellipsis whitespace-nowrap px-4 py-2 text-start text-[0.9em] font-semibold capitalize text-violet-600 dark:text-violet-500">
+                                    class="text-primary relative flex flex-1 flex-col justify-center overflow-x-hidden text-ellipsis whitespace-nowrap px-4 py-2 text-start text-sm font-semibold capitalize">
                                     Recent
                                 </h3>
                             </div>
@@ -104,7 +103,7 @@
                         <div>
                             <div class="top-0 z-10">
                                 <h3
-                                    class="relative flex flex-1 flex-col justify-center overflow-x-hidden text-ellipsis whitespace-nowrap px-4 py-2 text-start text-[0.9em] font-semibold capitalize text-violet-600 dark:text-violet-500">
+                                    class="text-primary relative flex flex-1 flex-col justify-center overflow-x-hidden text-ellipsis whitespace-nowrap px-4 py-2 text-start text-sm font-semibold capitalize">
                                     Favorites
                                 </h3>
                             </div>
