@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge;
 
 use Exception;
+use Fluxtor\Converge\Iterators\Filters\FilesFilterIterator;
 use Fluxtor\Converge\Iterators\RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Cache;
 
@@ -56,14 +57,15 @@ final class FilesTreeBuilder
         $tree = [];
         $iterator = RecursiveDirectoryIterator::make($path);
 
+        $iterator = new FilesFilterIterator($iterator);
         // Collect and sort directory entries for consistent order across filesystems
 
         $entries = iterator_to_array($iterator);
 
         // Sort entries in natural sort for consistent order
-        usort($entries, fn ($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
+        usort($entries, fn($a, $b) => strnatcasecmp($a->getFilename(), $b->getFilename()));
 
-        $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
+        $normalize = fn($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
         foreach ($entries as $fileInfo) {
             $relativePath = str_replace($normalize($root), '', $fileInfo->getRealPath());
@@ -106,7 +108,7 @@ final class FilesTreeBuilder
         $segments = explode('/', $path);
 
         // Process each segment to remove numeric prefixes
-        $segments = array_map(fn ($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
+        $segments = array_map(fn($segment) => preg_replace('/^\d+-?/', '', $segment), $segments);
 
         // Join the processed segments back into a path
         $url = implode('/', $segments);
@@ -134,6 +136,6 @@ final class FilesTreeBuilder
      */
     private static function getCacheKey(string $root, int $maxDepth): string
     {
-        return 'files_tree:'.md5($root.'|'.$maxDepth);
+        return 'files_tree:' . md5($root . '|' . $maxDepth);
     }
 }
