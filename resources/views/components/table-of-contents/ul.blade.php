@@ -9,7 +9,9 @@
     @foreach ($headings as $heading)
         <li 
             class="hover:text-primary text-base-content px-2 py-1 leading-5 transition-colors duration-300"
-            x-bind:class="{ 'text-primary': '#'+ $data.activeHeading === '{{ $heading->getSlug() }}' }">
+            x-bind:class="{ 'text-primary': $data.activeHeading === '{{ ltrim($heading->getSlug(), '#') }}' }"
+            x-bind:aria-current="$data.activeHeading === '{{ ltrim($heading->getSlug(), '#') }}' ? 'location' : null"
+        >
             <a href="{{ $heading->getSlug() }}" 
                class=" text-sm">
                 {{ $heading->getLabel() }}
