@@ -11,7 +11,9 @@ export default () => ({
             heading.classList.add('group','relative','cursor-pointer')
 
             heading.addEventListener('click',() => anchor.click())
-            
+
+            anchor.textContent = anchor.textContent.replace("#", '');
+
             anchor.innerHTML = this.svg ;
         });
     },

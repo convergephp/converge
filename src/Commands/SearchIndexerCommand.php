@@ -45,9 +45,8 @@ class SearchIndexerCommand extends Command
 
         foreach ($paths as $id => $modulePaths) {
 
-            if (! file_exists($path = storage_path('converge').DIRECTORY_SEPARATOR.'.gitignore')) {
-                file_put_contents($path, "*\n");
-            }
+            
+           
 
             $folderName = storage_path('converge').DIRECTORY_SEPARATOR.$this->id($id);
 
@@ -56,6 +55,10 @@ class SearchIndexerCommand extends Command
                 mkdir($folderName, recursive: true);
             }
 
+            if (! file_exists($path = storage_path('converge').DIRECTORY_SEPARATOR.'.gitignore')) {
+                file_put_contents($path, "*\n");
+            }
+            
             // @todo: delete removed or renamed module's id.
 
             $versions = collect($modulePaths)->groupBy('version')->toArray();
