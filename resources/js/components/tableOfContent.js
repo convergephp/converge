@@ -3,6 +3,9 @@ import Alpine from "alpinejs";
 export default () => ({
     activeHeading: null,
     init() {
+        // Alpine.effect(()=>{
+        //     console.log(this.activeHeading);
+        // })
         Alpine.nextTick(()=>{
             const headingElements = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
@@ -25,7 +28,7 @@ export default () => ({
                                     : current,
                         )
 
-                        this.activeHeading = topHeading.target.querySelector('a')?.id;
+                        this.activeHeading = topHeading.target.querySelector('a')?.hash;
                     }
                 },
                 { rootMargin: '0px 0px -75% 0px', threshold: 1 },

@@ -91,12 +91,12 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                      x-transition:leave-start="opacity-100"
                      x-transition:leave-end="opacity-0"
                      class="bg-base-200/80 fixed inset-0 z-10 lg:hidden"
-                     @click="sideBarOpen = false">
+                     x-on:click="sideBarOpen = false">
                 </div>
 
                 <!-- Sidebar -->
                 <aside x-cloak
-                       :class="{ 'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen }"
+                       x-bind:class="{ 'translate-x-0': sideBarOpen, '-translate-x-full': !sideBarOpen }"
                        class="lg:basis-70 bg-base-200 border-r-base-300 scrollbar-hidden fixed top-[64px] z-[15] flex h-[calc(100vh-64px)] w-4/5 grow-0 basis-full flex-col gap-4 overflow-y-auto border-r pb-4 pt-6 shadow-lg transition-transform duration-300 ease-in-out sm:w-64 lg:relative lg:sticky lg:z-[1] lg:max-h-[calc(100vh-64px)] lg:w-auto lg:translate-x-0 lg:bg-transparent lg:shadow-none">
 
                     <!-- Version selector (conditionally shown) -->

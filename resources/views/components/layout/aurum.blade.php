@@ -107,9 +107,9 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     <nav x-data="{ isDesktop: window.innerWidth >= 1024 }"
                          x-init="window.addEventListener('resize', () => isDesktop = window.innerWidth >= 1024)"
                          x-show="isDesktop || sideBarOpen"
-                         @click.away="sideBarOpen = false"
+                         x-on:click.away="sideBarOpen = false"
                          id="sidebar"
-                         :class="isDesktop ? 'lg:mt-10 scrollbar-hidden lg:block bg-transparent' :
+                         x-bind:class="isDesktop ? 'lg:mt-10 scrollbar-hidden lg:block bg-transparent' :
     'fixed bottom-0 left-0 overflow-y-auto scrollbar-hidden top-14 z-40 w-full bg-base-200 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:pb-10'">
                         {{-- Sidebar navigation items --}}
                         <x-converge::sidebar />
