@@ -8,12 +8,10 @@
 ])>
     @foreach ($headings as $heading)
         <li 
-            class="hover:text-primary px-2 py-1 leading-5 transition-colors duration-300"
-            x-bind:class="{ 'text-primary': $data.activeHeading === '{{ ltrim($heading->getSlug(), '#') }}' }"
-            x-effect="console.log('ACTIVE:', '#'+$data.activeHeading, '| SLUG:', '{{ $heading->getSlug() }}')"
-            >
+            class="hover:text-primary text-base-content px-2 py-1 leading-5 transition-colors duration-300"
+            x-bind:class="{ 'text-primary': '#'+ $data.activeHeading === '{{ $heading->getSlug() }}' }">
             <a href="{{ $heading->getSlug() }}" 
-               class="text-base-content hover:text-primary text-sm">
+               class=" text-sm">
                 {{ $heading->getLabel() }}
             </a>
         </li>
