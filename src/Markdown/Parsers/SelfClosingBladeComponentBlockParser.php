@@ -15,6 +15,9 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
 
+// The usage of this style to inject blade components natively is postponed 
+//   to future versions since it seems buggy with
+//  some of our Blade components.
 class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;

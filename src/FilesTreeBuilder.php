@@ -48,7 +48,6 @@ final class FilesTreeBuilder
      */
     public static function tree(string $path, string $root, int $maxDepth, int $currentDepth = 0): array
     {
-        // dd('here');
         // Stop recursion if the maximum depth is reached
         if ($currentDepth >= $maxDepth) {
             return [];

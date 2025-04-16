@@ -45,9 +45,6 @@ class SearchIndexerCommand extends Command
 
         foreach ($paths as $id => $modulePaths) {
 
-            
-           
-
             $folderName = storage_path('converge').DIRECTORY_SEPARATOR.$this->id($id);
 
             if (! file_exists($folderName)) {
