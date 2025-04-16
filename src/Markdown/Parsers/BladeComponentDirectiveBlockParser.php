@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
@@ -14,13 +12,12 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
 
-class BladeComponentBlockParser extends AbstractBlockContinueParser
+class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
 
-    public function __construct(
-        public string $componentName
-    ) {
+    public function __construct()
+    {
         $this->block = new BladeComponentBlock();
     }
 
@@ -33,15 +30,16 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
+
+                if ($cursor->isIndented()) {
+                    return BlockStart::none();
+                }
+
                 $line = $cursor->getLine();
-                // dump($line);
-                $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
 
-                if (preg_match($pattern, $line, $matches)) {
-                    // dump("openning tag: $matches[1]");
-                    $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
 
-                    //    dd($block);
+                if (preg_match("/^@blade/", $line, $matches)) {
+                    $block = BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
                     return $block;
                 }
 
@@ -67,18 +65,10 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        // dd($this->componentName);
-        $line = $cursor->getLine();
-
-        $closingTag = "</x-{$this->componentName}>";
-
-        if (str_contains($line, $closingTag)) {
-            $this->block->addLine($line);
-
-            // dump("close tag: $closingTag");
+        if ($cursor->match('/^@endblade/')) {
             return BlockContinue::finished();
         }
-
+        
         return BlockContinue::at($cursor);
     }
 
