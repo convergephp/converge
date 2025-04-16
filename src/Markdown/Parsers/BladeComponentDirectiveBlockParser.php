@@ -34,13 +34,9 @@ class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
                 if ($cursor->isIndented()) {
                     return BlockStart::none();
                 }
-
-                $line = $cursor->getLine();
-
-
-                if (preg_match("/^@blade/", $line, $matches)) {
-                    $block = BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
-                    return $block;
+                
+                if ( $cursor->match("/^@blade/")) {
+                    return BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
                 }
 
                 return BlockStart::none();
@@ -68,7 +64,7 @@ class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
         if ($cursor->match('/^@endblade/')) {
             return BlockContinue::finished();
         }
-        
+
         return BlockContinue::at($cursor);
     }
 

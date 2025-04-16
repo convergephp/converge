@@ -21,11 +21,11 @@ class BladeCompilerExtension implements ExtensionInterface
          * to future versions since it seems buggy with
          * some of our Blade components. 
          */
-        
+
         // $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(), 250);
         // $environment->addBlockStartParser(SelfClosingBladeComponentBlockParser::createBlockStartParser(), 250);
 
-        $environment->addBlockStartParser(BladeComponentDirectiveBlockParser::createBlockStartParser(), 250);
+        $environment->addBlockStartParser(BladeComponentDirectiveBlockParser::createBlockStartParser(), 100);
         $environment->addRenderer(BladeComponentBlock::class, new BladeComponentRenderer());
     }
 }

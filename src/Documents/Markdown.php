@@ -39,7 +39,7 @@ class Markdown
                 new BladeCompilerExtension(),
                 new AutolinkExtension(),
                 new TaskListExtension(),
-                new BladeParserExtension(),
+                // new BladeParserExtension(),
             ],
         );
 
