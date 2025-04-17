@@ -2012,6 +2012,7 @@
   .gap-0 {
     gap: calc(var(--spacing) * 0);
   }
+
   .gap-0\.5 {
     gap: calc(var(--spacing) * 0.5);
   }
@@ -2528,6 +2529,24 @@
   .bg-success\/30 {
     background-color: color-mix(in oklab, var(--color-success) 30%, transparent);
   }
+  .bg-secondary\/6 {
+    background-color: color-mix(in oklab, var(--color-secondary) 6%, transparent);
+  }
+  .bg-success {
+    background-color: var(--color-success);
+  }
+  .bg-success\/5 {
+    background-color: color-mix(in oklab, var(--color-success) 5%, transparent);
+  }
+  .bg-success\/6 {
+    background-color: color-mix(in oklab, var(--color-success) 6%, transparent);
+  }
+  .bg-success\/10 {
+    background-color: color-mix(in oklab, var(--color-success) 10%, transparent);
+  }
+  .bg-success\/30 {
+    background-color: color-mix(in oklab, var(--color-success) 30%, transparent);
+  }
   .bg-transparent {
     background-color: transparent;
   }
@@ -2668,7 +2687,6 @@
     --tw-gradient-via: color-mix(in oklab, var(--color-primary) 40%, transparent);
     --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-via-stops);
-  }
   .via-secondary {
     --tw-gradient-via: var(--color-secondary);
     --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
@@ -2786,6 +2804,7 @@
     --tw-gradient-to: var(--color-white);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
+
   .to-white\/\[\.15\] {
     --tw-gradient-to: color-mix(in oklab, var(--color-white) 15%, transparent);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
@@ -3335,12 +3354,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-  .italic {
-    font-style: italic;
-  }
-  .underline {
-    text-decoration-line: underline;
-  }
   .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -3455,8 +3468,11 @@
   .ring-transparent {
     --tw-ring-color: transparent;
   }
-  .ring-white {
-    --tw-ring-color: var(--color-white);
+  .ring-white\/10 {
+    --tw-ring-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+  }
+  .ring-zinc-900\/10 {
+    --tw-ring-color: color-mix(in oklab, var(--color-zinc-900) 10%, transparent);
   }
   .ring-white\/10 {
     --tw-ring-color: color-mix(in oklab, var(--color-white) 10%, transparent);
@@ -3526,10 +3542,6 @@
   }
   .backdrop-saturate-150 {
     --tw-backdrop-saturate: saturate(150%);
-    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
-  }
-  .backdrop-filter {
     -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
     backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
   }
@@ -4602,6 +4614,11 @@
   .lg\:mt-10 {
     @media (width >= 64rem) {
       margin-top: calc(var(--spacing) * 10);
+    }
+  }
+  .lg\:mt-24 {
+    @media (width >= 64rem) {
+      margin-top: calc(var(--spacing) * 24);
     }
   }
   .lg\:mt-24 {
