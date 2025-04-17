@@ -316,6 +316,9 @@
     }
 }
 
+code .hl-gutter {
+    display: none !important;
+}
 
 .code-block-wrapper .code-block-copy-button {
     @apply absolute text-base-300 stroke-gray-400  transition-opacity outline-none opacity-75 right-2 top-2 hover:text-primary hover:opacity-100 ;
