@@ -6,7 +6,7 @@
 @source "../../../../resources/views/**/*.blade.php";
 @source "../../../../../resources/views/**/*.blade.php";
 @source "../../../../docs/**/*.md";
-@source "../../../../vendor/converge/converge-components/resources/views";
+@source "../../../../vendor/converge/components/resources/views";
 
 @theme {
     --color-base-100: var(--color-base-100);

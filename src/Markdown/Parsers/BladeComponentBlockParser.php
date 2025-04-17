@@ -13,6 +13,7 @@ use League\CommonMark\Parser\Block\BlockStart;
 use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
+
 /**
  *  The usage of this style to inject blade components natively is postponed
  * to future versions since it seems buggy with
@@ -41,13 +42,16 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
                 // dump($line);
                 $pattern = "/<\s*x[-:]([\w\-:.]+)>/";
 
-                if (preg_match($pattern, $line, $matches)) {
-                    // dump("openning tag: $matches[1]");
-                    $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
-
-                    //    dd($block);
-                    return $block;
+                if ($match = $cursor->match($pattern)) {
+                    return  BlockStart::of(new BladeComponentBlockParser($match))->at($cursor);
                 }
+
+                // if (preg_match($pattern, $line, $matches)) {
+                //     // dump("openning tag: $matches[1]");
+                //     $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
+                //     //    dd($block);
+                //     return $block;
+                // }
 
                 return BlockStart::none();
             }

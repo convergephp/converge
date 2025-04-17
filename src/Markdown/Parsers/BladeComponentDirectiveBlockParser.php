@@ -30,12 +30,11 @@ class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-
                 if ($cursor->isIndented()) {
                     return BlockStart::none();
                 }
-                
-                if ( $cursor->match("/^@blade/")) {
+
+                if ($cursor->match("/^@blade/")) {
                     return BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
                 }
 
