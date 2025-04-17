@@ -17,7 +17,7 @@ class ModuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'converge:make-module {name}  
+    protected $signature = 'converge:make-module {name}
                                                  {--id=}
                                                  {--route=}
                                                  {--path=}
@@ -59,7 +59,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $moduleClass = $this->constructClass($moduleName);
 
         if ((! $this->hasOption('force') ||
-                ! $this->option('force')) &&
+            ! $this->option('force')) &&
             $this->alreadyExists($moduleClass)
         ) {
             $this->components->error($this->type.' already exists.');
@@ -124,11 +124,11 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        $this->replaceId($stub, $options['id'] ?? '');
+        $this->replaceId($stub, $options['id'] ?? 'starterkit');
 
-        $this->replacePath($stub, $options['path'] ?? '');
+        $this->replacePath($stub, $options['path'] ?? "base_path('starterkit')");
 
-        $this->replaceRoutePath($stub, $options['route'] ?? '');
+        $this->replaceRoutePath($stub, $options['route'] ?? 'docs');
 
         return $stub;
     }

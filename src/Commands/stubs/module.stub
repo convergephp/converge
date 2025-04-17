@@ -4,6 +4,10 @@ namespace {{ namespace }};
 
 use Fluxtor\Converge\Module;
 use Fluxtor\Converge\Providers\ModuleProvider;
+use Fluxtor\Converge\Enums\Spotlight;
+use Fluxtor\Converge\MenuItems\MenuItem;
+use Fluxtor\Converge\MenuItems\MenuItems;
+use Fluxtor\Converge\Theme\Theme;
 
 class {{ class }} extends ModuleProvider
 {
@@ -13,9 +17,24 @@ class {{ class }} extends ModuleProvider
     public function module(Module $module): Module
     {
         return $module
+            ->default()
             ->id('{{ id }}')
             ->routePath('{{ route }}')
-            ->in({{ path }});
+            ->in({{ path }})
+            ->brandLogo("Converge")
+            ->theme(function (Theme $theme) {
+                return $theme
+                    ->spotlight(Spotlight::Strock);
+            })
+            ->defineMenuItems(function (MenuItems $menuItems) {
+                $menuItems->add(fn (MenuItem $menuItem) =>
+                    $menuItem->url('https://github.com/convergephp')
+                        ->openUrlInNewTab()
+                        ->label('Github'));
+
+                $menuItems->add(fn (MenuItem $menuItem) =>
+                    $menuItem->url('https://github.com/convergephp?sponsor=1')
+                        ->label('Sponsor'));
+            });;
     }
 }
-

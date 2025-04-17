@@ -102,7 +102,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                     <!-- Version selector (conditionally shown) -->
                     @if ($hasVersions)
                         <div x-bind:class="{ 'border-b border-gray-400/20': sideBarOpen }"
-                             class="pb-4 lg:border-b lg:border-gray-400/20">
+                             class="pb-4 lg:border-b px-2 lg:border-gray-400/20">
                             <x-converge::versions class="z-30" />
                         </div>
                     @endif
@@ -125,7 +125,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
                         <!-- Main content -->
                         <main
                               class="break-anywhere page-api-block:xl:max-2xl:pr-0 page-api-block:mx-auto page-api-block:max-w-screen-2xl page-default-width page-has-toc relative min-w-0 flex-1  py-8">
-                            <div class="px-2 lg:px-4">
+                            <div class="px-2 lg:px-0">
                                 {{ $slot }}
                             </div>
 
