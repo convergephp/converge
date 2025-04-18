@@ -2416,9 +2416,6 @@
   .text-primary {
     color: var(--color-primary);
   }
-  .text-primary\/80 {
-    color: color-mix(in oklab, var(--color-primary) 80%, transparent);
-  }
   .text-purple-500 {
     color: var(--color-purple-500);
   }
