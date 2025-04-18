@@ -26,6 +26,8 @@ jobs:
         run: |
           echo "Building assets..."
           npm run build
+      - name: pull changes 
+        run: git pull 
           
       - name: List files in the dist directory
         run: |
