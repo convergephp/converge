@@ -1,3 +1,6 @@
+@props([
+    'title' => null,
+])
 @use(Fluxtor\Converge\Facades\Converge)
 
 <?php
@@ -8,122 +11,119 @@ use function Fluxtor\Converge\intercept;
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-    <head>
+<head>
 
-        <meta charset="utf-8" />
-        <meta name="csrf-token"
-              content="{{ csrf_token() }}" />
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1" />
-        {{-- Font family link --}}
-        {{ converge()->getTheme()->getFontHtml() }}
+    <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{-- Font family link --}}
+    {{ converge()->getTheme()->getFontHtml() }}
 
-        {{-- Favicon --}}
-        @if ($favicon = converge()->getTheme()->getFavicon())
-            <link href="{{ $favicon }}"
-                  rel="icon" />
-        @endif
+    {{-- Favicon --}}
+    @if ($favicon = converge()->getTheme()->getFavicon())
+        <link href="{{ $favicon }}" rel="icon" />
+    @endif
 
-        <title>
-            {{-- {{ filled($title) ? "{$title} - " : null }} {{ $brandName }} todo --}}
-        </title>
-        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
-        <style>
-            :root {
-                --font: {{ converge()->getTheme()->getFontFamily() }};
-            }
-        </style>
+    <title>
+        {{ filled($title) ? "{$title}" : config('app.name') }}
+    </title>
+    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+    <style>
+        :root {
+            --font: {{ converge()->getTheme()->getFontFamily() }};
+        }
+    </style>
 
-        <style>
-            [x-cloak] {
-                display: none;
-            }
-        </style>
-        {!! Converge::css() !!}
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+    {!! Converge::css() !!}
 
-        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
-    </head>
+    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+</head>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sidebar = document.querySelector("#sidebar");
-            if (sidebar) {
-                const savedScroll = sessionStorage.getItem("sidebarScroll");
-                if (savedScroll !== null) {
-                    sidebar.scrollTop = parseInt(savedScroll, 10);
-                }
-
-                window.addEventListener("beforeunload", function() {
-                    sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
-                });
-            }
-        });
-    </script>
-
-    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
-    </head>
-
-    <script>
-        // hack to prevent light flicker at load time in slow connections (chrome)
-        (function() {
-            // Définir le thème par défaut comme "dark" si aucun thème n'est défini
-            let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
-
-            // Si le thème est "system", vérifier les préférences du système
-            if (theme === 'system') {
-                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
-                    'dark' :
-                    'light';
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.querySelector("#sidebar");
+        if (sidebar) {
+            const savedScroll = sessionStorage.getItem("sidebarScroll");
+            if (savedScroll !== null) {
+                sidebar.scrollTop = parseInt(savedScroll, 10);
             }
 
-            // Ajouter la classe 'dark' à l'élément HTML pour Tailwind CSS
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
+            window.addEventListener("beforeunload", function() {
+                sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
+            });
+        }
+    });
+</script>
 
-            const root = document.documentElement;
-            const themes = {
-                light: {!! converge()->getTheme()->getLightModeTheme() !!},
-                dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
-            };
+{{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+</head>
 
-            const selectedTheme = themes[theme];
-            if (selectedTheme) {
-                Object.entries(selectedTheme).forEach(([key, value]) => {
-                    root.style.setProperty(key, value);
-                });
-            }
+<script>
+    // hack to prevent light flicker at load time in slow connections (chrome)
+    (function() {
+        // Définir le thème par défaut comme "dark" si aucun thème n'est défini
+        let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
 
-            if (!localStorage.getItem('theme')) {
-                localStorage.setItem('theme', 'dark');
-            }
-        })();
-    </script>
+        // Si le thème est "system", vérifier les préférences du système
+        if (theme === 'system') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
+                'dark' :
+                'light';
+        }
 
-    <body x-data="themeSwitcher({
-        lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
-        darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
-        highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
-        highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
-    })"
-          {{ $attributes->class([
-              'converge-body',
-              'font-display scrollbar-hidden relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  font-normal dark:text-white',
-          ]) }}>
-        {{-- DYNAMIQUE CONTENT --}}
-        {{ $slot }}
-        <x-converge::search.modal />
-        {!! Converge::js() !!}
+        // Ajouter la classe 'dark' à l'élément HTML pour Tailwind CSS
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
 
-        {{-- Carbon ADS --}}
-        @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
-            <div style="font-weight: var(--font-weight)"
-                 class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-red-500 bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]">
-                {{ intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
-            </div>
-        @endif
-    </body>
+        const root = document.documentElement;
+        const themes = {
+            light: {!! converge()->getTheme()->getLightModeTheme() !!},
+            dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
+        };
+
+        const selectedTheme = themes[theme];
+        if (selectedTheme) {
+            Object.entries(selectedTheme).forEach(([key, value]) => {
+                root.style.setProperty(key, value);
+            });
+        }
+
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
+    })();
+</script>
+
+<body x-data="themeSwitcher({
+    lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
+    darkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkModeTheme()) }},
+    highlightingDarkMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getDarkmodeHighlighterCss()) }},
+    highlightingLightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightmodeHighlighterCss()) }},
+})"
+    {{ $attributes->class([
+        'converge-body',
+        'font-display scrollbar-hidden relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  font-normal dark:text-white',
+    ]) }}>
+    {{-- DYNAMIQUE CONTENT --}}
+    {{ $slot }}
+    <x-converge::search.modal />
+    {!! Converge::js() !!}
+
+    {{-- Carbon ADS --}}
+    @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
+        <div class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-red-500 bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]"
+            style="font-weight: var(--font-weight)">
+            {{ intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
+        </div>
+    @endif
+</body>
 
 </html>

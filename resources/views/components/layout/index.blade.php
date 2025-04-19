@@ -3,7 +3,7 @@ use function Fluxtor\Converge\converge;
 use function Fluxtor\Converge\has_custom_footer;
 use function Fluxtor\Converge\intercept;
 ?>
-<x-converge::layout.base>
+<x-converge::layout.base :title="$title">
     {{-- BACKGROUND EFFECTS --}}
     @include('converge::partials.background-effets')
 

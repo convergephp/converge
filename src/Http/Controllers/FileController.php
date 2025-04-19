@@ -37,7 +37,7 @@ class FileController
 
         return view('converge::show', [
             'contents' => $html,
-            'metadata' => $document->matter(),
+            'title' => $document->matter()['title'] ?? $this->map->getLabel(),
             'prev' => $this->map->getPrevPage(),
             'next' => $this->map->getNextPage(),
         ]);

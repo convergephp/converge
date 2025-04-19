@@ -76,6 +76,11 @@ class ContentMap
         return $this->generateUrlAndLabel($url);
     }
 
+    public function getLabel()
+    {
+        return FilesTreeBuilder::formatLabel($this->url);
+    }
+
     public function getPrevPage()
     {
 
@@ -96,7 +101,7 @@ class ContentMap
     {
         return (object) [
             'label' => FilesTreeBuilder::formatLabel($url),
-            'url' => route($this->activeShowRouteName.'.show', [
+            'url' => route($this->activeShowRouteName . '.show', [
                 'url' => $url,
             ]),
         ];
