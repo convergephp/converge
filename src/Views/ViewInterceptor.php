@@ -46,20 +46,21 @@ class ViewInterceptor
     {
 
         $activeModuleId = converge()->getId();
-
+        $shouldConsumed = [];
         foreach ($this->contextualPoints as $contextualPoint) {
             if ($contextualPoint['id'] === $activeModuleId) {
-                
+                $shouldConsumed[] = $contextualPoint;
             }
         }
 
         // there is no global points 
-        if (! isset($this->viewPoints[$point->value])) {
+        if (! isset($this->viewPoints[$point->value]) && !count($shouldConsumed)) {
             return null;
         }
 
-        // there is contextual points
-        
+
+        // THERE is no contextual points
+
 
         $view = $this->viewPoints[$point->value];
 
