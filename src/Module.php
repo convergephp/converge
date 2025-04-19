@@ -34,7 +34,6 @@ class Module
     use HasDepth;
     use HasId;
     use HasIndexPage;
-    use HasIndexPage;
     use HasLabel;
     use HasPath;
     use HasRoutePath;
@@ -43,7 +42,7 @@ class Module
     use HasViewsInterceptors;
     use Resolver;
 
-    // add hasTheme
+
 
     public function __construct()
     {

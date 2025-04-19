@@ -13,7 +13,7 @@ class ViewInterceptor
 {
     protected array $viewPoints = [];
 
-    public function registerViewInterceptor(Interceptor $name, Closure $interceptor): void
+    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, $withinModules = null): void
     {
 
         $this->viewPoints[$name->value] = $interceptor;
