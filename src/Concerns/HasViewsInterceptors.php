@@ -14,7 +14,7 @@ trait HasViewsInterceptors
 {
     public function intercept(Interceptor $point, Closure $view)
     {
-        resolve(ViewInterceptor::class)->registerViewInterceptor($point, $view);
+        resolve(ViewInterceptor::class)->registerViewInterceptor($point, $view, addModule: $this->id);
 
         return $this;
     }
