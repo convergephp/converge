@@ -7,6 +7,7 @@ namespace Fluxtor\Converge\Http\Controllers;
 use Fluxtor\Converge\ContentMap;
 use Fluxtor\Converge\Documents;
 use Fluxtor\Converge\Documents\Markdown;
+use Fluxtor\Converge\Support\Metadata;
 use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
 
@@ -34,6 +35,10 @@ class FileController
         $html = $markdown->convert($contents);
 
         resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings(), 10);
+        
+        resolve(Metadata::class, [
+            'frontMatter' => $document->matter()
+        ]);
 
         return view('converge::show', [
             'contents' => $html,
