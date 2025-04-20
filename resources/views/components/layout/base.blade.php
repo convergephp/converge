@@ -10,23 +10,10 @@ use function Fluxtor\Converge\intercept;
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<x-converge::layout.shared.meta :$metadata/>
 <head>
 
-    <meta charset="utf-8" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {{-- Font family link --}}
-    {{ converge()->getTheme()->getFontHtml() }}
-
-    {{-- Favicon --}}
-    @if ($favicon = converge()->getTheme()->getFavicon())
-        <link href="{{ $favicon }}" rel="icon" />
-    @endif
-
-    <title>
-        {{ filled($title) ? "{$title}" : config('app.name') }}
-    </title>
+ 
     {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     <style>
         :root {

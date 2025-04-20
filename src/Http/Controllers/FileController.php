@@ -33,11 +33,11 @@ class FileController
 
         $html = $markdown->convert($contents);
 
-        resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings());
+        resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings(), 10);
 
         return view('converge::show', [
             'contents' => $html,
-            'title' => $document->matter()['title'] ?? $this->map->getLabel(),
+            'metadata' => $document->matter() ?? ['title' => $this->map->getLabel()],
             'prev' => $this->map->getPrevPage(),
             'next' => $this->map->getNextPage(),
         ]);

@@ -14,8 +14,7 @@ class Layout extends Component
      */
     public function __construct(
         public string $name,
-        public string $title,
-
+        public array $metadata,
     ) {}
 
     /**

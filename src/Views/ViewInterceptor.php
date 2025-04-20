@@ -15,13 +15,13 @@ class ViewInterceptor
 {
     // global hooks
     protected array $viewPoints = [];
-    
+
     // scoped to one module hooks 
     protected array $pointsLookup = [];
 
     protected array $reflectionCache = [];
 
-    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, ?string $addModule = null)
+    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, ?string $addModule = null): ViewInterceptor
     {
 
         if (is_null($addModule)) {
@@ -35,7 +35,6 @@ class ViewInterceptor
     public function render($point, ?callable $context = null)
     {
 
-        $starts = hrtime(true);
         $activeModuleId = converge()->getId();
         $view = $this->pointsLookup[$activeModuleId][$point->value] ?? null;
 
