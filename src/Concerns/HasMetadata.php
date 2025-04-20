@@ -1,7 +1,7 @@
 <?php
 namespace Fluxtor\Converge\Concerns;
 trait HasMetadata{
-    public function metadata(){
+    public function metadata(\Closure $callable){
         
     }
 }
