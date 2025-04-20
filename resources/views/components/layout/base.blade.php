@@ -1,6 +1,7 @@
 @props([
-    'title' => null,
+    'metadata' => [],
 ])
+
 @use(Fluxtor\Converge\Facades\Converge)
 
 <?php
