@@ -7,10 +7,7 @@ class Metadata
 
     protected array $frontMatter = [];
 
-    public function __construct(array $frontMatter = [])
-    {
-        $this->frontMatter = $frontMatter;
-    }
+    public function __construct() {}
 
     // metadata tags
     protected array $rawMetadata = [];
@@ -112,5 +109,10 @@ class Metadata
         }
 
         return $value;
+    }
+
+    public function frontMatter(array $matter)
+    {
+        $this->frontMatter = $matter;
     }
 }

@@ -6,11 +6,19 @@ use Fluxtor\Converge\Support\Metadata;
 
 trait HasMetadata
 {
-    protected array $metadata = [];
+    protected ?Metadata $metadata = null;
+
     public function metadata(\Closure $callable): static
     {
-        $metadata = new Metadata();
-        $this->metadata = $callable($metadata, $metadata->getFrontMatter());
+        $metadata = resolve(Metadata::class);
+
+        $this->metadata = $callable($metadata);
+
         return $this;
+    }
+
+    public function getMetadata(): Metadata
+    {
+        return $this->metadata ?? resolve(Metadata::class);
     }
 }

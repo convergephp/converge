@@ -35,7 +35,8 @@ class FileController
         $html = $markdown->convert($contents);
 
         resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings(), 10);
-
+        resolve(Metadata::class)->frontMatter($document->matter() ?? ['title' => $this->map->getLabel()]);
+        // dd();
         resolve(Metadata::class, [
             'frontMatter' => $document->matter() ?? ['title' => $this->map->getLabel()]
         ]);
