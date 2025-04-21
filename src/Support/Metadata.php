@@ -13,9 +13,9 @@ class Metadata
     }
 
     // metadata tags
-    protected array $metadata = [];
+    protected array $rawMetadata = [];
     // open graphs tags
-    protected array $ogs = [];
+    protected array $rawOgs = [];
     // twitter cards tags
     protected array $twitterCards = [];
 
@@ -23,23 +23,12 @@ class Metadata
 
     public function metadata(array $metadata)
     {
-        $metaData = [];
-        foreach ($metadata as $key => $meta) {
-            $metaData[] = [$key, $meta];
-        }
-
-        $this->metadata = $metadata;
+        $this->rawMetadata = $metadata;
     }
 
     public function openGraph(array $ogs)
     {
-        $openGraphs = [];
-
-        foreach ($ogs as $key => $og) {
-            $openGraphs[] = ["og:{$key}", $og];
-        }
-
-        $this->ogs = $openGraphs;
+        $this->rawOgs = $ogs;
     }
 
     public function addCustom(array $customMetas)
@@ -69,4 +58,13 @@ class Metadata
 
         $this->twitterCards = $cards;
     }
+
+
+    public function getTwitterCards() {}
+
+    public function getOpenGraphs() {}
+
+    public function getCustomTags() {}
+
+    public function evaluate() {}
 }

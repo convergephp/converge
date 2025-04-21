@@ -35,9 +35,9 @@ class FileController
         $html = $markdown->convert($contents);
 
         resolve(TableOfContent::class)->headings(HeadingsExtractor::make($html)->getHeadings(), 10);
-        
+
         resolve(Metadata::class, [
-            'frontMatter' => $document->matter()
+            'frontMatter' => $document->matter() ?? ['title' => $this->map->getLabel()]
         ]);
 
         return view('converge::show', [
