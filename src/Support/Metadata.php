@@ -17,9 +17,9 @@ class Metadata
     // open graphs tags
     protected array $rawOgs = [];
     // twitter cards tags
-    protected array $twitterCards = [];
+    protected array $rawTwitterCards = [];
 
-    protected array $customTags = [];
+    protected array $rawCustomTags = [];
 
     public function metadata(array $metadata)
     {
@@ -45,26 +45,72 @@ class Metadata
             $tags[] = $tag;
         }
 
-        $this->customTags = $tags;
+        $this->rawCustomTags = $tags;
     }
 
-    public function twitterCards(array $tCards)
+    public function twitterCards(array $cards)
     {
-        $cards = [];
+        $this->rawTwitterCards = $cards;
+    }
 
-        foreach ($tCards as $key => $og) {
-            $cards[] = ["twitter:{$key}", $og];
+
+    public function getTwitterCards()
+    {
+        return collect($this->evaluate($this->rawTwitterCards))
+            ->map(fn($v, $k) => ["twitter:$k", $v])
+            ->values()
+            ->toArray();
+    }
+    public function getOpenGraphs()
+    {
+        return collect($this->evaluate($this->rawOgs))
+            ->map(fn($v, $k) => ["og:$k", $v])
+            ->values()
+            ->toArray();
+    }
+
+    public function getCustomTags()
+    {
+        $evaluated = $this->evaluate($this->rawCustomTags);
+
+        return collect($evaluated)->map(function ($m) {
+            $tag = "<meta";
+            foreach ($m as $k => $v) {
+                $tag .= " $k=\"$v\"";
+            }
+            return $tag . " />";
+        })->toArray();
+    }
+
+    protected function evaluate(array $data): array
+    {
+        return collect($data)->map(function ($value) {
+
+            if (is_array($value)) {
+                return $this->evaluate($value);
+            }
+
+            if (is_string($value)) {
+                return preg_replace_callback('/\$frontMatter\.([\w\.]+)/', function ($matches) {
+                    return $this->getFromFrontMatter($matches[1]) ?? '';
+                }, $value);
+            }
+            return $value;
+        })->toArray();
+    }
+
+    protected function getFromFrontMatter(string $key)
+    {
+        $segments = explode('.', $key);
+        $value = $this->frontMatter;
+
+        foreach ($segments as $segment) {
+            if (!is_array($value) || !array_key_exists($segment, $value)) {
+                return null;
+            }
+            $value = $value[$segment];
         }
 
-        $this->twitterCards = $cards;
+        return $value;
     }
-
-
-    public function getTwitterCards() {}
-
-    public function getOpenGraphs() {}
-
-    public function getCustomTags() {}
-
-    public function evaluate() {}
 }
