@@ -1,34 +1,35 @@
 name: npm-build
-
 on:
   pull_request:
     branches:
       - master
     types:
       - closed
-permissions:
-        contents: write
 jobs:
   npm-build:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    permissions:
+        contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: convergephp/checkout@v3
         with:
           ref: master
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
+          
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: convergephp/setup-node@v2
       
       - name: Install dependencies
         run: npm ci
-
+        
       - name: Build assets
         run: |
           echo "Building assets..."
           npm run build
+          
       - name: pull changes 
         run: git pull 
           
@@ -36,10 +37,9 @@ jobs:
         run: |
           echo "Listing files in dist folder"
           ls -R ./dist
-
-
+          
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: convergephp/git-auto-commit-action@v4
         with:
           branch: master
           commit_message: >
