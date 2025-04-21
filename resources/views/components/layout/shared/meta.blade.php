@@ -2,9 +2,9 @@
 
 @php
     use function Fluxtor\Converge\converge;
-    // $metadata = converge()->getMetadata();
+    $metadata = converge()->getMetadata();
     $appName = config('app.name');
-    $title = $metadata['title'] ?? $appName;
+    $title = $metadata['title'] ;
     $description = $metadata['description'] ?? 'Welcome to ' . $appName;
     $url = $metadata['url'] ?? url()->current();
     // $image = $metadata['image'] ?? converge()->getTheme()->getShareImage(); // e.g. OG image
@@ -26,7 +26,7 @@
     {{ filled($metadata['title']) ? "{$metadata['title']} - {$appName}" : $appName }}
 </title>
 
-@dd(converge()->getMetadata())
+@dd(converge()->getMetadata()->getOpenGraphs())
 {{-- Meta SEO --}}
 <meta name="description" content="{{ $description }}" />
 <meta name="robots" content="index, follow" />

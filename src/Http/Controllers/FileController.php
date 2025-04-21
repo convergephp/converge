@@ -10,6 +10,7 @@ use Fluxtor\Converge\Documents\Markdown;
 use Fluxtor\Converge\Support\Metadata;
 use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
+use Illuminate\Support\Benchmark;
 
 class FileController
 {
@@ -50,22 +51,22 @@ class FileController
 
         // Convert markdown to HTML
         $html = $markdown->convert($contents);
-        
-        // Generate table of contents from the HTML content
+
+        // Generate table of contents from the HTML content (this task took > 5ms so @todo: add some caching mechanism)
         resolve(TableOfContent::class)->headings(
             HeadingsExtractor::make($html)->getHeadings()
         );
 
         // Set metadata using the front matter or fallback to the label from the content map
         resolve(Metadata::class)->frontMatter(
-            $document->matter() ?? ['title' => $this->map->getLabel()]
+            $document->matter() ?? ['title' => $this->map->getLabel() . '-' . config('app.name')]
         );
 
         return view('converge::show', [
-            'contents' => $html, 
+            'contents' => $html,
             'metadata' => $document->matter() ?? ['title' => $this->map->getLabel()], // front matter
-            'prev' => $this->map->getPrevPage(), 
-            'next' => $this->map->getNextPage(), 
+            'prev' => $this->map->getPrevPage(),
+            'next' => $this->map->getNextPage(),
         ]);
     }
 }
