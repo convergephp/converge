@@ -12,18 +12,18 @@ jobs:
     permissions:
         contents: write
     steps:
-      - name: Checkout code
+      - name: Manual checkout
         run: |
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git .
           git checkout master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node
+      - name: Use Node.js
         run: |
-          curl -sL https://deb.nodesource.com/setup_16.x | bash -
-          apt-get install -y nodejs
+          echo "Node.js version:"
           node --version
+          echo "npm version:"
           npm --version
       
       - name: Install dependencies
