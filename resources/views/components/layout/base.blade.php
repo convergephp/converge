@@ -18,6 +18,14 @@ use function Fluxtor\Converge\intercept;
         {{-- Font family link --}}
         {{ converge()->getTheme()->getFontHtml() }}
 
+        {{-- Components build assets --}}
+        @if (file_exists(public_path('vendor/converge/components/css/components.css')))
+            <link rel="stylesheet"
+                  href="{{ asset('vendor/converge/components/css/components.css') }}">
+        @endif
+
+        {!! Converge::css() !!}
+
         {{-- Favicon --}}
         @if ($favicon = converge()->getTheme()->getFavicon())
             <link href="{{ $favicon }}"
@@ -39,7 +47,6 @@ use function Fluxtor\Converge\intercept;
                 display: none;
             }
         </style>
-        {!! Converge::css() !!}
 
         {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     </head>

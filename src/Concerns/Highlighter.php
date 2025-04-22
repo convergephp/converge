@@ -17,7 +17,7 @@ trait Highlighter
      *
      * @param  mixed  $theme
      */
-    public function highlighterTheme(?HighlighterName $darkmodeHighlighter = HighlighterName::Night_owl, ?HighlighterName $lightmodeHighlighter = HighlighterName::Github_light): static
+    public function highlighterTheme(?HighlighterName $darkmodeHighlighter = HighlighterName::Github_dark_default, ?HighlighterName $lightmodeHighlighter = HighlighterName::Github_light): static
     {
         $darkmodeHighlighterPath = $this->generatePath($darkmodeHighlighter->value);
         $lightmodeHighlighterPath = $this->generatePath($lightmodeHighlighter->value);
@@ -47,7 +47,7 @@ trait Highlighter
      */
     public function getDarkmodeHighlighterCss(): string
     {
-        return $this->darkmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath(HighlighterName::Night_owl->value));
+        return $this->darkmodeHighlighterCss ?? $this->buildHighlightCss($this->generatePath(HighlighterName::Github_dark_default->value));
     }
 
     /**
