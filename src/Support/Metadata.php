@@ -46,14 +46,14 @@ class Metadata
         return $this->evaluate($this->rawMetadata);
     }
 
-    public function getTwitterCards()
+    public function getTwitterCards(): array
     {
         return collect($this->evaluate($this->rawTwitterCards))
             ->map(fn($v, $k) => ["twitter:$k", $v])
             ->values()
             ->toArray();
     }
-    public function getOpenGraphs()
+    public function getOpenGraphs(): array
     {
 
         return collect($this->evaluate($this->rawOgs))
@@ -62,7 +62,7 @@ class Metadata
             ->toArray();
     }
 
-    public function getCustomTags()
+    public function getCustomTags(): array
     {
         $evaluated = $this->evaluate($this->rawCustomTags);
 
@@ -90,7 +90,7 @@ class Metadata
         })->toArray();
     }
 
-    public function evaluateString(?string $value)
+    public function evaluateString(?string $value): ?string
     {
         if (is_null($value)) return null;
 
@@ -98,12 +98,12 @@ class Metadata
             return Arr::get($this->frontMatter, $matches[1], '');
         }, $value);
     }
-    public function frontMatter(array $matter)
+    public function frontMatter(array $matter): void
     {
         $this->frontMatter = $matter;
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->evaluateString($this->title)
             ?? $this->frontMatter['title'];

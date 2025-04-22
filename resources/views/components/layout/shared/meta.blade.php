@@ -25,24 +25,14 @@
     {{ $title }}
 </title>
 
-@foreach ($openGraphs as $property => $ogContent)
-    <meta property="{{ $property }}" content="{{ $ogContent }}" />
+@foreach ($openGraphs as $og)
+    <meta property="{{ $og[0] }}" content="{{ $og[1] }}" />
 @endforeach
 
-@foreach ($twitterCards as $name => $content)
-    <meta name="{{ $name }}" content="{{ $content }}" />
+@foreach ($twitterCards as  $card)
+    <meta name="{{ $card[0] }}" content="{{ $card[1] }}" />
 @endforeach
 
 @foreach ($customTags as $tag)
     {!! $tag !!}
 @endforeach
-
-<meta name="description" content="{{ $description }}" />
-<meta name="robots" content="index, follow" />
-
-<!-- twitter cards -->
-{{-- 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="{{ $metadata['title'] }}" />
-<meta name="twitter:description" content="{{ $metadata['description'] }}" />
-<meta name="twitter:image" content="{{ $metadata['image'] }}" /> --}}
