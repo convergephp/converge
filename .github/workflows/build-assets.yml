@@ -21,7 +21,6 @@ jobs:
 
       - name: Use Node.js
         run: |
-          # Les runners GitHub Actions ont déjà Node.js préinstallé 
           echo "Node.js version:"
           node --version
           echo "npm version:"
