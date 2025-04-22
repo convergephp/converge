@@ -15,6 +15,7 @@ use Fluxtor\Converge\Concerns\HasDepth;
 use Fluxtor\Converge\Concerns\HasId;
 use Fluxtor\Converge\Concerns\HasIndexPage;
 use Fluxtor\Converge\Concerns\HasLabel;
+use Fluxtor\Converge\Concerns\HasMetadata;
 use Fluxtor\Converge\Concerns\HasPath;
 use Fluxtor\Converge\Concerns\HasRoutePath;
 use Fluxtor\Converge\Concerns\HasSidebar;
@@ -33,7 +34,7 @@ class Module
     use HasCustomFooter;
     use HasDepth;
     use HasId;
-    use HasIndexPage;
+    use HasMetadata;
     use HasIndexPage;
     use HasLabel;
     use HasPath;
@@ -43,7 +44,7 @@ class Module
     use HasViewsInterceptors;
     use Resolver;
 
-    // add hasTheme
+
 
     public function __construct()
     {

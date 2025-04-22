@@ -9,7 +9,7 @@ use Fluxtor\Converge\TableOfContent\TableOfContent;
 
 trait CanHandleTableOfContent
 {
-    public ?TableOfContent $tableOfContent = null;
+    protected ?TableOfContent $tableOfContent = null;
 
     public function tableOfContent(Closure $callable): static
     {

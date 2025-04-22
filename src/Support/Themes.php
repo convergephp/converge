@@ -9,7 +9,7 @@ class Themes
     /**
      * light schema
      */
-    public const LIGHT = [
+    public static array $LIGHT = [
         '--color-base-100' => 'oklch(97.788% 0.004 56.375)',
         '--color-base-200' => 'oklch(0.985 0.001 106.423)',
         '--color-base-300' => 'oklch(91.586% 0.006 53.44)',
@@ -46,7 +46,7 @@ class Themes
     /**
      * dark schema
      */
-    public const DARK = [
+    public static array $DARK = [
         '--prose-bg' => 'black',
         '--color-base-100' => 'oklch(20% 0 0)',
         '--color-base-200' => 'oklch(14.1% 0.005 285.823)',
@@ -80,4 +80,23 @@ class Themes
         '--text-base' => '0.94rem',
         '--font-weight' => '400',
     ];
+
+    // can be used to override variables for both themes
+    public static function override(array $palettes = [])
+    {
+        return [
+            'darkModeTheme' => static::overrideDark($palettes),
+            'lightModeTheme' =>  static::overrideLight($palettes)
+        ];
+    }
+
+    public static function overrideDark(array $palettes = [])
+    {
+        return  array_merge(self::$DARK, $palettes);
+    }
+
+    public static function overrideLight(array $palettes = [])
+    {
+        return self::$LIGHT = array_merge(self::$LIGHT, $palettes);
+    }
 }

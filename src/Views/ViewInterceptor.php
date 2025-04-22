@@ -9,25 +9,50 @@ use Fluxtor\Converge\Enums\Interceptor;
 use ReflectionClass;
 use ReflectionFunction;
 
+use function Fluxtor\Converge\converge;
+
 class ViewInterceptor
 {
+    // global hooks
     protected array $viewPoints = [];
 
-    public function registerViewInterceptor(Interceptor $name, Closure $interceptor): void
+    // scoped to one module hooks 
+    protected array $pointsLookup = [];
+
+    protected array $reflectionCache = [];
+
+    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, ?string $addModule = null): ViewInterceptor
     {
 
-        $this->viewPoints[$name->value] = $interceptor;
+        if (is_null($addModule)) {
+            $this->viewPoints[$name->value] = $interceptor;
+        } else {
+            $this->pointsLookup[$addModule][$name->value] = $interceptor;
+        }
+        return $this;
     }
 
     public function render($point, ?callable $context = null)
     {
-        if (! isset($this->viewPoints[$point->value])) {
-            return null;
+
+        $activeModuleId = converge()->getId();
+        $view = $this->pointsLookup[$activeModuleId][$point->value] ?? null;
+
+        if (! $view && isset($this->viewPoints[$point->value])) {
+            $view = $this->viewPoints[$point->value];
         }
 
-        $view = $this->viewPoints[$point->value];
+        if (is_null($view)) return null;
 
-        $reflector = new ReflectionFunction($view);
+
+        $key = spl_object_hash($view);
+
+        if (! isset($this->reflectionCache[$key])) {
+            $this->reflectionCache[$key] = new ReflectionFunction($view);
+        }
+
+        $reflector = $this->reflectionCache[$key];
+
 
         if (is_null($context) || $reflector->getNumberOfParameters() === 0) {
             return value($view);

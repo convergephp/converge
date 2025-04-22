@@ -60,8 +60,13 @@ class Theme
      *
      * @param  mixed  $variables
      */
-    public function theme(array $darkModeTheme = Themes::DARK, array $lightModeTheme = Themes::LIGHT): static
+    public function theme(?array $darkModeTheme = null, ?array $lightModeTheme = null): static
     {
+        // dd($darkModeTheme);
+
+        $darkModeTheme ??= Themes::$DARK;
+        $lightModeTheme ??= Themes::$LIGHT;
+
         $this->darkModeCss = $this->rootCssGenerator($darkModeTheme);
         $this->lightModeCss = $this->rootCssGenerator($lightModeTheme);
 
@@ -73,7 +78,7 @@ class Theme
      */
     public function getDarkModeTheme(): string
     {
-        return $this->darkModeCss ?? $this->defaultTheme(Themes::DARK);
+        return $this->darkModeCss ?? $this->defaultTheme(Themes::$DARK);
     }
 
     /**
@@ -81,7 +86,7 @@ class Theme
      */
     public function getLightModeTheme(): string
     {
-        return $this->lightModeCss ?? $this->defaultTheme(Themes::LIGHT);
+        return $this->lightModeCss ?? $this->defaultTheme(Themes::$LIGHT);
     }
 
     /**

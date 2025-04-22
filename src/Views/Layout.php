@@ -14,6 +14,7 @@ class Layout extends Component
      */
     public function __construct(
         public string $name,
+        public array $metadata,
     ) {}
 
     /**
@@ -21,6 +22,6 @@ class Layout extends Component
      */
     public function render(): View
     {
-        return view('converge::components.layout.'.$this->name);
+        return view('converge::components.layout.' . $this->name);
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
@@ -14,18 +12,12 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
 
-/**
- *  The usage of this style to inject blade components natively is postponed
- * to future versions since it seems buggy with
- * some of our Blade components. 
- */
-class BladeComponentBlockParser extends AbstractBlockContinueParser
+class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
 
-    public function __construct(
-        public string $componentName
-    ) {
+    public function __construct()
+    {
         $this->block = new BladeComponentBlock();
     }
 
@@ -38,19 +30,13 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-                // $line = $cursor->getLine();
-
-
-                if ($match = $cursor->match("/<\s*x[-:]([\w\-:.]+)>/")) {
-                    return  BlockStart::of(new BladeComponentBlockParser($match))->at($cursor);
+                if ($cursor->isIndented()) {
+                    return BlockStart::none();
                 }
 
-                // if (preg_match($pattern, $line, $matches)) {
-                //     // dump("openning tag: $matches[1]");
-                //     $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
-                //     //    dd($block);
-                //     return $block;
-                // }
+                if ($cursor->match("/^@blade/")) {
+                    return BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
+                }
 
                 return BlockStart::none();
             }
@@ -74,16 +60,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
-        $line = $cursor->getLine();
-
-        $closingTag = "</x-{$this->componentName}>";
-
-        if ($cursor->match($closingTag)) {
-            return BlockContinue::finished();
-        }
-
-        if (str_contains($line, $closingTag)) {
-            $this->block->addLine($line);
+        if ($cursor->match('/^@endblade/')) {
             return BlockContinue::finished();
         }
 

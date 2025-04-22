@@ -28,7 +28,7 @@ class MenuItem
     public function visible(bool|Closure $condition = true)
     {
         if ($condition instanceof Closure) {
-            // $reflector = new \ReflectionFunction($condition);
+            // @todo: handle resolvation using attributes 
         }
 
         $this->isVisible = $condition;

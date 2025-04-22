@@ -18,7 +18,7 @@ class BladeParserExtension implements ExtensionInterface, NodeRendererInterface
     public function register(EnvironmentBuilderInterface $environment): void
     {
         $environment->addRenderer(FencedCode::class, $this, 100);
-        $environment->addRenderer(IndentedCode::class, $this, 100);
+        // $environment->addRenderer(IndentedCode::class, $this, 100);
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer)

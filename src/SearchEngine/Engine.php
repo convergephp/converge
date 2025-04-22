@@ -86,9 +86,7 @@ class Engine
         if (! file_exists($path) || ! is_readable($path)) {
             // Optionally, log an error or handle as needed
             Log::error("File not found or not readable: {$path} did you index your search resources ?");
-
-            // throw new \Exception("File not found  or not readable: {$path}");
-            return [];
+            throw new \Exception("File not found  or not readable: {$path}");
         }
 
         // Load and return the file content

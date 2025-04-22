@@ -1,9 +1,10 @@
+@props(['metadata'])
 <?php
 use function Fluxtor\Converge\converge;
 use function Fluxtor\Converge\has_custom_footer;
 use function Fluxtor\Converge\intercept;
 ?>
-<x-converge::layout.base>
+<x-converge::layout.base :$metadata>
     {{-- BACKGROUND EFFECTS --}}
     @include('converge::partials.background-effets')
 

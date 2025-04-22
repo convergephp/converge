@@ -7,15 +7,14 @@ namespace Fluxtor\Converge\Concerns;
 use Closure;
 use InvalidArgumentException;
 
+use function Fluxtor\Converge\format_url;
+
 trait HasUrl
 {
     protected string|Closure|null $url;
 
     public function url(string|Closure|null $url): static
     {
-        if (is_string($url) && ! filter_var($url, FILTER_VALIDATE_URL)) {
-            throw new InvalidArgumentException("Invalid URL provided: {$url} on the module provider");
-        }
         $this->url = $url;
 
         return $this;
@@ -28,6 +27,7 @@ trait HasUrl
 
     public function getRoute(): ?string
     {
-        return $this->resolve($this->url);
+
+        return format_url($this->resolve($this->url));
     }
 }
