@@ -40,7 +40,6 @@ class Metadata
         $this->title = $title;
     }
 
-
     public function getMetadata()
     {
         return $this->evaluate($this->rawMetadata);
@@ -48,22 +47,27 @@ class Metadata
 
     public function getTwitterCards(): array
     {
-        return collect($this->evaluate($this->rawTwitterCards))
-            ->map(fn($v, $k) => ['name' => "twitter:$k", 'content' => $v])->values()
-            ->toArray();
+        return $this->build($this->rawTwitterCards, 'twitter');
     }
+
     public function getOpenGraphs(): array
     {
-        $tags = [];
-        foreach ($this->evaluate($this->rawOgs) as $key => $og) {
-            $tags[] = ["og:$key" => $og];
-            dump($tags);
-        }
+        return $this->build($this->rawOgs, 'og');
+    }
 
 
-        return collect($this->evaluate($this->rawOgs))
-            ->map(fn($v, $k) => ['property' => "og:$k", 'content' => $v])->values()
-            ->toArray();
+
+    public function getCustomTags(): array
+    {
+        $evaluated = $this->evaluate($this->rawCustomTags);
+
+        return collect($evaluated)->map(function ($m) {
+            $tag = "<meta";
+            foreach ($m as $k => $v) {
+                $tag .= " $k=\"$v\"";
+            }
+            return $tag . " />";
+        })->toArray();
     }
 
     public function build(array $cTags, string $prefix)
@@ -73,22 +77,6 @@ class Metadata
             $tags[] = ["$prefix:$key" => $v];
         }
         return $tags;
-    }
-
-    public function getCustomTags(): array
-    {
-        $evaluated = $this->evaluate($this->rawCustomTags);
-
-        return array_merge(
-            $this->defaultOgs(),
-            collect($evaluated)->map(function ($m) {
-                $tag = "<meta";
-                foreach ($m as $k => $v) {
-                    $tag .= " $k=\"$v\"";
-                }
-                return $tag . " />";
-            })->toArray()
-        );
     }
 
     protected function evaluate(array $data): array
@@ -132,11 +120,12 @@ class Metadata
 
     public function defaultOgs(): array
     {
+        $title = $this->getTitle();
         return [
-            ['property' => 'og:title', 'content' => $this->getTitle()],
-            ['property' => 'og:type', 'content' => 'article'],
-            ['property' => 'og:description', 'content' => 'welcome to ' . $this->getTitle() . ' documentation'],
-            ['property' => 'og:image', 'content' => 'https://convergephp.com/images/open-graph-image.png'],
+            ['og:title' => $title],
+            ['og:type' => 'article'],
+            ['og:description' => 'welcome to ' . $title . ' documentation'],
+            ['og:image' => 'https://convergephp.com/images/open-graph-image.png'],
         ];
     }
 }

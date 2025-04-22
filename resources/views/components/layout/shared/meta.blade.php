@@ -14,7 +14,6 @@
 
 {{ converge()->getTheme()->getFontHtml() }}
 
-
 @if ($favicon = converge()->getTheme()->getFavicon())
     <link href="{{ $favicon }}" rel="icon" />
 @endif
@@ -25,12 +24,12 @@
     {{ $title }}
 </title>
 
-@foreach ($openGraphs as $og)
-    <meta property="{{ $og[0] }}" content="{{ $og[1] }}" />
+@foreach ($openGraphs as $key => $og)
+    <meta property="{{ $key }}" content="{{ $og }}" />
 @endforeach
 
-@foreach ($twitterCards as  $card)
-    <meta name="{{ $card[0] }}" content="{{ $card[1] }}" />
+@foreach ($twitterCards as $key => $card)
+    <meta name="{{ $key }}" content="{{ $card }}" />
 @endforeach
 
 @foreach ($customTags as $tag)
