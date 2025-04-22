@@ -5,19 +5,19 @@ on:
       - master
     types:
       - closed
+permissions:
+    contents: write 
 jobs:
   npm-build:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
-    permissions:
-        contents: write
     steps:
       - name: Checkout code
         run: |
           git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git .
           git checkout master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Setup Node
         run: |
