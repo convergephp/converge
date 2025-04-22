@@ -46,6 +46,6 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
-          git add ./dist
+          git add -f ./dist
           git commit -m "chore: build assets" || echo "No changes to commit"
           git push origin master
