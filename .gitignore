@@ -2,6 +2,6 @@
 /features.todo
 /.phpunit.cache/
 /node_modules/
-# /dist/
+/dist/
 /build
 /resources/views/markdown.md
