@@ -9,38 +9,42 @@ class Metadata
 {
 
     protected array $frontMatter = [];
-
-    public function __construct() {}
-
-    // metadata tags
+    protected ?string $title = null;
     protected array $rawMetadata = [];
-    // open graphs tags
     protected array $rawOgs = [];
-    // twitter cards tags
     protected array $rawTwitterCards = [];
-
     protected array $rawCustomTags = [];
 
-    public function metadata(array $metadata)
+    public function metadata(array $metadata): void
     {
         $this->rawMetadata = $metadata;
     }
 
-    public function openGraph(array $ogs)
+    public function openGraph(array $ogs): void
     {
         $this->rawOgs = $ogs;
     }
 
-    public function addCustom(array $tags)
+    public function addCustom(array $tags): void
     {
         $this->rawCustomTags = $tags;
     }
 
-    public function twitterCards(array $cards)
+    public function twitterCards(array $cards): void
     {
         $this->rawTwitterCards = $cards;
     }
 
+    public function title(string $title)
+    {
+        $this->title = $title;
+    }
+
+
+    public function getMetadata()
+    {
+        return $this->evaluate($this->rawMetadata);
+    }
 
     public function getTwitterCards()
     {
@@ -60,8 +64,6 @@ class Metadata
 
     public function getCustomTags()
     {
-        Benchmark::dd([fn() => $this->evaluate($this->rawCustomTags)], 10);
-
         $evaluated = $this->evaluate($this->rawCustomTags);
 
         return collect($evaluated)->map(function ($m) {
@@ -77,9 +79,7 @@ class Metadata
     {
         return collect($data)->map(function ($value) {
             if (is_string($value)) {
-                return preg_replace_callback('/\$frontMatter\.([\w\.]+)/', function ($matches) {
-                    return Arr::get($this->frontMatter, $matches[1], '');
-                }, $value);
+                return $this->evaluateString($value);
             }
 
             if (is_array($value)) {
@@ -90,9 +90,23 @@ class Metadata
         })->toArray();
     }
 
+    public function evaluateString(?string $value)
+    {
+        if (is_null($value)) return null;
+
+        return preg_replace_callback('/\$frontMatter\.([\w\.]+)/', function ($matches) {
+            return Arr::get($this->frontMatter, $matches[1], '');
+        }, $value);
+    }
     public function frontMatter(array $matter)
     {
         $this->frontMatter = $matter;
+    }
+
+    public function getTitle()
+    {
+        return $this->evaluateString($this->title)
+            ?? $this->frontMatter['title'];
     }
 
     public function getFrontMatter()
