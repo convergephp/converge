@@ -126,7 +126,7 @@ class Theme
      *
      * @param  mixed  $style
      */
-    public function sidebarItemStyle(?array $style = SidebarItemsStyles::STYLE1): static
+    public function sidebarItemStyle(?array $style = SidebarItemsStyles::GHOST): static
     {
         $this->sidebarItemsStyle = $style;
 
@@ -138,7 +138,7 @@ class Theme
      */
     public function getSidebarItemStyle(): array
     {
-        return $this->sidebarItemsStyle ?? SidebarItemsStyles::STYLE1;
+        return $this->sidebarItemsStyle ?? SidebarItemsStyles::GHOST;
     }
 
     /**

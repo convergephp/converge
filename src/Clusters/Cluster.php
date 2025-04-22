@@ -11,8 +11,8 @@ use Fluxtor\Converge\Concerns\HasSort;
 use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
 use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
-
 use Illuminate\Contracts\Support\Htmlable;
+
 use function Fluxtor\Converge\converge;
 use function Fluxtor\Converge\format_url;
 
@@ -23,8 +23,8 @@ class Cluster
     use HasSort;
 
     public ?string $route = null;
-    protected string|Closure|Htmlable|null $icon = null;
 
+    protected string|Closure|Htmlable|null $icon = null;
 
     protected ?ClusterUrlGenerator $urlGenerator = null;
 
@@ -147,5 +147,4 @@ class Cluster
 
         return $this->resolve($this->icon);
     }
-
 }

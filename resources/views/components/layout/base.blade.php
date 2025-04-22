@@ -29,18 +29,62 @@ use function Fluxtor\Converge\intercept;
     </style>
     {!! Converge::css() !!}
 
-    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
-</head>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const sidebar = document.querySelector("#sidebar");
-        if (sidebar) {
-            const savedScroll = sessionStorage.getItem("sidebarScroll");
-            if (savedScroll !== null) {
-                sidebar.scrollTop = parseInt(savedScroll, 10);
+        {{-- Components build assets --}}
+        @if (file_exists(public_path('vendor/converge/components/css/components.css')))
+            <link rel="stylesheet"
+                  href="{{ asset('vendor/converge/components/css/components.css') }}">
+        @endif
+
+        {!! Converge::css() !!}
+
+        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+        <style>
+            :root {
+                --font: {{ converge()->getTheme()->getFontFamily() }};
             }
+        </style>
 
+        <style>
+            [x-cloak] {
+                display: none;
+            }
+        </style>
+
+        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+    </head>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebar = document.querySelector("#sidebar");
+            if (sidebar) {
+                const savedScroll = sessionStorage.getItem("sidebarScroll");
+                if (savedScroll !== null) {
+                    sidebar.scrollTop = parseInt(savedScroll, 10);
+                }
+
+                window.addEventListener("beforeunload", function() {
+                    sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
+                });
+            }
+        });
+    </script>
+
+    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+    </head>
+
+    <script>
+        // hack to prevent light flicker at load time in slow connections (chrome)
+        (function() {
+            // Définir le thème par défaut comme "dark" si aucun thème n'est défini
+            let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
+
+            // Si le thème est "system", vérifier les préférences du système
+            if (theme === 'system') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
+                    'dark' :
+                    'light';
+            }
             window.addEventListener("beforeunload", function() {
                 sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
             });

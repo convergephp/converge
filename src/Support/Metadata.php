@@ -47,12 +47,18 @@ class Metadata
 
     public function getTwitterCards(): array
     {
-        return $this->build($this->rawTwitterCards, 'twitter');
+        return array_merge(
+            $this->getDefaultTwitterCards(),
+            $this->build($this->rawTwitterCards, 'twitter')
+        );
     }
 
     public function getOpenGraphs(): array
     {
-        return $this->build($this->rawOgs, 'og');
+        return array_merge(
+            $this->getDefaultOgs(),
+            $this->build($this->rawOgs, 'og')
+        );
     }
 
 
@@ -74,7 +80,7 @@ class Metadata
     {
         $tags = [];
         foreach ($this->evaluate($cTags) as $key => $v) {
-            $tags[] = ["$prefix:$key" => $v];
+            $tags["$prefix:$key"] =  $v;
         }
         return $tags;
     }
@@ -118,14 +124,24 @@ class Metadata
         return $this->frontMatter;
     }
 
-    public function defaultOgs(): array
+    public function getDefaultOgs(): array
     {
         $title = $this->getTitle();
         return [
-            ['og:title' => $title],
-            ['og:type' => 'article'],
-            ['og:description' => 'welcome to ' . $title . ' documentation'],
-            ['og:image' => 'https://convergephp.com/images/open-graph-image.png'],
+            'og:title' => $title,
+            'og:type' => 'article',
+            'og:description' => 'welcome to ' . $title . ' documentation',
+            'og:image' => 'https://convergephp.com/images/open-graph-image.png',
+        ];
+    }
+
+    public function getDefaultTwitterCards(): array
+    {
+        $title = $this->getTitle();
+        return [
+            'twitter:title' => $title,
+            'twitter:description' => 'welcome to ' . $title . ' documentation',
+            'twitter:image' => 'https://convergephp.com/images/open-graph-image.png',
         ];
     }
 }

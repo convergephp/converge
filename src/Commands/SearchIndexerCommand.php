@@ -55,7 +55,7 @@ class SearchIndexerCommand extends Command
             if (! file_exists($path = storage_path('converge').DIRECTORY_SEPARATOR.'.gitignore')) {
                 file_put_contents($path, "*\n");
             }
-            
+
             // @todo: delete removed or renamed module's id.
 
             $versions = collect($modulePaths)->groupBy('version')->toArray();

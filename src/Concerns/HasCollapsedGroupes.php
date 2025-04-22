@@ -6,7 +6,7 @@ namespace Fluxtor\Converge\Concerns;
 
 trait HasCollapsedGroupes
 {
-    protected bool $isCollapsedGroupes = true;
+    protected bool $isCollapsedGroupes = false;
 
     /**
      * collapsedGroupes

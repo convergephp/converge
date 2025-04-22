@@ -52,6 +52,10 @@ class ConvergeServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/converge.php' => config_path('converge.php'),
         ], 'converge-config');
 
+        $this->publishes([
+            __DIR__ . '/../../stubs/starterkit' => base_path('starterkit'),
+        ], 'converge-starterkit');
+
         $this->loadViewsFrom(path: __DIR__ . '/../../resources/views', namespace: 'converge');
 
         Blade::anonymousComponentPath(path: __DIR__ . '/../../resources/views/components', prefix: 'converge');
