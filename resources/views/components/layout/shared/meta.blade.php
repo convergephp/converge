@@ -1,6 +1,6 @@
 @php
     use function Fluxtor\Converge\converge;
-    $metadata = converge()->getMetadata();
+    $metadata = converge()->getMetaTags();
     $title = $metadata->getTitle();
     $meta = $metadata->getMetadata();
     $openGraphs = $metadata->getOpenGraphs();
@@ -11,7 +11,7 @@
 <meta charset="utf-8" />
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-{{-- Font family link --}}
+
 {{ converge()->getTheme()->getFontHtml() }}
 
 

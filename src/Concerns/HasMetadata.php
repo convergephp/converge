@@ -8,7 +8,7 @@ trait HasMetadata
 {
     protected ?Metadata $metadata = null;
 
-    public function metadata(\Closure $callable): static
+    public function metaTags(\Closure $callable): static
     {
         $metadata = resolve(Metadata::class);
 
@@ -17,7 +17,7 @@ trait HasMetadata
         return $this;
     }
 
-    public function getMetadata(): Metadata
+    public function getMetaTags(): Metadata
     {
         return $this->metadata ?? resolve(Metadata::class);
     }

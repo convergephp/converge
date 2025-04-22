@@ -140,7 +140,7 @@ class Converge
         return resolve(TableOfContent::class)->getHeadings();
     }
 
-    public function getMetadata()
+    public function getMetaTags()
     {
         return resolve(Metadata::class);
     }
