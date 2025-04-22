@@ -1,41 +1,51 @@
 name: npm-build
-
 on:
   pull_request:
     branches:
       - master
     types:
       - closed
-
 jobs:
   npm-build:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    permissions:
+        contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: master
+        run: |
+          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git .
+          git checkout master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Setup Node
-        uses: actions/setup-node@v2
+        run: |
+          curl -sL https://deb.nodesource.com/setup_16.x | bash -
+          apt-get install -y nodejs
+          node --version
+          npm --version
       
       - name: Install dependencies
         run: npm ci
-
+        
       - name: Build assets
         run: |
           echo "Building assets..."
           npm run build
           
+      - name: Pull changes 
+        run: git pull 
+          
       - name: List files in the dist directory
         run: |
           echo "Listing files in dist folder"
           ls -R ./dist
-
-
+          
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: master
-          commit_message: >
-            chore: build assets
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add ./dist
+          git commit -m "chore: build assets" || echo "No changes to commit"
+          git push origin master
