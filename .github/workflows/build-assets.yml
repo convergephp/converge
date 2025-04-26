@@ -5,6 +5,9 @@ on:
       - master
     types:
       - closed
+  push:
+    branches:
+      - master
 jobs:
   npm-build:
     runs-on: ubuntu-latest
