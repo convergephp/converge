@@ -8,7 +8,7 @@
         <div class="flex flex-col items-start justify-start text-start">
             <h4 x-html="result.title"
                 @class([
-                    'text-md text-start block w-full font-base text-base-content'
+                    'text-md text-start block w-full font-base text-base-content',
                 ])>
             </h4>
 
