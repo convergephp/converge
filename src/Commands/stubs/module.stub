@@ -27,14 +27,18 @@ class {{ class }} extends ModuleProvider
                     ->spotlight(Spotlight::Strock);
             })
             ->defineMenuItems(function (MenuItems $menuItems) {
-                $menuItems->add(fn (MenuItem $menuItem) =>
-                    $menuItem->url('https://github.com/convergephp')
-                        ->openUrlInNewTab()
-                        ->label('Github'));
+                $menuItems->add(
+                    fn (MenuItem $menuItem) =>
+                        $menuItem->url('https://github.com/convergephp')
+                            ->openUrlInNewTab()
+                            ->label('Github')
+                    );
 
-                $menuItems->add(fn (MenuItem $menuItem) =>
-                    $menuItem->url('https://github.com/convergephp?sponsor=1')
-                        ->label('Sponsor'));
+                $menuItems->add(
+                    fn (MenuItem $menuItem) =>
+                        $menuItem->url('https://github.com/convergephp?sponsor=1')
+                            ->label('Sponsor')
+                    );
             });;
     }
 }
