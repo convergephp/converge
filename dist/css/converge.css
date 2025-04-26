@@ -3947,12 +3947,6 @@
       line-height: calc(var(--spacing) * 6);
     }
   }
-  .lg\:leading-8 {
-    @media (width >= 64rem) {
-      --tw-leading: calc(var(--spacing) * 8);
-      line-height: calc(var(--spacing) * 8);
-    }
-  }
   .lg\:shadow-none {
     @media (width >= 64rem) {
       --tw-shadow: 0 0 #0000;
@@ -4422,22 +4416,6 @@
       border-radius: var(--radius-box) !important;
     }
   }
-  .prose-pre\:rounded-xl {
-    & :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-      border-radius: var(--radius-xl);
-    }
-  }
-  .prose-pre\:border {
-    & :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-      border-style: var(--tw-border-style);
-      border-width: 1px;
-    }
-  }
-  .prose-pre\:border-base-300 {
-    & :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
-      border-color: var(--color-base-300);
-    }
-  }
   .prose-pre\:shadow-sm {
     & :is(:where(pre):not(:where([class~="not-prose"],[class~="not-prose"] *))) {
       --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
@@ -4518,6 +4496,9 @@
   }
   .code-container pre {
     border-radius: var(--radius-box) !important;
+    vertical-align: middle !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
   }
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
