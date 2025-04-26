@@ -7,7 +7,7 @@
 })">
     <x-converge::modal openEvent="open-search">
         <x-slot:header
-                class="rounded-box">
+                class="">
             <form class="relative flex w-full items-center">
                 <label class="text-base-content flex items-center justify-center"
                        id="search-label"

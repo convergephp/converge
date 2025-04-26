@@ -9,7 +9,7 @@
     {{-- pagination --}}
     <div class="border-base-300 mt-12 flex border-t py-6">
         @if (filled($prev))
-            <div>
+            <div class="px-2">
                 <dt class="text-base-content/80 font-base text-sm">
                     Previous
                 </dt>

@@ -47,6 +47,10 @@
         -ms-overflow-style: none;
       }
 
+      .code-container pre {
+        border-radius: var(--radius-box) !important;
+      }
+
       .scrollbar-hidden::-webkit-scrollbar {
         display: none;
       }
