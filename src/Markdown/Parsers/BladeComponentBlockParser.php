@@ -39,7 +39,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-                if(preg_match("/<\s*x[-:]([\w\-\:\.]+)\s*(?=\s*[^>]*>)\>/",$cursor->getLine(),$matches)){
+                if(preg_match("/<\s*x[-:]([\w\-\:\.]+)\s*>/",$cursor->getLine(),$matches)){
                     return  BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
                 }
                 return BlockStart::none();
