@@ -34,7 +34,7 @@ jobs:
         
       - name: Build assets
         run: |
-          echo "Building assets..."
+          echo "Building assets... "
           npm run build
           
       - name: Pull changes 
