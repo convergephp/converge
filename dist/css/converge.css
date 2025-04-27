@@ -4766,15 +4766,11 @@
       }
     }
   }
-<<<<<<< HEAD
   .\[\@media\(pointer\:fine\)\]\:hidden {
     @media (pointer:fine) {
       display: none;
     }
   }
-=======
->>>>>>> 4f9ecb9 (fix modal design)
-}
 @layer components {
   .scrollbar-hidden {
     overflow: auto;
