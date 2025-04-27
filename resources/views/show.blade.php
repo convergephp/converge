@@ -1,7 +1,7 @@
 <x-converge::page :$metadata>
     <div x-data="showContentsTweacks">
         <div x-data="codeBlockClipboard"
-             class="prose-pre:!rounded-box prose-pre:shadow-sm prose content [&_*]:text-base-content [&_a]:!text-accent prose-blockquote:not-italic z-10 mx-auto min-w-[320px] text-wrap text-sm leading-8 md:min-w-[576px] lg:w-[630px] lg:text-base 2xl:w-[750px] 2xl:max-w-screen-md [&_a]:mr-1 [&_a]:py-1 [&_a]:text-sm [&_a]:no-underline lg:[&_a]:text-base [&_p]:before:hidden [&_p]:after:hidden">
+             class="prose-pre:!rounded-box prose-pre:shadow-sm prose-pre:border prose-pre:!border-double prose-pre:border-gray-400/20 prose-pre:py-6 prose content [&_*]:text-base-content [&_a]:!text-primary prose-blockquote:not-italic z-10 mx-auto min-w-[320px] text-wrap text-sm leading-8 md:min-w-[576px] lg:w-[630px] lg:text-base 2xl:w-[750px] 2xl:max-w-screen-md [&_a]:mr-1 [&_a]:py-1 [&_a]:text-sm [&_a]:no-underline lg:[&_a]:text-base [&_p]:before:hidden [&_p]:after:hidden">
             {!! $contents !!}
         </div>
     </div>
@@ -9,7 +9,7 @@
     {{-- pagination --}}
     <div class="border-base-300 mt-12 flex border-t py-6">
         @if (filled($prev))
-            <div>
+            <div class="px-2">
                 <dt class="text-base-content/80 font-base text-sm">
                     Previous
                 </dt>

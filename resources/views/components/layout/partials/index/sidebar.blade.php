@@ -30,7 +30,8 @@
 
     <!-- Sidebar -->
     <div x-show="isOpen"
-         class="lg:z-1 border-base-300 bg-base-200 no-scrollbar scrollbar-hidden fixed bottom-0 left-0 right-auto top-0 z-50 w-[18rem] min-w-[18rem] transform flex-col overflow-y-auto border-r lg:sticky lg:top-[4rem] lg:flex lg:h-[calc(100vh-4rem)] lg:bg-transparent">
+         style="display: none"
+         class="lg:z-1 border-base-300 bg-base-200 no-scrollbar scrollbar-hidden fixed bottom-0 left-0 right-auto top-0 z-50 w-full min-w-[18rem] transform flex-col overflow-y-auto border-r lg:sticky lg:top-[4rem] lg:flex lg:h-[calc(100vh-4rem)] lg:w-[18rem] lg:bg-transparent">
         <div class="flex items-center justify-between px-4 py-3">
             <x-converge::logo class="lg:hidden" />
 
