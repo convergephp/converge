@@ -7,20 +7,20 @@
 })">
     <x-converge::modal openEvent="open-search">
         <x-slot:header
-                class="">
+                class="rounded-t-box">
             <form class="relative flex w-full items-center">
                 <label class="text-base-content flex items-center justify-center"
                        id="search-label"
                        for="search-input">
-                    <span class="mr-3">
+                    <span class="ml-1.5 mr-3">
                         <span x-show="!isLoading">
                             <x-converge::icon icon="search"
-                                              class="size-5" />
+                                              class="size-6" />
                         </span>
 
                         <span x-show="isLoading">
                             <x-converge::icon icon="loading-indicator"
-                                              class="size-5" />
+                                              class="size-6" />
                         </span>
                     </span>
                 </label>

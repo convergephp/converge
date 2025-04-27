@@ -144,7 +144,7 @@
                          'pb-4' => blank($footer),
                          'pb-2' => filled($footer),
                          'pt-4' => blank($header),
-                         'pt-2' => filled($header),
+                         'pt-0' => filled($header),
                      ])>
                     <!-- Header Section -->
                     <div class="flex flex-row-reverse items-center justify-start">
@@ -154,7 +154,7 @@
                              x-on:touchend="handleMovingEnd()"
                              class="absolute left-0 right-0 top-[-10px] h-[50px] sm:hidden">
                             <div class="flex justify-center pt-[12px]">
-                                <div class="bg-base-300 h-[5px] w-[10%] rounded-full"></div>
+                                <div class="bg-base-300 h-[5px] w-[10%] rounded-box "></div>
                             </div>
                         </div>
 
