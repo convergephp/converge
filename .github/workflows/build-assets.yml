@@ -50,5 +50,5 @@ jobs:
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
           git add -f ./dist
-          git diff --staged --quiet || git commit -m "chore: fix code style"
+          git diff --staged --quiet || git commit -m "chore: build assets"
           git push origin master
