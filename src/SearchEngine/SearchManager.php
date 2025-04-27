@@ -60,14 +60,14 @@ class SearchManager
 
     public function storeHeadings(string $distination): string
     {
-        $storagePath = $distination . DIRECTORY_SEPARATOR . 'headings.php';
+        $storagePath = $distination.DIRECTORY_SEPARATOR.'headings.php';
 
         if (! is_dir(dirname($storagePath))) {
             mkdir(dirname($storagePath), 0777, true);
         }
 
         // Convert the array to PHP code
-        $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
+        $data = "<?php\n\nreturn ".var_export($this->headings, true).";\n";
 
         file_put_contents($storagePath, $data);
 

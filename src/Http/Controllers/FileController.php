@@ -10,7 +10,6 @@ use Fluxtor\Converge\Documents\Markdown;
 use Fluxtor\Converge\Support\Metadata;
 use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
 use Fluxtor\Converge\TableOfContent\TableOfContent;
-use Illuminate\Support\Benchmark;
 
 class FileController
 {
@@ -27,9 +26,8 @@ class FileController
     /**
      * Handle a request to display a markdown-based documentation page.
      *
-     * @param string $url        The URL slug that maps to a documentation file.
-     * @param Markdown $markdown The Markdown converter service.
-     *
+     * @param  string  $url  The URL slug that maps to a documentation file.
+     * @param  Markdown  $markdown  The Markdown converter service.
      * @return \Illuminate\View\View
      */
     public function __invoke($url, Markdown $markdown)
@@ -59,7 +57,7 @@ class FileController
 
         // Set metadata using the front matter or fallback to the label from the content map
         resolve(Metadata::class)->frontMatter(
-            $document->matter() ?? ['title' => $this->map->getLabel() . '-' . config('app.name')]
+            $document->matter() ?? ['title' => $this->map->getLabel().'-'.config('app.name')]
         );
 
         return view('converge::show', [

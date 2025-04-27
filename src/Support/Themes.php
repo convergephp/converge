@@ -86,13 +86,13 @@ class Themes
     {
         return [
             'darkModeTheme' => static::overrideDark($palettes),
-            'lightModeTheme' =>  static::overrideLight($palettes)
+            'lightModeTheme' => static::overrideLight($palettes),
         ];
     }
 
     public static function overrideDark(array $palettes = [])
     {
-        return  array_merge(self::$DARK, $palettes);
+        return array_merge(self::$DARK, $palettes);
     }
 
     public static function overrideLight(array $palettes = [])

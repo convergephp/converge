@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Concerns;
 
 use Closure;
-use InvalidArgumentException;
 
 use function Fluxtor\Converge\format_url;
 

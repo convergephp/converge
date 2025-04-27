@@ -28,7 +28,7 @@ class MenuItem
     public function visible(bool|Closure $condition = true)
     {
         if ($condition instanceof Closure) {
-            // @todo: handle resolvation using attributes 
+            // @todo: handle resolvation using attributes
         }
 
         $this->isVisible = $condition;

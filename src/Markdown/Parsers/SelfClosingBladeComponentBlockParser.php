@@ -22,7 +22,9 @@ use League\CommonMark\Parser\MarkdownParserStateInterface;
 class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
+
     private bool $closed = false;
+
     private bool $isInlineClosed = false;
 
     public function __construct()
@@ -32,8 +34,6 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     /**
      * Creates a parser for detecting block start.
-     *
-     * @return BlockStartParserInterface
      */
     public static function createBlockStartParser(): BlockStartParserInterface
     {
@@ -62,19 +62,16 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     /**
      * Marks the block as closed immediately.
-     *
-     * @return SelfClosingBladeComponentBlockParser
      */
-    public function closedImmediately(): SelfClosingBladeComponentBlockParser
+    public function closedImmediately(): self
     {
         $this->isInlineClosed = true;
+
         return $this;
     }
 
     /**
      * Retrieves the associated block.
-     *
-     * @return AbstractBlock
      */
     public function getBlock(): AbstractBlock
     {
@@ -83,8 +80,6 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     /**
      * Indicates if the block can have lazy continuation lines.
-     *
-     * @return bool
      */
     public function canHaveLazyContinuationLines(): bool
     {
@@ -93,8 +88,6 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     /**
      * Adds a line to the block.
-     *
-     * @param string $line
      */
     public function addLine(string $line): void
     {
@@ -103,16 +96,13 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
 
     /**
      * Attempts to continue the block parsing.
-     *
-     * @param Cursor $cursor
-     * @param BlockContinueParserInterface $activeBlockParser
-     * @return BlockContinue|null
      */
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
         // If the block was closed on the same line, finish the parsing.
         if ($this->isInlineClosed) {
             $this->closed = true;
+
             return BlockContinue::finished();
         }
 
@@ -123,6 +113,7 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
         if (preg_match($pattern, $line)) {
             $this->block->addLine($line);
             $this->closed = true;
+
             return BlockContinue::finished();
         }
 
@@ -136,7 +127,7 @@ class SelfClosingBladeComponentBlockParser extends AbstractBlockContinueParser
      */
     public function closeBlock(): void
     {
-        if (!$this->closed) {
+        if (! $this->closed) {
             throw new Exception('Blade component was not closed properly.');
         }
         $this->block->finalize();

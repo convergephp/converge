@@ -19,9 +19,8 @@ class BladeCompilerExtension implements ExtensionInterface
         /**
          * The usage of this style to inject blade components natively is postponed
          * to future versions since it seems buggy with
-         * some of our Blade components. 
+         * some of our Blade components.
          */
-
         $environment->addBlockStartParser(BladeComponentDirectiveBlockParser::createBlockStartParser(), 200);
         $environment->addBlockStartParser(BladeComponentBlockParser::createBlockStartParser(), 190);
         $environment->addBlockStartParser(SelfClosingBladeComponentBlockParser::createBlockStartParser(), 90);

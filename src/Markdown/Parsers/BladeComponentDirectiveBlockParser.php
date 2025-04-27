@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
@@ -12,7 +14,7 @@ use League\CommonMark\Parser\Block\BlockStartParserInterface;
 use League\CommonMark\Parser\Cursor;
 use League\CommonMark\Parser\MarkdownParserStateInterface;
 
-class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
+class BladeComponentDirectiveBlockParser extends AbstractBlockContinueParser
 {
     private BladeComponentBlock $block;
 
@@ -34,7 +36,7 @@ class BladeComponentDirectiveBlockParser  extends AbstractBlockContinueParser
                     return BlockStart::none();
                 }
 
-                if ($cursor->match("/^@blade/")) {
+                if ($cursor->match('/^@blade/')) {
                     return BlockStart::of(new BladeComponentDirectiveBlockParser())->at($cursor);
                 }
 

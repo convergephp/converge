@@ -34,17 +34,15 @@ class Module
     use HasCustomFooter;
     use HasDepth;
     use HasId;
-    use HasMetadata;
     use HasIndexPage;
     use HasLabel;
+    use HasMetadata;
     use HasPath;
     use HasRoutePath;
     use HasSidebar;
     use HasTheme;
     use HasViewsInterceptors;
     use Resolver;
-
-
 
     public function __construct()
     {

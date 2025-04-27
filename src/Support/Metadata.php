@@ -1,18 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Support;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Benchmark;
 
 class Metadata
 {
-
     protected array $frontMatter = [];
+
     protected ?string $title = null;
+
     protected array $rawMetadata = [];
+
     protected array $rawOgs = [];
+
     protected array $rawTwitterCards = [];
+
     protected array $rawCustomTags = [];
 
     public function metadata(array $metadata): void
@@ -61,18 +66,17 @@ class Metadata
         );
     }
 
-
-
     public function getCustomTags(): array
     {
         $evaluated = $this->evaluate($this->rawCustomTags);
 
         return collect($evaluated)->map(function ($m) {
-            $tag = "<meta";
+            $tag = '<meta';
             foreach ($m as $k => $v) {
                 $tag .= " $k=\"$v\"";
             }
-            return $tag . " />";
+
+            return $tag.' />';
         })->toArray();
     }
 
@@ -80,34 +84,23 @@ class Metadata
     {
         $tags = [];
         foreach ($this->evaluate($cTags) as $key => $v) {
-            $tags["$prefix:$key"] =  $v;
+            $tags["$prefix:$key"] = $v;
         }
+
         return $tags;
-    }
-
-    protected function evaluate(array $data): array
-    {
-        return collect($data)->map(function ($value) {
-            if (is_string($value)) {
-                return $this->evaluateString($value);
-            }
-
-            if (is_array($value)) {
-                return $this->evaluate($value);
-            }
-
-            return $value;
-        })->toArray();
     }
 
     public function evaluateString(?string $value): ?string
     {
-        if (is_null($value)) return null;
+        if (is_null($value)) {
+            return null;
+        }
 
         return preg_replace_callback('/\$frontMatter\.([\w\.]+)/', function ($matches) {
             return Arr::get($this->frontMatter, $matches[1], '');
         }, $value);
     }
+
     public function frontMatter(array $matter): void
     {
         $this->frontMatter = $matter;
@@ -127,10 +120,11 @@ class Metadata
     public function getDefaultOgs(): array
     {
         $title = $this->getTitle();
+
         return [
             'og:title' => $title,
             'og:type' => 'article',
-            'og:description' => 'welcome to ' . $title . ' documentation',
+            'og:description' => 'welcome to '.$title.' documentation',
             'og:image' => 'https://convergephp.com/images/open-graph-image.png',
         ];
     }
@@ -138,10 +132,26 @@ class Metadata
     public function getDefaultTwitterCards(): array
     {
         $title = $this->getTitle();
+
         return [
             'twitter:title' => $title,
-            'twitter:description' => 'welcome to ' . $title . ' documentation',
+            'twitter:description' => 'welcome to '.$title.' documentation',
             'twitter:image' => 'https://convergephp.com/images/open-graph-image.png',
         ];
+    }
+
+    protected function evaluate(array $data): array
+    {
+        return collect($data)->map(function ($value) {
+            if (is_string($value)) {
+                return $this->evaluateString($value);
+            }
+
+            if (is_array($value)) {
+                return $this->evaluate($value);
+            }
+
+            return $value;
+        })->toArray();
     }
 }

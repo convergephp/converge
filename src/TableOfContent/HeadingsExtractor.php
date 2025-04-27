@@ -58,8 +58,8 @@ class HeadingsExtractor
 
         foreach ($headingNodes as $headingNode) {
 
-            if (strpos($headingNode->getAttribute('class'), 'co-skip') !== false) {
-                 continue;
+            if (mb_strpos($headingNode->getAttribute('class'), 'co-skip') !== false) {
+                continue;
             }
             $level = (int) ($headingNode->nodeName[1]);
 
