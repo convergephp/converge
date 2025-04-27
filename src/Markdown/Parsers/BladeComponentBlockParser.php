@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
+use Fluxtor\Converge\Markdown\Parsers\Cursor as ParsersCursor;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
@@ -38,20 +39,9 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-                // $line = $cursor->getLine();
-
-
-                if ($match = $cursor->match("/<\s*x[-:]([\w\-:.]+)>/")) {
-                    return  BlockStart::of(new BladeComponentBlockParser($match))->at($cursor);
+                if(preg_match("/<\s*x[-:]([\w\-\:\.]+)\s*(?=\s*[^>]*>)\>/",$cursor->getLine(),$matches)){
+                    return  BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
                 }
-
-                // if (preg_match($pattern, $line, $matches)) {
-                //     // dump("openning tag: $matches[1]");
-                //     $block = BlockStart::of($obj = new BladeComponentBlockParser($matches[1]))->at($cursor);
-                //     //    dd($block);
-                //     return $block;
-                // }
-
                 return BlockStart::none();
             }
         };
@@ -74,13 +64,10 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
     public function tryContinue(Cursor $cursor, BlockContinueParserInterface $activeBlockParser): ?BlockContinue
     {
+
         $line = $cursor->getLine();
 
         $closingTag = "</x-{$this->componentName}>";
-
-        if ($cursor->match($closingTag)) {
-            return BlockContinue::finished();
-        }
 
         if (str_contains($line, $closingTag)) {
             $this->block->addLine($line);
