@@ -5,7 +5,7 @@ export default () => ({
         const headings = contentDiv.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
         headings.forEach((heading) => {
-            
+
             let anchor = heading.querySelector("a");
 
             heading.classList.add('group','relative','cursor-pointer')
