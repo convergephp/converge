@@ -57,6 +57,10 @@ class HeadingsExtractor
         $stack = [];
 
         foreach ($headingNodes as $headingNode) {
+
+            if (strpos($headingNode->getAttribute('class'), 'co-skip') !== false) {
+                 continue;
+            }
             $level = (int) ($headingNode->nodeName[1]);
 
             $anchorNode = $xpath->query('.//a', $headingNode)->item(0);
