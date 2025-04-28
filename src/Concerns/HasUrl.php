@@ -28,6 +28,6 @@ trait HasUrl
     public function getRoute(): ?string
     {
 
-        return format_url($this->resolve($this->url));
+        return $this->resolve($this->url);
     }
 }
