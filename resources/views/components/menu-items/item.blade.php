@@ -20,4 +20,3 @@
             :icon="$item->getIcon()"
             :iconPosition="$item->getIconPosition()->value"/>
     </a>
-

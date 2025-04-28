@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fluxtor\Converge\Markdown\Parsers;
 
 use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
-use Fluxtor\Converge\Markdown\Parsers\Cursor as ParsersCursor;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;
@@ -18,7 +17,7 @@ use League\CommonMark\Parser\MarkdownParserStateInterface;
 /**
  *  The usage of this style to inject blade components natively is postponed
  * to future versions since it seems buggy with
- * some of our Blade components. 
+ * some of our Blade components.
  */
 class BladeComponentBlockParser extends AbstractBlockContinueParser
 {
@@ -39,9 +38,10 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
              */
             public function tryStart(Cursor $cursor, MarkdownParserStateInterface $parserState): ?BlockStart
             {
-                if(preg_match("/<\s*x[-:]([\w\-\:\.]+)\s*>/",$cursor->getLine(),$matches)){
-                    return  BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
+                if (preg_match("/<\s*x[-:]([\w\-\:\.]+)\s*>/", $cursor->getLine(), $matches)) {
+                    return BlockStart::of(new BladeComponentBlockParser($matches[1]))->at($cursor);
                 }
+
                 return BlockStart::none();
             }
         };
@@ -71,6 +71,7 @@ class BladeComponentBlockParser extends AbstractBlockContinueParser
 
         if (str_contains($line, $closingTag)) {
             $this->block->addLine($line);
+
             return BlockContinue::finished();
         }
 

@@ -8,6 +8,7 @@ use Closure;
 use Fluxtor\Converge\Enums\IconPosition;
 use Fluxtor\Converge\Enums\IconSize;
 use Illuminate\Contracts\Support\Htmlable;
+use Throwable;
 
 trait HasIcon
 {
@@ -58,8 +59,11 @@ trait HasIcon
 
     public function getIcon()
     {
-
-        return $this->evaluteIcon($this->icon);
+        try {
+            return $this->evaluteIcon($this->icon);
+        } catch (Throwable $th) {
+            return '"Invalid Icon name"';
+        }
     }
 
     public function getOpenIcon()

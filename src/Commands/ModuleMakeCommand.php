@@ -47,7 +47,7 @@ class ModuleMakeCommand extends GeneratorCommand
     public function handle()
     {
         if ($this->isReservedName($this->getNameInput())) {
-            $this->components->error('The name "' . $this->getNameInput() . '" is reserved by PHP.');
+            $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
 
             return false;
         }
@@ -62,7 +62,7 @@ class ModuleMakeCommand extends GeneratorCommand
                 ! $this->option('force')) &&
             $this->alreadyExists($moduleClass)
         ) {
-            $this->components->error($this->type . ' already exists.');
+            $this->components->error($this->type.' already exists.');
 
             return false;
         }
@@ -105,7 +105,7 @@ class ModuleMakeCommand extends GeneratorCommand
             return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
         }
 
-        return $stub = str_replace(['{{ path }}', '{{path}}'], "'" . $path . "'", $stub);
+        return $stub = str_replace(['{{ path }}', '{{path}}'], "'".$path."'", $stub);
     }
 
     public function replaceId(&$stub, $path)
@@ -124,7 +124,7 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        $id =  $options['id'] ?? Str::lower(Str::before(class_basename($name), 'ModuleProvider'));
+        $id = $options['id'] ?? Str::lower(Str::before(class_basename($name), 'ModuleProvider'));
 
         $this->replaceId($stub, $id);
 
@@ -150,12 +150,12 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__ . $stub;
+            : __DIR__.$stub;
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Providers\Converge';
+        return $rootNamespace.'\Providers\Converge';
     }
 
     protected function askToStar(): void

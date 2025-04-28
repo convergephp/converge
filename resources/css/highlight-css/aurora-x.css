@@ -1,5 +1,5 @@
 pre, code {
-    color: #000;
+    color: #82AAFF;
     background-color: #07090F;
 }
 
@@ -13,7 +13,7 @@ code {
 }
 
 .hl-property {
-    color: #34A853;
+    color: #82AAFF;
 }
 
 .hl-attribute {
@@ -21,7 +21,7 @@ code {
 }
 
 .hl-type {
-    color: #EA4334;
+    color: #FFCB6B;
 }
 
 .hl-generic {

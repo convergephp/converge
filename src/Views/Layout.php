@@ -22,6 +22,6 @@ class Layout extends Component
      */
     public function render(): View
     {
-        return view('converge::components.layout.' . $this->name);
+        return view('converge::components.layout.'.$this->name);
     }
 }

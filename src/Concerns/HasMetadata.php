@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fluxtor\Converge\Concerns;
 
+use Closure;
 use Fluxtor\Converge\Support\Metadata;
 
 trait HasMetadata
 {
     protected ?Metadata $metadata = null;
 
-    public function metaTags(\Closure $callable): static
+    public function metaTags(Closure $callable): static
     {
         $metadata = resolve(Metadata::class);
 

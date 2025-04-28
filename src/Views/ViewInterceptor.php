@@ -16,12 +16,12 @@ class ViewInterceptor
     // global hooks
     protected array $viewPoints = [];
 
-    // scoped to one module hooks 
+    // scoped to one module hooks
     protected array $pointsLookup = [];
 
     protected array $reflectionCache = [];
 
-    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, ?string $addModule = null): ViewInterceptor
+    public function registerViewInterceptor(Interceptor $name, Closure $interceptor, ?string $addModule = null): self
     {
 
         if (is_null($addModule)) {
@@ -29,6 +29,7 @@ class ViewInterceptor
         } else {
             $this->pointsLookup[$addModule][$name->value] = $interceptor;
         }
+
         return $this;
     }
 
@@ -42,8 +43,9 @@ class ViewInterceptor
             $view = $this->viewPoints[$point->value];
         }
 
-        if (is_null($view)) return null;
-
+        if (is_null($view)) {
+            return null;
+        }
 
         $key = spl_object_hash($view);
 
@@ -52,7 +54,6 @@ class ViewInterceptor
         }
 
         $reflector = $this->reflectionCache[$key];
-
 
         if (is_null($context) || $reflector->getNumberOfParameters() === 0) {
             return value($view);

@@ -105,7 +105,7 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100"
              x-transition:leave-end="opacity-0"
-             class="bg-base-200/70 fixed inset-0 shadow-inner backdrop-blur-md backdrop-saturate-150"></div>
+             class="fixed inset-0 bg-black/70 shadow-inner backdrop-blur-md backdrop-saturate-150"></div>
 
         <!-- Modal Panel -->
         <div x-show="isOpen"
