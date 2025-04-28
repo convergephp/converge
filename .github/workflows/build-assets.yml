@@ -5,9 +5,6 @@ on:
       - master
     types:
       - closed
-  push:
-    branches:
-      - master
 jobs:
   npm-build:
     runs-on: ubuntu-latest
@@ -15,19 +12,12 @@ jobs:
     permissions:
         contents: write
     steps:
-      - name: Manual checkout
-        run: |
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git .
-          git checkout master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Use Node.js
-        run: |
-          echo "Node.js version:"
-          node --version
-          echo "npm version:"
-          npm --version
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: master
+      - name: Setup Node
+        uses: actions/setup-node@v2
       
       - name: Install dependencies
         run: npm ci
@@ -36,10 +26,7 @@ jobs:
         run: |
           echo "Building assets..."
           npm run build
-          
-      - name: Pull changes 
-        run: git pull 
-          
+                    
       - name: List files in the dist directory
         run: |
           echo "Listing files in dist folder"
@@ -49,6 +36,11 @@ jobs:
         run: |
           git config user.name "$(git log -n 1 --pretty=format:%an)"
           git config user.email "$(git log -n 1 --pretty=format:%ae)"
+            
           git add -f ./dist
-          git diff --staged --quiet || git commit -m "chore: build assets"
+          git commit -m "chore: build assets" || echo "No changes to commit"
+          git push origin master
+
+          git rm -r --cached dist
+          git commit -m "chore: untrack dist assets" || echo "Nothing to untrack"
           git push origin master

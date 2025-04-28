@@ -2,8 +2,8 @@ import ClipboardJS from "clipboard/dist/clipboard";
 
 export default () => ({
     codeBlocks: document.querySelectorAll("pre") || [],
-    clipboardIcon: `<svg class="fill-current clipoard h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>`,
-    clipboardCopiedIcon: `<svg fill="currentColor" class="fill-current text-green-500 h-5 w-5" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`,
+    clipboardIcon: `<svg class="w-5 h-5 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,34H88a6,6,0,0,0-6,6V82H40a6,6,0,0,0-6,6V216a6,6,0,0,0,6,6H168a6,6,0,0,0,6-6V174h42a6,6,0,0,0,6-6V40A6,6,0,0,0,216,34ZM162,210H46V94H162Zm48-48H174V88a6,6,0,0,0-6-6H94V46H210Z"></path></svg>`,
+    clipboardCopiedIcon: `<svg class="w-5 h-5 fill-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>`,
     init() {
         this.codeBlocks.forEach((element, key) => {
             const wrapper = document.createElement("div");
@@ -28,7 +28,7 @@ export default () => ({
                 "Copy to Clipboard"
             );
             copyToClipboardButton.setAttribute("title", "Copy to Clipboard");
-            copyToClipboardButton.classList.add("code-block-copy-button");
+            copyToClipboardButton.classList.add("code-block-copy-button","text-primary");
 
             wrapper.appendChild(copyToClipboardButton);
 
