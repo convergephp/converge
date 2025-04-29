@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Routing\Clusters;
+namespace Converge\Routing\Clusters;
 
-use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
+use Converge\Contracts\ClusterUrlGenerator;
 
 class PrefixedUrlGenerator implements ClusterUrlGenerator
 {

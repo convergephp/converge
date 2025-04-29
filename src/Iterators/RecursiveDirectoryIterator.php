@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Iterators;
+namespace Converge\Iterators;
 
-use Fluxtor\Converge\Iterators\Filters\FilesFilterIterator;
+use Converge\Iterators\Filters\FilesFilterIterator;
 use RecursiveDirectoryIterator as BaseRecursiveDirectoryIterator;
 use RecursiveIterator;
 

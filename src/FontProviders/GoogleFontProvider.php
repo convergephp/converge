@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\FontProviders;
+namespace Converge\FontProviders;
 
-use Fluxtor\Converge\FontProviders\Contracts\FontProvider;
+use Converge\FontProviders\Contracts\FontProvider;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
 

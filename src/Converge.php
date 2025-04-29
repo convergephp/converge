@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Support\Metadata;
-use Fluxtor\Converge\TableOfContent\TableOfContent;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Views\ViewInterceptor;
+use Converge\Clusters\Cluster;
+use Converge\Support\Metadata;
+use Converge\TableOfContent\TableOfContent;
+use Converge\Versions\Version;
+use Converge\Views\ViewInterceptor;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;

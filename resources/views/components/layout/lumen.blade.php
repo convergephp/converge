@@ -1,8 +1,8 @@
 <?php
-use function Fluxtor\Converge\converge;
-use function Fluxtor\Converge\has_custom_footer;
-use function Fluxtor\Converge\intercept;
-$hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
+use function Converge\converge;
+use function Converge\has_custom_footer;
+use function Converge\intercept;
+$hasVersions = count(\Converge\converge()->getUiVersions());
 ?>
 
 <x-converge::layout.base>

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Clusters\Clusters;
-use Fluxtor\Converge\Repository;
+use Converge\Clusters\Cluster;
+use Converge\Clusters\Clusters;
+use Converge\Repository;
 use Illuminate\Support\Collection;
 
 trait CanHandleClusters

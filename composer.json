@@ -1,5 +1,5 @@
 {
-    "name": "fluxtor/converge",
+    "name": "convergephp/converge",
     "description": "static site generator for web artisans",
     "license": "MIT",
     "autoload": {
@@ -7,7 +7,7 @@
             "src/helpers.php"
         ],
         "psr-4": {
-            "Fluxtor\\Converge\\": "src/"
+            "Converge\\": "src/"
         }
     },
     "authors": [
@@ -31,13 +31,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Fluxtor\\Converge\\Tests\\": "tests/"
+            "Converge\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Fluxtor\\Converge\\Providers\\ConvergeServiceProvider"
+                "Converge\\Providers\\ConvergeServiceProvider"
             ]
         }
     },

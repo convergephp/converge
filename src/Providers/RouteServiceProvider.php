@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Providers;
+namespace Converge\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as baseServiceProvider;
 use Illuminate\Support\Facades\Route;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Commands;
+namespace Converge\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\ServiceProvider;

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Enums\IconPosition;
-use Fluxtor\Converge\Enums\IconSize;
+use Converge\Enums\IconPosition;
+use Converge\Enums\IconSize;
 use Illuminate\Contracts\Support\Htmlable;
 use Throwable;
 

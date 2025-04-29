@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\SearchEngine;
+namespace Converge\SearchEngine;
 
-use Fluxtor\Converge\Documents;
+use Converge\Documents;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;

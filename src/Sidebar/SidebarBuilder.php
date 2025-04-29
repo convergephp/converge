@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Sidebar;
+namespace Converge\Sidebar;
 
 use Illuminate\Support\Collection;
 use InvalidArgumentException;

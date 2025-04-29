@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
-use Fluxtor\Converge\FontProviders\BunnyFontProvider;
-use Fluxtor\Converge\FontProviders\GoogleFontProvider;
+use Converge\FontProviders\BunnyFontProvider;
+use Converge\FontProviders\GoogleFontProvider;
 use Illuminate\Contracts\Support\Htmlable;
 
 trait HasFont

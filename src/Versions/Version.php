@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Versions;
+namespace Converge\Versions;
 
 use Closure;
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Clusters\Clusters;
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasPath;
-use Fluxtor\Converge\Concerns\HasSort;
-use Fluxtor\Converge\Concerns\Resolver;
-use Fluxtor\Converge\Contracts\VersionUrlGenerator;
-use Fluxtor\Converge\Routing\Versions\AbsoluteUrlGenerator;
-use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
+use Converge\Clusters\Cluster;
+use Converge\Clusters\Clusters;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasPath;
+use Converge\Concerns\HasSort;
+use Converge\Concerns\Resolver;
+use Converge\Contracts\VersionUrlGenerator;
+use Converge\Routing\Versions\AbsoluteUrlGenerator;
+use Converge\Routing\Versions\PrefixedUrlGenerator;
 use Illuminate\Support\Collection;
 
 class Version

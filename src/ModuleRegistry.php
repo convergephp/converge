@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
 use Illuminate\Support\Facades\App;
 

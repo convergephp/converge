@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Sidebar;
+namespace Converge\Sidebar;
 
-use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\Module;
+use Converge\FilesTreeBuilder;
+use Converge\Module;
 use Illuminate\Support\Collection;
 
-use function Fluxtor\Converge\converge;
+use function Converge\converge;
 
 class SidebarManager
 {

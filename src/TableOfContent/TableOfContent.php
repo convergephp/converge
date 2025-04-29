@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\TableOfContent;
+namespace Converge\TableOfContent;
 
 use Illuminate\Support\Collection;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\Sidebar\SidebarBuilder;
-use Fluxtor\Converge\Sidebar\SidebarGroup;
-use Fluxtor\Converge\Sidebar\SidebarItem;
+use Converge\Sidebar\SidebarBuilder;
+use Converge\Sidebar\SidebarGroup;
+use Converge\Sidebar\SidebarItem;
 use Illuminate\Support\Collection;
 
 $stubs = realpath(__DIR__.'/../stubs/docs');
 /**
- * similate the generated tree from the Fluxtor\Converge\FilesTreeBuilder class
+ * similate the generated tree from the Converge\FilesTreeBuilder class
  */
 $generatedTree = [
     [

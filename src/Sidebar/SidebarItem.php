@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Sidebar;
+namespace Converge\Sidebar;
 
 use Closure;
-use Fluxtor\Converge\Concerns\Resolver;
+use Converge\Concerns\Resolver;
 
-use function Fluxtor\Converge\format_url;
+use function Converge\format_url;
 
 class SidebarItem
 {

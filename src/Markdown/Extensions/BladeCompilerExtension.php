@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Markdown\Extensions;
+namespace Converge\Markdown\Extensions;
 
-use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
-use Fluxtor\Converge\Markdown\Parsers\BladeComponentBlockParser;
-use Fluxtor\Converge\Markdown\Parsers\BladeComponentDirectiveBlockParser;
-use Fluxtor\Converge\Markdown\Parsers\SelfClosingBladeComponentBlockParser;
-use Fluxtor\Converge\Markdown\Renderers\BladeComponentRenderer;
+use Converge\Markdown\Blocks\BladeComponentBlock;
+use Converge\Markdown\Parsers\BladeComponentBlockParser;
+use Converge\Markdown\Parsers\BladeComponentDirectiveBlockParser;
+use Converge\Markdown\Parsers\SelfClosingBladeComponentBlockParser;
+use Converge\Markdown\Renderers\BladeComponentRenderer;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Extension\ExtensionInterface;
 

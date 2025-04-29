@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Views;
+namespace Converge\Views;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;

@@ -1,5 +1,5 @@
 @php
-    $module = \Fluxtor\Converge\converge()->getActiveModule();
+    $module = \Converge\converge()->getActiveModule();
     $hasDarkMode = $module->hasDarkModeLogo();
 @endphp
 <div {{ $attributes }}>

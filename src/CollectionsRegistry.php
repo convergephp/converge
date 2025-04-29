@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
 use Closure;
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Clusters\ClusterLink;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Versions\VersionLink;
+use Converge\Clusters\Cluster;
+use Converge\Clusters\ClusterLink;
+use Converge\Versions\Version;
+use Converge\Versions\VersionLink;
 use Illuminate\Support\Collection;
 use LogicException;
 

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Providers;
+namespace Converge\Providers;
 
-use Fluxtor\Converge\Commands\ModuleMakeCommand;
-use Fluxtor\Converge\Commands\SearchIndexerCommand;
-use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\Converge;
-use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\ModuleRegistry;
-use Fluxtor\Converge\Repository;
-use Fluxtor\Converge\Support\Metadata;
-use Fluxtor\Converge\TableOfContent\TableOfContent;
-use Fluxtor\Converge\Views\Layout;
-use Fluxtor\Converge\Views\ViewInterceptor;
+use Converge\Commands\ModuleMakeCommand;
+use Converge\Commands\SearchIndexerCommand;
+use Converge\ContentMap;
+use Converge\Converge;
+use Converge\FilesTreeBuilder;
+use Converge\ModuleRegistry;
+use Converge\Repository;
+use Converge\Support\Metadata;
+use Converge\TableOfContent\TableOfContent;
+use Converge\Views\Layout;
+use Converge\Views\ViewInterceptor;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 

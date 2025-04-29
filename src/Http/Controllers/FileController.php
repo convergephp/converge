@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Http\Controllers;
+namespace Converge\Http\Controllers;
 
-use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\Documents;
-use Fluxtor\Converge\Documents\Markdown;
-use Fluxtor\Converge\Support\Metadata;
-use Fluxtor\Converge\TableOfContent\HeadingsExtractor;
-use Fluxtor\Converge\TableOfContent\TableOfContent;
+use Converge\ContentMap;
+use Converge\Documents;
+use Converge\Documents\Markdown;
+use Converge\Support\Metadata;
+use Converge\TableOfContent\HeadingsExtractor;
+use Converge\TableOfContent\TableOfContent;
 
 class FileController
 {

@@ -1,5 +1,5 @@
 @php
-    $routeName = resolve(\Fluxtor\Converge\Repository::class)->getActiveRouteName();
+    $routeName = resolve(\Converge\Repository::class)->getActiveRouteName();
 @endphp
 
 <div x-data="search({

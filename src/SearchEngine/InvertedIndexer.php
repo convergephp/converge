@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\SearchEngine;
+namespace Converge\SearchEngine;
 
-use Fluxtor\Converge\SearchEngine\BloomFilters\BloomFilter;
-use Fluxtor\Converge\SearchEngine\Tokenizers\Tokenizer;
+use Converge\SearchEngine\BloomFilters\BloomFilter;
+use Converge\SearchEngine\Tokenizers\Tokenizer;
 
 class InvertedIndexer
 {

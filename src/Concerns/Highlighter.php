@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
-use Fluxtor\Converge\Enums\HighlighterName;
+use Converge\Enums\HighlighterName;
 
 trait Highlighter
 {

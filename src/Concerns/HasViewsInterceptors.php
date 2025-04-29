@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Enums\Interceptor;
-use Fluxtor\Converge\Views\ViewInterceptor;
+use Converge\Enums\Interceptor;
+use Converge\Views\ViewInterceptor;
 
 trait HasViewsInterceptors
 {

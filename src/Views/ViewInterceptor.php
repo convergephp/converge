@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Views;
+namespace Converge\Views;
 
 use Closure;
-use Fluxtor\Converge\Enums\Interceptor;
+use Converge\Enums\Interceptor;
 use ReflectionClass;
 use ReflectionFunction;
 
-use function Fluxtor\Converge\converge;
+use function Converge\converge;
 
 class ViewInterceptor
 {

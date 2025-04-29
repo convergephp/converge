@@ -1,5 +1,5 @@
  @php
-     $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
+     $hasVersions = count(\Converge\converge()->getUiVersions());
  @endphp
 
  <div id="navbar"

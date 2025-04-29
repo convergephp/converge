@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Sidebar;
+namespace Converge\Sidebar;
 
-use Fluxtor\Converge\Concerns\Resolver;
+use Converge\Concerns\Resolver;
 use Illuminate\Support\Collection;
 
 class SidebarGroup

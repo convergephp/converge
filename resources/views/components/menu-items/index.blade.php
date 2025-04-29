@@ -1,5 +1,5 @@
 @php
-    $items = Fluxtor\Converge\converge()->getMenuItems();
+    $items = Converge\converge()->getMenuItems();
 @endphp
 
 @if (count($items) > 0)
@@ -8,13 +8,13 @@
         <div class="hidden lg:block">
             <ul class="flex flex-row items-center justify-between gap-x-2">
                 @foreach ($items as $item)
-                    @if ($item instanceof Fluxtor\Converge\MenuItems\MenuItem)
+                    @if ($item instanceof Converge\MenuItems\MenuItem)
                         <li>
                             <x-converge::menu-items.item :$item />
                         </li>
                     @endif
 
-                    @if ($item instanceof Fluxtor\Converge\MenuItems\MenuItemGroup)
+                    @if ($item instanceof Converge\MenuItems\MenuItemGroup)
                         <x-converge::menu-items.group :groupItem="$item" />
                     @endif
                 @endforeach
@@ -65,13 +65,13 @@
 
                 <ul class="flex flex-col gap-y-2 py-2">
                     @foreach ($items as $item)
-                        @if ($item instanceof Fluxtor\Converge\MenuItems\MenuItem)
+                        @if ($item instanceof Converge\MenuItems\MenuItem)
                             <li class="px-4">
                                 <x-converge::menu-items.item :$item />
                             </li>
                         @endif
 
-                        @if ($item instanceof Fluxtor\Converge\MenuItems\MenuItemGroup)
+                        @if ($item instanceof Converge\MenuItems\MenuItemGroup)
                             <li class="px-4">
                                 <x-converge::menu-items.group :groupItem="$item" />
                             </li>

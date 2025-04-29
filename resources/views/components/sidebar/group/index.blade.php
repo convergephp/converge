@@ -1,9 +1,9 @@
 @props(['groupItem', 'canCollapsedGroupes' => true])
 
 <?php
-use function Fluxtor\Converge\converge;
+use function Converge\converge;
 $items = $groupItem->getItems();
-$isOpen = \Fluxtor\Converge\has_active_child($items) || false;
+$isOpen = \Converge\has_active_child($items) || false;
 ?>
 
 <li
@@ -19,11 +19,11 @@ $isOpen = \Fluxtor\Converge\has_active_child($items) || false;
             type="button"
             x-on:click="toggle()"
             x-bind:aria-expanded="isOpen">
-        {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
         <span class="flex-1 text-left text-sm font-bold tracking-widest">
             {{ $groupItem->getLabel() }}
         </span>
-        {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::AFTER_SIDEBAR_GROUP_LABEL, fn() => $groupItem) }}
         @if ($canCollapsedGroupes)
             <svg class="stroke-base-content size-4 fill-none font-semibold transition-transform duration-200 ease-in-out"
                  x-bind:class="{ 'rotate-1': isOpen }"
@@ -52,10 +52,10 @@ $isOpen = \Fluxtor\Converge\has_active_child($items) || false;
         x-transition:leave="transition-all ease-in-out duration-300"
         x-transition:leave-start="opacity-100 max-h-[1000px]"
         x-transition:leave-end="opacity-0 max-h-0 overflow-hidden">
-        {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_ITEMS, fn() => $groupItem) }}
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::BEFORE_SIDEBAR_GROUP_ITEMS, fn() => $groupItem) }}
 
         <x-converge::sidebar.items :sidebarItems="$items" />
 
-        {{ \Fluxtor\Converge\intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SIDEBAR_GROUP_ITEMS, fn() => $groupItem) }}
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::AFTER_SIDEBAR_GROUP_ITEMS, fn() => $groupItem) }}
     </ul>
 </li>

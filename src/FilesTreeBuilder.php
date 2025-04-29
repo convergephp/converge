@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
 use Exception;
-use Fluxtor\Converge\Iterators\Filters\FilesFilterIterator;
-use Fluxtor\Converge\Iterators\RecursiveDirectoryIterator;
+use Converge\Iterators\Filters\FilesFilterIterator;
+use Converge\Iterators\RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\Cache;
 
 final class FilesTreeBuilder

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Facades;
+namespace Converge\Facades;
 
 use Closure;
-use Fluxtor\Converge\Module;
-use Fluxtor\Converge\ModuleRegistry;
+use Converge\Module;
+use Converge\ModuleRegistry;
 use Illuminate\Support\Facades\Facade;
 
 class Converge extends Facade
@@ -24,6 +24,6 @@ class Converge extends Facade
 
     protected static function getFacadeAccessor(): string
     {
-        return \Fluxtor\Converge\Converge::class;
+        return \Converge\Converge::class;
     }
 }

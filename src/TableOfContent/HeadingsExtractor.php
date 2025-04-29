@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\TableOfContent;
+namespace Converge\TableOfContent;
 
 use DOMDocument;
 use DOMXPath;
 use Illuminate\Support\Collection;
 
-use function Fluxtor\Converge\converge;
+use function Converge\converge;
 
 class HeadingsExtractor
 {

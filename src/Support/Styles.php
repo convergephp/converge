@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Support;
+namespace Converge\Support;
 
 use Illuminate\Support\Str;
 use Stringable;

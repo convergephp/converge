@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
-use Fluxtor\Converge\Sidebar\SidebarManager;
+use Converge\Sidebar\SidebarManager;
 use Illuminate\Support\Collection;
 
-use function Fluxtor\Converge\converge;
+use function Converge\converge;
 
 trait HasSidebar
 {

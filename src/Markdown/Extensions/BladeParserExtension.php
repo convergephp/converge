@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Markdown\Extensions;
+namespace Converge\Markdown\Extensions;
 
 use Illuminate\Support\Facades\Blade;
 use League\CommonMark\Environment\EnvironmentBuilderInterface;

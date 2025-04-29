@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Markdown\Renderers;
+namespace Converge\Markdown\Renderers;
 
-use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
+use Converge\Markdown\Blocks\BladeComponentBlock;
 use Illuminate\Support\Facades\Blade;
 use InvalidArgumentException;
 use League\CommonMark\Node\Node;

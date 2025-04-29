@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Commands;
+namespace Converge\Commands;
 
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Enums\PathType;
-use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\SearchEngine\SearchManager;
-use Fluxtor\Converge\Versions\Version;
+use Converge\Clusters\Cluster;
+use Converge\Enums\PathType;
+use Converge\Facades\Converge;
+use Converge\SearchEngine\SearchManager;
+use Converge\Versions\Version;
 use Illuminate\Console\Command;
 
 use function Laravel\Prompts\progress;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Actions;
+namespace Converge\Actions;
 
-use Fluxtor\Converge\Documents\Parser;
+use Converge\Documents\Parser;
 
 class FrontMatterExtractor
 {
