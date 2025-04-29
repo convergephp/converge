@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\MenuItems;
+namespace Converge\MenuItems;
 
 use Closure;
-use Fluxtor\Converge\Concerns\CanOpenUrlInNewTab;
-use Fluxtor\Converge\Concerns\HasIcon;
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasSort;
-use Fluxtor\Converge\Concerns\HasStyles;
-use Fluxtor\Converge\Concerns\HasUrl;
-use Fluxtor\Converge\Concerns\Resolver;
+use Converge\Concerns\CanOpenUrlInNewTab;
+use Converge\Concerns\HasIcon;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasSort;
+use Converge\Concerns\HasStyles;
+use Converge\Concerns\HasUrl;
+use Converge\Concerns\Resolver;
 
 class MenuItem
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Clusters;
+namespace Converge\Clusters;
 
 use Closure;
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasSort;
-use Fluxtor\Converge\Concerns\HasUrl;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasSort;
+use Converge\Concerns\HasUrl;
 use Illuminate\Contracts\Support\Htmlable;
 
 class ClusterLink

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Routing;
+namespace Converge\Routing;
 
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Http\Controllers\FileController;
-use Fluxtor\Converge\Http\Controllers\ModuleController;
-use Fluxtor\Converge\Http\Controllers\SearchController;
-use Fluxtor\Converge\Http\Middleware\UseCluster;
-use Fluxtor\Converge\Http\Middleware\UseModule;
-use Fluxtor\Converge\Http\Middleware\UseVersion;
-use Fluxtor\Converge\Versions\Version;
+use Converge\Clusters\Cluster;
+use Converge\Facades\Converge;
+use Converge\Http\Controllers\FileController;
+use Converge\Http\Controllers\ModuleController;
+use Converge\Http\Controllers\SearchController;
+use Converge\Http\Middleware\UseCluster;
+use Converge\Http\Middleware\UseModule;
+use Converge\Http\Middleware\UseVersion;
+use Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
 final class RouteManager

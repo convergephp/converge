@@ -1,5 +1,5 @@
 @php
-    use function Fluxtor\Converge\converge;
+    use function Converge\converge;
     $metadata = converge()->getMetaTags();
     $title = $metadata->getTitle();
     $meta = $metadata->getMetadata();

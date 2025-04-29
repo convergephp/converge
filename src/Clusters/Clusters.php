@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Clusters;
+namespace Converge\Clusters;
 
-use Fluxtor\Converge\CollectionsRegistry;
+use Converge\CollectionsRegistry;
 
 class Clusters extends CollectionsRegistry
 {

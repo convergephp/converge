@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\MenuItems;
+namespace Converge\MenuItems;
 
 use Closure;
 use Illuminate\Support\Collection;

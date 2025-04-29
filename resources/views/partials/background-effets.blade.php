@@ -1,6 +1,6 @@
 <div class="relative flex items-center ">
-    @if (filled(\Fluxtor\Converge\converge()->getTheme()->getSpotlight()))
-        @include('converge::components.spotlights.' . \Fluxtor\Converge\converge()->getTheme()->getSpotlight()->value)
+    @if (filled(\Converge\converge()->getTheme()->getSpotlight()))
+        @include('converge::components.spotlights.' . \Converge\converge()->getTheme()->getSpotlight()->value)
 
         {{-- BOTTOM-LEFT --}}
         <div

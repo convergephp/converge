@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
-use Fluxtor\Converge\Concerns\CanHandleClusters;
-use Fluxtor\Converge\Concerns\CanHandleDefault;
-use Fluxtor\Converge\Concerns\CanHandleMenuItems;
-use Fluxtor\Converge\Concerns\CanHandleTableOfContent;
-use Fluxtor\Converge\Concerns\CanHandleVersions;
-use Fluxtor\Converge\Concerns\HasBrandLogo;
-use Fluxtor\Converge\Concerns\HasCustomFooter;
-use Fluxtor\Converge\Concerns\HasDepth;
-use Fluxtor\Converge\Concerns\HasId;
-use Fluxtor\Converge\Concerns\HasIndexPage;
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasMetadata;
-use Fluxtor\Converge\Concerns\HasPath;
-use Fluxtor\Converge\Concerns\HasRoutePath;
-use Fluxtor\Converge\Concerns\HasSidebar;
-use Fluxtor\Converge\Concerns\HasTheme;
-use Fluxtor\Converge\Concerns\HasViewsInterceptors;
-use Fluxtor\Converge\Concerns\Resolver;
+use Converge\Concerns\CanHandleClusters;
+use Converge\Concerns\CanHandleDefault;
+use Converge\Concerns\CanHandleMenuItems;
+use Converge\Concerns\CanHandleTableOfContent;
+use Converge\Concerns\CanHandleVersions;
+use Converge\Concerns\HasBrandLogo;
+use Converge\Concerns\HasCustomFooter;
+use Converge\Concerns\HasDepth;
+use Converge\Concerns\HasId;
+use Converge\Concerns\HasIndexPage;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasMetadata;
+use Converge\Concerns\HasPath;
+use Converge\Concerns\HasRoutePath;
+use Converge\Concerns\HasSidebar;
+use Converge\Concerns\HasTheme;
+use Converge\Concerns\HasViewsInterceptors;
+use Converge\Concerns\Resolver;
 
 class Module
 {

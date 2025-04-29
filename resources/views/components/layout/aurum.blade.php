@@ -1,8 +1,8 @@
 <?php
-use function Fluxtor\Converge\converge;
-use function Fluxtor\Converge\has_custom_footer;
-use function Fluxtor\Converge\intercept;
-$hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
+use function Converge\converge;
+use function Converge\has_custom_footer;
+use function Converge\intercept;
+$hasVersions = count(\Converge\converge()->getUiVersions());
 ?>
 
 <x-converge::layout.base>
@@ -134,7 +134,7 @@ $hasVersions = count(\Fluxtor\Converge\converge()->getUiVersions());
 
                             {{-- Carbon ads section --}}
                             <div class="rounded-box overflow-hidden bg-transparent p-4">
-                                {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_TOC_CARBON_ADS) }}
+                                {{ intercept(\Converge\Enums\Interceptor::AFTER_TOC_CARBON_ADS) }}
                             </div>
                         </div>
                     </div>

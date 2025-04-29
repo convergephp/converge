@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Attributes;
+namespace Converge\Attributes;
 
 use Attribute;
 use Illuminate\Contracts\Container\Container;

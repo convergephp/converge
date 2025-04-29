@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Clusters;
+namespace Converge\Clusters;
 
 use Closure;
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasRawPath;
-use Fluxtor\Converge\Concerns\HasSort;
-use Fluxtor\Converge\Contracts\ClusterUrlGenerator;
-use Fluxtor\Converge\Routing\Clusters\AbsoluteUrlGenerator;
-use Fluxtor\Converge\Routing\Clusters\PrefixedUrlGenerator;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasRawPath;
+use Converge\Concerns\HasSort;
+use Converge\Contracts\ClusterUrlGenerator;
+use Converge\Routing\Clusters\AbsoluteUrlGenerator;
+use Converge\Routing\Clusters\PrefixedUrlGenerator;
 use Illuminate\Contracts\Support\Htmlable;
 
-use function Fluxtor\Converge\converge;
-use function Fluxtor\Converge\format_url;
+use function Converge\converge;
+use function Converge\format_url;
 
 class Cluster
 {

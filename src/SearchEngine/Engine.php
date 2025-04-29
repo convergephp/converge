@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\SearchEngine;
+namespace Converge\SearchEngine;
 
 use Exception;
-use Fluxtor\Converge\Repository;
-use Fluxtor\Converge\SearchEngine\Spell\JaroWinklerDistance;
+use Converge\Repository;
+use Converge\SearchEngine\Spell\JaroWinklerDistance;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
 

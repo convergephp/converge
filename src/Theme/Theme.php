@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Theme;
+namespace Converge\Theme;
 
-use Fluxtor\Converge\Concerns\HasCollapsedGroupes;
-use Fluxtor\Converge\Concerns\HasFavicon;
-use Fluxtor\Converge\Concerns\HasFont;
-use Fluxtor\Converge\Concerns\Highlighter;
-use Fluxtor\Converge\Concerns\Resolver;
-use Fluxtor\Converge\Enums\Layout;
-use Fluxtor\Converge\Enums\MaxWidth;
-use Fluxtor\Converge\Enums\Spotlight;
-use Fluxtor\Converge\Support\SidebarItemsStyles;
-use Fluxtor\Converge\Support\Themes;
+use Converge\Concerns\HasCollapsedGroupes;
+use Converge\Concerns\HasFavicon;
+use Converge\Concerns\HasFont;
+use Converge\Concerns\Highlighter;
+use Converge\Concerns\Resolver;
+use Converge\Enums\Layout;
+use Converge\Enums\MaxWidth;
+use Converge\Enums\Spotlight;
+use Converge\Support\SidebarItemsStyles;
+use Converge\Support\Themes;
 
 class Theme
 {

@@ -13,7 +13,7 @@ declare(strict_types=1);
 |
 */
 
-use Fluxtor\Converge\Tests\TestCase;
+use Converge\Tests\TestCase;
 
 pest()->extend(TestCase::class)
     ->in('Feature')

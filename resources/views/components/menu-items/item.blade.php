@@ -2,7 +2,7 @@
     <a
 
     {!!
-        (new \Fluxtor\Converge\Support\Styles(
+        (new \Converge\Support\Styles(
             classes: $item->getClasses(),
             style:$item->getStyles()
         ))->merge([])

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Http\Controllers;
+namespace Converge\Http\Controllers;
 
 use Exception;
-use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\FilesTreeBuilder;
-use Fluxtor\Converge\Repository;
-use Fluxtor\Converge\SearchEngine\Engine;
-use Fluxtor\Converge\Support\Highlighter;
+use Converge\ContentMap;
+use Converge\FilesTreeBuilder;
+use Converge\Repository;
+use Converge\SearchEngine\Engine;
+use Converge\Support\Highlighter;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

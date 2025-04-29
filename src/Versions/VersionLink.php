@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Versions;
+namespace Converge\Versions;
 
-use Fluxtor\Converge\Concerns\HasLabel;
-use Fluxtor\Converge\Concerns\HasSort;
-use Fluxtor\Converge\Concerns\HasUrl;
-use Fluxtor\Converge\Concerns\Resolver;
+use Converge\Concerns\HasLabel;
+use Converge\Concerns\HasSort;
+use Converge\Concerns\HasUrl;
+use Converge\Concerns\Resolver;
 
 class VersionLink
 {

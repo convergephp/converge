@@ -3,7 +3,7 @@
 ])
 
 @php
-    use function Fluxtor\Converge\converge;
+    use function Converge\converge;
     $activeCluster = converge()->getUsedCluster() ?? converge()->getDefaultCluster();
     $id = $activeCluster?->getId();
 @endphp

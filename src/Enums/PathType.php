@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Enums;
+namespace Converge\Enums;
 
 enum PathType: string
 {

@@ -1,6 +1,6 @@
 @php
-    $versions = \Fluxtor\Converge\converge()->getUiVersions();
-    $usedVersion = \Fluxtor\Converge\converge()->getUiUsedVersion();
+    $versions = \Converge\converge()->getUiVersions();
+    $usedVersion = \Converge\converge()->getUiUsedVersion();
 @endphp
 
 <div {{ $attributes->merge(['class' => 'flex items-center']) }}>

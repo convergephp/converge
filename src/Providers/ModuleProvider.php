@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Providers;
+namespace Converge\Providers;
 
-use Fluxtor\Converge\Module;
-use Fluxtor\Converge\ModuleRegistry;
+use Converge\Module;
+use Converge\ModuleRegistry;
 use Illuminate\Support\ServiceProvider;
 
 abstract class ModuleProvider extends ServiceProvider

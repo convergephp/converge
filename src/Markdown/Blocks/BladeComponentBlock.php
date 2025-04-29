@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Markdown\Blocks;
+namespace Converge\Markdown\Blocks;
 
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Node\Node;

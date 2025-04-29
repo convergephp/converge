@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Markdown\Parsers;
+namespace Converge\Markdown\Parsers;
 
-use Fluxtor\Converge\Markdown\Blocks\BladeComponentBlock;
+use Converge\Markdown\Blocks\BladeComponentBlock;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;

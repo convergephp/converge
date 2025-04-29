@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
 
-use function Fluxtor\Converge\format_url;
+use function Converge\format_url;
 
 trait HasUrl
 {

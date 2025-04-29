@@ -1,5 +1,5 @@
 @php
-    use function Fluxtor\Converge\converge;
+    use function Converge\converge;
     $activeCluster = converge()->getUsedCluster() ?? converge()->getDefaultCluster();
     $id = $activeCluster?->getId();
     $isActive = $cluster->getId() === $id;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Versions;
+namespace Converge\Versions;
 
-use Fluxtor\Converge\CollectionsRegistry;
+use Converge\CollectionsRegistry;
 
 class Versions extends CollectionsRegistry
 {

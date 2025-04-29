@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Support\Metadata;
+use Converge\Support\Metadata;
 
 trait HasMetadata
 {

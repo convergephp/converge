@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\SearchEngine\Tokenizers;
+namespace Converge\SearchEngine\Tokenizers;
 
 class Tokenizer
 {

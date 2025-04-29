@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Versions;
+namespace Converge\Versions;
 
 class VersionPresenter
 {

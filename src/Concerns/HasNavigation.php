@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 class HasNavigation {}

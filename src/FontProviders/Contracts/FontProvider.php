@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\FontProviders\Contracts;
+namespace Converge\FontProviders\Contracts;
 
 use Illuminate\Contracts\Support\Htmlable;
 

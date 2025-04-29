@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Tests;
+namespace Converge\Tests;
 
 use PHPUnit\Framework\TestCase as FrameworkTestCase;
 

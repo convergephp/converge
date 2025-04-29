@@ -1,6 +1,6 @@
 @props(['groupItem'])
 @php
-    $styles = (new \Fluxtor\Converge\Support\Styles(classes: $groupItem->getClasses(), style: $groupItem->getStyles()))
+    $styles = (new \Converge\Support\Styles(classes: $groupItem->getClasses(), style: $groupItem->getStyles()))
         ->merge([])
         ->overideAttributes(['class' => 'text-sm text-base-content hover:text-primary whitespace-nowrap']);
     // dd($styles)

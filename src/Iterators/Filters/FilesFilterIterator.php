@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Iterators\Filters;
+namespace Converge\Iterators\Filters;
 
 use RecursiveFilterIterator;
 use SplFileInfo;

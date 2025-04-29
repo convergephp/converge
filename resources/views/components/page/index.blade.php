@@ -2,7 +2,7 @@
     'metadata',
 ])
 @php
-    $layout = \Fluxtor\Converge\converge()->getTheme()->getLayout()->value;
+    $layout = \Converge\converge()->getTheme()->getLayout()->value;
 @endphp
 
 <x-converge-layout :name="$layout" :$metadata>

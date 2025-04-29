@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Routing\Versions;
+namespace Converge\Routing\Versions;
 
-use Fluxtor\Converge\Contracts\VersionUrlGenerator;
+use Converge\Contracts\VersionUrlGenerator;
 
 // @TODO
 class SubdomainUrlGenerator implements VersionUrlGenerator

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge;
+namespace Converge;
 
-use Fluxtor\Converge\Clusters\Cluster;
-use Fluxtor\Converge\Versions\Version;
+use Converge\Clusters\Cluster;
+use Converge\Versions\Version;
 
 class Repository /**hold active contexts for the evaluated request*/
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Routing\Versions\PrefixedUrlGenerator;
+use Converge\Routing\Versions\PrefixedUrlGenerator;
 
 trait HasRoutePath
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Concerns;
+namespace Converge\Concerns;
 
 use Closure;
-use Fluxtor\Converge\Repository;
-use Fluxtor\Converge\Versions\Version;
-use Fluxtor\Converge\Versions\VersionLink;
-use Fluxtor\Converge\Versions\Versions;
+use Converge\Repository;
+use Converge\Versions\Version;
+use Converge\Versions\VersionLink;
+use Converge\Versions\Versions;
 use Illuminate\Support\Collection;
 use LogicException;
 

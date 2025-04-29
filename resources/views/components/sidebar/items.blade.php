@@ -1,8 +1,8 @@
 @props(['sidebarItems' => null])
 <?php
-use Fluxtor\Converge\Sidebar\SidebarGroup;
-use Fluxtor\Converge\Sidebar\SidebarItem;
-use function Fluxtor\Converge\converge;
+use Converge\Sidebar\SidebarGroup;
+use Converge\Sidebar\SidebarItem;
+use function Converge\converge;
 /*
  * when the sidebarItems is null that mean we are in first recursive
  * iteration so when to resolve the sidebar manager first then we

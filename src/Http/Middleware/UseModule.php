@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Http\Middleware;
+namespace Converge\Http\Middleware;
 
 use Closure;
-use Fluxtor\Converge\Facades\Converge;
+use Converge\Facades\Converge;
 use Illuminate\Http\Request;
 
 class UseModule

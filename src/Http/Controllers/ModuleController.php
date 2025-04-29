@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Http\Controllers;
+namespace Converge\Http\Controllers;
 
-use Fluxtor\Converge\ContentMap;
-use Fluxtor\Converge\Repository;
+use Converge\ContentMap;
+use Converge\Repository;
 
 class ModuleController
 {

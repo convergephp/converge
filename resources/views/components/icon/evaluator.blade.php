@@ -1,4 +1,4 @@
-@use('Fluxtor\Converge\Enums\IconSize')
+@use('Converge\Enums\IconSize')
 @props([
     'icon' => null,
     'iconSize' => null,

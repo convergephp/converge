@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\Facades\Converge;
-use Fluxtor\Converge\Http\Controllers\FileController;
-use Fluxtor\Converge\Http\Controllers\ModuleController;
-use Fluxtor\Converge\Http\Middleware\UseModule;
-use Fluxtor\Converge\Http\Middleware\UseVersion;
-use Fluxtor\Converge\Routing\RouteManager;
-use Fluxtor\Converge\Versions\Version;
+use Converge\Facades\Converge;
+use Converge\Http\Controllers\FileController;
+use Converge\Http\Controllers\ModuleController;
+use Converge\Http\Middleware\UseModule;
+use Converge\Http\Middleware\UseVersion;
+use Converge\Routing\RouteManager;
+use Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
 // Create an instance of RouteManager

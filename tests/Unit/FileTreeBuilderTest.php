@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Fluxtor\Converge\FilesTreeBuilder;
+use Converge\FilesTreeBuilder;
 
 $stubs = realpath(__DIR__.'/../stubs/docs');
 

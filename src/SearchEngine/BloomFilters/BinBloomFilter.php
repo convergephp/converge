@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\SearchEngine\BloomFilters;
+namespace Converge\SearchEngine\BloomFilters;
 
 // @todo try using binary one instead
 class BinBloomFilter

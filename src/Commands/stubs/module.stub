@@ -2,12 +2,12 @@
 
 namespace {{ namespace }};
 
-use Fluxtor\Converge\Module;
-use Fluxtor\Converge\Providers\ModuleProvider;
-use Fluxtor\Converge\Enums\Spotlight;
-use Fluxtor\Converge\MenuItems\MenuItem;
-use Fluxtor\Converge\MenuItems\MenuItems;
-use Fluxtor\Converge\Theme\Theme;
+use Converge\Module;
+use Converge\Providers\ModuleProvider;
+use Converge\Enums\Spotlight;
+use Converge\MenuItems\MenuItem;
+use Converge\MenuItems\MenuItems;
+use Converge\Theme\Theme;
 
 class {{ class }} extends ModuleProvider
 {

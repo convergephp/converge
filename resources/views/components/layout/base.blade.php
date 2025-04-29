@@ -2,11 +2,11 @@
     'metadata' => [],
 ])
 
-@use(Fluxtor\Converge\Facades\Converge)
+@use(Converge\Facades\Converge)
 
 <?php
-use function Fluxtor\Converge\converge;
-use function Fluxtor\Converge\intercept;
+use function Converge\converge;
+use function Converge\intercept;
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ use function Fluxtor\Converge\intercept;
 <head>
 
  
-    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+    {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     <style>
         :root {
             --font: {{ converge()->getTheme()->getFontFamily() }};
@@ -38,7 +38,7 @@ use function Fluxtor\Converge\intercept;
 
         {!! Converge::css() !!}
 
-        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+        {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
         <style>
             :root {
                 --font: {{ converge()->getTheme()->getFontFamily() }};
@@ -51,7 +51,7 @@ use function Fluxtor\Converge\intercept;
             }
         </style>
 
-        {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
+        {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
     </head>
 
     <script>
@@ -70,7 +70,7 @@ use function Fluxtor\Converge\intercept;
         });
     </script>
 
-    {{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+    {{ intercept(\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
     </head>
 
     <script>
@@ -92,7 +92,7 @@ use function Fluxtor\Converge\intercept;
     });
 </script>
 
-{{ intercept(\Fluxtor\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+{{ intercept(\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
 </head>
 
 <script>
@@ -150,10 +150,10 @@ use function Fluxtor\Converge\intercept;
     {!! Converge::js() !!}
 
     {{-- Carbon ADS --}}
-    @if (filled(intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
+    @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
         <div class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-red-500 bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]"
             style="font-weight: var(--font-weight)">
-            {{ intercept(\Fluxtor\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
+            {{ intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
         </div>
     @endif
 </body>

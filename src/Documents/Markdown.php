@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Fluxtor\Converge\Documents;
+namespace Converge\Documents;
 
-use Fluxtor\Converge\Markdown\Extensions\BladeCompilerExtension;
+use Converge\Markdown\Extensions\BladeCompilerExtension;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
 use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkExtension;
