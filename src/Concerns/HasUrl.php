@@ -6,8 +6,6 @@ namespace Converge\Concerns;
 
 use Closure;
 
-use function Converge\format_url;
-
 trait HasUrl
 {
     protected string|Closure|null $url;

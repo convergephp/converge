@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Converge\Markdown\Parsers;
 
-use Exception;
 use Converge\Markdown\Blocks\BladeComponentBlock;
+use Exception;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 use League\CommonMark\Parser\Block\BlockContinue;

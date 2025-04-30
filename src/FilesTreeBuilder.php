@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Converge;
 
-use Exception;
 use Converge\Iterators\Filters\FilesFilterIterator;
 use Converge\Iterators\RecursiveDirectoryIterator;
+use Exception;
 use Illuminate\Support\Facades\Cache;
 
 final class FilesTreeBuilder
