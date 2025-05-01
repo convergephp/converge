@@ -46,9 +46,17 @@
         scrollbar-width: none;
         -ms-overflow-style: none;
       }
+      .code-block-wrapper {
+        padding: 4px !important;
+        border: 2px solid oklab(0.707 -0.00331825 -0.0217483 / 0.2) !important;
+        background-color: transparent;
+        border-radius: var(--radius-box);
+        position: relative;
+        margin: .75rem 0 .75rem 0;
+      }
 
       .code-container pre {
-        border-radius: var(--radius-box) !important;
+        border-radius: var(--radius-lg) !important;
         vertical-align: middle !important;
         padding-top: 1rem !important;
         padding-bottom: 1rem !important
@@ -347,9 +355,9 @@ html{
 }
 
 @media screen and (max-width: 768px) {
-    html {
+    /* html {
         scroll-padding-top: 120px;
-    }
+    } */
 }
 
 .table-of-contents a {

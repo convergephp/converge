@@ -6,7 +6,7 @@
 <div {{ $attributes->merge(['class' => 'flex items-center']) }}>
     @if (count($versions) === 1)
         <div
-             class="btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
+             class="btn-xs md:btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
             <span>{{ $usedVersion['label'] }}</span>
         </div>
     @else
