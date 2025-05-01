@@ -69,68 +69,42 @@ use function Converge\intercept;
         </script>
 
         {{ intercept(\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
-    </head>
+        <script>
+            // hack to prevent light flicker at load time in slow connections (chrome)
+            (function() {
+                let theme = localStorage.getItem('theme') ?? 'dark';
 
-    <script>
-        // hack to prevent light flicker at load time in slow connections (chrome)
-        (function() {
-                // Définir le thème par défaut comme "dark" si aucun thème n'est défini
-                let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
-
-                // Si le thème est "system", vérifier les préférences du système
                 if (theme === 'system') {
                     theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
                         'dark' :
                         'light';
                 }
-                window.addEventListener("beforeunload", function() {
-                    sessionStorage.setItem("sidebarScroll", sidebar.scrollTop);
-                });
-            }
-        });
-    </script>
 
-    {{ intercept(\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+
+                const root = document.documentElement;
+                const themes = {
+                    light: {!! converge()->getTheme()->getLightModeTheme() !!},
+                    dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
+                };
+
+                const selectedTheme = themes[theme];
+                if (selectedTheme) {
+                    Object.entries(selectedTheme).forEach(([key, value]) => {
+                        root.style.setProperty(key, value);
+                    });
+                }
+
+                if (!localStorage.getItem('theme')) {
+                    localStorage.setItem('theme', 'dark');
+                }
+            })();
+        </script>
     </head>
-
-    <script>
-        // hack to prevent light flicker at load time in slow connections (chrome)
-        (function() {
-            // Définir le thème par défaut comme "dark" si aucun thème n'est défini
-            let theme = localStorage.getItem('theme') ?? 'dark'; // Changé 'system' en 'dark' pour activer par défaut
-
-            // Si le thème est "system", vérifier les préférences du système
-            if (theme === 'system') {
-                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
-                    'dark' :
-                    'light';
-            }
-
-            // Ajouter la classe 'dark' à l'élément HTML pour Tailwind CSS
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-
-            const root = document.documentElement;
-            const themes = {
-                light: {!! converge()->getTheme()->getLightModeTheme() !!},
-                dark: {!! converge()->getTheme()->getDarkModeTheme() !!}
-            };
-
-            const selectedTheme = themes[theme];
-            if (selectedTheme) {
-                Object.entries(selectedTheme).forEach(([key, value]) => {
-                    root.style.setProperty(key, value);
-                });
-            }
-
-            if (!localStorage.getItem('theme')) {
-                localStorage.setItem('theme', 'dark');
-            }
-        })();
-    </script>
 
     <body x-data="themeSwitcher({
         lightMode: {{ Illuminate\Support\Js::from(converge()->getTheme()->getLightModeTheme()) }},
@@ -149,7 +123,7 @@ use function Converge\intercept;
 
         {{-- Carbon ADS --}}
         @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
-            <div class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-red-500 bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]"
+            <div class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]"
                  style="font-weight: var(--font-weight)">
                 {{ intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
             </div>
