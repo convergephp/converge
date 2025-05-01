@@ -19,7 +19,7 @@ use function Converge\intercept;
                 @include('converge::components.layout.partials.index.sidebar')
 
                 {{-- CONTENT --}}
-                <div class="mx-auto max-w-xl flex-1 px-4 pt-32 transition-all duration-100 sm:px-5 sm:pt-28 md:max-w-2xl md:pt-32 lg:max-w-screen-md lg:pl-6 lg:pt-10 2xl:pl-4"
+                <div class="pt-21 mx-auto max-w-xl flex-1 px-4 transition-all duration-100 sm:px-5 md:max-w-2xl md:pt-10 lg:max-w-screen-md lg:pl-6 2xl:pl-4"
                      id="content-container">
                     <div class="mx-auto flex max-w-5xl gap-x-4 sm:gap-x-8 md:gap-x-12">
                         <div class="w-full pb-4">
