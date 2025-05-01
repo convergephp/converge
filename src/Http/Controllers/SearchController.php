@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Converge\Http\Controllers;
 
-use Exception;
 use Converge\ContentMap;
 use Converge\FilesTreeBuilder;
 use Converge\Repository;
 use Converge\SearchEngine\Engine;
 use Converge\Support\Highlighter;
+use Exception;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

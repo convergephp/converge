@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Converge\SearchEngine;
 
-use Exception;
 use Converge\Repository;
 use Converge\SearchEngine\Spell\JaroWinklerDistance;
+use Exception;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Log;
 
