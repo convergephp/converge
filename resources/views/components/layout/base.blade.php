@@ -14,20 +14,8 @@ use function Converge\intercept;
     <x-converge::layout.shared.meta :$metadata />
 
     <head>
-
-        {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
-        <style>
-            :root {
-                --font: {{ converge()->getTheme()->getFontFamily() }};
-            }
-        </style>
-
-        <style>
-            [x-cloak] {
-                display: none;
-            }
-        </style>
-        {!! Converge::css() !!}
+        {{-- fontfamily links --}}
+        {!! converge()->getTheme()->getFontHtml() !!}
 
         {{-- Components build assets --}}
         @if (file_exists(public_path('vendor/converge/components/css/components.css')))
@@ -49,8 +37,6 @@ use function Converge\intercept;
                 display: none;
             }
         </style>
-
-        {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
