@@ -33,7 +33,6 @@ class Markdown
                 'heading_permalink' => [
                     'html_class' => 'heading-permalink',
                     'symbol' => '',
-                    'insert' => 'after',
                     'title' => '',
                 ],
             ],
