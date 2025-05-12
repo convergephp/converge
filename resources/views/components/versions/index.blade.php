@@ -6,14 +6,14 @@
 <div {{ $attributes->merge(['class' => 'flex items-center']) }}>
     @if (count($versions) === 1)
         <div
-             class="btn-xs md:btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
+             class="btn-xs lg:!btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
             <span>{{ $usedVersion['label'] }}</span>
         </div>
     @else
         <div>
             <x-converge::dropdown>
                 <x-slot:button
-                        class="btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
+                        class="btn-xs lg:!btn-sm btn border-base-300 bg-base-100 text-base-content hover:border-primary/80 flex items-center border">
                     <span>{{ $usedVersion['label'] }}</span>
                     <x-converge::icons.openable class="stroke size-3"
                                                 x-model="$data.isOpen()" />

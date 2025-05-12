@@ -337,6 +337,75 @@
     }
 }
 
+
+/* START PERMALINK ICON */
+.heading-permalink {
+    visibility: hidden !important;
+    float: left;
+    padding-right: 4px;
+    margin-left: -22px;
+    line-height: 2rem;
+    font-size: 25px;
+    margin-bottom: 1rem !important;
+  }
+
+  .heading-permalink::after {
+    content: '';
+    background-position: center;
+    display: flex;
+    height: 1.5rem;
+    width: 1.3rem;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='20' fill='gray' viewBox='0 0 16 16'%3E%3Cpath d='M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9q-.13 0-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.714.82-1z'/%3E%3Cpath d='M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4 4 0 0 1-.82 1H12a3 3 0 1 0 0-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 1.3rem;
+  }
+
+  h1 .heading-permalink::after {
+    height: 2rem !important;
+  }
+  h2 .heading-permalink::after {
+    height: 1.5rem !important;
+  }
+  h3 .heading-permalink::after {
+    height: 1.2rem !important;
+  }
+  h4 .heading-permalink::after {
+    height: 1.1rem !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-left: -3px !important;
+  }
+
+  h1:hover .heading-permalink,
+  h2:hover .heading-permalink,
+  h3:hover .heading-permalink,
+  h4:hover .heading-permalink,
+  h5:hover .heading-permalink,
+  h6:hover .heading-permalink
+  {
+    cursor: pointer !important;
+    visibility: visible !important;
+  }
+
+  @media screen and (max-width: 768px) {
+    .heading-permalink {
+        visibility: visible !important;
+        float: left;
+        padding-right: 2px;
+        margin-left: -10px;
+        line-height: 1;
+        font-size: 20px;
+        vertical-align: middle !important;
+      }
+ }
+/* END PERMALINK ICON STYLES */
+
 code .hl-gutter {
     display: none !important;
 }
