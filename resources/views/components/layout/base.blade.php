@@ -106,10 +106,10 @@ use function Converge\intercept;
         {{ $slot }}
         <x-converge::search.modal />
 
-        <!-- Bouton retour en haut -->
+        <!-- Bouton go to top page -->
         <button x-data="scrollButton()"
-                @scroll.window="handleScroll"
-                @click="scrollToTop"
+                x-on:scroll.window="handleScroll"
+                x-on:click="scrollToTop"
                 x-show="showButton"
                 x-transition:enter="transition ease-out duration-300"
                 x-transition:enter-start="opacity-0 transform translate-y-4"
@@ -143,8 +143,6 @@ use function Converge\intercept;
                         } else {
                             this.showButton = false;
                         }
-
-                        // Mettre à jour la dernière position connue pour la comparaison suivante
                         this.lastScrollY = currentScrollY;
                     },
 

@@ -12,7 +12,6 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
     <div class="flex min-h-screen flex-col">
         <div class="flex-grow antialiased">
 
-
             {{-- NAVBAR --}}
             <div id="navbar"
                  class="fixed top-0 z-30 w-full lg:sticky">
@@ -68,27 +67,27 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
             <div class="mx-auto max-w-5xl lg:flex">
                 {{-- SIDEBAR --}}
                 <div x-data="{
-                                isOpen: false, // Sidebar hidden by default on small screens
-                                init() {
-                                    const mediaQuery = window.matchMedia('(max-width: 1024px)');
-
-                                    const updateSidebarState = () => {
-                                        if (mediaQuery.matches) {
-                                            this.close();
-                                        } else {
-                                            this.open();
-                                        }
-                                    };
-                                    updateSidebarState();
-                                    mediaQuery.addEventListener('change', updateSidebarState);
-                                },
-                                open() {
-                                    this.isOpen = true;
-                                },
-                                close() {
-                                    this.isOpen = false;
-                                },
-                            }"
+                    isOpen: false, // Sidebar hidden by default on small screens
+                    init() {
+                        const mediaQuery = window.matchMedia('(max-width: 1024px)');
+                
+                        const updateSidebarState = () => {
+                            if (mediaQuery.matches) {
+                                this.close();
+                            } else {
+                                this.open();
+                            }
+                        };
+                        updateSidebarState();
+                        mediaQuery.addEventListener('change', updateSidebarState);
+                    },
+                    open() {
+                        this.isOpen = true;
+                    },
+                    close() {
+                        this.isOpen = false;
+                    },
+                }"
                      x-on:open-sidebar.window="$data.open()"
                      x-on:close-sidebar.window="$data.close()">
 
@@ -134,22 +133,10 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                      id="content-container">
                     <div class="mx-auto flex max-w-5xl gap-x-4 sm:gap-x-8 md:gap-x-12">
                         <div class="w-full pb-4">
-                            <div class="mb-10
-                                [&_ul]:list-none [&_ul]:pl-0 [&_ul]:space-y-1
-                                [&_li]:!font-bold [&_li]:!text-lg [&_a]:!text-md
-                                [&_li]:relative [&_li]:pl-4 [&_li]:py-1.5 [&_li]:transition-colors [&_li]:duration-200
-                                [&_li]:text-base-content/80 [&_li:hover]:text-primary
-                                [&_li::before]:absolute [&_li::before]:left-0 [&_li::before]:top-1.5
-                                [&_li::before]:opacity-70 [&_li:hover::before]:opacity-100 [&_li::before]:text-primary
-                                [&_a]:block
-
-                                [&_li::before]:!content-['#'] [&>ul>li::before]:font-bold [&>ul>li::before]:text-lg">
+                            <div
+                                 class="[&_a]:!text-md [&_li]:text-base-content/80 [&_li:hover]:text-primary [&_li::before]:text-primary mb-10 [&>ul>li::before]:text-lg [&>ul>li::before]:font-bold [&_a]:block [&_li::before]:absolute [&_li::before]:left-0 [&_li::before]:top-1.5 [&_li::before]:opacity-70 [&_li::before]:!content-['#'] [&_li:hover::before]:opacity-100 [&_li]:relative [&_li]:py-1.5 [&_li]:pl-4 [&_li]:!text-lg [&_li]:!font-bold [&_li]:transition-colors [&_li]:duration-200 [&_ul]:list-none [&_ul]:space-y-1 [&_ul]:pl-0">
                                 <x-converge::table-of-contents :hidden_header="true" />
                             </div>
-                            <!-- <div class="toc-container">
-                                <x-converge::table-of-contents :hidden_header="true" />
-                            </div> -->
-
                             {{ $slot }}
                         </div>
                     </div>
