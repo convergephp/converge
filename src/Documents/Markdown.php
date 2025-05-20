@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Converge\Documents;
 
-use Converge\Enums\HeadingPermalinkIcon;
 use Converge\Markdown\Extensions\BladeCompilerExtension;
 use Illuminate\Support\Str;
 use League\CommonMark\Extension\Autolink\AutolinkExtension;
@@ -13,7 +12,6 @@ use League\CommonMark\Extension\TaskList\TaskListExtension;
 use League\CommonMark\Util\HtmlFilter;
 use Tempest\Highlight\CommonMark\HighlightExtension;
 use Tempest\Highlight\Highlighter;
-use League\CommonMark\Extension\HeadingPermalink\HeadingPermalinkRenderer;
 
 class Markdown
 {
