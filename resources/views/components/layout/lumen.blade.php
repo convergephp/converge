@@ -15,10 +15,10 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
         <header id="site-header"
                 class="shadow-base-300 fixed top-0 z-20 flex h-[64px] w-full flex-none flex-col shadow-[0px_1px_0px] backdrop-blur-lg">
             <div class="w-full">
-                <div class="scroll-nojump px-2">
+                <div class="px-2">
                     <div
                          class="mx-auto flex min-h-16 w-full max-w-screen-2xl items-center justify-between gap-x-4 py-3 sm:h-16">
-                        <div class="md:min-w-sm flex max-w-full items-center justify-start gap-4">
+                        <div class="md:min-w-sm flex max-w-full items-center justify-start gap-2 md:gap-4">
                             <!-- Sidebar toggle button - Mobile only -->
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
@@ -51,21 +51,21 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
 
                             <!-- LOGO -->
                             <x-converge::logo />
-
-                            <!-- Search Button -->
-                            <div class="text-center lg:flex-grow">
-                                <x-converge::search />
-                            </div>
                         </div>
 
-                        <div class="flex grow-0 items-center justify-end gap-4 md:basis-full">
+                        <div class="flex grow-0 items-center justify-end gap-1 lg:gap-4 md:basis-full">
+                            <!-- Search Button -->
+                            <div class="">
+                                <x-converge::search />
+                            </div>
+
                             <!-- Navigation items - desktop only -->
                             <nav class="md:block">
                                 <x-converge::menu-items />
                             </nav>
 
                             <!-- Visual divider -->
-                            <div class="block h-5 w-px bg-gray-400/20"></div>
+                            <div class="block h-5 mr-1 w-px bg-gray-400/20"></div>
 
                             <!-- Theme switcher component -->
                             <x-converge::theme-switcher.inline />
@@ -102,7 +102,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                     <!-- Version selector (conditionally shown) -->
                     @if ($hasVersions)
                         <div x-bind:class="{ 'border-b border-gray-400/20': sideBarOpen }"
-                             class="pb-4 lg:border-b px-2 lg:border-gray-400/20">
+                             class="px-2 pb-4 lg:border-b lg:border-gray-400/20">
                             <x-converge::versions class="z-30" />
                         </div>
                     @endif
@@ -124,8 +124,8 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
 
                         <!-- Main content -->
                         <main
-                              class="break-anywhere page-api-block:xl:max-2xl:pr-0 page-api-block:mx-auto page-api-block:max-w-screen-2xl page-default-width page-has-toc relative min-w-0 flex-1  py-8">
-                            <div class="px-2 lg:px-0">
+                              class="break-anywhere page-api-block:xl:max-2xl:pr-0 page-api-block:mx-auto page-api-block:max-w-screen-2xl page-default-width page-has-toc relative min-w-0 flex-1 py-8">
+                            <div class="px-4 lg:px-0">
                                 {{ $slot }}
                             </div>
 

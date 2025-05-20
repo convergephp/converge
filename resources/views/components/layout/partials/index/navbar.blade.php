@@ -1,7 +1,3 @@
- @php
-     $hasVersions = count(\Converge\converge()->getUiVersions());
- @endphp
-
  <div id="navbar"
       class="fixed top-0 z-30 w-full lg:sticky">
      <div id="navbar-transition"
@@ -11,7 +7,7 @@
      <div class="relative mx-auto max-w-[88rem]">
          <div class="">
              <div class="relative">
-                 <div class="flex h-16 min-w-0 items-center px-4">
+                 <div class="flex h-16 min-w-0 items-center px-2">
                      <div class="relative flex h-full min-w-0 flex-1 items-center gap-x-2 lg:gap-x-4">
                          {{-- BRAND --}}
                          <div
@@ -20,7 +16,9 @@
 
                              {{-- VERSON --}}
                              @if ($hasVersions)
-                                 <x-converge::versions />
+                                 <div class="hidden md:block">
+                                     <x-converge::versions />
+                                 </div>
                              @endif
                          </div>
 
@@ -38,7 +36,7 @@
                              <x-converge::search />
                          </div>
 
-                         <div class="relative ml-auto flex h-full items-center justify-end gap-2 lg:gap-4">
+                         <div class="relative ml-auto flex h-full items-center justify-end gap-1 lg:gap-4">
 
                              <nav class="items-center gap-2 text-sm lg:text-base">
                                  <x-converge::menu-items />

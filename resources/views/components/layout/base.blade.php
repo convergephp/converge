@@ -105,6 +105,59 @@ use function Converge\intercept;
         {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
         <x-converge::search.modal />
+
+        <!-- Bouton retour en haut -->
+        <button x-data="scrollButton()"
+                @scroll.window="handleScroll"
+                @click="scrollToTop"
+                x-show="showButton"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform translate-y-4"
+                x-transition:enter-end="opacity-100 transform translate-y-0"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 transform translate-y-0"
+                x-transition:leave-end="opacity-0 transform translate-y-4"
+                class="btn btn-rounded bg-primary btn-circle fixed bottom-16 right-8 border-none text-white lg:bottom-20">
+            <svg class="h-6 w-6"
+                 fill="none"
+                 stroke="currentColor"
+                 viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+        <script>
+            function scrollButton() {
+                return {
+                    showButton: false,
+                    lastScrollY: 0,
+
+                    handleScroll() {
+                        const currentScrollY = window.scrollY;
+                        if (currentScrollY > 300) {
+                            this.showButton = true;
+                        } else {
+                            this.showButton = false;
+                        }
+
+                        // Mettre à jour la dernière position connue pour la comparaison suivante
+                        this.lastScrollY = currentScrollY;
+                    },
+
+                    scrollToTop() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }
+                };
+            }
+        </script>
+
         {!! Converge::js() !!}
 
         {{-- Carbon ADS --}}
@@ -114,6 +167,7 @@ use function Converge\intercept;
                 {{ intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
             </div>
         @endif
+
     </body>
 
 </html>

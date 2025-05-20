@@ -13,4 +13,6 @@ enum Layout: string
     case Aurum = 'aurum';
 
     case Lumen = 'lumen';
+
+    case Minimal = 'minimal';
 }

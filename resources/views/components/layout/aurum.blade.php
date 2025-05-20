@@ -26,20 +26,20 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                 <div
                      class="contents border-r scrollbar-hidden border-gray-400/20 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:pb-8 lg:pt-4">
                     {{-- DESKTOP LOGO AND VERSION SELECTOR --}}
-                    <div class="hidden justify-between lg:flex px-0 lg:px-4">
+                    <div class="hidden justify-between lg:flex flex-wrap px-0 gap-x-4 lg:px-4">
                         {{-- Logo component --}}
                         <x-converge::logo />
 
                         {{-- Version selector (conditional) --}}
                         @if ($hasVersions)
-                            <div class="ml-4">
+                            <div class="">
                                 <x-converge::versions />
                             </div>
                         @endif
                     </div>
 
                     {{-- TOP NAVIGATION BAR --}}
-                    <div class="backdrop-blur-xs bg-base-200 fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between gap-12 px-4 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-72 dark:bg-zinc-900/[var(--bg-opacity-dark)] dark:backdrop-blur-sm"
+                    <div class="backdrop-blur-xs bg-base-200 fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between gap-12 px-2 transition sm:px-6 lg:left-72 lg:z-30 lg:px-8 xl:left-72 dark:bg-zinc-900/[var(--bg-opacity-dark)] dark:backdrop-blur-sm"
                          style="--bg-opacity-light: 0.5; --bg-opacity-dark: 0.2;">
 
                         {{-- Bottom border for navbar --}}
@@ -122,7 +122,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                 {{-- Content section --}}
                 <main class="flex flex-auto gap-2">
                     {{-- Main content slot --}}
-                    <div class="mx-auto flex h-full flex-col overflow-hidden pb-10 pt-16 md:overflow-visible">
+                    <div class="mx-auto flex h-full flex-col overflow-hidden pb-10 px-4 pt-16 md:overflow-visible">
                         {{ $slot }}
                     </div>
 

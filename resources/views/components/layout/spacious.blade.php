@@ -52,13 +52,13 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                         </div>
                     </div>
 
-                    <div class="flex flex-grow items-center justify-end gap-4">
+                    <div class="flex flex-grow items-center justify-end gap-1 lg:gap-2">
                         {{-- SEARCH BUTTON --}}
                         <div class="text-center lg:flex-grow order-2 lg:order-1">
                             <x-converge::search class="lg:!max-w-2xl" />
                         </div>
 
-                        <div class="order-1 lg:order-2">
+                        <div class="hidden md:block lg:order-2 mr-2">
                             @if ($hasVersions)
                                 <x-converge::versions class="h-full" />
                             @endif
@@ -93,6 +93,12 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                     {{-- Sidebar content --}}
                     <div id="sidebar"
                          class="overflow-y-auto scrollbar-hidden">
+                        <div class="block md:hidden px-2 mb-6">
+                            @if ($hasVersions)
+                                <x-converge::versions class="h-full" />
+                            @endif
+                        </div>
+
                         <x-converge::sidebar />
                     </div>
                 </div>
@@ -113,7 +119,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                         <div class="mx-auto gap-4 xl:flex xl:gap-6">
                             {{-- MAIN CONTENT --}}
                             <div class="mx-auto md:pb-24">
-                                <div class="mx-auto">
+                                <div class="mx-auto px-2">
                                     {{ $slot }}
                                 </div>
                             </div>

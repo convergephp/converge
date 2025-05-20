@@ -32,7 +32,7 @@
     <div x-show="isOpen"
          {{-- style="display: none" --}}
          class="lg:z-1 border-base-300 co-sidebar bg-base-200 no-scrollbar scrollbar-hidden fixed bottom-0 left-0 right-auto top-0 z-50 w-full min-w-[18rem] transform flex-col overflow-y-auto border-r lg:sticky lg:top-[4rem] lg:flex lg:h-[calc(100vh-4rem)] lg:w-[18rem] lg:bg-transparent">
-        <div class="flex items-center justify-between px-4 py-3">
+        <div class="flex items-center justify-between px-2 py-3">
             <x-converge::logo class="lg:hidden" />
 
             <button x-on:click="close()"
@@ -51,8 +51,13 @@
         </div>
 
         <!-- Sidebar Content -->
-        <div class="scrollbar-hidden flex-1 overflow-y-auto py-6"
+        <div class="scrollbar-hidden flex-1 overflow-y-auto"
              id="sidebar">
+            @if ($hasVersions)
+                <div class="block px-2 py-4 md:hidden">
+                    <x-converge::versions />
+                </div>
+            @endif
             <div class="scrollbar-hidden overflow-y-auto text-sm lg:text-base">
                 <x-converge::sidebar x-on:click="close()" />
             </div>
