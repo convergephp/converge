@@ -157,7 +157,6 @@ use function Converge\intercept;
         </script>
 
         {!! Converge::js() !!}
-
         {{-- Carbon ADS --}}
         @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
             <div class="text-base-content bottom-10 right-10 z-50 m-4 max-w-sm overflow-hidden rounded-lg bg-white text-center text-sm font-normal lg:fixed lg:m-0 lg:max-w-[160px]"
