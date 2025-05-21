@@ -117,7 +117,7 @@ use function Converge\intercept;
                 x-transition:leave="transition ease-in duration-300"
                 x-transition:leave-start="opacity-100 transform translate-y-0"
                 x-transition:leave-end="opacity-0 transform translate-y-4"
-                class="btn btn-rounded bg-primary btn-circle fixed bottom-16 right-8 border-none text-white lg:bottom-20">
+                class="btn btn-rounded bg-primary btn-circle fixed bottom-16 right-[50%] border-none text-white shadow-lg lg:bottom-20">
             <svg class="h-6 w-6"
                  fill="none"
                  stroke="currentColor"
@@ -160,7 +160,7 @@ use function Converge\intercept;
 
         {{-- Carbon ADS --}}
         @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
-            <div class="border-base-100 text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg border bg-white p-4 text-center text-sm font-normal shadow-lg lg:fixed lg:m-0 lg:max-w-[200px]"
+            <div class="text-base-content bottom-10 right-10 z-50 m-4 max-w-sm rounded-lg bg-white text-center text-sm font-normal lg:fixed lg:m-0 lg:max-w-[150px]"
                  style="font-weight: var(--font-weight)">
                 {{ intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS) }}
             </div>
