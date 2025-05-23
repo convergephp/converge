@@ -18,12 +18,13 @@ use function Converge\intercept;
         {!! converge()->getTheme()->getFontHtml() !!}
 
         {{-- Components build assets --}}
-        @if (file_exists(public_path('vendor/converge/components/css/components.css')))
+        {{-- @if (file_exists(public_path('vendor/converge/components/css/components.css')))
             <link rel="stylesheet"
                   href="{{ asset('vendor/converge/components/css/components.css') }}">
-        @endif
-
-        {!! Converge::css() !!}
+        @endif --}}
+        <link rel="stylesheet"
+              href="{{ asset('converge/css/converge.css') }}">
+        {{-- {!! Converge::css() !!} --}}
 
         {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
         <style>
