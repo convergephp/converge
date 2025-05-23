@@ -18,7 +18,7 @@ class ConvergeBuildCommand extends Command
      * @var string
      */
     protected $signature = 'converge:build {--dev : Build in development mode}
-                                          {--watch : Watch for changes and rebuild automatically}
+                                          {--watch : Watch for changes}
                                           {--force : Force rebuild even if files exist}';
 
     /**
@@ -75,16 +75,20 @@ class ConvergeBuildCommand extends Command
 
             // Handle watch mode differently
             if ($this->option('watch')) {
-                return $this->runWatchMode();
+                return $this->handleWatchMode();
             }
 
-            // Build assets
+            // Build assets (non-watch mode)
             $this->buildAssets();
 
             // Copy built assets to public directory
             $this->copyAssetsToPublic();
 
-            $this->displaySuccessMessage();
+            $this->components->info('Converge assets built successfully!');
+            $this->newLine();
+            $this->line('Assets available at:');
+            $this->line("  CSS: <fg=green>{$this->publicPath}/css/converge.css</>");
+            $this->line("  JS:  <fg=green>{$this->publicPath}/js/converge.js</>");
 
             return Command::SUCCESS;
 
@@ -95,116 +99,147 @@ class ConvergeBuildCommand extends Command
     }
 
     /**
-     * Run the build process in watch mode.
+     * Handle watch mode with persistent monitoring.
      */
-    protected function runWatchMode(): int
+    protected function handleWatchMode(): int
     {
-        $this->info('Starting watch mode...');
-        $this->line('Press <fg=red>Ctrl+C</> to stop watching.');
+        $this->info('Starting watch mode. Press Ctrl+C to stop...');
         $this->newLine();
 
-        // First, do an initial build
+        // Initial build
         try {
-            $this->buildAssets(false); // Don't use watch for initial build
+            $this->buildAssets();
             $this->copyAssetsToPublic();
-            $this->line('Initial build completed.');
+            $this->line('Initial build completed. Watching for changes...');
+            $this->newLine();
         } catch (\Exception $e) {
-            $this->warn('Initial build failed: '.$e->getMessage());
+            $this->components->error('Initial build failed: '.$e->getMessage());
+            return Command::FAILURE;
         }
 
-        // Create the watch process
-        $process = new SymfonyProcess(
-            ['npm', 'run', 'watch'], // Assuming you have a watch script
-            $this->packagePath,
-            null,
-            null,
-            null // No timeout for watch mode
-        );
+        // Determine the watch command
+        $command = $this->getWatchCommand();
+        $this->line("Starting: <fg=yellow>{$command}</>");
+        $this->newLine();
 
-        // Alternative commands to try if 'npm run watch' doesn't exist
-        $watchCommands = [
-            ['npm', 'run', 'watch'],
-            ['npm', 'run', 'dev', '--', '--watch'],
-            ['npx', 'webpack', '--watch'],
-            ['npx', 'vite', 'build', '--watch']
+        // Track if we've seen any output to detect if the process is actually running
+        $hasSeenOutput = false;
+        $lastOutputTime = time();
+
+        try {
+            // Use Laravel's Process with real-time output callback
+            $result = Process::path($this->packagePath)
+                ->timeout(0) // No timeout for watch mode
+                ->run($command, function (string $type, string $buffer) use (&$hasSeenOutput, &$lastOutputTime) {
+                    $hasSeenOutput = true;
+                    $lastOutputTime = time();
+
+                    // Clean up the output
+                    $output = trim($buffer);
+                    if (empty($output)) {
+                        return;
+                    }
+
+                    if ($type === SymfonyProcess::OUT) {
+                        // Display the output
+                        $this->line($output);
+
+                        // Check for build completion indicators and copy assets
+                        $buildIndicators = [
+                            'compiled successfully',
+                            'webpack compiled',
+                            'build completed',
+                            'bundled successfully',
+                            'compiled with',
+                            'built at',
+                            '✓ built',
+                            'Build completed'
+                        ];
+
+                        $outputLower = strtolower($output);
+                        foreach ($buildIndicators as $indicator) {
+                            if (strpos($outputLower, strtolower($indicator)) !== false) {
+                                $this->copyAssetsToPublic();
+                                $this->line('<fg=green>→ Assets copied to public directory</fg=green>');
+                                break;
+                            }
+                        }
+                    } elseif ($type === SymfonyProcess::ERR) {
+                        // Show errors but don't stop the process (many are just warnings)
+                        if (! $this->isIgnorableError($output)) {
+                            $this->error($output);
+                        }
+                    }
+                });
+
+            // Check if the process ended normally or was interrupted
+            if ($result->exitCode() === 0) {
+                $this->info('Watch mode ended successfully.');
+                return Command::SUCCESS;
+            } elseif (in_array($result->exitCode(), [130, 143])) { // SIGINT, SIGTERM
+                $this->info('Watch mode stopped by user.');
+                return Command::SUCCESS;
+            } else {
+                $this->error('Watch process ended unexpectedly (exit code: '.$result->exitCode().')');
+                if ($result->errorOutput()) {
+                    $this->error('Error output: '.$result->errorOutput());
+                }
+                return Command::FAILURE;
+            }
+
+        } catch (\Exception $e) {
+            $this->error('Watch mode failed: '.$e->getMessage());
+            return Command::FAILURE;
+        }
+    }
+
+    /**
+     * Determine the appropriate watch command to use.
+     */
+    protected function getWatchCommand(): string
+    {
+        $packageJsonPath = $this->packagePath.'/package.json';
+
+        if (File::exists($packageJsonPath)) {
+            $packageData = json_decode(File::get($packageJsonPath), true);
+            $scripts = $packageData['scripts'] ?? [];
+
+            // Priority order for watch scripts
+            $watchScripts = ['watch', 'dev:watch', 'dev'];
+
+            foreach ($watchScripts as $script) {
+                if (isset($scripts[$script])) {
+                    return "npm run {$script}";
+                }
+            }
+        }
+
+        // Fallback to generic watch command
+        return 'npm run dev -- --watch';
+    }
+
+    /**
+     * Check if an error message should be ignored (common warnings).
+     */
+    protected function isIgnorableError(string $output): bool
+    {
+        $ignorablePatterns = [
+            'warning',
+            'deprecated',
+            'suggestion',
+            'recommendation',
+            'info',
         ];
 
-        $watchProcess = null;
-        foreach ($watchCommands as $cmd) {
-            $testProcess = new SymfonyProcess($cmd, $this->packagePath);
-            $testProcess->setTimeout(5);
+        $outputLower = strtolower($output);
 
-            try {
-                $testProcess->start();
-                $testProcess->wait();
-
-                if ($testProcess->getExitCode() === 0 ||
-                    strpos($testProcess->getOutput().$testProcess->getErrorOutput(), 'watch') !== false) {
-                    $watchProcess = new SymfonyProcess($cmd, $this->packagePath);
-                    break;
-                }
-            } catch (\Exception $e) {
-                continue;
+        foreach ($ignorablePatterns as $pattern) {
+            if (strpos($outputLower, $pattern) !== false) {
+                return true;
             }
         }
 
-        if (! $watchProcess) {
-            $this->components->error('No suitable watch command found. Please ensure your package.json has a "watch" script or install a build tool that supports watching.');
-            return Command::FAILURE;
-        }
-
-        // Start the watch process
-        $watchProcess->start();
-
-        // Setup signal handlers for graceful shutdown
-        if (function_exists('pcntl_signal')) {
-            pcntl_signal(SIGINT, function () use ($watchProcess) {
-                $this->info('Stopping watch mode...');
-                $watchProcess->stop();
-                exit(0);
-            });
-        }
-
-        $lastCopyTime = 0;
-        $copyInterval = 2; // Copy assets every 2 seconds if files changed
-
-        // Monitor the process and copy assets when they change
-        while ($watchProcess->isRunning()) {
-            usleep(500000); // Sleep for 0.5 seconds
-
-            // Check if we should copy assets (every few seconds)
-            if (time() - $lastCopyTime >= $copyInterval) {
-                try {
-                    $this->copyAssetsToPublic();
-                    $lastCopyTime = time();
-                } catch (\Exception $e) {
-                    // Silently continue if copy fails
-                }
-            }
-
-            // Output any new output from the process
-            if ($output = $watchProcess->getIncrementalOutput()) {
-                $this->line($output);
-            }
-
-            if ($errorOutput = $watchProcess->getIncrementalErrorOutput()) {
-                $this->line('<fg=yellow>'.$errorOutput.'</>');
-            }
-
-            // Handle signals if available
-            if (function_exists('pcntl_signal_dispatch')) {
-                pcntl_signal_dispatch();
-            }
-        }
-
-        $exitCode = $watchProcess->getExitCode();
-
-        if ($exitCode !== 0) {
-            $this->components->error('Watch process exited with error code: '.$exitCode);
-            return Command::FAILURE;
-        }
-
-        return Command::SUCCESS;
+        return false;
     }
 
     /**
@@ -282,38 +317,22 @@ class ConvergeBuildCommand extends Command
     /**
      * Build the assets using npm scripts.
      */
-    protected function buildAssets(bool $useWatchFlag = null): void
+    protected function buildAssets(): void
     {
         $isDev = $this->option('dev');
-        $isWatch = $useWatchFlag ?? $this->option('watch');
-
-        if ($isWatch && ! $isDev) {
-            $this->warn('Watch mode requires development mode. Enabling --dev flag.');
-            $isDev = true;
-        }
-
-        // Don't use watch flag in this method when called from watch mode
-        if ($useWatchFlag === false) {
-            $isWatch = false;
-        }
-
         $command = $isDev ? 'npm run dev' : 'npm run build';
 
         $this->line("Running: <fg=yellow>{$command}</>");
 
-        $timeout = $isWatch ? null : 120; // No timeout for watch, 2 minutes for normal build
-
         $result = Process::path($this->packagePath)
-            ->timeout($timeout)
+            ->timeout(120)
             ->run($command);
 
         if ($result->failed()) {
             throw new \RuntimeException('Asset build failed: '.$result->errorOutput());
         }
 
-        if (! $isWatch) {
-            $this->line('Assets built successfully.');
-        }
+        $this->line('Assets built successfully.');
     }
 
     /**
@@ -321,112 +340,74 @@ class ConvergeBuildCommand extends Command
      */
     protected function copyAssetsToPublic(): void
     {
+        // Skip prompts in watch mode
+        $isWatchMode = $this->option('watch');
+
+        if (! $isWatchMode) {
+            $this->info('Copying assets to public directory...');
+        }
+
         // Define source and destination mappings
         $assetMappings = [
             'dist/css/converge.css' => 'css/converge.css',
             'dist/js/converge.js' => 'js/converge.js',
         ];
 
-        $copiedFiles = 0;
-
         foreach ($assetMappings as $source => $destination) {
             $sourcePath = $this->packagePath.'/'.$source;
             $destPath = $this->publicPath.'/'.$destination;
 
             if (! File::exists($sourcePath)) {
+                if (! $isWatchMode) {
+                    $this->warn("Source file not found: {$sourcePath}");
+                }
                 continue;
             }
 
-            // Check if destination exists and --force is not used
-            if (File::exists($destPath) && ! $this->option('force')) {
-                // In watch mode, always copy if source is newer
-                if ($this->option('watch')) {
-                    if (File::lastModified($sourcePath) <= File::lastModified($destPath)) {
-                        continue;
-                    }
-                } else {
-                    if (! $this->confirm("File {$destination} already exists. Overwrite?", true)) {
-                        continue;
-                    }
+            // In watch mode or with --force, skip confirmation
+            if (! $isWatchMode && File::exists($destPath) && ! $this->option('force')) {
+                if (! $this->confirm("File {$destination} already exists. Overwrite?", true)) {
+                    continue;
                 }
             }
 
             File::copy($sourcePath, $destPath);
-
-            if (! $this->option('watch')) {
+            if (! $isWatchMode) {
                 $this->line("Copied: <fg=green>{$destination}</>");
             }
-            $copiedFiles++;
         }
 
         // Copy any additional assets if they exist (images, fonts, etc.)
-        $copiedFiles += $this->copyAdditionalAssets();
-
-        // Only show message if in watch mode and files were actually copied
-        if ($this->option('watch') && $copiedFiles > 0) {
-            $this->line("Updated {$copiedFiles} asset file(s) at ".date('H:i:s'));
-        }
+        $this->copyAdditionalAssets($isWatchMode);
     }
 
     /**
      * Copy additional assets like images, fonts, etc.
      */
-    protected function copyAdditionalAssets(): int
+    protected function copyAdditionalAssets(bool $isWatchMode = false): void
     {
         $additionalDirs = ['images', 'fonts', 'icons'];
-        $copiedDirs = 0;
 
         foreach ($additionalDirs as $dir) {
             $sourcePath = $this->packagePath.'/dist/'.$dir;
             $destPath = $this->publicPath.'/'.$dir;
 
             if (File::exists($sourcePath)) {
-                if (File::exists($destPath) && ! $this->option('force')) {
-                    if (! $this->option('watch') && ! $this->confirm("Directory {$dir} already exists. Overwrite?", true)) {
+                if (! $isWatchMode && File::exists($destPath) && ! $this->option('force')) {
+                    if (! $this->confirm("Directory {$dir} already exists. Overwrite?", true)) {
                         continue;
                     }
                     File::deleteDirectory($destPath);
                 }
 
-                File::copyDirectory($sourcePath, $destPath);
+                if (File::exists($destPath) && ($isWatchMode || $this->option('force'))) {
+                    File::deleteDirectory($destPath);
+                }
 
-                if (! $this->option('watch')) {
+                File::copyDirectory($sourcePath, $destPath);
+                if (! $isWatchMode) {
                     $this->line("Copied directory: <fg=green>{$dir}/</>");
                 }
-                $copiedDirs++;
-            }
-        }
-
-        return $copiedDirs;
-    }
-
-    /**
-     * Display success message with build information.
-     */
-    protected function displaySuccessMessage(): void
-    {
-        $this->components->info('Converge assets built successfully!');
-        $this->newLine();
-        $this->line('Assets available at:');
-        $this->line("  CSS: <fg=green>{$this->publicPath}/css/converge.css</>");
-        $this->line("  JS:  <fg=green>{$this->publicPath}/js/converge.js</>");
-
-        // Display build info
-        $buildInfo = $this->getBuildInfo();
-        if (! empty($buildInfo)) {
-            $this->newLine();
-            $this->line('Build Information:');
-
-            if (isset($buildInfo['version'])) {
-                $this->line("  Version: <fg=cyan>{$buildInfo['version']}</>");
-            }
-
-            if (isset($buildInfo['css_size'])) {
-                $this->line("  CSS size: <fg=cyan>{$buildInfo['css_size']}</>");
-            }
-
-            if (isset($buildInfo['js_size'])) {
-                $this->line("  JS size: <fg=cyan>{$buildInfo['js_size']}</>");
             }
         }
     }
