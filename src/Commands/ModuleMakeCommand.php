@@ -7,6 +7,7 @@ namespace Converge\Commands;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 use function Laravel\Prompts\confirm;
 
@@ -46,6 +47,16 @@ class ModuleMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
+        if (! File::exists(app_path('Providers/Converge')) || count(File::files(app_path('Providers/Converge'))) === 0) {
+            $this->line('');
+            $this->line('<fg=cyan> ██████╗ ██████╗ ███╗   ██╗██╗   ██╗███████╗██████╗  ██████╗ ███████╗</>');
+            $this->line('<fg=cyan>██╔════╝██╔═══██╗████╗  ██║██║   ██║██╔════╝██╔══██╗██╔════╝ ██╔════╝</>');
+            $this->line('<fg=cyan>██║     ██║   ██║██╔██╗ ██║██║   ██║█████╗  ██████╔╝██║  ███╗█████╗  </>');
+            $this->line('<fg=cyan>╚██████╗╚██████╔╝██║ ╚████║ ╚████╔╝ ███████╗██║  ██║╚██████╔╝███████╗</>');
+            $this->line('<fg=cyan> ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</>');
+            $this->line('');
+        }
+
         if ($this->isReservedName($this->getNameInput())) {
             $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
 
@@ -59,7 +70,7 @@ class ModuleMakeCommand extends GeneratorCommand
         $moduleClass = $this->constructClass($moduleName);
 
         if ((! $this->hasOption('force') ||
-                ! $this->option('force')) &&
+            ! $this->option('force')) &&
             $this->alreadyExists($moduleClass)
         ) {
             $this->components->error($this->type.' already exists.');
@@ -81,7 +92,15 @@ class ModuleMakeCommand extends GeneratorCommand
             $path = str_replace('/', '\\', $path);
         }
 
-        $this->components->info(sprintf('%s [%s] created successfully.', $info, $path));
+        $absolutePath = realpath($path);
+        $relativePath = str_replace(base_path().'/', '', $absolutePath);
+
+        $this->line(sprintf(
+            '<fg=yellow>⚡️</> <fg=green>%s</><href=file://%s><fg=cyan>[%s]</></> <fg=green>created successfully.</>',
+            $info,
+            $absolutePath,
+            $relativePath
+        ));
 
         ServiceProvider::addProviderToBootstrapFile(
             $this->qualifyClass($this->constructClass($moduleName)),

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process as SymfonyProcess;
+use Symfony\Component\Process\ExecutableFinder;
 
 class ConvergeBuildCommand extends Command
 {
@@ -19,6 +20,7 @@ class ConvergeBuildCommand extends Command
      */
     protected $signature = 'converge:build {--dev : Build in development mode}
                                           {--watch : Watch for changes}
+                                          {--poll=1000 : File polling interval in milliseconds}
                                           {--force : Force rebuild even if files exist}';
 
     /**
@@ -43,6 +45,20 @@ class ConvergeBuildCommand extends Command
     protected $publicPath;
 
     /**
+     * File watcher process.
+     *
+     * @var \Symfony\Component\Process\Process|null
+     */
+    protected $fileWatcher;
+
+    /**
+     * NPM watcher process.
+     *
+     * @var \Symfony\Component\Process\Process|null
+     */
+    protected $npmWatcher;
+
+    /**
      * Initialize the command.
      */
     public function __construct()
@@ -62,7 +78,18 @@ class ConvergeBuildCommand extends Command
             return Command::FAILURE;
         }
 
-        $this->info('Building Converge assets...');
+        // this display converge
+        $this->line('');
+        $this->line('<fg=cyan> ██████╗ ██████╗ ███╗   ██╗██╗   ██╗███████╗██████╗  ██████╗ ███████╗</>');
+        $this->line('<fg=cyan>██╔════╝██╔═══██╗████╗  ██║██║   ██║██╔════╝██╔══██╗██╔════╝ ██╔════╝</>');
+        $this->line('<fg=cyan>██║     ██║   ██║██╔██╗ ██║██║   ██║█████╗  ██████╔╝██║  ███╗█████╗  </>');
+        $this->line('<fg=cyan>╚██████╗╚██████╔╝██║ ╚████║ ╚████╔╝ ███████╗██║  ██║╚██████╔╝███████╗</>');
+        $this->line('<fg=cyan> ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝</>');
+        $this->line('');
+
+        $this->line('');
+
+        $this->info('🤖 Building Converge assets...');
 
         try {
             // Create public directory if it doesn't exist
@@ -73,22 +100,18 @@ class ConvergeBuildCommand extends Command
                 $this->installNodeDependencies();
             }
 
-            // Handle watch mode differently
+            // Handle watch mode  ==> php artisan converge:build --watch
             if ($this->option('watch')) {
                 return $this->handleWatchMode();
             }
 
-            // Build assets (non-watch mode)
+            // Normal Build assets (non-watch mode) ==> php artisan converge:build
             $this->buildAssets();
 
             // Copy built assets to public directory
             $this->copyAssetsToPublic();
 
-            $this->components->info('Converge assets built successfully!');
-            $this->newLine();
-            $this->line('Assets available at:');
-            $this->line("  CSS: <fg=green>{$this->publicPath}/css/converge.css</>");
-            $this->line("  JS:  <fg=green>{$this->publicPath}/js/converge.js</>");
+            $this->displaySuccessMessage();
 
             return Command::SUCCESS;
 
@@ -99,98 +122,434 @@ class ConvergeBuildCommand extends Command
     }
 
     /**
-     * Handle watch mode with persistent monitoring.
+     * Handle watch mode with ==> php artisan converge:build --watch .
      */
     protected function handleWatchMode(): int
     {
-        $this->info('Starting watch mode. Press Ctrl+C to stop...');
+        $this->info('🤖 Starting watch mode...');
         $this->newLine();
+
+        // Ensure file watcher script exists
+        if (! $this->ensureFileWatcherExists()) {
+            return Command::FAILURE;
+        }
 
         // Initial build
         try {
             $this->buildAssets();
             $this->copyAssetsToPublic();
-            $this->line('Initial build completed. Watching for changes...');
+            $this->info('✓ Initial build completed');
             $this->newLine();
         } catch (\Exception $e) {
-            $this->components->error('Initial build failed: '.$e->getMessage());
+            $this->components->error('🚨 Initial build failed: '.$e->getMessage());
             return Command::FAILURE;
         }
 
-        // Determine the watch command
-        $command = $this->getWatchCommand();
-        $this->line("Starting: <fg=yellow>{$command}</>");
-        $this->newLine();
+        // Display what we're watching
+        $this->displayWatchInfo();
 
-        // Track if we've seen any output to detect if the process is actually running
-        $hasSeenOutput = false;
-        $lastOutputTime = time();
+        // Setup signal handlers for graceful shutdown
+        $this->setupSignalHandlers();
 
         try {
-            // Use Laravel's Process with real-time output callback
-            $result = Process::path($this->packagePath)
-                ->timeout(0) // No timeout for watch mode
-                ->run($command, function (string $type, string $buffer) use (&$hasSeenOutput, &$lastOutputTime) {
-                    $hasSeenOutput = true;
-                    $lastOutputTime = time();
+            // Start both watchers concurrently
+            $this->startFileWatcher();
+            $this->startNpmWatcher();
 
-                    // Clean up the output
-                    $output = trim($buffer);
-                    if (empty($output)) {
-                        return;
-                    }
-
-                    if ($type === SymfonyProcess::OUT) {
-                        // Display the output
-                        $this->line($output);
-
-                        // Check for build completion indicators and copy assets
-                        $buildIndicators = [
-                            'compiled successfully',
-                            'webpack compiled',
-                            'build completed',
-                            'bundled successfully',
-                            'compiled with',
-                            'built at',
-                            '✓ built',
-                            'Build completed'
-                        ];
-
-                        $outputLower = strtolower($output);
-                        foreach ($buildIndicators as $indicator) {
-                            if (strpos($outputLower, strtolower($indicator)) !== false) {
-                                $this->copyAssetsToPublic();
-                                $this->line('<fg=green>→ Assets copied to public directory</fg=green>');
-                                break;
-                            }
-                        }
-                    } elseif ($type === SymfonyProcess::ERR) {
-                        // Show errors but don't stop the process (many are just warnings)
-                        if (! $this->isIgnorableError($output)) {
-                            $this->error($output);
-                        }
-                    }
-                });
-
-            // Check if the process ended normally or was interrupted
-            if ($result->exitCode() === 0) {
-                $this->info('Watch mode ended successfully.');
-                return Command::SUCCESS;
-            } elseif (in_array($result->exitCode(), [130, 143])) { // SIGINT, SIGTERM
-                $this->info('Watch mode stopped by user.');
-                return Command::SUCCESS;
-            } else {
-                $this->error('Watch process ended unexpectedly (exit code: '.$result->exitCode().')');
-                if ($result->errorOutput()) {
-                    $this->error('Error output: '.$result->errorOutput());
-                }
-                return Command::FAILURE;
-            }
+            // Main watch loop
+            return $this->runWatchLoop();
 
         } catch (\Exception $e) {
             $this->error('Watch mode failed: '.$e->getMessage());
             return Command::FAILURE;
+        } finally {
+            $this->cleanup();
         }
+    }
+
+    /**
+     * Start the file watcher.
+     */
+    protected function startFileWatcher(): void
+    {
+        $watchPaths = $this->getWatchPaths();
+
+        if (empty($watchPaths)) {
+            $this->warn('No valid watch paths found. File watcher will not start.');
+            return;
+        }
+
+        $nodePath = (new ExecutableFinder)->find('node');
+        if (! $nodePath) {
+            throw new \RuntimeException('Node.js not found. Please install Node.js to use watch mode.');
+        }
+
+        $watcherScript = $this->packagePath.'/bin/file-watcher.cjs';
+
+        $this->fileWatcher = new SymfonyProcess([
+            $nodePath,
+            $watcherScript,
+            json_encode($watchPaths),
+            $this->option('poll'),
+        ], $this->packagePath, $this->getWatchEnvironment(), null, null);
+
+        $this->fileWatcher->start();
+
+        $this->line('→ Converge Watcher Started');
+    }
+
+    /**
+     * Start the NPM asset watcher.
+     */
+    protected function startNpmWatcher(): void
+    {
+        $command = $this->getWatchCommand();
+
+        $this->npmWatcher = Process::path($this->packagePath)
+            ->timeout(0)
+            ->env($this->getWatchEnvironment())
+            ->start($command);
+
+        $this->line("→ NPM asset watcher started: <fg=yellow>{$command}</>");
+    }
+
+    /**
+     * Run the main watch loop.
+     */
+    protected function runWatchLoop(): int
+    {
+        $lastRebuild = 0;
+        $debounceDelay = 1; // 1 second debounce
+
+        while (true) {
+            $currentTime = time();
+
+            // Check file watcher output
+            if ($this->fileWatcher && $this->fileWatcher->isRunning()) {
+                $output = $this->fileWatcher->getIncrementalOutput();
+                if (! empty(trim($output))) {
+                    $this->handleFileWatcherOutput($output, $currentTime, $lastRebuild, $debounceDelay);
+                    $lastRebuild = $currentTime;
+                }
+
+                $errorOutput = $this->fileWatcher->getIncrementalErrorOutput();
+                if (! empty(trim($errorOutput)) && ! $this->isIgnorableError($errorOutput)) {
+                    $this->error('File watcher error: '.trim($errorOutput));
+                }
+            }
+
+            // Check NPM watcher output
+            if ($this->npmWatcher && $this->npmWatcher->running()) {
+                $output = $this->npmWatcher->latestOutput();
+                $errorOutput = $this->npmWatcher->latestErrorOutput();
+
+                if (! empty(trim($output))) {
+                    $this->handleNpmWatcherOutput($output);
+                }
+
+                if (! empty(trim($errorOutput)) && ! $this->isIgnorableError($errorOutput)) {
+                    $this->error('NPM watcher error: '.trim($errorOutput));
+                }
+            }
+
+            // Check if processes are still running
+            if (! $this->areWatchersRunning()) {
+                $this->info('All watchers have stopped.');
+                break;
+            }
+
+            // Short sleep to prevent excessive CPU usage
+            usleep(100000); // 0.1 seconds
+        }
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * Handle file watcher output (Laravel view changes).
+     */
+    protected function handleFileWatcherOutput(string $output, int $currentTime, int $lastRebuild, int $debounceDelay): void
+    {
+        if ($currentTime - $lastRebuild < $debounceDelay) {
+            return; // Debounce rapid changes
+        }
+
+        $this->newLine();
+        $this->line('<fg=cyan>→ Laravel view files changed</fg=cyan>');
+
+        try {
+            $this->buildAssets();
+            $this->copyAssetsToPublic();
+            $this->line('<fg=green>✓ Assets rebuilt successfully</fg=green>');
+        } catch (\Exception $e) {
+            $this->error('Rebuild failed: '.$e->getMessage());
+        }
+
+        $this->newLine();
+    }
+
+    /**
+     * Handle NPM watcher output (asset changes).
+     */
+    protected function handleNpmWatcherOutput(string $output): void
+    {
+        $this->line($output);
+
+        // Check for build completion indicators
+        $buildIndicators = [
+            'compiled successfully', 'webpack compiled', 'build completed',
+            'bundled successfully', 'compiled with', 'built at', '✓ built',
+            'Build completed', 'rebuild', 'updated'
+        ];
+
+        $outputLower = strtolower($output);
+        foreach ($buildIndicators as $indicator) {
+            if (strpos($outputLower, strtolower($indicator)) !== false) {
+                $this->copyAssetsToPublic();
+                $this->line('<fg=green>→ Assets copied to public directory</fg=green>');
+                break;
+            }
+        }
+    }
+
+    /**
+     * Check if watchers are still running.
+     */
+    protected function areWatchersRunning(): bool
+    {
+        $fileWatcherRunning = $this->fileWatcher ? $this->fileWatcher->isRunning() : false;
+        $npmWatcherRunning = $this->npmWatcher ? $this->npmWatcher->running() : false;
+
+        return $fileWatcherRunning || $npmWatcherRunning;
+    }
+
+    /**
+     * Get paths to watch for changes.
+     */
+    protected function getWatchPaths(): array
+    {
+        $basePath = base_path();
+        $paths = [];
+
+        // Default Laravel paths that should trigger rebuilds
+        $defaultPaths = [
+            'resources/views',
+            'resources/js',
+            'resources/css',
+        ];
+
+        // Add config-based paths if available
+        // $configPaths = config('converge.watch', []);
+        $configPaths = [];
+        $allPaths = array_merge($defaultPaths, $configPaths);
+
+        foreach ($allPaths as $path) {
+            $fullPath = $basePath.'/'.ltrim($path, '/');
+            if (File::exists($fullPath)) {
+                $paths[] = $fullPath;
+            }
+        }
+
+        return $paths;
+    }
+
+    /**
+     * Get environment variables for watch processes.
+     */
+    protected function getWatchEnvironment(): array
+    {
+        return array_merge($_ENV, [
+            'CHOKIDAR_IGNORED' => '**/node_modules/**,**/.git/**,**/vendor/**,**/storage/logs/**,**/bootstrap/cache/**',
+            'CHOKIDAR_USEPOLLING' => 'false',
+            'CHOKIDAR_INTERVAL' => $this->option('poll'),
+            'NODE_ENV' => $this->option('dev') ? 'development' : 'production',
+        ]);
+    }
+
+    /**
+     * Ensure the file watcher script exists.
+     */
+    protected function ensureFileWatcherExists(): bool
+    {
+        $watcherScript = $this->packagePath.'/bin/file-watcher.cjs';
+
+        if (! File::exists($watcherScript)) {
+            $this->createFileWatcherScript($watcherScript);
+        }
+
+        return File::exists($watcherScript);
+    }
+
+    /**
+     * Create the file watcher script.
+     */
+    protected function createFileWatcherScript(string $path): void
+    {
+        $binDir = dirname($path);
+        if (! File::exists($binDir)) {
+            File::makeDirectory($binDir, 0755, true);
+        }
+
+        $script = $this->getFileWatcherScriptContent();
+        File::put($path, $script);
+        chmod($path, 0755);
+
+        $this->line("Created file watcher script: <fg=yellow>{$path}</>");
+    }
+
+    /**
+     * Get the file watcher script content.
+     */
+    protected function getFileWatcherScriptContent(): string
+    {
+        return <<<'JS'
+#!/usr/bin/env node
+
+const chokidar = require('chokidar');
+const path = require('path');
+
+// Get watch paths from command line arguments
+const watchPaths = JSON.parse(process.argv[2] || '[]');
+const pollInterval = parseInt(process.argv[3] || '1000');
+
+if (watchPaths.length === 0) {
+    console.error('No paths to watch provided');
+    process.exit(1);
+}
+
+console.log('Starting file watcher...');
+console.log('Watching paths:', watchPaths);
+
+// Initialize watcher
+const watcher = chokidar.watch(watchPaths, {
+    ignored: [
+        '**/node_modules/**',
+        '**/.git/**',
+        '**/vendor/**',
+        '**/storage/logs/**',
+        '**/bootstrap/cache/**',
+        '**/.DS_Store',
+        '**/Thumbs.db'
+    ],
+    persistent: true,
+    usePolling: process.env.CHOKIDAR_USEPOLLING === 'true',
+    interval: pollInterval,
+    ignoreInitial: true,
+    followSymlinks: false,
+    depth: 10
+});
+
+// Handle file changes
+watcher
+    .on('change', (filePath) => {
+        if (filePath.endsWith('.blade.php') || filePath.endsWith('.js') || filePath.endsWith('.css') || filePath.endsWith('.scss') || filePath.endsWith('.sass')) {
+            console.log(`File changed: ${path.relative(process.cwd(), filePath)}`);
+        }
+    })
+    .on('add', (filePath) => {
+        if (filePath.endsWith('.blade.php') || filePath.endsWith('.js') || filePath.endsWith('.css') || filePath.endsWith('.scss') || filePath.endsWith('.sass')) {
+            console.log(`File added: ${path.relative(process.cwd(), filePath)}`);
+        }
+    })
+    .on('unlink', (filePath) => {
+        if (filePath.endsWith('.blade.php') || filePath.endsWith('.js') || filePath.endsWith('.css') || filePath.endsWith('.scss') || filePath.endsWith('.sass')) {
+            console.log(`File removed: ${path.relative(process.cwd(), filePath)}`);
+        }
+    })
+    .on('error', (error) => {
+        console.error('Watcher error:', error);
+    })
+    .on('ready', () => {
+        console.log('File watcher ready and watching for changes...');
+    });
+
+// Handle process termination
+process.on('SIGINT', () => {
+    console.log('Stopping file watcher...');
+    watcher.close().then(() => {
+        process.exit(0);
+    });
+});
+
+process.on('SIGTERM', () => {
+    console.log('Stopping file watcher...');
+    watcher.close().then(() => {
+        process.exit(0);
+    });
+});
+JS;
+    }
+
+    /**
+     * Setup signal handlers for graceful shutdown.
+     */
+    protected function setupSignalHandlers(): void
+    {
+        if (function_exists('pcntl_signal')) {
+            pcntl_signal(SIGINT, [$this, 'handleShutdown']);
+            pcntl_signal(SIGTERM, [$this, 'handleShutdown']);
+        }
+    }
+
+    /**
+     * Handle shutdown signal.
+     */
+    public function handleShutdown(): void
+    {
+        $this->info('Shutting down watchers...');
+        $this->cleanup();
+        exit(0);
+    }
+
+    /**
+     * Cleanup running processes.
+     */
+    protected function cleanup(): void
+    {
+        if ($this->fileWatcher && $this->fileWatcher->isRunning()) {
+            $this->fileWatcher->stop();
+        }
+
+        if ($this->npmWatcher && $this->npmWatcher->running()) {
+            $this->npmWatcher->stop();
+        }
+    }
+
+    /**
+     * Display watch information.
+     */
+    protected function displayWatchInfo(): void
+    {
+        $watchPaths = $this->getWatchPaths();
+
+        if (! empty($watchPaths)) {
+            $this->line('<fg=cyan>Watching this directories changes 👇 :</fg=cyan>');
+            foreach ($watchPaths as $path) {
+                $relativePath = str_replace(base_path().'/', '', $path);
+                $this->line("  → <fg=yellow>{$relativePath}</fg=yellow>");
+            }
+            $this->newLine();
+        }
+
+        $this->line('<fg=cyan>File types monitored:</fg=cyan>');
+        $this->line('  → .blade.php (Laravel views)');
+        $this->line('  → .js, .css, .scss, .sass (Asset files)');
+        $this->newLine();
+
+        $this->line('<fg=green>Press Ctrl+C to stop watching...</fg=green>');
+        $this->newLine();
+    }
+
+    /**
+     * Display success message.
+     */
+    protected function displaySuccessMessage(): void
+    {
+        $this->components->info('Converge assets built successfully!');
+        $this->newLine();
+        $this->line('Assets available at:');
+        $this->line("  CSS: <fg=green>{$this->publicPath}/css/converge.css</>");
+        $this->line("  JS:  <fg=green>{$this->publicPath}/js/converge.js</>");
     }
 
     /**
@@ -229,6 +588,10 @@ class ConvergeBuildCommand extends Command
             'suggestion',
             'recommendation',
             'info',
+            'no space left on device',
+            'inotify_add_watch',
+            'enospc',
+            'chokidar',
         ];
 
         $outputLower = strtolower($output);
@@ -326,6 +689,7 @@ class ConvergeBuildCommand extends Command
 
         $result = Process::path($this->packagePath)
             ->timeout(120)
+            ->env($this->getWatchEnvironment())
             ->run($command);
 
         if ($result->failed()) {
@@ -410,49 +774,5 @@ class ConvergeBuildCommand extends Command
                 }
             }
         }
-    }
-
-    /**
-     * Get the build information for display.
-     */
-    protected function getBuildInfo(): array
-    {
-        $info = [];
-
-        // Get package.json info
-        $packageJsonPath = $this->packagePath.'/package.json';
-        if (File::exists($packageJsonPath)) {
-            $packageData = json_decode(File::get($packageJsonPath), true);
-            $info['version'] = $packageData['version'] ?? 'unknown';
-            $info['name'] = $packageData['name'] ?? 'converge';
-        }
-
-        // Get file sizes
-        $cssPath = $this->publicPath.'/css/converge.css';
-        $jsPath = $this->publicPath.'/js/converge.js';
-
-        if (File::exists($cssPath)) {
-            $info['css_size'] = $this->formatBytes(File::size($cssPath));
-        }
-
-        if (File::exists($jsPath)) {
-            $info['js_size'] = $this->formatBytes(File::size($jsPath));
-        }
-
-        return $info;
-    }
-
-    /**
-     * Format bytes to human readable format.
-     */
-    protected function formatBytes(int $bytes, int $precision = 2): string
-    {
-        $units = ['B', 'KB', 'MB', 'GB'];
-
-        for ($i = 0; $bytes > 1024 && $i < count($units) - 1; $i++) {
-            $bytes /= 1024;
-        }
-
-        return round($bytes, $precision).' '.$units[$i];
     }
 }
