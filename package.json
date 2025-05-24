@@ -10,7 +10,8 @@
     "dev:js": "node bin/build.js --dev",
     "build:css": "npx @tailwindcss/cli  -i resources/css/app.css -o dist/css/converge.css --minify",
     "build:js": "node bin/build.js",
-    "build": "npm run build:css && npm run build:js"
+    "build": "npm run build:css && npm run build:js",
+    "watch": "concurrently \"npm run dev\" \"npm run dev:js\""
   },
   "type": "module",
   "repository": {
@@ -39,6 +40,7 @@
     "alpinejs": "^3.14.8",
     "clipboard": "^2.0.11",
     "tailwindcss": "^4.0.3",
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "concurrently": "^8.2.0"
   }
 }

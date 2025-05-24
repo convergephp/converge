@@ -6,6 +6,7 @@
 @source "../../../../resources/views/**/*.blade.php";
 @source "../../../../../resources/views/**/*.blade.php";
 @source "../../../../docs/**/*.md";
+@source "../../../blade-components/resources/views/**/*.blade.php";
 
 @theme {
     --color-base-100: var(--color-base-100);
@@ -47,10 +48,10 @@
         -ms-overflow-style: none;
       }
       .code-block-wrapper {
-        padding: 3px !important;
-        border: 2px solid oklab(0.707 -0.00331825 -0.0217483 / 0.15) !important;
+        padding: 2px !important;
+        border: 1.5px solid oklab(0.707 -0.00331825 -0.0217483 / 0.4) !important;
         background-color: transparent;
-        border-radius: var(--radius-box);
+        border-radius: 5px;
         position: relative;
         margin: .75rem 0 .75rem 0;
       }
@@ -63,10 +64,11 @@
         padding:  1rem 0 1rem 0 !important ;
       }
       .code-container pre {
-        border-radius: var(--radius-lg) !important;
+        border-radius: 5px !important;
         vertical-align: middle !important;
-        padding-top: 1rem !important;
-        padding-bottom: 1rem !important
+        padding-top: 1.5rem !important;
+        padding-bottom: 1rem !important;
+        border: 1.5px solid oklab(0.707 -0.00331825 -0.0217483 / 0.4) !important;
       }
 
       .scrollbar-hidden::-webkit-scrollbar {

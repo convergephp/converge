@@ -1,8 +1,15 @@
 @php
+    use function Converge\intercept;
     $module = \Converge\converge()->getActiveModule();
     $hasDarkMode = $module->hasDarkModeLogo();
 @endphp
-<div {{ $attributes }}>
+
+<div {{ $attributes->merge(['class' => 'flex items-center']) }}>
+
+    <div>
+        {{ intercept(\Converge\Enums\Interceptor::BEFORE_LOGO) }}
+    </div>
+
     @if ($hasDarkMode)
         {{-- Light mode logo --}}
         <a href="/"
@@ -22,4 +29,9 @@
             {!! $module->getLogoHtml(false) !!}
         </a>
     @endif
+
+    <div>
+        {{ intercept(\Converge\Enums\Interceptor::AFTER_LOGO) }}
+    </div>
+
 </div>
