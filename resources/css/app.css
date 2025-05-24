@@ -49,7 +49,7 @@
       }
       .code-block-wrapper {
         padding: 2px !important;
-        border: 1px solid oklab(0.707 -0.00331825 -0.0217483 / 0.2) !important;
+        border: 1.5px solid oklab(0.707 -0.00331825 -0.0217483 / 0.4) !important;
         background-color: transparent;
         border-radius: 5px;
         position: relative;
@@ -67,7 +67,8 @@
         border-radius: 5px !important;
         vertical-align: middle !important;
         padding-top: 1.5rem !important;
-        padding-bottom: 1rem !important
+        padding-bottom: 1rem !important;
+        border: 1.5px solid oklab(0.707 -0.00331825 -0.0217483 / 0.4) !important;
       }
 
       .scrollbar-hidden::-webkit-scrollbar {
