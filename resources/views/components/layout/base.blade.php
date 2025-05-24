@@ -31,6 +31,8 @@ use function Converge\intercept;
             {!! Converge::css() !!}
         @endif
 
+        {!! Converge::css() !!}
+
         {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 
         <style>
@@ -110,12 +112,16 @@ use function Converge\intercept;
               'font-display scrollbar-hidden relative bg-base-200 lg:max-h-screen text-gray-950 antialiased  font-normal dark:text-white',
           ]) }}>
 
+        <div class="relative">
+            {{ intercept(\Converge\Enums\Interceptor::BODY_START) }}
+        </div>
+
         {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
 
-        <x-converge::search.modal />
+        {{ intercept(\Converge\Enums\Interceptor::BODY_END) }}
 
-        {{-- {!! Converge::js() !!} --}}
+        <x-converge::search.modal />
 
         {{-- Carbon ADS --}}
         @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
