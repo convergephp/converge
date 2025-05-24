@@ -149,7 +149,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
 
     </div>
     {{-- FOOTER --}}
-    <div class="mx-auto max-w-[88rem]">
+    <div class="mx-auto max-w-5xl">
         @if (filled(converge()->getFooter()))
             <div class="border-base-300 bg-base-200 border-t">
                 {!! converge()->getFooter() !!}
