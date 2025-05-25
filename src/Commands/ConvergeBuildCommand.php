@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Converge\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process as SymfonyProcess;
+use RuntimeException;
 use Symfony\Component\Process\ExecutableFinder;
+use Symfony\Component\Process\Process as SymfonyProcess;
 
 class ConvergeBuildCommand extends Command
 {
@@ -47,14 +48,14 @@ class ConvergeBuildCommand extends Command
     /**
      * File watcher process.
      *
-     * @var \Symfony\Component\Process\Process|null
+     * @var SymfonyProcess|null
      */
     protected $fileWatcher;
 
     /**
      * NPM watcher process.
      *
-     * @var \Symfony\Component\Process\Process|null
+     * @var SymfonyProcess|null
      */
     protected $npmWatcher;
 
@@ -115,10 +116,21 @@ class ConvergeBuildCommand extends Command
 
             return Command::SUCCESS;
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->components->error('Build failed: '.$e->getMessage());
+
             return Command::FAILURE;
         }
+    }
+
+    /**
+     * Handle shutdown signal.
+     */
+    public function handleShutdown(): void
+    {
+        $this->info('Shutting down watchers...');
+        $this->cleanup();
+        exit(0);
     }
 
     /**
@@ -140,8 +152,9 @@ class ConvergeBuildCommand extends Command
             $this->copyAssetsToPublic();
             $this->info('✓ Initial build completed');
             $this->newLine();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->components->error('🚨 Initial build failed: '.$e->getMessage());
+
             return Command::FAILURE;
         }
 
@@ -159,8 +172,9 @@ class ConvergeBuildCommand extends Command
             // Main watch loop
             return $this->runWatchLoop();
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Watch mode failed: '.$e->getMessage());
+
             return Command::FAILURE;
         } finally {
             $this->cleanup();
@@ -176,12 +190,13 @@ class ConvergeBuildCommand extends Command
 
         if (empty($watchPaths)) {
             $this->warn('No valid watch paths found. File watcher will not start.');
+
             return;
         }
 
         $nodePath = (new ExecutableFinder)->find('node');
         if (! $nodePath) {
-            throw new \RuntimeException('Node.js not found. Please install Node.js to use watch mode.');
+            throw new RuntimeException('Node.js not found. Please install Node.js to use watch mode.');
         }
 
         $watcherScript = $this->packagePath.'/bin/file-watcher.cjs';
@@ -281,7 +296,7 @@ class ConvergeBuildCommand extends Command
             $this->buildAssets();
             $this->copyAssetsToPublic();
             $this->line('<fg=green>✓ Assets rebuilt successfully</fg=green>');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error('Rebuild failed: '.$e->getMessage());
         }
 
@@ -299,12 +314,12 @@ class ConvergeBuildCommand extends Command
         $buildIndicators = [
             'compiled successfully', 'webpack compiled', 'build completed',
             'bundled successfully', 'compiled with', 'built at', '✓ built',
-            'Build completed', 'rebuild', 'updated'
+            'Build completed', 'rebuild', 'updated',
         ];
 
-        $outputLower = strtolower($output);
+        $outputLower = mb_strtolower($output);
         foreach ($buildIndicators as $indicator) {
-            if (strpos($outputLower, strtolower($indicator)) !== false) {
+            if (mb_strpos($outputLower, mb_strtolower($indicator)) !== false) {
                 $this->copyAssetsToPublic();
                 $this->line('<fg=green>→ Assets copied to public directory</fg=green>');
                 break;
@@ -492,16 +507,6 @@ JS;
     }
 
     /**
-     * Handle shutdown signal.
-     */
-    public function handleShutdown(): void
-    {
-        $this->info('Shutting down watchers...');
-        $this->cleanup();
-        exit(0);
-    }
-
-    /**
      * Cleanup running processes.
      */
     protected function cleanup(): void
@@ -594,10 +599,10 @@ JS;
             'chokidar',
         ];
 
-        $outputLower = strtolower($output);
+        $outputLower = mb_strtolower($output);
 
         foreach ($ignorablePatterns as $pattern) {
-            if (strpos($outputLower, $pattern) !== false) {
+            if (mb_strpos($outputLower, $pattern) !== false) {
                 return true;
             }
         }
@@ -612,6 +617,7 @@ JS;
     {
         if (! File::exists($this->packagePath)) {
             $this->components->error('Converge package not found. Please install it via Composer.');
+
             return false;
         }
 
@@ -624,6 +630,7 @@ JS;
         foreach ($requiredFiles as $file) {
             if (! File::exists($this->packagePath.'/'.$file)) {
                 $this->components->error("Required file not found: {$file}");
+
                 return false;
             }
         }
@@ -671,7 +678,7 @@ JS;
             ->run('npm install');
 
         if ($result->failed()) {
-            throw new \RuntimeException('Failed to install npm dependencies: '.$result->errorOutput());
+            throw new RuntimeException('Failed to install npm dependencies: '.$result->errorOutput());
         }
 
         $this->line('Dependencies installed successfully.');
@@ -693,7 +700,7 @@ JS;
             ->run($command);
 
         if ($result->failed()) {
-            throw new \RuntimeException('Asset build failed: '.$result->errorOutput());
+            throw new RuntimeException('Asset build failed: '.$result->errorOutput());
         }
 
         $this->line('Assets built successfully.');
@@ -725,6 +732,7 @@ JS;
                 if (! $isWatchMode) {
                     $this->warn("Source file not found: {$sourcePath}");
                 }
+
                 continue;
             }
 

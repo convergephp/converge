@@ -6,7 +6,6 @@ namespace Converge\Enums;
 
 enum Interceptor: string
 {
-
     case PAGE_START = 'page_start';
     case PAGE_END = 'page_end';
 
@@ -16,9 +15,8 @@ enum Interceptor: string
     case BODY_START = 'body_start';
     case BODY_END = 'body_end';
 
-
     case REPLACE_FOOTER = 'replace_footer';
-    
+
     case AFTER_NAVBAR = 'after_navbar';
 
     case AFTER_SCRIPTS = 'after_scripts';

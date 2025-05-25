@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Converge\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
 
 use function Laravel\Prompts\confirm;
 
