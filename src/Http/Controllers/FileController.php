@@ -57,7 +57,7 @@ class FileController
 
         // Set metadata using the front matter or fallback to the label from the content map
         resolve(Metadata::class)->frontMatter(
-            $document->matter() ?? ['title' => $this->map->getLabel() . ' - ' . config('app.name')]
+            $document->matter() ?? ['title' => $this->map->getLabel().' - '.config('app.name')]
         );
 
         return view('converge::show', [
