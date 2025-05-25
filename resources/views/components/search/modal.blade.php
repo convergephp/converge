@@ -2,8 +2,11 @@
     $routeName = resolve(\Converge\Repository::class)->getActiveRouteName();
 @endphp
 
+
+
 <div x-data="search({
-    route: {{ Illuminate\Support\Js::from(route("$routeName.search")) }}
+    route: {{ Illuminate\Support\Js::from(route("$routeName.search")) }},
+    moduleId: {{ Illuminate\Support\Js::from(\Converge\converge()->getId()) }}
 })">
     <x-converge::modal openEvent="open-search">
         <x-slot:header

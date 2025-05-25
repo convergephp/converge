@@ -116,6 +116,7 @@ use function Converge\intercept;
             {{ intercept(\Converge\Enums\Interceptor::BODY_START) }}
         </div>
 
+
         {{-- DYNAMIQUE CONTENT --}}
         {{ $slot }}
 

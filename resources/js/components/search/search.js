@@ -1,7 +1,7 @@
-export default ({route}) => ({
+export default ({ route, moduleId }) => ({
     query: "",
     results: [],
-    isLoading: false,   
+    isLoading: false,
     search_history: [],
     favorite_items: [],
     maxItemsAllowed: 10,
@@ -25,19 +25,18 @@ export default ({route}) => ({
                 this.isLoading = true;
                 this.results = await this.performSearch(query);
                 this.isLoading = false;
-                console.log(this.results)   
             }
         });
     },
     async performSearch(query) {
         const response = await fetch(`${this.route}?q=${query}`);
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
-        return  await response.json();
-        
+
+        return await response.json();
+
     },
     getLocalStorage(key) {
         return JSON.parse(localStorage.getItem(key)) || [];
@@ -45,6 +44,7 @@ export default ({route}) => ({
 
 
     setLocalStorage(key, value) {
+        key = `${moduleId}-${key}`;
         localStorage.setItem(key, JSON.stringify(value));
     },
 
