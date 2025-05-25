@@ -42,7 +42,6 @@ class SearchManager
     public function handleFile(SplFileInfo $info): self
     {
 
-        info($info->getPathname());
         $contents = file_get_contents($info->getPathname());
 
         $document = Documents\Parser::make($contents);
