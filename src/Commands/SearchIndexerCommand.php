@@ -35,6 +35,7 @@ class SearchIndexerCommand extends Command
     {
         $start = microtime(true);
 
+
         $paths = $this->collectPaths();
 
         $totalSteps = collect($paths)->flatten(1)->count();

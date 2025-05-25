@@ -7,6 +7,7 @@ namespace Converge\SearchEngine;
 use Converge\Documents;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Converge\Iterators\Filters\FilesFilterIterator;
 use SplFileInfo;
 
 class SearchManager
@@ -26,9 +27,9 @@ class SearchManager
     public function extractAllHeadingUnderThisMarkdownFiles(?string $path = null): void
     {
 
-        $iterator = new RecursiveIteratorIterator(
+        $iterator = new RecursiveIteratorIterator(new FilesFilterIterator(
             new RecursiveDirectoryIterator($path)
-        );
+        ));
 
         foreach ($iterator as $splInfo) {
             if ($splInfo->isDir()) {
@@ -41,6 +42,7 @@ class SearchManager
     public function handleFile(SplFileInfo $info): self
     {
 
+        info($info->getPathname());
         $contents = file_get_contents($info->getPathname());
 
         $document = Documents\Parser::make($contents);
@@ -60,14 +62,14 @@ class SearchManager
 
     public function storeHeadings(string $distination): string
     {
-        $storagePath = $distination.DIRECTORY_SEPARATOR.'headings.php';
+        $storagePath = $distination . DIRECTORY_SEPARATOR . 'headings.php';
 
         if (! is_dir(dirname($storagePath))) {
             mkdir(dirname($storagePath), 0777, true);
         }
 
         // Convert the array to PHP code
-        $data = "<?php\n\nreturn ".var_export($this->headings, true).";\n";
+        $data = "<?php\n\nreturn " . var_export($this->headings, true) . ";\n";
 
         file_put_contents($storagePath, $data);
 
