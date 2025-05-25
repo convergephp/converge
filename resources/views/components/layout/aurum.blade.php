@@ -24,7 +24,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
             <header class="contents lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
                 {{-- DESKTOP SIDEBAR CONTAINER --}}
                 <div
-                     class="contents border-r scrollbar-hidden border-gray-400/20 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:pb-8 lg:pt-4">
+                     class="contents border-r scrollbar-hidden border-base-300 bg-transparent lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:pb-8 lg:pt-4">
                     {{-- DESKTOP LOGO AND VERSION SELECTOR --}}
                     <div class="hidden justify-between lg:flex flex-wrap px-0 gap-x-4 lg:px-4">
                         {{-- Logo component --}}
@@ -43,10 +43,10 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                          style="--bg-opacity-light: 0.5; --bg-opacity-dark: 0.2;">
 
                         {{-- Bottom border for navbar --}}
-                        <div class="absolute inset-x-0 top-full h-px bg-gray-400/20 transition"></div>
+                        <div class="absolute inset-x-0 top-full h-px bg-base-300/50 transition"></div>
 
                         {{-- MOBILE LOGO AND SIDEBAR TOGGLE --}}
-                        <div class="flex items-center gap-2 lg:hidden w-full">
+                        <div class="flex  items-center  gap-2 lg:hidden w-full">
                             {{-- Hamburger menu button --}}
                             <button x-on:click="sideBarOpen = !sideBarOpen"
                                     type="button"
@@ -86,7 +86,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                         </div>
 
                         {{-- DESKTOP NAVBAR COMPONENTS --}}
-                        <div class="flex w-full items-center justify-end gap-4">
+                        <div class="flex lg:w-full lg:grow  items-center justify-end gap-2">
                             {{-- Search component --}}
                             <x-converge::search class="!bg-base-300" />
 
@@ -96,7 +96,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                             </nav>
 
                             {{-- Visual divider --}}
-                            <div class="block h-5 w-px bg-gray-400/20"></div>
+                            <div class="block h-5 lg:mr-1 w-px bg-gray-400/20"></div>
 
                             {{-- Theme switcher component --}}
                             <x-converge::theme-switcher.inline />
@@ -110,7 +110,7 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                          x-on:click.away="sideBarOpen = false"
                          id="sidebar"
                          x-bind:class="isDesktop ? 'lg:mt-10 scrollbar-hidden lg:block bg-transparent' :
-    'fixed bottom-0 left-0 overflow-y-auto scrollbar-hidden top-14 z-40 w-full bg-base-200 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:pb-10'">
+                            'fixed bottom-0 left-0 overflow-y-auto scrollbar-hidden top-14 z-40 w-full bg-base-200 pb-4 pt-6 border-r border-base-300 min-[416px]:max-w-sm sm:pb-10'">
                         {{-- Sidebar navigation items --}}
                         <x-converge::sidebar />
                     </nav>
@@ -122,7 +122,8 @@ $hasVersions = count(\Converge\converge()->getUiVersions());
                 {{-- Content section --}}
                 <main class="flex flex-auto gap-2">
                     {{-- Main content slot --}}
-                    <div class="mx-auto flex h-full flex-col overflow-hidden pb-10 px-4 pt-16 md:overflow-visible">
+                    <div
+                         class="mx-auto flex h-full flex-col overflow-hidden pb-10 px-4 pt-2 mg:pt-4 md:overflow-visible">
                         {{ $slot }}
                     </div>
 

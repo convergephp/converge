@@ -96,7 +96,7 @@
          aria-modal="true"
          x-id="['modal-header']"
          :aria-labelledby="$id('modal-header')"
-         class="fixed inset-x-0 inset-y-0 z-40 overflow-y-auto">
+         class="fixed inset-x-0 inset-y-0 z-40 overflow-y-auto px-4">
         <!-- Backdrop Overlay -->
         <div x-show="isOpen"
              x-transition:enter="transition ease-out duration-300"
@@ -154,7 +154,7 @@
                              x-on:touchend="handleMovingEnd()"
                              class="absolute left-0 right-0 top-[-10px] h-[50px] sm:hidden">
                             <div class="flex justify-center pt-[12px]">
-                                <div class="bg-base-300 h-[5px] w-[10%] rounded-box "></div>
+                                <div class="bg-base-300 rounded-box h-[5px] w-[10%]"></div>
                             </div>
                         </div>
 
