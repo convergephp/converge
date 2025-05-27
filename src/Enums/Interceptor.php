@@ -6,7 +6,7 @@ namespace Converge\Enums;
 
 enum Interceptor: string
 {
-    // show pages for markdown files 
+    // show pages for markdown files
     case PAGE_START = 'page_start';
     case PAGE_END = 'page_end';
 
@@ -14,8 +14,8 @@ enum Interceptor: string
     case AFTER_LOGO = 'after_logo';
     case BEFORE_LOGO = 'before_logo';
 
-    case HEAD_START="head_start";
-    case HEAD_END="head_end";
+    case HEAD_START = 'head_start';
+    case HEAD_END = 'head_end';
 
     case BODY_START = 'body_start';
     case BODY_END = 'body_end';
