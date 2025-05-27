@@ -39,6 +39,7 @@ export default ({ route, moduleId }) => ({
 
     },
     getLocalStorage(key) {
+        key = `${moduleId}-${key}`;
         return JSON.parse(localStorage.getItem(key)) || [];
     },
 
