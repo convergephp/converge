@@ -33,8 +33,6 @@ use function Converge\intercept;
             {!! Converge::css() !!}
         @endif
 
-        {!! Converge::css() !!}
-
 
         <style>
             :root {
@@ -125,7 +123,7 @@ use function Converge\intercept;
 
         <x-converge::search.modal />
 
-        {{-- Carbon ADS --}}
+        {{-- Fixed Carbon ADS --}}
         @if (filled(intercept(\Converge\Enums\Interceptor::FIXED_CARBON_ADS)))
             <div class="text-base-content bottom-10 right-4 z-50 m-4 max-w-sm overflow-hidden rounded-[3px] bg-white p-[2px] text-center text-sm font-normal lg:fixed lg:m-0 lg:max-w-[160px]"
                  style="font-weight: var(--font-weight)">
