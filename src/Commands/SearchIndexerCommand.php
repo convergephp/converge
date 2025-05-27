@@ -171,7 +171,7 @@ class SearchIndexerCommand extends Command
             $this->pushToPaths(
                 paths: $paths,
                 moduleId: $module->getId(),
-                path: $module->getPath(),
+                path: $module->getRawPath(),
                 type: PathType::Module,
                 version: 'quieted',
                 cluster: 'default'
