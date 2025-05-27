@@ -14,6 +14,8 @@ use function Converge\intercept;
     <x-converge::layout.shared.meta :$metadata />
 
     <head>
+        {{ intercept(\Converge\Enums\Interceptor::HEAD_START) }}
+
         {{-- fontfamily links --}}
         {!! converge()->getTheme()->getFontHtml() !!}
 
@@ -33,7 +35,6 @@ use function Converge\intercept;
 
         {!! Converge::css() !!}
 
-        {{ intercept(\Converge\Enums\Interceptor::AFTER_SCRIPTS) }}
 
         <style>
             :root {
@@ -63,7 +64,6 @@ use function Converge\intercept;
             });
         </script>
 
-        {{ intercept(\Converge\Enums\Interceptor::AFTER_NAVBAR) }}
         <script>
             // hack to prevent light flicker at load time in slow connections (chrome)
             (function() {
@@ -99,6 +99,7 @@ use function Converge\intercept;
                 }
             })();
         </script>
+        {{ intercept(\Converge\Enums\Interceptor::HEAD_END) }}
     </head>
 
     <body x-data="themeSwitcher({
