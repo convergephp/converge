@@ -66,6 +66,7 @@ $generatedTree = [
 it('builds the correct Sidebar items', function () use ($generatedTree) {
     $navItems = SidebarBuilder::build($generatedTree);
 
+
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
 
@@ -75,7 +76,7 @@ it('builds the correct Sidebar items', function () use ($generatedTree) {
         expect($item->getDepth())->toBe(0);
         expect($item->getLabel())->toBe($index === 0 ? 'Installation' : 'Getting started');
         expect($item->getPath())->toBe($index === 0 ? 'docs/01-installation.md' : 'docs/02-getting-started.md');
-        expect($item->getUrl())->toBe($index === 0 ? 'installation' : 'getting-started');
+        expect($item->getUrl())->toBe($index === 0 ? '/installation' : '/getting-started');
     }
 
     // Validate group (Fields)
@@ -91,7 +92,7 @@ it('builds the correct Sidebar items', function () use ($generatedTree) {
     expect($child)->toBeInstanceOf(SidebarItem::class);
     expect($child->getLabel())->toBe('Text Input');
     expect($child->getPath())->toBe('docs/03-fields/01-text-input.md');
-    expect($child->getUrl())->toBe('fields/text-input');
+    expect($child->getUrl())->toBe('/fields/text-input');
     expect($child->getDepth())->toBe(1);
 
     // Validate subgroup (Sub Fields)

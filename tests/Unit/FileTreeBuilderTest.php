@@ -9,6 +9,7 @@ $stubs = realpath(__DIR__.'/../stubs/docs');
 it('build the correct file tree', function () use ($stubs) {
     [$tree, $map] = FilesTreeBuilder::build($stubs);
 
+    
     // Normalize the paths in the expected results to use forward slashes
     $normalize = fn ($path) => str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $path);
 
