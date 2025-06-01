@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3df2b21cd6b44541d13123bde0a7832b",
+    "content-hash": "f26c6b0ab8450ed9d8af545885a80342",
     "packages": [
         {
             "name": "tempest/highlight",
@@ -3771,24 +3771,24 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "9.x-dev",
+            "version": "v9.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "b5abae6dc214cdfd10392a80f5f7371b6257d99c"
+                "reference": "80cee5320205ff74b4feca9da76f404062748357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/b5abae6dc214cdfd10392a80f5f7371b6257d99c",
-                "reference": "b5abae6dc214cdfd10392a80f5f7371b6257d99c",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/80cee5320205ff74b4feca9da76f404062748357",
+                "reference": "80cee5320205ff74b4feca9da76f404062748357",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.2",
                 "fakerphp/faker": "^1.23",
-                "laravel/framework": "^11.44.2",
+                "laravel/framework": "^11.44.7",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^9.13.0",
+                "orchestra/testbench-core": "^9.13.3",
                 "orchestra/workbench": "^9.13.5",
                 "php": "^8.2",
                 "phpunit/phpunit": "^10.5.35|^11.3.6|^12.0.1",
@@ -3820,9 +3820,9 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/9.x"
+                "source": "https://github.com/orchestral/testbench/tree/v9.13.1"
             },
-            "time": "2025-04-06T11:40:44+00:00"
+            "time": "2025-04-27T14:41:00+00:00"
         },
         {
             "name": "orchestra/testbench-core",
@@ -9740,12 +9740,11 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "laravel/pint": 20,
-        "pestphp/pest": 20,
-        "orchestra/testbench": 20
+        "pestphp/pest": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
