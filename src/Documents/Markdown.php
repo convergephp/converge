@@ -35,7 +35,7 @@ class Markdown
                 ],
             ],
             extensions: [
-                new HighlightExtension((new Highlighter())->withGutter(startAt: 1)),
+                new HighlightExtension(new Highlighter()),
                 new HeadingPermalinkExtension(),
                 new BladeCompilerExtension(),
                 new AutolinkExtension(),
