@@ -1,8 +1,10 @@
 name: Fix Code Style
 
 on:
+  workflow_dispatch:
   push:
     branches: master
+  
 
 jobs:
   fix-code-style:
