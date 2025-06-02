@@ -66,7 +66,6 @@ $generatedTree = [
 it('builds the correct Sidebar items', function () use ($generatedTree) {
     $navItems = SidebarBuilder::build($generatedTree);
 
-
     expect($navItems)->toBeInstanceOf(Collection::class);
     expect($navItems->count())->toBe(3);
 

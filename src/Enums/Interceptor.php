@@ -63,7 +63,6 @@ enum Interceptor: string
 
     case AFTER_CLUSTER_ITEM = 'after_cluster_item';
 
-
     // CARBON ADS
     case AFTER_TOC_CARBON_ADS = 'after_table_of_content_carbon_ads';
 
