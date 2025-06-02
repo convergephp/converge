@@ -4,3 +4,4 @@
 /node_modules/
 /build
 /resources/views/markdown.md
+dist/
