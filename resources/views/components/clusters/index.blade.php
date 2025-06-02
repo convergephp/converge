@@ -10,6 +10,7 @@
 
 <ul class="mb-6 mt-2 space-y-4">
     @foreach ($clusters as $cluster)
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::BEFORE_CLUSTER_ITEM, fn() => $cluster) }}
         <li @class([
             'w-full px-1 flex group justify-start  items-center',
             ' [&_a]:text-primary ' => $cluster->getId() === $id,
@@ -32,8 +33,15 @@
                                           class="size-4 fill-gray-400" />
                     </span>
                 @endif
-                {{ $cluster->getLabel() }}
+                {{ \Converge\intercept(\Converge\Enums\Interceptor::BEFORE_CLUSTER_ITEM_LABEL, fn() => $cluster) }}
+                <span>
+                    {{ $cluster->getLabel() }}
+                </span>
+                {{ \Converge\intercept(\Converge\Enums\Interceptor::AFTER_CLUSTER_ITEM_LABEL, fn() => $cluster) }}
+                
             </a>
         </li>
+        {{ \Converge\intercept(\Converge\Enums\Interceptor::AFTER_CLUSTER_ITEM, fn() => $cluster) }}
+
     @endforeach
 </ul>
