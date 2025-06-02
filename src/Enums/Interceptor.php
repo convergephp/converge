@@ -54,6 +54,16 @@ enum Interceptor: string
 
     case AFTER_SIDEBAR_CLUSTERS = 'after_sidebar_clusters';
 
+    // cluster item
+    case BEFORE_CLUSTER_ITEM = 'before_cluster_item';
+
+    case BEFORE_CLUSTER_ITEM_LABEL = 'before_cluster_item_label';
+
+    case AFTER_CLUSTER_ITEM_LABEL = 'after_cluster_item_label';
+
+    case AFTER_CLUSTER_ITEM = 'after_cluster_item';
+
+
     // CARBON ADS
     case AFTER_TOC_CARBON_ADS = 'after_table_of_content_carbon_ads';
 
