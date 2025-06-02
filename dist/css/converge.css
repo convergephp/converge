@@ -667,6 +667,9 @@
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
+  .isolate {
+    isolation: isolate;
+  }
   .-z-1 {
     z-index: calc(1 * -1);
   }
