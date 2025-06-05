@@ -69,7 +69,7 @@ class ConvergeServiceProvider extends ServiceProvider
                 ModuleMakeCommand::class,
                 SearchIndexerCommand::class,
                 ConvergeBuildCommand::class,
-                MakeIssueCommand::class
+                MakeIssueCommand::class,
             ]);
         }
         require_once __DIR__.'/../helpers.php';
