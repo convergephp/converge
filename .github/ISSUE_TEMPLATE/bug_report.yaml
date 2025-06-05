@@ -1,0 +1,78 @@
+name: Bug report
+description: Tell us about a problem you're having
+labels: [bug, unconfirmed]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before reporting a bug, please check existing issues (open and closed) to see if it's already known.
+
+        ---
+
+        Thanks for helping improve Converge! Please answer the questions below so we can fix the issue faster.
+  
+  - type: input
+    id: converge-version
+    attributes:
+      label: Converge version
+      description: What version of Converge are you using?
+      placeholder: v1.2.3
+    validations:
+      required: true
+
+  - type: input
+    id: laravel-version
+    attributes:
+      label: Laravel version
+      description: What Laravel version is your project using?
+      placeholder: v11.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      description: What PHP version is your server running?
+      placeholder: PHP 8.4.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What went wrong?
+      description: Describe what happened. Be as specific as possible.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expectation
+    attributes:
+      label: What should have happened?
+      description: Describe what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce the problem
+      description: List the exact steps to make this happen. Keep your example as short and focused as possible. **Issues with vague or missing steps will be closed without review.**
+    validations:
+      required: true
+
+  - type: input
+    id: reproduction
+    attributes:
+      label: Reproduction repo (required)
+      description: Link to a fresh, public GitHub repo that shows the problem. **Don't link your actual project.** We need a clean example without unrelated code. If this is missing, your issue will be closed. URL must start with `https://github.com`.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output (optional)
+      description: If there are any logs that help, paste them here. No need for backticks.
+      render: shell
