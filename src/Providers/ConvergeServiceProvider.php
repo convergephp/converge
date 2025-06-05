@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Converge\Providers;
 
 use Converge\Commands\ConvergeBuildCommand;
+use Converge\Commands\MakeIssueCommand;
 use Converge\Commands\ModuleMakeCommand;
 use Converge\Commands\SearchIndexerCommand;
 use Converge\ContentMap;
@@ -68,6 +69,7 @@ class ConvergeServiceProvider extends ServiceProvider
                 ModuleMakeCommand::class,
                 SearchIndexerCommand::class,
                 ConvergeBuildCommand::class,
+                MakeIssueCommand::class
             ]);
         }
         require_once __DIR__.'/../helpers.php';

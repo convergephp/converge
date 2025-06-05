@@ -15,8 +15,8 @@ class MakeIssueCommand extends Command
 
     public function handle(): void
     {
-        $url = 'https://github.com/convergephp/converge/issues/new?'.http_build_query([
-            'template' => 'bug_report.yml',
+        $url = 'https://github.com/convergephp/converge/issues/new?'. http_build_query([
+            'template' => 'bug_report.yaml',
             'package-version' => InstalledVersions::getPrettyVersion('convergephp/converge'),
             'laravel-version' => InstalledVersions::getPrettyVersion('laravel/framework'),
             'php-version' => PHP_VERSION,
