@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Converge\Tests;
 
+
 use Pest\Arch\Concerns\Architectable;
 
 class TestCase extends \Orchestra\Testbench\TestCase
@@ -24,3 +25,4 @@ class TestCase extends \Orchestra\Testbench\TestCase
     }
 
 }
+
