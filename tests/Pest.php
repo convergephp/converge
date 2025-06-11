@@ -16,8 +16,8 @@ declare(strict_types=1);
 use Converge\Tests\TestCase;
 
 pest()->extend(TestCase::class)
-    ->in('Feature')
-    ->in('Unit');
+    ->in('Arch', 'Feature', 'Unit');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

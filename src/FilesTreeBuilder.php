@@ -133,7 +133,7 @@ final class FilesTreeBuilder
     /**
      * Generate a unique cache key based on root and maxDepth
      */
-    private static function getCacheKey(string $root, int $maxDepth): string
+    public static function getCacheKey(string $root, int $maxDepth): string
     {
         return 'files_tree:'.md5($root.'|'.$maxDepth);
     }
