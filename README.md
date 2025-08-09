@@ -4,7 +4,7 @@ Converge, is a modular Laravel documentation system designed to dynamically gene
 
 ---
 
-visit the [officiel website](https://convergephp.com) for more information.
+visit the [official website](https://convergephp.com) for more information.
 
 ## Credit 
 - [CHARRAFI MOHAMED](https://github.com/CharrafiMed)
