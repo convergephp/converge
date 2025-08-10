@@ -16,7 +16,6 @@
         this.theme === 'dark' ?
             this.theme = 'light' :
             this.theme = 'dark';
-
     }
 }">
     <button class="shadow-xs btn-sm btn btn-square bg-base-300/50 text-base-content hover:bg-base-300 border-base-300 inline-flex border transition-all duration-300"
