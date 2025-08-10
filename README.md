@@ -1,10 +1,10 @@
-## ConvergePHP – Laravel-Native Documentation Framework
+## ConvergePHP: Laravel-Native Documentation Framework
 
 Converge, is a modular Laravel documentation system designed to dynamically generate, organize, and present documentation, API references, and related content based on a structured hierarchy of versions, clusters, groups, and files. It offers developers a streamlined way to build customizable documentation websites that reflect their project's structure directly from the filesystem.
 
 ---
 
-visit the [officiel website](https://convergephp.com) for more information.
+visit the [official website](https://convergephp.com) for more information.
 
 ## Credit 
 - [CHARRAFI MOHAMED](https://github.com/CharrafiMed)

@@ -71,7 +71,7 @@ if (! function_exists('Converge\get_used_cluster')) {
     function get_used_cluster()
     {
         if (converge()->getUsedCluster() === converge()->getDefaultCluster()) {
-            dd('de');
+            // @todo
         }
     }
 }
