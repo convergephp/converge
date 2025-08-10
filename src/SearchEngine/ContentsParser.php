@@ -17,7 +17,6 @@ class ContentsParser
 
     public static function make($contents)
     {
-        // dd($contents);
         return new static($contents);
     }
 
@@ -29,7 +28,6 @@ class ContentsParser
         $contents = trim($contents);
         // $contents = preg_replace('/[\r\n]+/', "\n", $contents);
 
-        // dd($contents);
         $lines = explode("\n", $contents);
 
         $lines = array_filter($lines, function ($line) {
@@ -107,7 +105,6 @@ class ContentsParser
             }
         }
 
-        dd($lists);
     }
 
     public function extractTable()

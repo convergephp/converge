@@ -74,8 +74,6 @@ class InvertedIndexer
 
     public function inStopWords(string $token)
     {
-        dd(config('converge.search_engine.keep_stop_words'));
-
         if (config('converge.search_engine.keep_stop_words')) {
             return true;
         }

@@ -23,6 +23,6 @@ class CurrentVersion implements ContextualAttribute
      */
     public static function resolve(self $attribute, Container $container)
     {
-        return dd($container->make('converge'));
+        return $container->make('converge');
     }
 }
