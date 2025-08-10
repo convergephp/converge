@@ -3,7 +3,6 @@
     $styles = (new \Converge\Support\Styles(classes: $groupItem->getClasses(), style: $groupItem->getStyles()))
         ->merge([])
         ->overideAttributes(['class' => 'text-sm text-base-content hover:text-primary whitespace-nowrap']);
-    // dd($styles)
 @endphp
 
 <li>

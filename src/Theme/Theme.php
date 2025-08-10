@@ -62,7 +62,6 @@ class Theme
      */
     public function theme(?array $darkModeTheme = null, ?array $lightModeTheme = null): static
     {
-        // dd($darkModeTheme);
 
         $darkModeTheme ??= Themes::$DARK;
         $lightModeTheme ??= Themes::$LIGHT;

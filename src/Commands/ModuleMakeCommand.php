@@ -71,7 +71,6 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $this->makeDirectory($path);
 
-        // dd($this->buildClassFile($moduleClass, $options));
 
         $this->files->put($path, $this->sortImports($this->buildClassFile($moduleClass, $options)));
 
