@@ -111,7 +111,7 @@ describe('Tokenization Patterns', function () {
     it('handles various input patterns', function ($input, $expected) {
         expect(tokenize($input))->toBe($expected);
     })->with([
-        ['CamelCaseWord', ['camelcaseword']], // or split on case if that's your logic
+        ['CamelCaseWord', ['camelcaseword']], 
         ['snake_case_word', ['snake_case_word']],
         ['UPPERCASE TEXT', ['uppercase', 'text']],
         ['mixed123CASE', ['mixed123case']],
