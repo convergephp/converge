@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Converge\Tests;
 
-
 use Pest\Arch\Concerns\Architectable;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
-
     use Architectable;
+
     /**
      * Get package providers.
      *
@@ -23,6 +22,4 @@ class TestCase extends \Orchestra\Testbench\TestCase
             \Converge\Providers\ConvergeServiceProvider::class,
         ];
     }
-
 }
-

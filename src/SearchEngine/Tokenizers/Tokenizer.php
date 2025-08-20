@@ -6,7 +6,7 @@ namespace Converge\SearchEngine\Tokenizers;
 
 class Tokenizer
 {
-    // this tokenizer still naive and we're going to make robust step by step, stay tuned. 
+    // this tokenizer still naive and we're going to make robust step by step, stay tuned.
     protected string $pattern = '/[^\p{L}\p{N}\p{Pc}\p{Pd}@]+/u';
 
     public function tokenize($text, $stopwords = []): array

@@ -1,5 +1,5 @@
 <?php
 
-it('extract all headings from giving files', function(){
+declare(strict_types=1);
 
-})->todo();
+it('extract all headings from giving files', function () {})->todo();
