@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Converge\Routing;
 
+use BackedEnum;
 use Converge\Clusters\Cluster;
 use Converge\Facades\Converge;
 use Converge\Http\Controllers\FileController;
@@ -12,6 +13,7 @@ use Converge\Http\Controllers\SearchController;
 use Converge\Http\Middleware\UseCluster;
 use Converge\Http\Middleware\UseModule;
 use Converge\Http\Middleware\UseVersion;
+use Converge\Module;
 use Converge\Versions\Version;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,7 @@ final class RouteManager
     {
 
         // routes related to modules
+        /** @var Module $module */
         foreach (Converge::getModules() as $module) {
 
             // each module can have a latest version
@@ -64,7 +67,7 @@ final class RouteManager
 
                     $versionName = $moduleId.'.'.$version->getRoute();
 
-                    $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute());
+                    $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute(), domain: $module->getDomain());
                 }
             }
 
@@ -85,7 +88,7 @@ final class RouteManager
 
                     $clusterName = $moduleId.'.'.$cluster->getRoute();
 
-                    $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $cluster->getRoute());
+                    $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $cluster->getRoute(), domain: $cluster->getDomain());
                 }
             }
 
@@ -101,7 +104,7 @@ final class RouteManager
                 $pattern = "^(?!($excludedVersions))(.*)$";
             }
 
-            $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern);
+            $this->registerRoutes($quietedModuleUri, $moduleId, $moduleId, $pattern, domain: $module->getDomain());
         }
     }
 
@@ -111,7 +114,8 @@ final class RouteManager
         string $name,
         string $pattern = '.*',
         ?string $versionId = null,
-        ?string $clusterId = null
+        ?string $clusterId = null,
+        string|BackedEnum|null $domain = null,
     ): void {
 
         $versionsParams = $versionId ? "$moduleId,$versionId" : $moduleId;
@@ -122,7 +126,7 @@ final class RouteManager
             UseModule::class.':'.$moduleId,
             UseVersion::class.':'.$versionsParams,
             UseCluster::class.':'.$clustersParams,
-        ])
+        ])->domain($domain)
             ->group(function () use ($uri, $name, $pattern) {
 
                 Route::get("{$uri}/converge/search/enpoint", SearchController::class)->name("{$name}.search");
