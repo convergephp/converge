@@ -18,11 +18,12 @@ class ModuleMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'converge:make-module {name}
-                                                 {--id=}
-                                                 {--route=}
-                                                 {--path=}
-                                                 {--force}';
+    protected $signature = 'converge:make-module 
+                {name         : The name of the module you want to create.}
+                {--id=        : The unique identifier for the module.}
+                {--route=docs : The base route associated with the module.}
+                {--path=      : The filesystem path associated with the module.}
+                {--force      : Forces the module creation even if a module with the same name already exists.}';
 
     /**
      * The console command description.
@@ -57,23 +58,20 @@ class ModuleMakeCommand extends GeneratorCommand
             $this->line('');
         }
 
-        if ($this->isReservedName($this->getNameInput())) {
-            $this->components->error('The name "'.$this->getNameInput().'" is reserved by PHP.');
+        $moduleName = $this->getNameInput();
+
+        if ($this->isReservedName($moduleName)) {
+            $this->components->error("The name $moduleName is reserved by PHP.");
 
             return false;
         }
-
-        $moduleName = $this->getNameInput();
 
         $options = $this->options();
 
         $moduleClass = $this->constructClass($moduleName);
 
-        if ((! $this->hasOption('force') ||
-            ! $this->option('force')) &&
-            $this->alreadyExists($moduleClass)
-        ) {
-            $this->components->error($this->type.' already exists.');
+        if (!$this->option('force') && $this->alreadyExists($moduleClass)) {
+            $this->components->error($this->type . ' already exists.');
 
             return false;
         }
@@ -91,7 +89,7 @@ class ModuleMakeCommand extends GeneratorCommand
         }
 
         $absolutePath = realpath($path);
-        $relativePath = str_replace(base_path().'/', '', $absolutePath);
+        $relativePath = str_replace(base_path() . '/', '', $absolutePath);
 
         $this->line(sprintf(
             '<fg=yellow>⚡️</> <fg=green>%s</><href=file://%s><fg=cyan>[%s]</></> <fg=green>created successfully.</>',
@@ -122,7 +120,7 @@ class ModuleMakeCommand extends GeneratorCommand
             return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
         }
 
-        return $stub = str_replace(['{{ path }}', '{{path}}'], "'".$path."'", $stub);
+        return $stub = str_replace(['{{ path }}', '{{path}}'], "'" . $path . "'", $stub);
     }
 
     public function replaceId(&$stub, $path)
@@ -167,12 +165,12 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__.$stub;
+            : __DIR__ . $stub;
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Providers\Converge';
+        return $rootNamespace . '\Providers\Converge';
     }
 
     protected function askToStar(): void
