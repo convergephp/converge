@@ -43,7 +43,8 @@
         }
     },
     "require": {
-        "tempest/highlight": "^2.11"
+        "tempest/highlight": "^2.11",
+        "symfony/yaml": "^7.2"
     },
     "scripts": {
         "post-autoload-dump": [
