@@ -70,8 +70,8 @@ class ModuleMakeCommand extends GeneratorCommand
 
         $moduleClass = $this->constructClass($moduleName);
 
-        if (!$this->option('force') && $this->alreadyExists($moduleClass)) {
-            $this->components->error($this->type . ' already exists.');
+        if (! $this->option('force') && $this->alreadyExists($moduleClass)) {
+            $this->components->error($this->type.' already exists.');
 
             return false;
         }
@@ -89,7 +89,7 @@ class ModuleMakeCommand extends GeneratorCommand
         }
 
         $absolutePath = realpath($path);
-        $relativePath = str_replace(base_path() . '/', '', $absolutePath);
+        $relativePath = str_replace(base_path().'/', '', $absolutePath);
 
         $this->line(sprintf(
             '<fg=yellow>⚡️</> <fg=green>%s</><href=file://%s><fg=cyan>[%s]</></> <fg=green>created successfully.</>',
@@ -120,7 +120,7 @@ class ModuleMakeCommand extends GeneratorCommand
             return $stub = str_replace(['{{ path }}', '{{path}}'], $path, $stub);
         }
 
-        return $stub = str_replace(['{{ path }}', '{{path}}'], "'" . $path . "'", $stub);
+        return $stub = str_replace(['{{ path }}', '{{path}}'], "'".$path."'", $stub);
     }
 
     public function replaceId(&$stub, $path)
@@ -165,12 +165,12 @@ class ModuleMakeCommand extends GeneratorCommand
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
             ? $customPath
-            : __DIR__ . $stub;
+            : __DIR__.$stub;
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Providers\Converge';
+        return $rootNamespace.'\Providers\Converge';
     }
 
     protected function askToStar(): void
