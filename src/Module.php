@@ -12,6 +12,7 @@ use Converge\Concerns\CanHandleVersions;
 use Converge\Concerns\HasBrandLogo;
 use Converge\Concerns\HasCustomFooter;
 use Converge\Concerns\HasDepth;
+use Converge\Concerns\HasDomain;
 use Converge\Concerns\HasId;
 use Converge\Concerns\HasIndexPage;
 use Converge\Concerns\HasLabel;
@@ -33,6 +34,7 @@ class Module
     use HasBrandLogo;
     use HasCustomFooter;
     use HasDepth;
+    use HasDomain;
     use HasId;
     use HasIndexPage;
     use HasLabel;
