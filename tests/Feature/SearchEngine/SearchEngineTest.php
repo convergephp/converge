@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Testing\Fluent\AssertableJson;
-
 it('returns results for a valid search query', function () {
 })->todo();
 

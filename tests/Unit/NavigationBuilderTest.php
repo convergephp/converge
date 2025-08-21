@@ -99,7 +99,6 @@ it('builds the correct Sidebar items', function () use ($generatedTree) {
     expect($subGroup)->toBeInstanceOf(SidebarGroup::class);
     expect($subGroup->getItems()->count())->toBe(2);
     expect($subGroup->getItems()->get(0)->getDepth())->toBe(2);
-    // enouuuuuuuuuuuuuuuuuugh tests for resursive thing mohamed 🙂
 });
 
 it('respects the max depth = 2 provided', function () use ($generatedTree) {

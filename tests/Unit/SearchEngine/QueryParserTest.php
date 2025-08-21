@@ -105,8 +105,6 @@ describe('Special Characters and Edge Cases', function () {
     });
 });
 
-
-
 describe('Tokenization Patterns', function () {
     it('handles various input patterns', function ($input, $expected) {
         expect(tokenize($input))->toBe($expected);
