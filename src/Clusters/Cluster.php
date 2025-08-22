@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Converge\Clusters;
 
 use Closure;
+use Converge\Concerns\HasDomain;
 use Converge\Concerns\HasLabel;
 use Converge\Concerns\HasRawPath;
 use Converge\Concerns\HasSort;
@@ -18,6 +19,7 @@ use function Converge\format_url;
 
 class Cluster
 {
+    use HasDomain;
     use HasLabel;
     use HasRawPath;
     use HasSort;
