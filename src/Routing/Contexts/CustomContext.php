@@ -25,10 +25,12 @@ class CustomContext extends AbstractContext
     {
         return Contexts::Custom;
     }
+    
     public function getLocale(): string
     {
         return $this->locale;
     }
+    
     public function getDirection(): string
     {
         return $this->direction;

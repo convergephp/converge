@@ -77,20 +77,4 @@ Each route group applies these middlewares with dynamic parameters:
 1. `UseModule:{moduleId}`
 2. `UseVersion:{moduleId},{versionId}` (if version exists)
 3. `UseCluster:{moduleId},{clusterId}` (if cluster exists)
-
----
-
-## Summary of Cases
-
-| Case                        | Example URI                          | Route Name Pattern                 | Notes |
-|-----------------------------|---------------------------------------|-------------------------------------|-------|
-| Base Module                 | `/docs`                              | `docs`                              | Uses quieted path |
-| Versioned Module            | `/docs/v1`                           | `docs.v1`                           | Per version |
-| Version + Cluster           | `/docs/v1/api`                       | `docs.v1.api`                       | Per cluster in version |
-| Cluster-Only (No Version)   | `/docs/api`                          | `docs.api`                          | Per cluster |
-| Excluded Versions Handling  | `/docs/{url}` (excludes `/v1`, `/v2`) | `docs.show`                         | Regex exclusion |
-
----
-
-This routing system ensures **flexibility**, **namespacing**, and **conflict prevention** for complex documentation structures in Converge.
-"""
+²

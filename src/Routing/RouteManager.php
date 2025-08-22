@@ -22,7 +22,6 @@ final class RouteManager
     public function generateRoutes(): void
     {
 
-        // routes related to modules
         /** @var Module $module */
         foreach (Converge::getModules() as $module) {
 
@@ -55,7 +54,7 @@ final class RouteManager
 
                             $clusterUri = $urlGenerator->generate($rawModuleUri, $version->getRoute(), clusterUri: $scopedCluster->getRoute());
 
-                            $clusterName = $moduleId.'.'.$version->getRoute().'.'.$scopedCluster->getRoute();
+                            $clusterName = $moduleId . '.' . $version->getRoute() . '.' . $scopedCluster->getRoute();
 
                             $this->registerRoutes($clusterUri, $moduleId, $clusterName, versionId: $version->getRoute(), clusterId: $scopedCluster->getRoute());
                         }
@@ -65,7 +64,7 @@ final class RouteManager
 
                     $versionUri = $urlGenerator->generate($rawModuleUri, $version->getRoute());
 
-                    $versionName = $moduleId.'.'.$version->getRoute();
+                    $versionName = $moduleId . '.' . $version->getRoute();
 
                     $this->registerRoutes($versionUri, $moduleId, $versionName, versionId: $version->getRoute(), domain: $module->getDomain());
                 }
@@ -86,17 +85,17 @@ final class RouteManager
 
                     $clusterUri = $urlGenerator->generate($quietedModuleUri, null, clusterUri: $cluster->getRoute());
 
-                    $clusterName = $moduleId.'.'.$cluster->getRoute();
+                    $clusterName = $moduleId . '.' . $cluster->getRoute();
 
                     $this->registerRoutes($clusterUri, $moduleId, $clusterName, clusterId: $cluster->getRoute(), domain: $cluster->getDomain());
                 }
             }
 
             $excludedVersions = implode('|', array_map(
-                fn ($v) => preg_quote($v->getRoute(), '/'),
+                fn($v) => preg_quote($v->getRoute(), '/'),
                 $module->getVersions()
                     ->filter(
-                        fn ($version) => $version instanceof Version
+                        fn($version) => $version instanceof Version
                     )->toArray()
             ));
 
@@ -123,11 +122,12 @@ final class RouteManager
         $clustersParams = $clusterId ? "$moduleId,$clusterId" : $moduleId;
 
         Route::middleware([
-            UseModule::class.':'.$moduleId,
-            UseVersion::class.':'.$versionsParams,
-            UseCluster::class.':'.$clustersParams,
-        ])->domain($domain)
-            ->group(function () use ($uri, $name, $pattern) {
+            UseModule::class . ':' . $moduleId,
+            UseVersion::class . ':' . $versionsParams,
+            UseCluster::class . ':' . $clustersParams,
+        ])
+        ->domain($domain)
+        ->group(function () use ($uri, $name, $pattern) {
 
                 Route::get("{$uri}/converge/search/enpoint", SearchController::class)->name("{$name}.search");
 
@@ -136,7 +136,6 @@ final class RouteManager
                 Route::get("{$uri}/{url}", FileController::class)
                     ->where('url', $pattern)
                     ->name("{$name}.show");
-
             });
     }
 }
