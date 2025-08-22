@@ -2,7 +2,7 @@
 
 namespace Converge\Routing\Contexts\Contracts;
 
-interface ContextInterface
+interface Context
 {
     public function getId(): string;
     public function getRoute(): string;
