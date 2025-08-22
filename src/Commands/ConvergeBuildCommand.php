@@ -19,10 +19,11 @@ class ConvergeBuildCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'converge:build {--dev : Build in development mode}
-                                          {--watch : Watch for changes}
-                                          {--poll=1000 : File polling interval in milliseconds}
-                                          {--force : Force rebuild even if files exist}';
+    protected $signature = 'converge:build 
+                                {--dev       : Build in development mode}
+                                {--watch     : Watch for changes}
+                                {--poll=1000 : File polling interval in milliseconds}
+                                {--force     : Force rebuild even if files exist}';
 
     /**
      * The console command description.
