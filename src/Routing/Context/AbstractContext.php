@@ -2,6 +2,7 @@
 
 namespace Converge\Routing\Context;
 
+use Converge\Routing\Context\Enums\Contexts;
 use Converge\Routing\Contexts\Contracts\Context;
 
 abstract class AbstractContext implements Context
@@ -29,5 +30,5 @@ abstract class AbstractContext implements Context
     {
         return $this->middleware;
     }
-    abstract public function getType(): string;
+    abstract public function getType(): string | Contexts;
 }

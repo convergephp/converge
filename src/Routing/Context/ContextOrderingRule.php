@@ -2,6 +2,7 @@
 
 namespace Converge\Routing\Contexts;
 
+use Converge\Routing\Contexts\Contracts\Context;
 use Illuminate\Support\Collection;
 
 class ContextOrderingRule
@@ -61,7 +62,7 @@ class ContextOrderingRule
      */
     public function sort(Collection $contexts): Collection
     {
-        return $contexts->sortBy(function (ContextInterface $context) {
+        return $contexts->sortBy(function (Context $context) {
             $typeIndex = array_search($context->getType(), $this->typeOrder);
 
             // If type not found in order, put it at the end
@@ -79,7 +80,7 @@ class ContextOrderingRule
     /**
      * Get weight from custom rules
      */
-    private function getCustomWeight(ContextInterface $context): int
+    private function getCustomWeight(Context $context): int
     {
         $type = $context->getType();
         $id = $context->getId();
