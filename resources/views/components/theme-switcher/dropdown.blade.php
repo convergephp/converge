@@ -59,8 +59,8 @@
             :class="theme ? 'text-gray-700 dark:text-gray-300' :
                 'text-gray-400 dark:text-gray-600 hover:text-gray-500 focus:text-gray-500 dark:hover:text-gray-500 dark:focus:text-gray-500'"
             @click="menu = ! menu">
-        <x-laravel-exceptions-renderer::icons.sun class="block h-5 w-5 dark:hidden" />
-        <x-laravel-exceptions-renderer::icons.moon class="hidden h-5 w-5 dark:block" />
+        <x-converge::icons.light class="block h-5 w-5 dark:hidden" />
+        <x-converge::icons.dark class="hidden h-5 w-5 dark:block" />
     </button>
 
     <div x-show="menu"
@@ -70,19 +70,19 @@
         <button class="flex items-center gap-3 px-4 py-2 hover:rounded-t-md hover:bg-gray-100 dark:hover:bg-gray-700"
                 :class="theme === 'light' ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'"
                 @click="lightMode()">
-            <x-laravel-exceptions-renderer::icons.sun class="h-5 w-5" />
+            <x-converge::icons.light class="h-5 w-5" />
             Light
         </button>
         <button class="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
                 :class="theme === 'dark' ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'"
                 @click="darkMode()">
-            <x-laravel-exceptions-renderer::icons.moon class="h-5 w-5" />
+            <x-converge::icons.dark class="h-5 w-5" />
             Dark
         </button>
         <button class="flex items-center gap-3 px-4 py-2 hover:rounded-b-md hover:bg-gray-100 dark:hover:bg-gray-700"
                 :class="theme === undefined ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400'"
                 @click="systemMode()">
-            <x-laravel-exceptions-renderer::icons.computer-desktop class="h-5 w-5" />
+            <x-converge::icons.system class="h-5 w-5" />
             System
         </button>
     </div>
